@@ -111,16 +111,22 @@ isOneToOne: false
                   ]
                 },"availability_rules": {
                   Row: {
-                    "buffer_minutes": number,"created_at": string,"end_time": string,"id": string,"is_active": boolean,"modality": Database["public"]['Enums']["care_modality"],"slot_duration_minutes": number,"start_time": string,"updated_at": string,"valid_from": string | null,"valid_until": string | null,"weekday": number
+                    "anchor_date": string | null,"buffer_minutes": number,"created_at": string,"end_time": string,"every_weeks": number,"id": string,"is_active": boolean,"location_id": string | null,"modality": Database["public"]['Enums']["care_modality"],"slot_duration_minutes": number,"start_time": string,"updated_at": string,"valid_from": string | null,"valid_until": string | null,"weekday": number
                   }
                   Insert: {
-                    "buffer_minutes"?: number,"created_at"?: string,"end_time": string,"id"?: string,"is_active"?: boolean,"modality"?: Database["public"]['Enums']["care_modality"],"slot_duration_minutes"?: number,"start_time": string,"updated_at"?: string,"valid_from"?: string | null,"valid_until"?: string | null,"weekday": number
+                    "anchor_date"?: string | null,"buffer_minutes"?: number,"created_at"?: string,"end_time": string,"every_weeks"?: number,"id"?: string,"is_active"?: boolean,"location_id"?: string | null,"modality"?: Database["public"]['Enums']["care_modality"],"slot_duration_minutes"?: number,"start_time": string,"updated_at"?: string,"valid_from"?: string | null,"valid_until"?: string | null,"weekday": number
                   }
                   Update: {
-                    "buffer_minutes"?: number,"created_at"?: string,"end_time"?: string,"id"?: string,"is_active"?: boolean,"modality"?: Database["public"]['Enums']["care_modality"],"slot_duration_minutes"?: number,"start_time"?: string,"updated_at"?: string,"valid_from"?: string | null,"valid_until"?: string | null,"weekday"?: number
+                    "anchor_date"?: string | null,"buffer_minutes"?: number,"created_at"?: string,"end_time"?: string,"every_weeks"?: number,"id"?: string,"is_active"?: boolean,"location_id"?: string | null,"modality"?: Database["public"]['Enums']["care_modality"],"slot_duration_minutes"?: number,"start_time"?: string,"updated_at"?: string,"valid_from"?: string | null,"valid_until"?: string | null,"weekday"?: number
                   }
                   Relationships: [
-                    
+                    {
+      foreignKeyName: "availability_rules_location_id_fkey"
+      columns: ["location_id"]
+isOneToOne: false
+      referencedRelation: "practice_locations"
+      referencedColumns: ["id"]
+    }
                   ]
                 },"blocked_slots": {
                   Row: {
@@ -592,6 +598,19 @@ isOneToOne: false
                   }
                   Update: {
                     "created_at"?: string,"created_by"?: string | null,"focus_key"?: string,"icd10"?: string | null,"id"?: string,"note"?: string | null,"patient_id"?: string,"updated_at"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"practice_locations": {
+                  Row: {
+                    "address": string,"city": string | null,"created_at": string,"id": string,"is_active": boolean,"maps_url": string | null,"name": string,"notes": string | null,"photo_url": string | null,"sort_order": number,"updated_at": string
+                  }
+                  Insert: {
+                    "address": string,"city"?: string | null,"created_at"?: string,"id"?: string,"is_active"?: boolean,"maps_url"?: string | null,"name": string,"notes"?: string | null,"photo_url"?: string | null,"sort_order"?: number,"updated_at"?: string
+                  }
+                  Update: {
+                    "address"?: string,"city"?: string | null,"created_at"?: string,"id"?: string,"is_active"?: boolean,"maps_url"?: string | null,"name"?: string,"notes"?: string | null,"photo_url"?: string | null,"sort_order"?: number,"updated_at"?: string
                   }
                   Relationships: [
                     

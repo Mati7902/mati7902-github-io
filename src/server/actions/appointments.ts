@@ -25,11 +25,11 @@ import { getSetting } from "@/server/services/settings";
 
 const modalitySchema = z.enum(["presencial", "virtual"]);
 
-export type SerializedSlot = { start: string; end: string; label: string };
+export type SerializedSlot = { start: string; end: string; label: string; locationName?: string | null };
 export type SerializedAvailabilityDay = { dateKey: string; slots: SerializedSlot[] };
 
 function serialize(days: AvailabilityDay[]): SerializedAvailabilityDay[] {
-  return days.map((d) => ({ dateKey: d.dateKey, slots: d.slots.map((s) => ({ start: s.start.toISOString(), end: s.end.toISOString(), label: s.label })) }));
+  return days.map((d) => ({ dateKey: d.dateKey, slots: d.slots.map((s) => ({ start: s.start.toISOString(), end: s.end.toISOString(), label: s.label, locationName: s.locationName ?? null })) }));
 }
 
 export async function getAvailabilityAction(input: { modality: "presencial" | "virtual"; fromDateKey?: string; excludeAppointmentId?: string }): Promise<ActionResult<{ days: SerializedAvailabilityDay[]; bookingMode: "auto" | "approval" }>> {
@@ -64,7 +64,7 @@ export async function requestAppointmentAction(input: z.infer<typeof requestSche
     }
 
     const start = new Date(parsed.data.start);
-    const { settings, end } = await assertSlotAvailable(start, parsed.data.modality);
+    const { settings, end, location } = await assertSlotAvailable(start, parsed.data.modality);
     const status = initialStatusForPatientBooking(settings);
 
     let planId: string | null = null;
@@ -82,6 +82,7 @@ export async function requestAppointmentAction(input: z.infer<typeof requestSche
       source: "app",
       patientNote: parsed.data.note ?? null,
       planId,
+      location,
     });
     await audit(supabase, "appointment.requested", { type: "appointment", id: appointment.id }, { status, modality: appointment.modality });
     await notifyAppointmentEvent(appointment.id, status === "confirmed" ? "booking_registered" : "booking_requested");
@@ -111,9 +112,9 @@ export async function rescheduleAppointmentAction(input: z.infer<typeof reschedu
       throw new AppError("RATE_LIMITED", "Hiciste muchos cambios seguidos. Esperá unos minutos.");
     }
     const start = new Date(parsed.data.start);
-    const { settings, end } = await assertSlotAvailable(start, current.modality, current.id);
+    const { settings, end, location } = await assertSlotAvailable(start, current.modality, current.id);
     const newStatus = settings.booking_mode === "auto" ? "confirmed" : "requested";
-    const updated = await rescheduleAppointment(supabase, { appointmentId: current.id, start, end, newStatus, reason: parsed.data.reason ?? "Reprogramado por el paciente", source: "app" });
+    const updated = await rescheduleAppointment(supabase, { appointmentId: current.id, start, end, newStatus, reason: parsed.data.reason ?? "Reprogramado por el paciente", source: "app", location: location ?? undefined });
     await audit(supabase, "appointment.rescheduled_by_patient", { type: "appointment", id: updated.id });
     await notifyAppointmentEvent(updated.id, newStatus === "confirmed" ? "booking_registered" : "booking_requested");
     revalidatePath("/app");

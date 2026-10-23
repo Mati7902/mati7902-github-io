@@ -656,6 +656,38 @@ select pg_temp.logout();
 rollback;
 
 -- ---------------------------------------------------------------------------
+-- 6d. Sedes y franjas cada 15 días
+-- ---------------------------------------------------------------------------
+begin;
+select pg_temp.assert((select count(*) from public.practice_locations) = 2, 'se cargan las dos sedes');
+select pg_temp.assert((select count(*) from public.availability_rules where location_id is not null and every_weeks = 2 and weekday = 2) = 2, 'una franja cada 15 días por sede, los martes');
+select pg_temp.assert((select not is_active from public.availability_rules where weekday = 2 and location_id is null and start_time = '14:00'), 'la franja de ejemplo del martes se desactiva');
+select pg_temp.assert(public.rule_occurs_on(2::smallint, date '2026-10-27', date '2026-11-10') and not public.rule_occurs_on(2::smallint, date '2026-10-27', date '2026-11-03'), 'rule_occurs_on alterna semana sí, semana no');
+select pg_temp.assert(public.rule_occurs_on(2::smallint, date '2026-10-27', date '2026-10-13') and not public.rule_occurs_on(2::smallint, date '2026-10-27', date '2026-10-20'), 'rule_occurs_on también alterna antes de la fecha de inicio');
+-- La Trinidad: 18:00 (hora de Asunción) el 27/10 sí, el 3/11 no (ese martes es el Adventista).
+select set_config('test.dur', (select slot_duration_minutes::text from public.availability_rules where location_id = '5ede0001-0000-4000-8000-000000000001'), true);
+select pg_temp.assert(public.is_bookable_slot('2026-10-27 18:00-03'::timestamptz, '2026-10-27 18:00-03'::timestamptz + make_interval(mins => current_setting('test.dur')::int), 'presencial'), 'La Trinidad reservable el martes que le toca');
+select pg_temp.assert(not public.is_bookable_slot('2026-11-03 18:00-03'::timestamptz, '2026-11-03 18:00-03'::timestamptz + make_interval(mins => current_setting('test.dur')::int), 'presencial'), 'La Trinidad no se ofrece el martes del Adventista');
+select pg_temp.assert(public.is_bookable_slot('2026-11-03 12:00-03'::timestamptz, '2026-11-03 12:00-03'::timestamptz + make_interval(mins => current_setting('test.dur')::int), 'presencial'), 'el Adventista reservable su martes');
+select pg_temp.expect_error($q$insert into public.availability_rules (weekday, start_time, end_time, every_weeks) values (2, '09:00', '10:00', 2)$q$, array['23514'], 'cada 15 días exige fecha de inicio');
+-- Lectura pública solo de sedes activas; solo el profesional escribe.
+update public.practice_locations set is_active = false where sort_order = 2;
+select pg_temp.login(null, 'anon');
+select pg_temp.assert((select count(*) from public.practice_locations) = 1, 'anon ve solo las sedes activas');
+select pg_temp.expect_error($q$insert into public.practice_locations (name, address) values ('X', 'Y')$q$, array['42501'], 'anon no carga sedes');
+select pg_temp.logout();
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+update public.practice_locations set name = 'Hackeado';
+select pg_temp.assert((select count(*) from public.practice_locations where name = 'Hackeado') = 0, 'un paciente no modifica sedes');
+select pg_temp.logout();
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+select pg_temp.assert((select count(*) from public.practice_locations) = 2, 'el profesional ve también las sedes inactivas');
+update public.practice_locations set notes = 'Planta baja' where sort_order = 1;
+select pg_temp.assert((select notes from public.practice_locations where sort_order = 1) = 'Planta baja', 'el profesional edita sedes');
+select pg_temp.logout();
+rollback;
+
+-- ---------------------------------------------------------------------------
 -- 7. Rate limiting (solo servidor)
 -- ---------------------------------------------------------------------------
 begin;

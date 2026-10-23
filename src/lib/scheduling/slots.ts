@@ -19,6 +19,11 @@ export type AvailabilityRuleInput = {
   valid_from?: string | null;
   valid_until?: string | null;
   is_active?: boolean;
+  /** Sede de la franja (presencial). */
+  location_id?: string | null;
+  /** 1 = todas las semanas, 2 = cada 15 días… contando desde anchor_date. */
+  every_weeks?: number | null;
+  anchor_date?: string | null;
 };
 
 export type BusyRange = { start: Date; end: Date };
@@ -29,6 +34,8 @@ export type Slot = {
   /** Clave estable para el UI: ISO del inicio. */
   key: string;
   label: string; // "16:00"
+  /** Sede de la franja que generó el horario, si tiene. */
+  locationId?: string | null;
 };
 
 export type SlotOptions = {
@@ -63,7 +70,16 @@ function ruleValidOn(rule: AvailabilityRuleInput, dateKey: string): boolean {
   if (rule.is_active === false) return false;
   if (rule.valid_from && dateKey < rule.valid_from) return false;
   if (rule.valid_until && dateKey > rule.valid_until) return false;
-  return true;
+  return ruleOccursOn(rule, dateKey);
+}
+
+/** Frecuencia: con every_weeks = 2 la franja ocurre la semana de anchor_date y luego semana por medio. */
+export function ruleOccursOn(rule: Pick<AvailabilityRuleInput, "every_weeks" | "anchor_date">, dateKey: string): boolean {
+  const every = rule.every_weeks ?? 1;
+  if (every <= 1 || !rule.anchor_date) return true;
+  const days = (Date.parse(`${dateKey}T00:00:00Z`) - Date.parse(`${rule.anchor_date}T00:00:00Z`)) / 86_400_000;
+  const weeks = Math.floor(days / 7);
+  return ((weeks % every) + every) % every === 0;
 }
 
 /** Día de la semana (0=domingo) de una fecha yyyy-MM-dd interpretada en la zona dada. */
@@ -103,7 +119,9 @@ export function generateDaySlots(options: SlotOptions): Slot[] {
   const slots: Slot[] = [];
   const seen = new Set<string>();
 
-  for (const rule of rules) {
+  // Si dos franjas generan el mismo horario, gana la que tiene sede (así el turno guarda la dirección).
+  const ordered = [...rules].sort((a, b) => Number(!a.location_id) - Number(!b.location_id));
+  for (const rule of ordered) {
     if (rule.weekday !== weekday) continue;
     if (!ruleAppliesToModality(rule, modality)) continue;
     if (!ruleValidOn(rule, dateKey)) continue;
@@ -124,21 +142,21 @@ export function generateDaySlots(options: SlotOptions): Slot[] {
       const key = start.toISOString();
       if (seen.has(key)) continue;
       seen.add(key);
-      slots.push({ start, end, key, label: formatInTimeZone(start, timezone, "HH:mm") });
+      slots.push({ start, end, key, label: formatInTimeZone(start, timezone, "HH:mm"), locationId: rule.location_id ?? null });
     }
   }
 
   return slots.sort((a, b) => a.start.getTime() - b.start.getTime());
 }
 
-/** Devuelve las fechas (yyyy-MM-dd) de los próximos N días que tienen alguna regla activa. */
+/** Devuelve las fechas (yyyy-MM-dd) de los próximos N días que tienen alguna regla vigente. */
 export function upcomingAvailableDates(rules: AvailabilityRuleInput[], timezone: string, days: number, from = new Date()): string[] {
   const out: string[] = [];
-  const activeWeekdays = new Set(rules.filter((r) => r.is_active !== false).map((r) => r.weekday));
   for (let i = 0; i < days; i++) {
     const date = addMinutes(from, i * 24 * 60);
     const key = formatInTimeZone(date, timezone, "yyyy-MM-dd");
-    if (activeWeekdays.has(weekdayOf(key, timezone))) out.push(key);
+    const weekday = weekdayOf(key, timezone);
+    if (rules.some((r) => r.weekday === weekday && ruleValidOn(r, key))) out.push(key);
   }
   return out;
 }

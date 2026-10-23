@@ -6,6 +6,9 @@ import { notifyAppointmentEvent } from "@/server/services/appointment-notificati
 import { createNotification } from "@/server/services/notifications";
 import { getSettings, type RemindersSettings } from "@/server/services/settings";
 import { formatTime } from "@/lib/dates";
+import { buildReminderEmail } from "@/lib/email/reminder";
+import { getServerEnv } from "@/lib/env";
+import { defaultSender, isEmailConfigured, sendEmail } from "@/server/services/email";
 import type { TablesUpdate } from "@/types/domain";
 
 const log = createLogger("reminders");
@@ -73,7 +76,35 @@ async function release(admin: AdminSupabaseClient, id: string, kind: ReminderKin
 
 export type ReminderRunResult = { kind: ReminderKind; candidates: number; sent: number; failed: number; skipped: number };
 
-async function runKind(admin: AdminSupabaseClient, settings: RemindersSettings, timezone: string, kind: ReminderKind, hoursBefore: number, now: Date): Promise<ReminderRunResult> {
+type EmailContext = { professionalName: string; officeAddress: string | null };
+
+/** Recordatorio por email al paciente (si tiene email cargado). true si se envió. */
+async function sendReminderEmail(admin: AdminSupabaseClient, appointmentId: string, kind: ReminderKind, timezone: string, ctx: EmailContext): Promise<boolean> {
+  const { data: appt } = await admin
+    .from("appointments")
+    .select("start_time, modality, location, video_link, patient:patients(first_name, email)")
+    .eq("id", appointmentId)
+    .maybeSingle();
+  const patient = appt?.patient as { first_name: string; email: string | null } | null | undefined;
+  if (!appt || !patient?.email) return false;
+  const modality = appt.modality === "virtual" ? "virtual" : "presencial";
+  const message = buildReminderEmail({
+    kind,
+    firstName: patient.first_name,
+    professionalName: ctx.professionalName,
+    start: appt.start_time,
+    timezone,
+    modality,
+    address: modality === "presencial" ? (appt.location || ctx.officeAddress) : null,
+    videoLink: appt.video_link,
+    appUrl: getServerEnv().NEXT_PUBLIC_APP_URL,
+  });
+  const result = await sendEmail({ to: patient.email, from: defaultSender(ctx.professionalName), ...message, idempotencyKey: `${kind}-${appointmentId}` });
+  if (!result.ok) log.warn("Recordatorio por email falló", { appointmentId, kind, error: result.error });
+  return result.ok;
+}
+
+async function runKind(admin: AdminSupabaseClient, settings: RemindersSettings, timezone: string, kind: ReminderKind, hoursBefore: number, now: Date, emailCtx: EmailContext): Promise<ReminderRunResult> {
   const result: ReminderRunResult = { kind, candidates: 0, sent: 0, failed: 0, skipped: 0 };
   const windowMs = settings.send_window_minutes * 60_000;
   const target = new Date(now.getTime() + hoursBefore * 3600_000);
@@ -100,6 +131,9 @@ async function runKind(admin: AdminSupabaseClient, settings: RemindersSettings, 
         const wa = await notifyAppointmentEvent(appointment.id, kind, { useApprovedTemplate: true });
         delivered = Boolean(wa?.ok);
         if (wa && !wa.ok) log.warn("Recordatorio por WhatsApp falló", { appointmentId: appointment.id, kind, error: wa.error });
+      }
+      if (settings.channels.includes("email") && isEmailConfigured()) {
+        if (await sendReminderEmail(admin, appointment.id, kind, timezone, emailCtx)) delivered = true;
       }
       if (settings.channels.includes("in_app")) {
         const { data: patient } = await admin.from("patients").select("profile_id, first_name").eq("id", appointment.patient_id).maybeSingle();
@@ -131,14 +165,16 @@ async function runKind(admin: AdminSupabaseClient, settings: RemindersSettings, 
 /** Ejecuta el ciclo de recordatorios (llamado por el cron cada 15 minutos). */
 export async function runReminders(now = new Date()): Promise<ReminderRunResult[]> {
   const admin = createAdminClient();
-  const { reminders, scheduling } = await getSettings(admin, ["reminders", "scheduling"] as const);
+  const { reminders, scheduling, "site.identity": identity } = await getSettings(admin, ["reminders", "scheduling", "site.identity"] as const);
   if (!reminders.enabled) return [];
+  const officeAddress = identity.location_address ? `${identity.location_name ? `${identity.location_name} — ` : ""}${identity.location_address}` : null;
+  const emailCtx: EmailContext = { professionalName: identity.professional_name, officeAddress };
   const results: ReminderRunResult[] = [];
   if (reminders.reminder_24h_enabled) {
-    results.push(await runKind(admin, reminders, scheduling.timezone, "reminder_24h", reminders.reminder_24h_hours_before, now));
+    results.push(await runKind(admin, reminders, scheduling.timezone, "reminder_24h", reminders.reminder_24h_hours_before, now, emailCtx));
   }
   if (reminders.additional_reminder_enabled) {
-    results.push(await runKind(admin, reminders, scheduling.timezone, "reminder_2h", reminders.additional_reminder_hours_before, now));
+    results.push(await runKind(admin, reminders, scheduling.timezone, "reminder_2h", reminders.additional_reminder_hours_before, now, emailCtx));
   }
   for (const r of results) log.info("Ciclo de recordatorios", { ...r });
   return results;

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { FaqList } from "@/components/public/faq-list";
+import { LocationsSection } from "@/components/public/locations-section";
 import { NeuralField } from "@/components/public/neural-field";
 import { TestimonialsSection } from "@/components/public/testimonials-section";
 import { WaveLines } from "@/components/public/wave-lines";
@@ -17,7 +18,7 @@ import { MODALITY_COPY, modalityMode } from "@/lib/modalities";
 import { attentionSentence, landingPages } from "@/lib/seo/landing-pages";
 import { homeDescription, homeTitle, pageMetadata } from "@/lib/seo/metadata";
 import { buildHomeGraph } from "@/lib/seo/schema";
-import { getActivePlans, getPublicAvailability, getPublishedFaqs, getPublishedTestimonials } from "@/server/services/public-content";
+import { getActivePlans, getPublicAvailability, getPublicLocations, getPublishedFaqs, getPublishedTestimonials } from "@/server/services/public-content";
 import { getPublicSettingsSafe } from "@/server/services/public-settings";
 
 export const revalidate = 300;
@@ -35,12 +36,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function LandingPage() {
-  const [{ "site.identity": identity, landing, scheduling }, plans, faqs, availability, testimonials] = await Promise.all([
+  const [{ "site.identity": identity, landing, scheduling }, plans, faqs, availability, testimonials, locations] = await Promise.all([
     getPublicSettingsSafe(),
     getActivePlans(),
     getPublishedFaqs(),
     getPublicAvailability(),
     getPublishedTestimonials(),
+    getPublicLocations(),
   ]);
 
   const featuredPlans = plans.slice(0, 2);
@@ -216,12 +218,15 @@ export default async function LandingPage() {
             <p className="mt-4 text-lg text-muted-foreground">{modality.intro}</p>
           </div>
           <div className={`mt-10 grid gap-5 ${mode === "mixta" ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
-            {showPresencial ? <ModalityCard icon={MapPin} title="Presencial" text={identity.location_address ? `Consultorio en ${identity.location_name ? `${identity.location_name}, ` : ""}${identity.location_address}.` : "Sesiones en consultorio. La dirección se comparte al confirmar el turno."} /> : null}
+            {showPresencial ? <ModalityCard icon={MapPin} title="Presencial" text={locations.length > 0 ? `En ${locations.map((l) => l.name).join(" y ")}. Mirá abajo los días, el mapa y cómo llegar.` : identity.location_address ? `Consultorio en ${identity.location_name ? `${identity.location_name}, ` : ""}${identity.location_address}.` : "Sesiones en consultorio. La dirección se comparte al confirmar el turno."} /> : null}
             {showVirtual ? <ModalityCard icon={Video} title="Videoconsulta" text="Sesiones por videollamada segura. Recibís el enlace antes de cada encuentro, desde la app o por WhatsApp." /> : null}
             <ModalityCard icon={CalendarCheck} title="Horarios" text={scheduleSummary ? `${scheduleSummary}. Sesiones de ${scheduling.default_duration_minutes} minutos.` : `Sesiones de ${scheduling.default_duration_minutes} minutos. Consultá la disponibilidad al solicitar turno.`} />
           </div>
         </div>
       </section>
+
+      {/* Sedes de atención presencial */}
+      {showPresencial ? <LocationsSection locations={locations} rules={availability} timezone={scheduling.timezone} /> : null}
 
       {/* Cómo funciona */}
       <section id="como-funciona" className="scroll-mt-20 border-y border-border/60 bg-card">

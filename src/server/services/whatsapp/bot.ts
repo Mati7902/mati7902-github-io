@@ -4,6 +4,7 @@ import { addDays } from "date-fns";
 
 import { formatLongDate, formatTime, capitalize, toDateKey } from "@/lib/dates";
 import { getServerEnv } from "@/lib/env";
+import { describeRule, directionsUrl } from "@/lib/locations";
 import { AppError } from "@/lib/errors";
 import { createLogger, errorMeta } from "@/lib/logger";
 import { groupSlotsByPeriod, type Slot } from "@/lib/scheduling/slots";
@@ -856,16 +857,16 @@ async function chooseSlot(admin: AdminSupabaseClient, ctx: ConversationContext, 
 
   try {
     // Segunda verificación de disponibilidad justo antes de confirmar (el fin lo define la grilla).
-    const { settings: scheduling, end } = await assertSlotAvailable(start, modality, ctx.state.appointmentId ?? undefined);
+    const { settings: scheduling, end, location } = await assertSlotAvailable(start, modality, ctx.state.appointmentId ?? undefined);
     if (ctx.state.flow === "reschedule" && ctx.state.appointmentId) {
       const newStatus = scheduling.booking_mode === "auto" ? "confirmed" : "requested";
-      const updated = await rescheduleAppointment(admin, { appointmentId: ctx.state.appointmentId, start, end, newStatus, reason: "Reprogramado por WhatsApp", source: "whatsapp" });
+      const updated = await rescheduleAppointment(admin, { appointmentId: ctx.state.appointmentId, start, end, newStatus, reason: "Reprogramado por WhatsApp", source: "whatsapp", location: location ?? undefined });
       await saveState(admin, ctx, { flow: null, step: null, offered: [], appointmentId: null }, { current_intent: "RESCHEDULE_APPOINTMENT" });
       return reply(admin, ctx, { kind: "text", body: newStatus === "confirmed" ? `Listo. Tu sesión quedó reprogramada para el ${when} (${MODALITY_LABEL[updated.modality].toLowerCase()}).` : `Registré tu pedido de cambio para el ${when}. Te confirmo en cuanto el profesional lo apruebe.` }, "booking_confirmation", updated.id);
     }
     if (!ctx.patient) return startBooking(admin, ctx, settings, {});
     const status = initialStatusForPatientBooking(scheduling);
-    const appointment = await createAppointment(admin, { patientId: ctx.patient.id, start, end, modality, status, source: "whatsapp" });
+    const appointment = await createAppointment(admin, { patientId: ctx.patient.id, start, end, modality, status, source: "whatsapp", location });
     await saveState(admin, ctx, { flow: null, step: null, offered: [], appointmentId: null }, { current_intent: "BOOK_APPOINTMENT" });
     const body = status === "confirmed" ? `Tu turno quedó confirmado: ${when}, ${MODALITY_LABEL[modality].toLowerCase()}. Te recordamos un día antes.` : `Tu solicitud fue registrada: ${when}, ${MODALITY_LABEL[modality].toLowerCase()}. Te aviso en cuanto el profesional la confirme.`;
     return reply(admin, ctx, { kind: "text", body }, "booking_confirmation", appointment.id);
@@ -1175,6 +1176,17 @@ async function replyPlans(admin: AdminSupabaseClient, ctx: ConversationContext, 
 
 async function replyLocation(admin: AdminSupabaseClient, ctx: ConversationContext, settings: Settings) {
   const id = settings["site.identity"];
+  const [{ data: places }, { data: rules }] = await Promise.all([
+    admin.from("practice_locations").select("*").eq("is_active", true).order("sort_order"),
+    admin.from("availability_rules").select("*").eq("is_active", true).not("location_id", "is", null).order("start_time"),
+  ]);
+  if (places?.length) {
+    const blocks = places.map((p) => {
+      const when = (rules ?? []).filter((r) => r.location_id === p.id).map((r) => describeRule(r));
+      return `📍 ${p.name}\n${[p.address, p.city].filter(Boolean).join(", ")}${when.length ? `\n${when.join("\n")}` : ""}\nCómo llegar: ${directionsUrl(p)}`;
+    });
+    return reply(admin, ctx, { kind: "text", body: `Atiendo de forma presencial en:\n\n${blocks.join("\n\n")}` });
+  }
   if (!id.location_address) return reply(admin, ctx, { kind: "text", body: "La dirección del consultorio se comparte al confirmar el turno presencial. También podemos coordinar una videollamada." });
   const body = `El consultorio queda en ${id.location_name ? `${id.location_name}, ` : ""}${id.location_address}.${id.location_map_url ? `\nMapa: ${id.location_map_url}` : ""}`;
   return reply(admin, ctx, { kind: "text", body });

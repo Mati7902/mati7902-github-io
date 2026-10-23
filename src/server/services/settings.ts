@@ -64,7 +64,7 @@ export const remindersSchema = z.object({
   additional_reminder_enabled: z.boolean().default(false),
   additional_reminder_hours_before: z.number().min(0.5).max(24).default(2),
   send_window_minutes: z.number().int().min(15).max(240).default(90),
-  channels: z.array(z.enum(["whatsapp", "in_app"])).default(["whatsapp", "in_app"]),
+  channels: z.array(z.enum(["whatsapp", "in_app", "email"])).default(["whatsapp", "in_app", "email"]),
   quiet_hours_start: z.string().regex(/^\d{2}:\d{2}$/).default("22:00"),
   quiet_hours_end: z.string().regex(/^\d{2}:\d{2}$/).default("08:00"),
 });

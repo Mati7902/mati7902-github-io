@@ -24,6 +24,7 @@ export type TherapyPlan = Tables<"therapy_plans">;
 export type Notification = Tables<"notifications">;
 export type AvailabilityRule = Tables<"availability_rules">;
 export type BlockedSlot = Tables<"blocked_slots">;
+export type PracticeLocation = Tables<"practice_locations">;
 export type SessionPreparation = Tables<"session_preparations">;
 export type PatientIntake = Tables<"patient_intakes">;
 export type TreatmentConsent = Tables<"treatment_consents">;
