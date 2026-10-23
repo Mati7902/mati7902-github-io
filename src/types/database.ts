@@ -213,13 +213,13 @@ isOneToOne: false
                   ]
                 },"emotional_logs": {
                   Row: {
-                    "behavior": string | null,"created_at": string,"emotions": (string)[],"id": string,"intensity": number,"logged_at": string,"need": string | null,"patient_id": string,"situation": string | null,"thought": string | null,"updated_at": string
+                    "behavior": string | null,"created_at": string,"emotions": (string)[],"id": string,"intensity": number | null,"logged_at": string,"mood": number | null,"need": string | null,"patient_id": string,"situation": string | null,"thought": string | null,"updated_at": string
                   }
                   Insert: {
-                    "behavior"?: string | null,"created_at"?: string,"emotions": (string)[],"id"?: string,"intensity": number,"logged_at"?: string,"need"?: string | null,"patient_id": string,"situation"?: string | null,"thought"?: string | null,"updated_at"?: string
+                    "behavior"?: string | null,"created_at"?: string,"emotions": (string)[],"id"?: string,"intensity"?: number | null,"logged_at"?: string,"mood"?: number | null,"need"?: string | null,"patient_id": string,"situation"?: string | null,"thought"?: string | null,"updated_at"?: string
                   }
                   Update: {
-                    "behavior"?: string | null,"created_at"?: string,"emotions"?: (string)[],"id"?: string,"intensity"?: number,"logged_at"?: string,"need"?: string | null,"patient_id"?: string,"situation"?: string | null,"thought"?: string | null,"updated_at"?: string
+                    "behavior"?: string | null,"created_at"?: string,"emotions"?: (string)[],"id"?: string,"intensity"?: number | null,"logged_at"?: string,"mood"?: number | null,"need"?: string | null,"patient_id"?: string,"situation"?: string | null,"thought"?: string | null,"updated_at"?: string
                   }
                   Relationships: [
                     {

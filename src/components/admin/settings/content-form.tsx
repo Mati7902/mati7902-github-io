@@ -17,13 +17,15 @@ type Theme = SettingsValue<"theme">;
 type Gamification = SettingsValue<"gamification">;
 type Legal = SettingsValue<"legal">;
 
+const MAX_AREAS = 14;
+
 export function LandingForm({ initial }: { initial: Landing }) {
   const [value, setValue] = useState(initial);
   const { save, pending } = useSettingsSave("landing");
   const steps = value.how_it_works.length ? value.how_it_works : [{ title: "", text: "" }, { title: "", text: "" }, { title: "", text: "" }];
   const updateStep = (i: number, patch: Partial<{ title: string; text: string }>) =>
     setValue({ ...value, how_it_works: steps.map((s, idx) => (idx === i ? { ...s, ...patch } : s)) });
-  const areas = [...value.specialties, ...Array.from({ length: Math.max(0, 6 - value.specialties.length) }, () => ({ title: "", text: "" }))].slice(0, 6);
+  const areas = [...value.specialties, ...Array.from({ length: Math.max(0, MAX_AREAS - value.specialties.length) }, () => ({ title: "", text: "" }))].slice(0, MAX_AREAS);
   const updateArea = (i: number, patch: Partial<{ title: string; text: string }>) =>
     setValue({ ...value, specialties: areas.map((a, idx) => (idx === i ? { ...a, ...patch } : a)) });
   return (
@@ -48,7 +50,7 @@ export function LandingForm({ initial }: { initial: Landing }) {
         <Input id="ld-areas-title" value={value.specialties_title} onChange={(e) => setValue({ ...value, specialties_title: e.target.value })} />
       </FormField>
       <fieldset className="space-y-3">
-        <legend className="text-sm font-medium">Áreas de trabajo (hasta 6)</legend>
+        <legend className="text-sm font-medium">Áreas de trabajo (hasta {MAX_AREAS})</legend>
         {areas.map((a, i) => (
           <div key={i} className="grid gap-2 rounded-2xl border border-border/70 bg-card p-3 sm:grid-cols-[1fr_2fr]">
             <Input value={a.title} onChange={(e) => updateArea(i, { title: e.target.value })} placeholder={`Área ${i + 1}`} aria-label={`Título del área ${i + 1}`} />

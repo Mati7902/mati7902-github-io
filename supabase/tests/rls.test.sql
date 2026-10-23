@@ -604,6 +604,23 @@ select pg_temp.logout();
 rollback;
 
 -- ---------------------------------------------------------------------------
+-- 6b. Ánimo diario en el registro emocional
+-- ---------------------------------------------------------------------------
+begin;
+select set_config('test.ana_id', (select id::text from public.patients where email = 'ana.ejemplo@demo.local'), true);
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+insert into public.emotional_logs (patient_id, emotions, mood) select id, '{}', 7 from public.patients where email = 'juan.perez@demo.local';
+select pg_temp.assert((select count(*) from public.emotional_logs where mood = 7 and intensity is null) = 1, 'paciente guarda un registro rápido solo con el ánimo');
+insert into public.emotional_logs (patient_id, emotions, intensity, mood) select id, array['tranquilo'], 4, 9 from public.patients where email = 'juan.perez@demo.local';
+select pg_temp.assert((select count(*) from public.emotional_logs where mood = 9) = 1, 'paciente guarda ánimo junto con emociones');
+select pg_temp.expect_error($q$insert into public.emotional_logs (patient_id, emotions) select id, '{}' from public.patients where email = 'juan.perez@demo.local'$q$, array['23514'], 'un registro sin ánimo ni emociones se rechaza');
+select pg_temp.expect_error($q$insert into public.emotional_logs (patient_id, emotions, mood) select id, '{}', 11 from public.patients where email = 'juan.perez@demo.local'$q$, array['23514'], 'el ánimo fuera de 1 a 10 se rechaza');
+select pg_temp.expect_error($q$insert into public.emotional_logs (patient_id, emotions, mood) select id, array['triste'], 5 from public.patients where email = 'juan.perez@demo.local'$q$, array['23514'], 'emociones sin intensidad se rechazan');
+select pg_temp.expect_error($q$insert into public.emotional_logs (patient_id, emotions, mood) values (current_setting('test.ana_id')::uuid, '{}', 5)$q$, array['42501'], 'paciente no carga registros a nombre de otro');
+select pg_temp.logout();
+rollback;
+
+-- ---------------------------------------------------------------------------
 -- 7. Rate limiting (solo servidor)
 -- ---------------------------------------------------------------------------
 begin;

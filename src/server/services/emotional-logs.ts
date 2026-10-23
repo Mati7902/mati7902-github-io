@@ -6,7 +6,10 @@ import type { EmotionalLog } from "@/types/domain";
 
 export type EmotionalLogInput = {
   emotions: string[];
-  intensity: number;
+  /** Solo si hay emociones. */
+  intensity: number | null;
+  /** Ánimo general 1–10 (opcional). */
+  mood?: number | null;
   situation?: string | null;
   thought?: string | null;
   behavior?: string | null;
@@ -20,7 +23,8 @@ export async function createEmotionalLog(client: ServerSupabaseClient, patientId
     .insert({
       patient_id: patientId,
       emotions: input.emotions,
-      intensity: input.intensity,
+      intensity: input.emotions.length > 0 ? input.intensity : null,
+      mood: input.mood ?? null,
       situation: input.situation ?? null,
       thought: input.thought ?? null,
       behavior: input.behavior ?? null,
@@ -33,7 +37,7 @@ export async function createEmotionalLog(client: ServerSupabaseClient, patientId
   return data;
 }
 
-export async function listEmotionalLogs(client: ServerSupabaseClient, patientId: string, limit = 60): Promise<EmotionalLog[]> {
+export async function listEmotionalLogs(client: ServerSupabaseClient, patientId: string, limit = 120): Promise<EmotionalLog[]> {
   const { data } = await client
     .from("emotional_logs")
     .select("*")
@@ -50,11 +54,25 @@ export async function deleteEmotionalLog(client: ServerSupabaseClient, patientId
 
 export type MoodPoint = { date: string; intensity: number; emotions: string[] };
 
+/** Registros con ánimo de los últimos `days` días (para los gráficos). */
+export async function listMoodEntries(client: ServerSupabaseClient, patientId: string, days = 90): Promise<{ logged_at: string; mood: number | null }[]> {
+  const since = new Date(Date.now() - days * 86_400_000).toISOString();
+  const { data } = await client
+    .from("emotional_logs")
+    .select("logged_at, mood")
+    .eq("patient_id", patientId)
+    .not("mood", "is", null)
+    .gte("logged_at", since)
+    .order("logged_at", { ascending: true });
+  return data ?? [];
+}
+
 /** Serie simple para el gráfico de evolución (sin interpretación clínica). */
 export function toMoodSeries(logs: EmotionalLog[]): MoodPoint[] {
   return [...logs]
     .sort((a, b) => new Date(a.logged_at).getTime() - new Date(b.logged_at).getTime())
-    .map((l) => ({ date: l.logged_at, intensity: l.intensity, emotions: l.emotions }));
+    .filter((l) => l.intensity !== null)
+    .map((l) => ({ date: l.logged_at, intensity: l.intensity as number, emotions: l.emotions }));
 }
 
 export function emotionFrequency(logs: EmotionalLog[]): { key: string; count: number }[] {

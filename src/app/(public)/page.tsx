@@ -146,15 +146,15 @@ export default async function LandingPage() {
               <h2 className="max-w-2xl font-display text-3xl font-bold leading-snug text-foreground sm:text-4xl">{landing.specialties_title}</h2>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-petrol-700">{modality.label}</p>
             </div>
-            <ul className="mt-12 grid gap-x-14 gap-y-9 sm:grid-cols-2">
+            <ul className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
               {landing.specialties.map((area) => (
                 <li key={area.title} className="flex gap-4">
                   <span className="mt-1 flex size-6 shrink-0 items-center justify-center rounded-full border-2 border-mint-600/70 bg-card/60" aria-hidden>
                     <span className="size-2 rounded-full bg-mint-600" />
                   </span>
                   <div>
-                    <h3 className="font-sans text-lg font-semibold tracking-normal text-foreground">{area.title}</h3>
-                    <p className="mt-1 text-muted-foreground">{area.text}</p>
+                    <h3 className="font-sans text-base font-semibold tracking-normal text-foreground sm:text-lg">{area.title}</h3>
+                    <p className="mt-1 text-sm text-muted-foreground sm:text-base">{area.text}</p>
                   </div>
                 </li>
               ))}

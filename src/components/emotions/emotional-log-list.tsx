@@ -40,7 +40,8 @@ export function EmotionalLogList({ logs }: { logs: EmotionalLog[] }) {
                       {emotionLabel(e)}
                     </Badge>
                   ))}
-                  <Badge variant="muted">Intensidad {log.intensity}</Badge>
+                  {log.mood !== null ? <Badge variant="default">Ánimo +{log.mood}</Badge> : null}
+                  {log.intensity !== null ? <Badge variant="muted">Intensidad {log.intensity}</Badge> : null}
                 </div>
                 {log.situation ? <p className="text-sm text-foreground">{log.situation}</p> : null}
                 {log.thought ? <p className="text-sm text-muted-foreground">Pensamiento: {log.thought}</p> : null}
