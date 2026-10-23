@@ -3,15 +3,17 @@ import Link from "next/link";
 
 import { PlanCard } from "@/components/plans/plan-card";
 import { Button } from "@/components/ui/button";
+import { pageMetadata } from "@/lib/seo/metadata";
 import { getActivePlans } from "@/server/services/public-content";
 import { getPublicSettingsSafe } from "@/server/services/public-settings";
 
 export const revalidate = 300;
 
-export const metadata: Metadata = {
-  title: "Planes de atención",
-  description: "Consulta individual, plan mensual y otros servicios de atención psicológica. Precios claros y sin sorpresas.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Planes de atención psicológica",
+  description: "Consulta individual, plan mensual y otros servicios de atención psicológica en Encarnación, Paraguay. Precios claros y sin sorpresas.",
+  path: "/planes",
+});
 
 export default async function PlansPage() {
   const [plans, { "site.identity": identity }] = await Promise.all([getActivePlans(), getPublicSettingsSafe()]);

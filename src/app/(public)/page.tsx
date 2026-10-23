@@ -1,4 +1,5 @@
 import { ArrowRight, CalendarCheck, Heart, Lock, MapPin, MessageCircle, Video } from "lucide-react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,14 +10,29 @@ import { WaveLines } from "@/components/public/wave-lines";
 import { PlanCard } from "@/components/plans/plan-card";
 import { Button } from "@/components/ui/button";
 import { brandPhoto, splitEmphasis } from "@/lib/brand";
+import { seoDefaults } from "@/lib/config/site";
+import { publicWhatsapp, whatsappLink } from "@/lib/contact";
 import { publicEnv } from "@/lib/env";
 import { MODALITY_COPY, modalityMode } from "@/lib/modalities";
+import { attentionSentence, landingPages } from "@/lib/seo/landing-pages";
+import { homeDescription, homeTitle, pageMetadata } from "@/lib/seo/metadata";
+import { buildHomeGraph } from "@/lib/seo/schema";
 import { getActivePlans, getPublicAvailability, getPublishedFaqs, getPublishedTestimonials } from "@/server/services/public-content";
 import { getPublicSettingsSafe } from "@/server/services/public-settings";
 
 export const revalidate = 300;
 
 const WEEKDAYS = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { "site.identity": identity, scheduling } = await getPublicSettingsSafe();
+  return pageMetadata({
+    title: homeTitle(identity.professional_name),
+    description: homeDescription(identity.license, modalityMode(scheduling.modalities_enabled)),
+    path: "/",
+    absoluteTitle: true,
+  });
+}
 
 export default async function LandingPage() {
   const [{ "site.identity": identity, landing, scheduling }, plans, faqs, availability, testimonials] = await Promise.all([
@@ -38,18 +54,19 @@ export default async function LandingPage() {
       ? `${days.map((d) => WEEKDAYS[d]).join(", ")} · ${availability[0]?.start_time.slice(0, 5)} a ${availability[availability.length - 1]?.end_time.slice(0, 5)}`
       : null;
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Psychologist",
-    name: identity.professional_name,
-    description: identity.tagline,
-    url: publicEnv.appUrl,
-    ...(identity.email ? { email: identity.email } : {}),
-    ...(identity.phone ? { telephone: identity.phone } : {}),
-    ...(identity.location_address ? { address: { "@type": "PostalAddress", streetAddress: identity.location_address, addressCountry: "PY" } } : {}),
-    image: new URL(brandPhoto(identity), publicEnv.appUrl).toString(),
-    availableService: plans.map((p) => ({ "@type": "MedicalTherapy", name: p.name })),
-  };
+  const whatsapp = publicWhatsapp(identity);
+  const waHref = whatsappLink(identity);
+  const jsonLd = buildHomeGraph({
+    baseUrl: publicEnv.appUrl,
+    identity,
+    imageUrl: new URL(brandPhoto(identity), publicEnv.appUrl).toString(),
+    plans,
+    availability,
+    specialties: landing.specialties.map((a) => a.title),
+    mode,
+    description: homeDescription(identity.license, mode),
+    faqs,
+  });
 
   return (
     <>
@@ -60,11 +77,13 @@ export default async function LandingPage() {
         <div aria-hidden className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_top_left,_var(--color-petrol-50),_transparent_55%),radial-gradient(ellipse_at_80%_55%,_var(--color-mint-50),_transparent_60%)]" />
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 pt-10 pb-20 lg:grid-cols-[1.1fr_1fr] lg:gap-14 lg:px-8 lg:pt-16 lg:pb-28">
           <div className="order-2 space-y-7 text-center animate-fade-up lg:order-1 lg:text-left">
-            <p className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/80 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-petrol-700 backdrop-blur">
-              <span className="size-1.5 rounded-full bg-accent" aria-hidden />
-              {modality.label}
-            </p>
             <h1 className="font-display text-[2.15rem] leading-[1.15] text-foreground sm:text-5xl lg:text-[3.4rem]">
+              <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/80 px-3.5 py-1.5 font-sans text-xs font-semibold uppercase tracking-[0.18em] text-petrol-700 backdrop-blur">
+                <span className="size-1.5 rounded-full bg-accent" aria-hidden />
+                Psicólogo en {seoDefaults.city}, {identity.country}
+                <span className="sr-only"> — </span>
+              </span>
+              <br />
               {splitEmphasis(landing.hero_title).map((part, i) =>
                 part.emphasis ? (
                   <em key={i} className="text-mint-400 italic">
@@ -89,8 +108,13 @@ export default async function LandingPage() {
                   Solicitar turno <ArrowRight aria-hidden />
                 </Link>
               </Button>
+              <Button asChild size="xl" variant="outline" className="h-auto min-h-14 max-w-full bg-card/70 py-3 whitespace-normal backdrop-blur">
+                <a href={waHref} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle aria-hidden /> WhatsApp {whatsapp.display}
+                </a>
+              </Button>
               {landing.specialties.length > 0 ? (
-                <Button asChild size="xl" variant="outline" className="bg-card/70 backdrop-blur">
+                <Button asChild size="xl" variant="ghost">
                   <Link href="#areas">Áreas de trabajo</Link>
                 </Button>
               ) : null}
@@ -153,6 +177,22 @@ export default async function LandingPage() {
             <h2 className="mt-3 font-display text-3xl font-medium sm:text-4xl">Acompañar con claridad, respeto y método</h2>
           </div>
           <div className="space-y-5 text-lg leading-relaxed text-muted-foreground">
+            <div className="rounded-2xl border border-border/70 bg-surface-muted/60 p-5 text-base text-foreground">
+              <h3 className="font-sans text-base font-semibold tracking-normal">¿Quién es {identity.professional_name} y qué hace?</h3>
+              <p className="mt-2 leading-relaxed">
+                {identity.professional_name} es {identity.professional_title.toLowerCase()} ({identity.license}) con atención en {seoDefaults.city}, {seoDefaults.region}, {identity.country}. {attentionSentence(mode, identity.country, "third")} Acompaña a adultos y adolescentes con terapia cognitivo-conductual, terapia de aceptación y compromiso y habilidades de terapia dialéctico-conductual, con intervenciones basadas en evidencia.
+              </p>
+              <p className="mt-3 text-sm text-muted-foreground">
+                Más información:{" "}
+                {landingPages.map((p, i) => (
+                  <span key={p.slug}>
+                    {i > 0 ? " · " : ""}
+                    <Link href={p.path} className="font-medium text-primary underline-offset-4 hover:underline">{p.name}</Link>
+                  </span>
+                ))}
+                . Contenido actualizado en {seoDefaults.contentUpdatedLabel}.
+              </p>
+            </div>
             {identity.bio.split("\n").filter(Boolean).map((paragraph, i) => (
               <p key={i}>{paragraph}</p>
             ))}
@@ -254,13 +294,12 @@ export default async function LandingPage() {
                     <Lock aria-hidden /> Acceso pacientes
                   </Link>
                 </Button>
-                {identity.whatsapp ? (
-                  <Button asChild size="lg" variant="outline" className="border-petrol-300 bg-transparent text-primary-foreground hover:bg-petrol-700">
-                    <a href={`https://wa.me/${identity.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent("Hola, quisiera consultar por un turno.")}`} target="_blank" rel="noopener noreferrer">
-                      <MessageCircle aria-hidden /> Escribir por WhatsApp
-                    </a>
-                  </Button>
-                ) : identity.email ? (
+                <Button asChild size="lg" variant="outline" className="h-auto min-h-13 max-w-full border-petrol-300 bg-transparent py-3 whitespace-normal text-primary-foreground hover:bg-petrol-700">
+                  <a href={waHref} target="_blank" rel="noopener noreferrer">
+                    <MessageCircle aria-hidden /> Escribir por WhatsApp {whatsapp.display}
+                  </a>
+                </Button>
+                {identity.email ? (
                   <Button asChild size="lg" variant="outline" className="border-petrol-300 bg-transparent text-primary-foreground hover:bg-petrol-700">
                     <a href={`mailto:${identity.email}?subject=${encodeURIComponent("Consulta por turno")}`}>Escribir por email</a>
                   </Button>
