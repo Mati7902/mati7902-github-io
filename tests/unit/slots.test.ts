@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { generateDaySlots, groupSlotsByPeriod, isWithinAvailability, overlaps, upcomingAvailableDates, weekdayOf, type AvailabilityRuleInput } from "@/lib/scheduling/slots";
+import { generateDaySlots, groupSlotsByPeriod, isWithinAvailability, overlaps, ruleOccursOn, upcomingAvailableDates, weekdayOf, type AvailabilityRuleInput } from "@/lib/scheduling/slots";
 
 const TZ = "America/Asuncion";
 // 2026-10-13 es martes.
@@ -83,5 +83,36 @@ describe("motor de disponibilidad", () => {
     const c = new Date("2026-01-01T12:00:00Z");
     expect(overlaps(a, b, b, c)).toBe(false);
     expect(overlaps(a, c, b, c)).toBe(true);
+  });
+
+  describe("franjas cada 15 días por sede", () => {
+    const base = { weekday: 2, slot_duration_minutes: 60, buffer_minutes: 0, modality: "presencial" as const, every_weeks: 2 };
+    const trinidad: AvailabilityRuleInput = { ...base, start_time: "16:00", end_time: "20:00", location_id: "trinidad", anchor_date: "2026-10-27" };
+    const adventista: AvailabilityRuleInput = { ...base, start_time: "12:00", end_time: "17:00", location_id: "adventista", anchor_date: "2026-11-03" };
+    const now = new Date("2026-10-20T00:00:00Z");
+
+    it("ruleOccursOn alterna semana sí, semana no (también antes de la fecha de inicio)", () => {
+      expect(ruleOccursOn(trinidad, "2026-10-27")).toBe(true);
+      expect(ruleOccursOn(trinidad, "2026-11-03")).toBe(false);
+      expect(ruleOccursOn(trinidad, "2026-11-10")).toBe(true);
+      expect(ruleOccursOn(trinidad, "2026-10-13")).toBe(true);
+      expect(ruleOccursOn(trinidad, "2026-10-20")).toBe(false);
+      expect(ruleOccursOn({ every_weeks: 1, anchor_date: null }, "2026-11-03")).toBe(true);
+      expect(ruleOccursOn({ every_weeks: 2, anchor_date: null }, "2026-11-03")).toBe(false);
+    });
+
+    it("cada martes ofrece solo la sede que corresponde y marca la sede en el horario", () => {
+      const rules = [trinidad, adventista];
+      const first = generateDaySlots({ dateKey: "2026-10-27", timezone: TZ, rules, busy: [], modality: "presencial", now });
+      expect(first.map((s) => s.label)).toEqual(["16:00", "17:00", "18:00", "19:00"]);
+      expect(new Set(first.map((s) => s.locationId))).toEqual(new Set(["trinidad"]));
+      const second = generateDaySlots({ dateKey: "2026-11-03", timezone: TZ, rules, busy: [], modality: "presencial", now });
+      expect(second.map((s) => s.label)).toEqual(["12:00", "13:00", "14:00", "15:00", "16:00"]);
+      expect(new Set(second.map((s) => s.locationId))).toEqual(new Set(["adventista"]));
+    });
+
+    it("las fechas disponibles respetan la alternancia", () => {
+      expect(upcomingAvailableDates([trinidad], TZ, 28, new Date("2026-10-21T12:00:00Z"))).toEqual(["2026-10-27", "2026-11-10"]);
+    });
   });
 });

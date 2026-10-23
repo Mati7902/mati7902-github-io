@@ -27,6 +27,8 @@ const serverSchema = z.object({
   AI_PROVIDER: z.enum(["anthropic", "openai", "rules"]).default("rules"),
   AI_PROVIDER_API_KEY: z.string().optional(),
   AI_MODEL: z.string().default("claude-haiku-4-5-20251001"),
+  RESEND_API_KEY: z.string().optional(),
+  EMAIL_FROM: z.string().optional(),
   LOG_LEVEL: z.enum(["debug", "info", "warn", "error"]).default("info"),
 });
 

@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { formatDateTime, capitalize } from "@/lib/dates";
 import { deleteAvailabilityRuleAction, deleteBlockedSlotAction, saveAvailabilityRuleAction } from "@/server/actions/admin-schedule";
-import type { AvailabilityRule, BlockedSlot } from "@/types/domain";
+import type { AvailabilityRule, BlockedSlot, PracticeLocation } from "@/types/domain";
 
 const WEEKDAYS = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 const selectClass = "h-10 rounded-lg border border-input bg-card px-2 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/30";
@@ -24,25 +24,28 @@ type Draft = {
   buffer_minutes: number;
   modality: "presencial" | "virtual" | "mixta";
   is_active: boolean;
+  location_id: string | null;
+  every_weeks: number;
+  anchor_date: string;
 };
 
 function toDraft(r: AvailabilityRule): Draft {
-  return { id: r.id, weekday: r.weekday, start_time: r.start_time.slice(0, 5), end_time: r.end_time.slice(0, 5), slot_duration_minutes: r.slot_duration_minutes, buffer_minutes: r.buffer_minutes, modality: r.modality, is_active: r.is_active };
+  return { id: r.id, weekday: r.weekday, start_time: r.start_time.slice(0, 5), end_time: r.end_time.slice(0, 5), slot_duration_minutes: r.slot_duration_minutes, buffer_minutes: r.buffer_minutes, modality: r.modality, is_active: r.is_active, location_id: r.location_id, every_weeks: r.every_weeks, anchor_date: r.anchor_date ?? "" };
 }
 
-export function AvailabilityEditor({ rules, defaultDuration }: { rules: AvailabilityRule[]; defaultDuration: number }) {
+export function AvailabilityEditor({ rules, defaultDuration, locations = [] }: { rules: AvailabilityRule[]; defaultDuration: number; locations?: PracticeLocation[] }) {
   const router = useRouter();
   const [drafts, setDrafts] = useState<Draft[]>(rules.map(toDraft));
   const [pending, startTransition] = useTransition();
 
   const update = (i: number, patch: Partial<Draft>) => setDrafts((d) => d.map((r, idx) => (idx === i ? { ...r, ...patch } : r)));
-  const add = () => setDrafts((d) => [...d, { weekday: 1, start_time: "14:00", end_time: "20:00", slot_duration_minutes: defaultDuration, buffer_minutes: 0, modality: "mixta", is_active: true }]);
+  const add = () => setDrafts((d) => [...d, { weekday: 1, start_time: "14:00", end_time: "20:00", slot_duration_minutes: defaultDuration, buffer_minutes: 0, modality: "mixta", is_active: true, location_id: null, every_weeks: 1, anchor_date: "" }]);
 
   const saveRow = (i: number) =>
     startTransition(async () => {
       const row = drafts[i];
       if (!row) return;
-      const res = await saveAvailabilityRuleAction({ ...row, valid_from: null, valid_until: null });
+      const res = await saveAvailabilityRuleAction({ ...row, valid_from: null, valid_until: null, anchor_date: row.every_weeks > 1 ? row.anchor_date : null });
       if (!res.ok) return void toast.error(res.fieldErrors ? Object.values(res.fieldErrors)[0] ?? res.error : res.error);
       toast.success("Horario guardado.");
       router.refresh();
@@ -64,7 +67,7 @@ export function AvailabilityEditor({ rules, defaultDuration }: { rules: Availabi
   return (
     <div className="space-y-4">
       <div className="overflow-x-auto rounded-2xl border border-border/70 bg-card">
-        <table className="w-full min-w-[720px] text-sm">
+        <table className="w-full min-w-[1080px] text-sm">
           <thead className="bg-surface-muted/60 text-left text-xs font-medium uppercase tracking-wide text-muted-foreground">
             <tr>
               <th className="px-3 py-2.5">Día</th>
@@ -73,6 +76,8 @@ export function AvailabilityEditor({ rules, defaultDuration }: { rules: Availabi
               <th className="px-3 py-2.5">Duración</th>
               <th className="px-3 py-2.5">Intervalo</th>
               <th className="px-3 py-2.5">Modalidad</th>
+              <th className="px-3 py-2.5">Sede</th>
+              <th className="px-3 py-2.5">Frecuencia</th>
               <th className="px-3 py-2.5">Activo</th>
               <th className="px-3 py-2.5 text-right">Acciones</th>
             </tr>
@@ -98,6 +103,26 @@ export function AvailabilityEditor({ rules, defaultDuration }: { rules: Availabi
                     <option value="virtual">Virtual</option>
                   </select>
                 </td>
+                <td className="px-3 py-2">
+                  <select value={r.location_id ?? ""} onChange={(e) => update(i, { location_id: e.target.value || null })} className={`${selectClass} max-w-48`} aria-label="Sede">
+                    <option value="">Sin sede</option>
+                    {locations.map((l) => (
+                      <option key={l.id} value={l.id}>{l.name}</option>
+                    ))}
+                  </select>
+                </td>
+                <td className="px-3 py-2">
+                  <div className="flex items-center gap-2">
+                    <select value={r.every_weeks} onChange={(e) => update(i, { every_weeks: Number(e.target.value) })} className={selectClass} aria-label="Frecuencia">
+                      <option value={1}>Todas las semanas</option>
+                      <option value={2}>Cada 15 días</option>
+                      <option value={3}>Cada 3 semanas</option>
+                      <option value={4}>Cada 4 semanas</option>
+                    </select>
+                    {r.every_weeks > 1 ? <Input type="date" value={r.anchor_date} onChange={(e) => update(i, { anchor_date: e.target.value })} className="h-10 w-40" aria-label="Primer día de la franja" title="Un día en que esta franja sí ocurre; desde ahí se alterna" /> : null}
+                  </div>
+                  {r.every_weeks > 1 && !r.anchor_date ? <p className="mt-1 text-xs text-warning">Falta la fecha: no se ofrece hasta cargarla.</p> : null}
+                </td>
                 <td className="px-3 py-2"><Switch checked={r.is_active} onCheckedChange={(v) => update(i, { is_active: v })} aria-label="Activo" /></td>
                 <td className="px-3 py-2">
                   <div className="flex justify-end gap-1">
@@ -111,6 +136,7 @@ export function AvailabilityEditor({ rules, defaultDuration }: { rules: Availabi
         </table>
       </div>
       <Button variant="outline" onClick={add} disabled={pending}><Plus aria-hidden /> Agregar franja</Button>
+      <p className="text-xs text-muted-foreground">Cada 15 días: elegí en la fecha un día en que esa franja sí ocurre (por ejemplo, el próximo martes que atendés ahí); desde esa semana se alterna. Los turnos presenciales de una franja con sede guardan la dirección y la muestran en la confirmación y en los recordatorios.</p>
     </div>
   );
 }

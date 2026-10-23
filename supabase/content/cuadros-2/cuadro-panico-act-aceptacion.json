@@ -1,0 +1,118 @@
+{
+  "slug": "cuadro-panico-act-aceptacion",
+  "title": "Pánico: dejar de pelear con las sensaciones",
+  "description": "Una mirada desde ACT: hacerles lugar a las sensaciones de ansiedad en vez de luchar contra ellas, y practicar observarlas.",
+  "kind": "custom",
+  "approach": "act",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 12,
+  "sort_order": 330,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Cuando pelear no ayuda",
+      "content": "Cuando aparecen las sensaciones del pánico, lo más natural es querer frenarlas: controlar la respiración, escaparse, distraerse a toda costa.\n\nEl problema es que, muchas veces, **esa pelea termina alimentando la alarma**. Cuanto más empujamos para que la sensación se vaya, más atención le ponemos y más amenazante parece.\n\nEste ejercicio propone otra cosa, desde la Terapia de Aceptación y Compromiso (ACT): **hacerles lugar a las sensaciones**, sin que te gusten, para que dejen de manejar tu vida. Hacelo en un momento tranquilo."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "Si tenés síntomas nuevos, dolor de pecho intenso o distinto de lo habitual, o pensás en hacerte daño, **pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nSi nunca te hicieron un control médico por estos síntomas, conviene consultarlo con tu médico/a.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "estrategias",
+      "type": "checklist",
+      "prompt": "¿Qué hacés habitualmente para sacarte de encima las sensaciones? Marcá las que reconozcas.",
+      "options": [
+        "Irme del lugar",
+        "Evitar ciertos lugares o actividades",
+        "Controlarme el pulso o la respiración",
+        "Distraerme con el celular",
+        "Pedir que alguien me acompañe",
+        "Llevar algo «por las dudas» (agua, pastillas)",
+        "Pelear mentalmente con la sensación",
+        "Otra cosa"
+      ],
+      "min": 1
+    },
+    {
+      "id": "costo",
+      "type": "text",
+      "prompt": "A la larga, ¿qué te cuestan esas estrategias? ¿Qué dejaste de hacer por la ansiedad?",
+      "placeholder": "Por ejemplo: dejé de ir al súper solo/a, ya no viajo en colectivo"
+    },
+    {
+      "id": "metafora",
+      "type": "info",
+      "title": "El tira y afloje con el monstruo",
+      "content": "Imaginá que estás en un tira y afloje con un monstruo, la ansiedad. Entre ustedes hay un pozo. Tirás con todas tus fuerzas, y el monstruo tira más fuerte. Cuanto más tirás, más cansado/a estás y más cerca del pozo quedás.\n\n¿Qué pasaría si **soltaras la soga**?\n\nEl monstruo no desaparece: sigue ahí, haciendo ruido. Pero tus manos quedan libres para hacer otras cosas que te importan.\n\nSoltar la soga no es rendirse ni resignarse. Es **dejar de gastar energía en una pelea que no se puede ganar**, y usarla en tu vida."
+    },
+    {
+      "id": "disposicion_quiz",
+      "type": "choice",
+      "prompt": "En ACT, ¿qué significa estar «dispuesto/a» a sentir ansiedad?",
+      "options": [
+        "Que me tiene que gustar sentirla",
+        "Hacerle lugar mientras hago lo que me importa",
+        "Aguantar apretando los dientes hasta que pase"
+      ],
+      "feedback": {
+        "Que me tiene que gustar sentirla": "No hace falta que te guste. Podés no querer sentirla y, aun así, hacerle lugar.",
+        "Hacerle lugar mientras hago lo que me importa": "Exacto. Disposición es abrirte a la sensación, sin pelearla, para que no decida por vos.",
+        "Aguantar apretando los dientes hasta que pase": "Aguantar tenso/a sigue siendo una forma de pelea. La disposición es más bien aflojar y dejar que esté."
+      }
+    },
+    {
+      "id": "defusion",
+      "type": "info",
+      "title": "«Me va a pasar algo»",
+      "content": "En una crisis, la mente suele gritar: «me va a pasar algo», «me voy a morir», «me voy a volver loco/a». Son pensamientos, no hechos, aunque se sientan muy reales.\n\nUna forma de tomar distancia es **ponerle un prefijo**:\n\n- En vez de «me va a pasar algo», notá: **«estoy teniendo el pensamiento de que me va a pasar algo»**.\n- O agradecele a tu mente: **«gracias, mente, por intentar cuidarme»**.\n\nNo se trata de discutir con el pensamiento ni de convencerte de que es falso, sino de verlo como lo que es: palabras que tu mente produce cuando suena la alarma."
+    },
+    {
+      "id": "pensamiento",
+      "type": "text",
+      "prompt": "¿Qué frase suele decirte tu mente en una crisis? Escribila con el prefijo «Estoy teniendo el pensamiento de que…».",
+      "placeholder": "Estoy teniendo el pensamiento de que…"
+    },
+    {
+      "id": "observar",
+      "type": "timed_info",
+      "title": "Observar las sensaciones",
+      "content": "Sentate cómodo/a y cerrá los ojos si querés.\n\n- **Notá tu cuerpo** como si fuera la primera vez: el ritmo del corazón, el aire que entra y sale, cualquier tensión.\n- Si encontrás una sensación incómoda, **describila con curiosidad**: ¿dónde está?, ¿tiene borde?, ¿es caliente, fría, punzante?\n- **Respirá hacia ella**, como haciéndole espacio, sin intentar que se vaya.\n- Si aparecen pensamientos, notalos («ahí está la mente») y volvé al cuerpo.\n\nNo hace falta que te sientas bien. Solo practicás estar con lo que hay.",
+      "seconds": 120
+    },
+    {
+      "id": "notaste",
+      "type": "text",
+      "prompt": "¿Qué notaste mientras observabas? ¿Cambió algo en la sensación o en tu forma de mirarla?",
+      "placeholder": "Lo que noté"
+    },
+    {
+      "id": "importa",
+      "type": "text",
+      "prompt": "Si la ansiedad no decidiera por vos, ¿qué cosa te gustaría hacer, aunque las sensaciones vinieran?",
+      "placeholder": "Por ejemplo: volver a ir al cine con mi hermana"
+    },
+    {
+      "id": "paso",
+      "type": "text",
+      "prompt": "¿Qué paso chico podrías dar hacia eso esta semana, haciéndole lugar a la ansiedad?",
+      "placeholder": "Por ejemplo: ir al súper diez minutos, aunque me acelere"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Soltar la soga",
+      "template": "Lo que suelo hacer para pelear con la ansiedad: {{estrategias}}. Lo que me cuesta: {{costo}}. Mi pensamiento, con distancia: {{pensamiento}}. Lo que quiero hacer: {{importa}}. Mi paso de esta semana: {{paso}}.",
+      "content": "Si el paso que elegiste te parece mucho, achicalo. Llevá esto a la próxima sesión para seguir planificando con tu psicólogo/a."
+    }
+  ],
+  "material": {
+    "title": "Pánico: dejar de pelear con las sensaciones (ACT)",
+    "description": "Disposición frente a las sensaciones del pánico, defusión del pensamiento «me va a pasar algo», metáfora del tira y afloje y práctica de observación de 2 minutos.",
+    "category": "ansiedad"
+  }
+}

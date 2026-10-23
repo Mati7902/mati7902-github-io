@@ -1,0 +1,114 @@
+{
+  "slug": "cuadro-burnout-dbt-limites",
+  "title": "Burnout: poner límites con DEAR MAN",
+  "description": "Desde DBT: prepará una conversación real para poner un límite o pedir un cambio en el trabajo, cuidando la relación y tu autorrespeto.",
+  "kind": "custom",
+  "approach": "dbt",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 341,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Pedir y decir que no, con un guion",
+      "content": "Muchas personas con agotamiento laboral saben qué límite necesitan, pero se traban a la hora de decirlo: miedo a quedar mal, a un conflicto o a perder el trabajo.\n\nLa **Terapia Dialéctica Conductual (DBT)** tiene habilidades de **efectividad interpersonal** que ayudan a preparar esas conversaciones. Hoy vas a usar dos:\n\n- **DEAR MAN**, para pedir algo o decir que no con claridad.\n- **FAST**, para cuidar tu autorrespeto durante la conversación.\n\nAl final vas a tener un **guion** de una conversación real. No garantiza que la otra persona acepte, pero aumenta las chances de que te escuchen y de que salgas sintiéndote bien con cómo lo dijiste."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "**Si estás en crisis, sentís que no das más o aparecen pensamientos de hacerte daño, pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nSi en tu trabajo hay situaciones de acoso, maltrato o riesgo, hablalo en sesión: además de habilidades, puede hacer falta otro tipo de apoyo."
+    },
+    {
+      "id": "situacion",
+      "type": "text",
+      "prompt": "¿Qué situación del trabajo te gustaría abordar? ¿Con quién tendrías que hablar?",
+      "placeholder": "Por ejemplo: con mi jefa, por los mensajes que me manda los fines de semana"
+    },
+    {
+      "id": "dear_man_info",
+      "type": "info",
+      "title": "DEAR MAN, paso a paso",
+      "content": "- **D — Describir:** contá los hechos, sin juicios. «En el último mes recibí pedidos urgentes los sábados».\n- **E — Expresar:** decí cómo te afecta, en primera persona. «Me cuesta descansar y llego el lunes agotado/a».\n- **A — Afirmar:** pedí con claridad o decí que no. «Te pido que lo que surja el fin de semana quede para el lunes».\n- **R — Reforzar:** mostrá qué gana la otra persona. «Así rindo mejor durante la semana».\n- **M — Mantenerte en foco:** si te desvían, volvé a tu pedido con calma (el «disco rayado»).\n- **A — Aparentar confianza:** postura firme, tono tranquilo, mirada, aunque por dentro tengas nervios.\n- **N — Negociar:** estate dispuesto/a a escuchar alternativas. «¿Qué te parece si lo urgente de verdad me lo avisás por llamada?»"
+    },
+    {
+      "id": "d_describir",
+      "type": "text",
+      "prompt": "D — Describir: ¿qué hechos vas a contar, sin juicios ni adjetivos?",
+      "placeholder": "En las últimas semanas…"
+    },
+    {
+      "id": "e_expresar",
+      "type": "text",
+      "prompt": "E — Expresar: ¿cómo te afecta? Usá «yo siento» o «a mí me pasa».",
+      "placeholder": "Me siento… / Me cuesta…"
+    },
+    {
+      "id": "a_afirmar",
+      "type": "text",
+      "prompt": "A — Afirmar: ¿qué vas a pedir o a qué vas a decir que no, en una frase clara?",
+      "placeholder": "Te pido que… / No voy a poder…",
+      "help": "Pensá en un pedido concreto y realista. «Que me respeten más» es difícil de medir; «que los pedidos del viernes a la tarde queden para el lunes» es claro."
+    },
+    {
+      "id": "r_reforzar",
+      "type": "text",
+      "prompt": "R — Reforzar: ¿qué gana la otra persona o el equipo si acepta?",
+      "placeholder": "Así…"
+    },
+    {
+      "id": "n_negociar",
+      "type": "text",
+      "prompt": "N — Negociar: ¿qué alternativa podrías ofrecer o aceptar si te dicen que no?",
+      "placeholder": "Podría aceptar que…"
+    },
+    {
+      "id": "fast_info",
+      "type": "info",
+      "title": "FAST: cuidar tu autorrespeto",
+      "content": "Mientras pedís, también importa cómo salís vos de la conversación:\n\n- **F — (ser) Justo/a (Fair):** con la otra persona y también con vos.\n- **A — (sin) Disculpas de más (Apologies):** no pidas perdón por tener un límite o por pedir algo razonable.\n- **S — Sostener tus valores (Stick to values):** no cedas en lo que es importante para vos solo para evitar incomodidad.\n- **T — (ser) Veraz (Truthful):** no exageres ni inventes excusas. Lo que necesitás alcanza como razón.\n\nUn buen resultado no es solo «me dijeron que sí». También es «lo dije de una forma de la que me siento orgulloso/a»."
+    },
+    {
+      "id": "fast_check",
+      "type": "checklist",
+      "prompt": "¿Qué te gustaría cuidar especialmente en esta conversación?",
+      "options": [
+        "No pedir perdón de más",
+        "No inventar excusas",
+        "No ceder en lo esencial por incomodidad",
+        "Ser justo/a también conmigo",
+        "Volver a mi pedido si me desvían"
+      ],
+      "min": 1,
+      "max": 5
+    },
+    {
+      "id": "ensayo",
+      "type": "timed_info",
+      "title": "Ensayá en voz alta",
+      "content": "Tomate dos minutos para decir tu guion en voz alta, como si la otra persona estuviera enfrente. Si podés, hacelo frente a un espejo.\n\n- Mantené la postura firme y los hombros sueltos.\n- Hablá un poco más despacio de lo habitual.\n- Si te trabás, respirá y volvé a la frase de **Afirmar**.\n\nNo tiene que salir perfecto. Ensayar baja los nervios y te ayuda a encontrar tus propias palabras.",
+      "seconds": 120
+    },
+    {
+      "id": "cuando",
+      "type": "text",
+      "prompt": "¿Cuándo y dónde vas a tener la conversación? ¿Hace falta pedir un momento a solas?",
+      "placeholder": "Por ejemplo: el martes después de la reunión, en su oficina"
+    },
+    {
+      "id": "guion",
+      "type": "reflect",
+      "title": "Tu guion",
+      "template": "Con quién y sobre qué: {{situacion}}.\n\nDescribir: {{d_describir}}\n\nExpresar: {{e_expresar}}\n\nAfirmar: {{a_afirmar}}\n\nReforzar: {{r_reforzar}}\n\nNegociar: {{n_negociar}}\n\nVoy a cuidar: {{fast_check}}. Cuándo: {{cuando}}.",
+      "content": "Después de la conversación, anotá cómo te fue y qué aprendiste. Si la respuesta no fue la que esperabas, lo podés trabajar en sesión: a veces hace falta más de una conversación o buscar otros caminos."
+    }
+  ],
+  "material": {
+    "title": "Burnout: poner límites con DEAR MAN y FAST (DBT)",
+    "description": "Ejercicio de DBT para el estrés laboral: armar el guion de una conversación real para poner un límite o pedir un cambio, cuidando el autorrespeto.",
+    "category": "estres"
+  }
+}

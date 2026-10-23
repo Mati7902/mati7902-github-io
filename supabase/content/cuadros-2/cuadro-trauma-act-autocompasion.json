@@ -1,0 +1,118 @@
+{
+  "slug": "cuadro-trauma-act-autocompasion",
+  "title": "Tratarme con amabilidad frente a la culpa",
+  "description": "Prácticas de ACT para mirar la culpa y la vergüenza desde el yo observador y responderte con más amabilidad, sin revisar lo que pasó.",
+  "kind": "custom",
+  "approach": "act",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 14,
+  "sort_order": 337,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Culpa y vergüenza",
+      "content": "Después de una experiencia muy difícil, muchas personas cargan con **culpa** («tendría que haber hecho algo») o **vergüenza** («algo está mal en mí»). Son reacciones muy frecuentes y comprensibles, aunque no digan la verdad sobre quién sos.\n\nEn este ejercicio vas a practicar dos cosas desde la Terapia de Aceptación y Compromiso (ACT): **mirar esos pensamientos desde un lugar más amplio** y **responderte con amabilidad**.\n\n**No vas a contar ni revisar lo que pasó.** Si en algún momento te sentís desbordado/a, podés frenar y volver otro día."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si necesitás ayuda urgente",
+      "content": "Si estás en crisis, sentís que podés hacerte daño o que no estás a salvo, **pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "malestar",
+      "type": "scale",
+      "prompt": "¿Cuánto malestar sentís en este momento?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísimo",
+      "maps_to": "emotion_before"
+    },
+    {
+      "id": "voz",
+      "type": "checklist",
+      "prompt": "¿Cómo te suele hablar tu mente cuando aparece la culpa o la vergüenza? Marcá lo que reconozcas.",
+      "options": [
+        "«Fue mi culpa»",
+        "«Tendría que haber reaccionado distinto»",
+        "«Soy débil»",
+        "«Algo está mal en mí»",
+        "«No merezco estar bien»",
+        "«Nadie me entendería»",
+        "Otra cosa"
+      ],
+      "min": 1
+    },
+    {
+      "id": "observador_info",
+      "type": "info",
+      "title": "El yo observador",
+      "content": "Hay una parte tuya que **nota** lo que pensás y sentís. Los pensamientos cambian, las emociones van y vienen, pero esa parte que observa sigue ahí.\n\nUna imagen que ayuda: **vos sos el cielo, y los pensamientos y emociones son el clima**. Puede haber tormenta, nubes negras o viento fuerte, pero el cielo no se rompe ni se ensucia con el clima.\n\nDesde ese lugar podés notar: «ahí está otra vez la culpa», sin tener que creerle ni pelearte con ella."
+    },
+    {
+      "id": "cielo",
+      "type": "timed_info",
+      "title": "El cielo y el clima",
+      "content": "Sentate cómodo/a, con los pies apoyados en el piso.\n\n- **Notá tu respiración**, sin cambiarla.\n- Si aparece un pensamiento de culpa o de vergüenza, **notalo como una nube**: «ahí hay un pensamiento».\n- No hace falta empujarlo ni analizarlo. Dejá que esté y que pase cuando pase.\n- Recordá que **vos sos el cielo** que contiene esas nubes.\n\nSi aparece un recuerdo, abrí los ojos, mirá cinco cosas a tu alrededor y volvé a la respiración.",
+      "seconds": 90
+    },
+    {
+      "id": "autocompasion_info",
+      "type": "info",
+      "title": "Autocompasión",
+      "content": "La autocompasión es **tratarte como tratarías a alguien querido que está sufriendo**. No es lástima ni excusas: es reconocer el dolor y responderle con calidez.\n\nTiene tres partes:\n\n- **Notar:** «esto duele mucho».\n- **Humanidad compartida:** «no soy la única persona que se siente así».\n- **Amabilidad:** «¿qué necesito escuchar ahora?».\n\nAl principio puede sentirse raro o incluso incómodo. Es esperable, sobre todo si estás acostumbrado/a a tratarte con dureza."
+    },
+    {
+      "id": "mano",
+      "type": "timed_info",
+      "title": "Una mano en el pecho",
+      "content": "Apoyá una mano en el pecho, o donde te resulte reconfortante (la panza, el brazo, la mejilla). Sentí el calor y el peso suave de tu mano.\n\nDecite despacio, en voz baja o por dentro:\n\n- **«Esto es muy difícil.»**\n- **«Muchas personas se sienten así después de algo así.»**\n- **«Que pueda ser amable conmigo en este momento.»**\n\nSi alguna frase no te sale o no te la creés, está bien. Probá con palabras que te suenen más propias.",
+      "seconds": 90
+    },
+    {
+      "id": "frases",
+      "type": "list",
+      "prompt": "Escribí dos o tres frases amables que te gustaría decirte cuando aparece la culpa.",
+      "count": 3,
+      "min": 2
+    },
+    {
+      "id": "carta",
+      "type": "text",
+      "prompt": "Escribí una carta corta como si te la mandara un amigo/a compasivo/a. Sin contar lo que pasó: solo lo que te diría.",
+      "placeholder": "Querido/a…, sé que estás cargando con mucho. Lo que sentís tiene sentido…"
+    },
+    {
+      "id": "como_quedaste",
+      "type": "text",
+      "prompt": "¿Cómo te quedaste después de leer esa carta?",
+      "placeholder": "Lo que noté"
+    },
+    {
+      "id": "malestar_despues",
+      "type": "scale",
+      "prompt": "Ahora, ¿cuánto malestar sentís?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísimo",
+      "maps_to": "emotion_after"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Lo que me llevo",
+      "template": "Lo que me dice la culpa: {{voz}}. Lo que quiero decirme: {{frases}}. Lo que me diría alguien que me quiere: {{carta}}.",
+      "content": "La culpa y la vergüenza después de una experiencia difícil se trabajan en terapia, con cuidado y a tu ritmo. Si te sirve, compartí esta carta con tu psicólogo/a."
+    }
+  ],
+  "material": {
+    "title": "Tratarme con amabilidad frente a la culpa (ACT)",
+    "description": "Yo observador (el cielo y el clima) y autocompasión frente a la culpa y la vergüenza: mano en el pecho, frases amables y carta de un amigo compasivo, sin relatar el hecho.",
+    "category": "trauma"
+  }
+}

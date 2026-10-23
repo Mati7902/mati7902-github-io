@@ -1,0 +1,119 @@
+{
+  "slug": "cuadro-fobias-tcc-experimentos",
+  "title": "Ansiedad social: experimentos conductuales",
+  "description": "Desde la TCC: poné a prueba una predicción ansiosa en una situación social, soltando conductas de seguridad, y anotá qué pasó realmente.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 344,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Poner a prueba lo que temés",
+      "content": "En la ansiedad social, la mente suele hacer **predicciones**: «si hablo en la reunión, me voy a trabar y todos van a pensar que soy un desastre». Como evitamos la situación, o la atravesamos protegidos, nunca llegamos a comprobar si la predicción se cumple.\n\nUn **experimento conductual** es como hacer de científico/a de tu propia ansiedad: escribís qué creés que va a pasar, lo ponés a prueba en una situación real y después comparás con lo que pasó.\n\nEste recurso tiene dos partes: **planificar** el experimento ahora y **completar el resultado** después de hacerlo. Lo ideal es planificarlo y acordarlo con tu psicólogo/a antes de ponerlo en práctica."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "**Si estás en crisis o aparecen pensamientos de hacerte daño, pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nElegí un experimento **desafiante pero manejable**. No hace falta empezar por lo más difícil: se avanza de a poco, con un plan acordado en sesión."
+    },
+    {
+      "id": "situacion",
+      "type": "text",
+      "prompt": "¿Qué situación social vas a usar para tu experimento? ¿Cuándo y dónde?",
+      "placeholder": "Por ejemplo: hacer una pregunta en la reunión del miércoles"
+    },
+    {
+      "id": "prediccion",
+      "type": "text",
+      "prompt": "¿Qué temés que pase? Escribí tu predicción de forma concreta y observable.",
+      "help": "Mejor algo que se pueda comprobar. En lugar de «va a salir mal», por ejemplo: «me voy a quedar en blanco, se van a reír y nadie va a responder mi pregunta».",
+      "placeholder": "Creo que va a pasar…"
+    },
+    {
+      "id": "creencia_prediccion",
+      "type": "scale",
+      "prompt": "¿Cuánto creés, ahora, que tu predicción se va a cumplir?",
+      "min": 0,
+      "max": 100,
+      "min_label": "Nada",
+      "max_label": "Totalmente"
+    },
+    {
+      "id": "seguridad_info",
+      "type": "info",
+      "title": "Conductas de seguridad: soltar el salvavidas",
+      "content": "Las **conductas de seguridad** son cosas que hacemos para que «no se note» la ansiedad o para evitar lo temido: ensayar cada frase en la cabeza, no hacer contacto visual, hablar poco, tener el celular en la mano, ponerse en un rincón.\n\nEl problema es doble:\n\n- Si todo sale bien, la mente piensa «me salvé **gracias** a eso», y el miedo no cambia.\n- A veces, además, empeoran las cosas: por ejemplo, ensayar en la cabeza hace que estés menos presente en la conversación.\n\nPor eso, en un experimento intentamos **soltar** una o más de esas conductas para comprobar qué pasa sin ellas."
+    },
+    {
+      "id": "conductas",
+      "type": "checklist",
+      "prompt": "¿Qué conductas de seguridad vas a intentar soltar en este experimento?",
+      "options": [
+        "Ensayar mentalmente lo que voy a decir",
+        "Evitar el contacto visual",
+        "Hablar lo mínimo",
+        "Mirar el celular para no interactuar",
+        "Quedarme cerca de la salida o en un rincón",
+        "Taparme la cara o esconder las manos",
+        "Monitorear todo el tiempo cómo me veo"
+      ],
+      "min": 1,
+      "max": 3
+    },
+    {
+      "id": "observar",
+      "type": "text",
+      "prompt": "¿Qué vas a observar para saber si tu predicción se cumplió?",
+      "help": "Pensá en señales concretas: ¿alguien se rió?, ¿me respondieron?, ¿la conversación siguió? Intentá mirar hacia afuera, no solo cómo te sentís por dentro.",
+      "placeholder": "Voy a fijarme si…"
+    },
+    {
+      "id": "despues_info",
+      "type": "info",
+      "title": "Después del experimento",
+      "content": "Los próximos pasos se completan **después** de hacer el experimento. Podés guardar este recurso y volver a abrirlo, o anotar el resultado en sesión.\n\nAlgunas cosas para tener en cuenta al mirar el resultado:\n\n- Es probable que sientas ansiedad durante el experimento. **Eso no es un fracaso**: el objetivo no es no sentir nervios, sino ver qué pasa en realidad.\n- Tratá de separar **lo que sentiste** de **lo que pasó**. «Sentí que me ponía rojo/a» no es lo mismo que «la gente reaccionó mal».\n- Si algo de lo que temías pasó, mirá también cómo lo manejaste y qué tan grave fue de verdad."
+    },
+    {
+      "id": "resultado",
+      "type": "text",
+      "prompt": "¿Qué pasó realmente? Describí los hechos, lo más concreto posible.",
+      "placeholder": "Hice la pregunta, me trabé un poco al principio y…",
+      "optional": true
+    },
+    {
+      "id": "creencia_final",
+      "type": "scale",
+      "prompt": "Después del experimento, ¿cuánto creés tu predicción original?",
+      "min": 0,
+      "max": 100,
+      "min_label": "Nada",
+      "max_label": "Totalmente",
+      "optional": true
+    },
+    {
+      "id": "conclusion",
+      "type": "text",
+      "prompt": "¿Qué aprendiste? ¿Qué conclusión sacás para la próxima vez?",
+      "placeholder": "Aprendí que…",
+      "optional": true
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Tu experimento",
+      "template": "Situación: {{situacion}}. Mi predicción: {{prediccion}}. Conductas de seguridad a soltar: {{conductas}}. Voy a observar: {{observar}}. Qué pasó: {{resultado}}. Lo que aprendí: {{conclusion}}.",
+      "content": "Un solo experimento rara vez cambia todo. La idea es repetirlos y ir subiendo la dificultad de a poco, junto con tu psicólogo/a."
+    }
+  ],
+  "material": {
+    "title": "Ansiedad social: experimentos conductuales (TCC)",
+    "description": "Ejercicio de TCC para ansiedad social: predicción, conductas de seguridad a soltar, qué pasó realmente y conclusión, para acordar con el psicólogo.",
+    "category": "ansiedad"
+  }
+}

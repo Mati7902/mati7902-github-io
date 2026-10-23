@@ -1,0 +1,124 @@
+{
+  "slug": "cuadro-duelo-tcc-culpa",
+  "title": "Duelo: cuando aparecen la culpa y los «hubiera»",
+  "description": "Un ejercicio de TCC, con cuidado, para revisar los pensamientos de culpa en el duelo: lo que sabías entonces y lo que sabés ahora.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 14,
+  "sort_order": 339,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Los «hubiera»",
+      "content": "En el duelo es muy común que aparezcan pensamientos como «si lo hubiera llevado antes al médico», «tendría que haber estado ahí», «le dije algo feo la última vez».\n\nLa culpa **tiene sentido**: muchas veces es una forma del amor y de las ganas de que las cosas hubieran sido distintas. No es una señal de que hiciste algo mal.\n\nEn este ejercicio vas a mirar esos pensamientos con calma y con cuidado. **No se trata de convencerte de nada** ni de apurar el proceso, sino de ver si la culpa está siendo justa con vos. Si en algún momento es demasiado, podés frenar."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si te sentís muy mal",
+      "content": "Si el dolor o la culpa se vuelven insoportables, sentís que no podés seguir o pensás en hacerte daño, **pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano. También podés avisarle a alguien de confianza.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "culpa_antes",
+      "type": "scale",
+      "prompt": "¿Cuánta culpa sentís en este momento?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísima",
+      "maps_to": "emotion_before"
+    },
+    {
+      "id": "hubiera",
+      "type": "text",
+      "prompt": "Escribí uno de tus «hubiera» o pensamientos de culpa, con tus palabras.",
+      "placeholder": "Por ejemplo: «si hubiera insistido para que fuera al médico, seguiría acá»"
+    },
+    {
+      "id": "creencia_antes",
+      "type": "scale",
+      "prompt": "¿Cuánto creés ese pensamiento ahora?",
+      "min": 0,
+      "max": 100,
+      "min_label": "Nada",
+      "max_label": "Totalmente"
+    },
+    {
+      "id": "sesgo_info",
+      "type": "info",
+      "title": "Lo que sabías entonces",
+      "content": "Hay algo que se llama **sesgo retrospectivo**: cuando miramos hacia atrás, sabiendo cómo terminó todo, las señales parecen clarísimas. Pero en ese momento **no tenías la información que tenés hoy**.\n\nEn su momento, probablemente:\n\n- No sabías lo que iba a pasar.\n- Había otras explicaciones posibles para lo que veías.\n- Estabas tomando decisiones con lo que tenías, con cansancio, preocupaciones u otras responsabilidades.\n\nJuzgar una decisión de ayer con lo que sabés hoy no es justo con quien eras entonces."
+    },
+    {
+      "id": "entonces",
+      "type": "text",
+      "prompt": "En ese momento, antes de saber cómo terminaría, ¿qué sabías y qué pensabas que estaba pasando?",
+      "placeholder": "Por ejemplo: pensé que era un resfrío, como otras veces"
+    },
+    {
+      "id": "ahora",
+      "type": "text",
+      "prompt": "¿Qué sabés ahora que no sabías entonces?",
+      "placeholder": "Lo que sé ahora"
+    },
+    {
+      "id": "otros_factores",
+      "type": "checklist",
+      "prompt": "¿Qué otras cosas influyeron en lo que pasó, además de vos? Marcá las que correspondan.",
+      "options": [
+        "La enfermedad o la situación en sí",
+        "Decisiones de otras personas",
+        "Lo que la persona eligió o quiso",
+        "El sistema de salud o los tiempos",
+        "El azar o lo imprevisible",
+        "Cosas que nadie podía saber",
+        "Otra cosa"
+      ],
+      "min": 1
+    },
+    {
+      "id": "doble_info",
+      "type": "info",
+      "title": "El doble estándar",
+      "content": "Muchas veces somos **mucho más duros/as con nosotros/as** que con cualquier otra persona.\n\nImaginá que un amigo/a querido/a te cuenta esta misma historia, con los mismos detalles, y te dice que siente que fue su culpa. ¿Qué le dirías? ¿Le dirías que es culpable, o lo/la mirarías con más comprensión?\n\nSi tu respuesta para otra persona sería más amable, vale la pena preguntarte **por qué con vos usás otra vara**."
+    },
+    {
+      "id": "amigo",
+      "type": "text",
+      "prompt": "¿Qué le dirías a ese amigo/a si te contara lo mismo?",
+      "placeholder": "Lo que le diría"
+    },
+    {
+      "id": "equilibrado",
+      "type": "text",
+      "prompt": "Escribí una mirada más justa sobre lo que pasó, que tenga en cuenta todo lo anterior y tu dolor.",
+      "placeholder": "Por ejemplo: «hice lo que pude con lo que sabía; lo que siento es porque la quería»"
+    },
+    {
+      "id": "culpa_despues",
+      "type": "scale",
+      "prompt": "Ahora, ¿cuánta culpa sentís?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísima",
+      "maps_to": "emotion_after"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Una mirada más justa",
+      "template": "Mi «hubiera»: {{hubiera}}. Lo que sabía entonces: {{entonces}}. Lo que sé ahora: {{ahora}}. Otras cosas que influyeron: {{otros_factores}}. Lo que le diría a un amigo/a: {{amigo}}. Mi mirada más justa: {{equilibrado}}.",
+      "content": "Es normal que la culpa no desaparezca de un día para el otro. Si sentís que hay algo que te pesa mucho, o algo que te gustaría reparar, es un muy buen tema para charlar con tu psicólogo/a."
+    }
+  ],
+  "material": {
+    "title": "Duelo: cuando aparecen la culpa y los «hubiera» (TCC)",
+    "description": "Revisión cuidadosa de pensamientos de culpa en el duelo: sesgo retrospectivo (lo que sabías entonces vs. ahora), otros factores y doble estándar.",
+    "category": "duelo"
+  }
+}

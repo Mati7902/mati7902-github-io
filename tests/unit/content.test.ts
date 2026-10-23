@@ -110,7 +110,7 @@ describe("contenido de los cuadernillos (supabase/content/ejercicios)", () => {
   });
 
   it("los recursos por cuadro son de la colección que solo se ve si está asignada", () => {
-    for (const item of loadContent(sets[1]!.dir) as Item[]) {
+    for (const item of sets.slice(1).flatMap((set) => loadContent(set.dir)) as Item[]) {
       expect(item.collection).toBe("cuadros");
       expect(item.sort_order).toBeGreaterThanOrEqual(300);
       expect(item.sort_order).toBeLessThanOrEqual(399);

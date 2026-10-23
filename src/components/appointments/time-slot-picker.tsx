@@ -15,6 +15,9 @@ type Props = {
 
 const WEEKDAY_SHORT = ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"];
 
+/** Sedes de los horarios del día (presencial). */
+const places = (day: SerializedAvailabilityDay) => [...new Set(day.slots.map((s) => s.locationName).filter((n): n is string => !!n))];
+
 export function TimeSlotPicker({ days, selectedDate, onSelectDate, selectedSlot, onSelectSlot, timezone }: Props) {
   const day = days.find((d) => d.dateKey === selectedDate) ?? null;
   return (
@@ -48,6 +51,7 @@ export function TimeSlotPicker({ days, selectedDate, onSelectDate, selectedSlot,
       {day ? (
         <div>
           <p className="mb-2 text-sm font-medium">{capitalize(formatLongDate(`${day.dateKey}T12:00:00`, timezone))}</p>
+          {places(day).length > 0 ? <p className="mb-2 text-sm text-muted-foreground">En {places(day).join(" y ")}</p> : null}
           <div role="listbox" aria-label="Horarios disponibles" className="grid grid-cols-3 gap-2 sm:grid-cols-4">
             {day.slots.map((slot) => {
               const selected = slot.start === selectedSlot;
@@ -59,11 +63,12 @@ export function TimeSlotPicker({ days, selectedDate, onSelectDate, selectedSlot,
                   aria-selected={selected}
                   onClick={() => onSelectSlot(slot.start, slot.end)}
                   className={cn(
-                    "h-12 rounded-xl border text-base font-medium transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/40 outline-none",
+                    "min-h-12 rounded-xl border px-1 py-1.5 text-base font-medium transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/40 outline-none",
                     selected ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card hover:bg-surface-muted",
                   )}
                 >
                   {slot.label}
+                  {places(day).length > 1 && slot.locationName ? <span className={cn("block text-[11px] font-normal", selected ? "text-primary-foreground/80" : "text-muted-foreground")}>{slot.locationName}</span> : null}
                 </button>
               );
             })}

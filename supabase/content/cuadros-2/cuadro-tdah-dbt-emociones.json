@@ -1,0 +1,129 @@
+{
+  "slug": "cuadro-tdah-dbt-emociones",
+  "title": "TDAH: cuando la emoción llega rápido",
+  "description": "Desde DBT: habilidades para la frustración que se dispara y la sensibilidad al rechazo: STOP, verificar los hechos y acción opuesta.",
+  "kind": "custom",
+  "approach": "dbt",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 346,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Emociones a toda velocidad",
+      "content": "Muchas personas con TDAH cuentan que las emociones les llegan **rápido y fuerte**: una frustración que pasa de cero a cien porque algo no sale, o un comentario que se siente como un rechazo enorme y queda dando vueltas horas.\n\nNo es exageración ni falta de carácter: las mismas funciones que ayudan a frenar un impulso también participan en frenar una reacción emocional.\n\nLa **Terapia Dialéctica Conductual (DBT)** tiene habilidades para esos momentos. Hoy vas a practicar tres:\n\n- **STOP**, para frenar antes de reaccionar.\n- **Verificar los hechos**, para ver si la emoción encaja con lo que pasó.\n- **Acción opuesta**, cuando la emoción empuja a algo que no te sirve."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "**Si estás en crisis o aparecen pensamientos de hacerte daño, pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nSi la emoción es muy intensa ahora mismo, usá primero una herramienta de **Calmarme** y volvé a este ejercicio cuando estés más tranquilo/a."
+    },
+    {
+      "id": "situacion",
+      "type": "text",
+      "prompt": "Pensá en una situación reciente en que la emoción te desbordó rápido. ¿Qué pasó?",
+      "placeholder": "Por ejemplo: mi pareja me dijo que me olvidé de algo y exploté"
+    },
+    {
+      "id": "emocion",
+      "type": "checklist",
+      "prompt": "¿Qué emociones aparecieron?",
+      "options": [
+        "Frustración",
+        "Enojo",
+        "Vergüenza",
+        "Tristeza",
+        "Sentirme rechazado/a",
+        "Ansiedad",
+        "Culpa"
+      ],
+      "min": 1,
+      "max": 4
+    },
+    {
+      "id": "intensidad",
+      "type": "scale",
+      "prompt": "En ese momento, ¿qué tan intensa fue la emoción?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Leve",
+      "max_label": "Al máximo"
+    },
+    {
+      "id": "stop_info",
+      "type": "info",
+      "title": "STOP: frenar antes de reaccionar",
+      "content": "Cuando sentís que la emoción se dispara:\n\n- **S — Stop (pará):** quedate quieto/a un instante. No digas ni hagas nada todavía.\n- **T — Tomá distancia:** un paso atrás, literal o mental. Respirá. Si podés, salí unos minutos del lugar.\n- **O — Observá:** ¿qué pasa adentro tuyo (cuerpo, pensamientos, impulsos) y afuera (qué dijo o hizo la otra persona)?\n- **P — Proceder con atención:** elegí qué hacer pensando en lo que querés lograr, no en lo que pide la emoción.\n\nCon TDAH ayuda tener una **señal física** para el «Stop»: apretar las manos, apoyar los pies, tocar algo frío."
+    },
+    {
+      "id": "stop_senal",
+      "type": "text",
+      "prompt": "¿Qué señal física vas a usar para recordar el «Stop» en el momento?",
+      "placeholder": "Por ejemplo: apretar el pulgar con el índice y soltar el aire"
+    },
+    {
+      "id": "stop_practica",
+      "type": "timed_info",
+      "title": "Practicá STOP ahora",
+      "content": "Traé la situación a la mente, sin meterte del todo.\n\n- **Pará:** hacé tu señal física.\n- **Tomá distancia:** exhalá largo, dos o tres veces.\n- **Observá:** ¿qué sentís en el cuerpo? ¿qué impulso aparece? ¿qué está pasando realmente afuera?\n- **Procedé:** preguntate «¿qué haría ahora si quiero cuidar esta relación o esta tarea?».\n\nNo hace falta que la emoción desaparezca. Solo estás abriendo un espacio entre sentir y actuar.",
+      "seconds": 60
+    },
+    {
+      "id": "hechos_info",
+      "type": "info",
+      "title": "Verificar los hechos",
+      "content": "La sensibilidad al rechazo hace que algunos gestos se lean enseguida como «no me quiere», «piensa que soy un desastre». Verificar los hechos ayuda a separar **lo que pasó** de **lo que interpreté**.\n\nPreguntas para hacerte:\n\n- ¿Qué pasó exactamente? ¿Qué dijo o hizo, palabra por palabra?\n- ¿Qué interpreté yo? ¿Hay otras explicaciones posibles?\n- ¿Estoy suponiendo una amenaza o un rechazo? ¿Qué tan probable es?\n- ¿La intensidad de mi emoción encaja con los hechos?\n\nA veces la emoción encaja y está bien sentirla. Otras veces, al mirar los hechos, baja sola."
+    },
+    {
+      "id": "hechos",
+      "type": "text",
+      "prompt": "En tu situación, ¿qué pasó exactamente y qué interpretaste vos?",
+      "placeholder": "Lo que pasó: … / Lo que interpreté: …"
+    },
+    {
+      "id": "otra_explicacion",
+      "type": "text",
+      "prompt": "¿Qué otra explicación posible hay para lo que pasó?",
+      "placeholder": "Tal vez…"
+    },
+    {
+      "id": "accion_opuesta",
+      "type": "choice",
+      "prompt": "Si la emoción no encaja con los hechos, ¿qué sería actuar de forma opuesta a su impulso?",
+      "options": [
+        "Frustración que me empuja a abandonar: hacer un paso más chiquito y seguir",
+        "Vergüenza que me empuja a esconderme: mantener el contacto con calma",
+        "Enojo que me empuja a atacar: hablar con voz suave o tomarme un rato",
+        "Sentir rechazo y aislarme: acercarme o preguntar qué quiso decir"
+      ],
+      "feedback": {
+        "Frustración que me empuja a abandonar: hacer un paso más chiquito y seguir": "Muy útil con TDAH: achicar la tarea a algo de 2 o 5 minutos le quita fuerza a la frustración.",
+        "Vergüenza que me empuja a esconderme: mantener el contacto con calma": "La acción opuesta a la vergüenza es no esconderse: postura erguida, mirada, seguir participando.",
+        "Enojo que me empuja a atacar: hablar con voz suave o tomarme un rato": "Con el enojo, la acción opuesta es suavizar: alejarte un momento, bajar el tono, intentar entender a la otra persona.",
+        "Sentir rechazo y aislarme: acercarme o preguntar qué quiso decir": "Preguntar con curiosidad («¿lo dijiste por…?») muchas veces desarma una interpretación de rechazo."
+      }
+    },
+    {
+      "id": "plan",
+      "type": "text",
+      "prompt": "La próxima vez que pase algo parecido, ¿qué vas a hacer?",
+      "placeholder": "Voy a hacer mi señal de Stop, y después…"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Tu plan",
+      "template": "Situación: {{situacion}}. Emociones: {{emocion}}. Mi señal de Stop: {{stop_senal}}. Otra explicación posible: {{otra_explicacion}}. Acción opuesta que elijo: {{accion_opuesta}}. La próxima vez: {{plan}}.",
+      "content": "Estas habilidades se aprenden con práctica, y al principio puede que te acuerdes de usarlas recién después. Eso también cuenta: revisar lo que pasó es parte del aprendizaje."
+    }
+  ],
+  "material": {
+    "title": "TDAH: regulación emocional con DBT",
+    "description": "Ejercicio de DBT para la frustración rápida y la sensibilidad al rechazo en TDAH: STOP, verificar los hechos y acción opuesta.",
+    "category": "tdah"
+  }
+}

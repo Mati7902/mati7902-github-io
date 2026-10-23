@@ -2,7 +2,7 @@ import "server-only";
 
 import { fromDatabaseError } from "@/lib/errors";
 import type { ServerSupabaseClient } from "@/lib/supabase/server";
-import type { AvailabilityRule, BlockedSlot } from "@/types/domain";
+import type { AvailabilityRule, BlockedSlot, PracticeLocation } from "@/types/domain";
 
 export async function listAvailabilityRules(client: ServerSupabaseClient): Promise<AvailabilityRule[]> {
   const { data, error } = await client.from("availability_rules").select("*").order("weekday").order("start_time");
@@ -20,11 +20,22 @@ export type AvailabilityRuleInput = {
   is_active: boolean;
   valid_from?: string | null;
   valid_until?: string | null;
+  location_id?: string | null;
+  every_weeks?: number;
+  anchor_date?: string | null;
 };
 
 export async function upsertAvailabilityRule(client: ServerSupabaseClient, input: AvailabilityRuleInput & { id?: string }): Promise<AvailabilityRule> {
   const { id, ...rest } = input;
-  const payload = { ...rest, valid_from: rest.valid_from || null, valid_until: rest.valid_until || null };
+  const every = rest.every_weeks ?? 1;
+  const payload = {
+    ...rest,
+    valid_from: rest.valid_from || null,
+    valid_until: rest.valid_until || null,
+    location_id: rest.location_id || null,
+    every_weeks: every,
+    anchor_date: every > 1 ? rest.anchor_date || null : null,
+  };
   const query = id ? client.from("availability_rules").update(payload).eq("id", id) : client.from("availability_rules").insert(payload);
   const { data, error } = await query.select("*").single();
   if (error) throw fromDatabaseError(error, "No pudimos guardar la regla de disponibilidad.");
@@ -56,5 +67,38 @@ export async function createBlockedSlot(client: ServerSupabaseClient, input: { s
 
 export async function deleteBlockedSlot(client: ServerSupabaseClient, id: string) {
   const { error } = await client.from("blocked_slots").delete().eq("id", id);
+  if (error) throw fromDatabaseError(error);
+}
+
+/* Sedes ------------------------------------------------------------------- */
+export async function listPracticeLocations(client: ServerSupabaseClient): Promise<PracticeLocation[]> {
+  const { data, error } = await client.from("practice_locations").select("*").order("sort_order").order("name");
+  if (error) throw fromDatabaseError(error);
+  return data ?? [];
+}
+
+export type PracticeLocationInput = {
+  id?: string;
+  name: string;
+  address: string;
+  city?: string | null;
+  maps_url?: string | null;
+  photo_url?: string | null;
+  notes?: string | null;
+  sort_order: number;
+  is_active: boolean;
+};
+
+export async function upsertPracticeLocation(client: ServerSupabaseClient, input: PracticeLocationInput): Promise<PracticeLocation> {
+  const { id, ...rest } = input;
+  const payload = { ...rest, city: rest.city || null, maps_url: rest.maps_url || null, photo_url: rest.photo_url || null, notes: rest.notes || null };
+  const query = id ? client.from("practice_locations").update(payload).eq("id", id) : client.from("practice_locations").insert(payload);
+  const { data, error } = await query.select("*").single();
+  if (error) throw fromDatabaseError(error, "No pudimos guardar la sede.");
+  return data;
+}
+
+export async function deletePracticeLocation(client: ServerSupabaseClient, id: string) {
+  const { error } = await client.from("practice_locations").delete().eq("id", id);
   if (error) throw fromDatabaseError(error);
 }

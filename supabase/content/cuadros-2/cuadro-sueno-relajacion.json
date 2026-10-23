@@ -1,0 +1,133 @@
+{
+  "slug": "cuadro-sueno-relajacion",
+  "title": "Sueño: relajación muscular antes de acostarte",
+  "description": "Una práctica guiada de relajación muscular progresiva y un escaneo corporal breve para bajar el ritmo antes de ir a la cama, sin presión por dormirte.",
+  "kind": "custom",
+  "approach": "regulacion",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 343,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Bajar el ritmo, no obligarte a dormir",
+      "content": "La **relajación muscular progresiva** consiste en tensar un grupo de músculos unos segundos y después soltarlo, prestando atención a la diferencia. Ayuda a reducir la activación del cuerpo y a notar dónde guardás tensión.\n\nUna aclaración importante: el objetivo **no es dormirte**. Si practicás pensando «esto tiene que hacerme dormir», la presión te activa más. El objetivo es **bajar el ritmo** y darle al cuerpo una señal de que el día terminó. Si después el sueño llega, bienvenido.\n\nHacelo sentado/a o acostado/a, idealmente en la última hora antes de acostarte, con luz baja."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "**Si estás en crisis o aparecen pensamientos de hacerte daño, pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nSi tenés alguna lesión, dolor o problema muscular, tensá con suavidad o saltéate esa zona y solo prestale atención. Nunca tenses hasta que duela."
+    },
+    {
+      "id": "tension_antes",
+      "type": "scale",
+      "prompt": "Antes de empezar, ¿cuánta tensión sentís en el cuerpo?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísima",
+      "maps_to": "emotion_before"
+    },
+    {
+      "id": "manos_brazos",
+      "type": "timed_info",
+      "title": "Manos y brazos",
+      "content": "Cerrá los puños y doblá los brazos, tensando manos, antebrazos y bíceps. Sostené unos **5 segundos**… notá la tensión.\n\nAhora **soltá** de golpe. Dejá caer los brazos. Quedate unos 15 segundos notando cómo se aflojan, como si pesaran más.\n\nRepetí una vez más: tensar… sostener… y soltar.",
+      "seconds": 60
+    },
+    {
+      "id": "cara_cuello",
+      "type": "timed_info",
+      "title": "Cara, hombros y cuello",
+      "content": "Fruncí la frente, apretá los ojos y la mandíbula con suavidad. Sostené unos **5 segundos**… y soltá. Dejá que la frente se alise y la mandíbula se separe un poquito.\n\nAhora subí los hombros hacia las orejas. Sostené… y soltá, dejándolos caer.\n\nNotá la diferencia entre tensión y soltura. Respirá despacio.",
+      "seconds": 60
+    },
+    {
+      "id": "torso",
+      "type": "timed_info",
+      "title": "Pecho, espalda y abdomen",
+      "content": "Inspirá hondo y llevá los hombros un poco hacia atrás, tensando el pecho y la espalda. Al mismo tiempo, tensá suavemente el abdomen. Sostené unos **5 segundos**…\n\nY soltá con una exhalación larga. Dejá que la respiración vuelva a su ritmo natural.\n\nQuedate notando cómo se mueve la panza al respirar, sin cambiar nada.",
+      "seconds": 60
+    },
+    {
+      "id": "piernas_pies",
+      "type": "timed_info",
+      "title": "Piernas y pies",
+      "content": "Estirá las piernas, tensá muslos y pantorrillas y llevá las puntas de los pies hacia vos. Sostené unos **5 segundos**…\n\nY soltá. Dejá que las piernas descansen, pesadas, apoyadas.\n\nAhora curvá los dedos de los pies hacia abajo, sostené… y soltá.\n\nNotá todo el cuerpo apoyado, desde la cabeza hasta los pies.",
+      "seconds": 60
+    },
+    {
+      "id": "escaneo",
+      "type": "timed_info",
+      "title": "Escaneo corporal breve",
+      "content": "Ahora sin tensar nada. Solo vas a recorrer el cuerpo con la atención, despacio.\n\n- Empezá por la coronilla, la frente, los ojos, la mandíbula.\n- Bajá por el cuello, los hombros, los brazos, las manos.\n- Pecho, panza, espalda.\n- Cadera, piernas, pies.\n\nSi encontrás una zona tensa, no hace falta arreglarla: solo notala y, al exhalar, imaginá que se ablanda un poquito. Si la mente se va a otra cosa, es normal: volvé con amabilidad a la parte del cuerpo donde estabas.",
+      "seconds": 150
+    },
+    {
+      "id": "tension_despues",
+      "type": "scale",
+      "prompt": "Y ahora, ¿cuánta tensión sentís en el cuerpo?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísima",
+      "maps_to": "emotion_after"
+    },
+    {
+      "id": "zonas",
+      "type": "checklist",
+      "prompt": "¿En qué zonas notaste más tensión guardada?",
+      "options": [
+        "Mandíbula y cara",
+        "Hombros y cuello",
+        "Manos y brazos",
+        "Pecho y espalda",
+        "Abdomen",
+        "Piernas y pies",
+        "No noté una zona en particular"
+      ],
+      "min": 1,
+      "max": 7
+    },
+    {
+      "id": "experiencia",
+      "type": "choice",
+      "prompt": "¿Cómo fue la práctica para vos?",
+      "options": [
+        "Me relajé bastante",
+        "Me relajé un poco",
+        "No noté mucho cambio",
+        "Me puse más inquieto/a"
+      ],
+      "feedback": {
+        "Me relajé bastante": "Qué bueno. Con la práctica, el cuerpo aprende a soltar más rápido. Podés sumarla a tu rutina de la última hora antes de acostarte.",
+        "Me relajé un poco": "Es un buen comienzo. La relajación es una habilidad: suele salir mejor después de practicarla varios días seguidos.",
+        "No noté mucho cambio": "Es frecuente al principio. No es una señal de que lo hiciste mal. Probala unos días más, en un momento sin apuro, y contalo en sesión.",
+        "Me puse más inquieto/a": "A algunas personas prestar atención al cuerpo les genera inquietud al principio. Podés probar con los ojos abiertos o solo algunos grupos musculares, y hablarlo con tu psicólogo/a."
+      }
+    },
+    {
+      "id": "plan",
+      "type": "text",
+      "prompt": "¿Cuándo y dónde vas a hacer esta práctica esta semana?",
+      "help": "Mejor como parte de tu rutina para bajar el ritmo, antes de acostarte. Si la hacés en la cama, recordá: la idea es descansar, no forzar el sueño.",
+      "placeholder": "Por ejemplo: a las 22.30, en el sillón, con luz baja"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Tu práctica",
+      "template": "Donde más guardo tensión: {{zonas}}. Cómo me fue: {{experiencia}}. Mi plan: {{plan}}.",
+      "content": "Recordá: esta práctica es para bajar el ritmo, no una obligación de dormir. Las noches en que no te dormís igual, seguís con tu plan de sueño de siempre."
+    }
+  ],
+  "material": {
+    "title": "Sueño: relajación muscular progresiva y escaneo corporal",
+    "description": "Práctica guiada por grupos musculares y escaneo corporal breve para bajar la activación antes de acostarse, sin presión por dormir.",
+    "category": "sueno"
+  }
+}

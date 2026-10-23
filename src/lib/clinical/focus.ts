@@ -17,20 +17,20 @@ export type ClinicalFocus = {
 };
 
 export const CLINICAL_FOCI: ClinicalFocus[] = [
-  { key: "ansiedad", label: "Ansiedad y ataques de pánico", icd10: "F41.0 · F41.1", materials: ["cuadro-panico-entender", "cuadro-panico-practica", "tcc-modelo-cognitivo"], tests: ["gad7"] },
-  { key: "depresion", label: "Depresión y estado de ánimo", icd10: "F32 · F33 · F34.1", materials: ["tcc-antes-de-empezar", "tcc-modelo-cognitivo", "tcc-activacion-conductual", "tcc-pensamientos-automaticos"], tests: ["phq9"] },
-  { key: "toc", label: "Trastorno obsesivo-compulsivo (TOC)", icd10: "F42", materials: ["cuadro-toc-entender", "cuadro-toc-practica"], tests: ["ocir"] },
-  { key: "trauma", label: "Trauma y estrés postraumático", icd10: "F43.1 · F43.2", materials: ["cuadro-trauma-entender", "cuadro-trauma-practica"], tests: ["pcl5"] },
-  { key: "duelo", label: "Duelo", icd10: "Z63.4 · F43.2", materials: ["cuadro-duelo-entender", "cuadro-duelo-practica"], tests: ["phq9"] },
-  { key: "burnout", label: "Estrés laboral y burnout", icd10: "Z73.0 · F43.2", materials: ["cuadro-burnout-entender", "cuadro-burnout-practica"], tests: ["gad7", "ais"] },
-  { key: "sueno", label: "Insomnio y sueño", icd10: "F51.0 · G47.0", materials: ["cuadro-sueno-entender", "cuadro-sueno-practica"], tests: ["ais"] },
-  { key: "fobias", label: "Fobias y ansiedad social", icd10: "F40.1 · F40.2", materials: ["cuadro-fobias-entender", "cuadro-fobias-practica"], tests: ["spin"] },
-  { key: "tdah", label: "TDAH en adultos", icd10: "F90.0", materials: ["cuadro-tdah-entender", "cuadro-tdah-practica"], tests: [] },
-  { key: "alimentacion", label: "Conducta alimentaria", icd10: "F50", materials: ["cuadro-alimentacion-entender", "cuadro-alimentacion-practica"], tests: ["scoff"] },
-  { key: "autoestima", label: "Autoestima", icd10: "", materials: ["cuadro-autoestima-entender", "cuadro-autoestima-practica"], tests: ["rses"] },
-  { key: "pareja", label: "Pareja y vínculos", icd10: "Z63.0", materials: ["cuadro-pareja-entender", "cuadro-pareja-practica"], tests: [] },
-  { key: "adolescentes", label: "Adolescentes", icd10: "", materials: ["brujula-entender-lo-que-me-pasa", "brujula-emocion-sube-a-100", "brujula-red-de-apoyo", "brujula-plan-momentos-dificiles"], tests: ["phq9", "gad7"] },
-  { key: "regulacion", label: "Regulación emocional", icd10: "F43.2 · F60.3", materials: ["cuadro-regulacion-entender", "cuadro-regulacion-practica"], tests: [] },
+  { key: "ansiedad", label: "Ansiedad y ataques de pánico", icd10: "F41.0 · F41.1", materials: ["cuadro-panico-entender", "cuadro-panico-practica", "tcc-modelo-cognitivo", "cuadro-panico-act-aceptacion", "cuadro-panico-dbt-crisis"], tests: ["gad7"] },
+  { key: "depresion", label: "Depresión y estado de ánimo", icd10: "F32 · F33 · F34.1", materials: ["tcc-antes-de-empezar", "tcc-modelo-cognitivo", "tcc-activacion-conductual", "tcc-pensamientos-automaticos", "cuadro-depresion-act-valores", "cuadro-depresion-dbt-positivos"], tests: ["phq9"] },
+  { key: "toc", label: "Trastorno obsesivo-compulsivo (TOC)", icd10: "F42", materials: ["cuadro-toc-entender", "cuadro-toc-practica", "cuadro-toc-act-defusion", "cuadro-toc-tcc-responsabilidad"], tests: ["ocir"] },
+  { key: "trauma", label: "Trauma y estrés postraumático", icd10: "F43.1 · F43.2", materials: ["cuadro-trauma-entender", "cuadro-trauma-practica", "cuadro-trauma-dbt-tolerancia", "cuadro-trauma-act-autocompasion"], tests: ["pcl5"] },
+  { key: "duelo", label: "Duelo", icd10: "Z63.4 · F43.2", materials: ["cuadro-duelo-entender", "cuadro-duelo-practica", "cuadro-duelo-act-valores", "cuadro-duelo-tcc-culpa"], tests: ["phq9"] },
+  { key: "burnout", label: "Estrés laboral y burnout", icd10: "Z73.0 · F43.2", materials: ["cuadro-burnout-entender", "cuadro-burnout-practica", "cuadro-burnout-act-valores", "cuadro-burnout-dbt-limites"], tests: ["gad7", "ais"] },
+  { key: "sueno", label: "Insomnio y sueño", icd10: "F51.0 · G47.0", materials: ["cuadro-sueno-entender", "cuadro-sueno-practica", "cuadro-sueno-tcc-pensamientos", "cuadro-sueno-relajacion"], tests: ["ais"] },
+  { key: "fobias", label: "Fobias y ansiedad social", icd10: "F40.1 · F40.2", materials: ["cuadro-fobias-entender", "cuadro-fobias-practica", "cuadro-fobias-tcc-experimentos", "cuadro-fobias-act-disposicion"], tests: ["spin"] },
+  { key: "tdah", label: "TDAH en adultos", icd10: "F90.0", materials: ["cuadro-tdah-entender", "cuadro-tdah-practica", "cuadro-tdah-dbt-emociones", "cuadro-tdah-tcc-postergacion"], tests: [] },
+  { key: "alimentacion", label: "Conducta alimentaria", icd10: "F50", materials: ["cuadro-alimentacion-entender", "cuadro-alimentacion-practica", "cuadro-alimentacion-dbt-impulsos", "cuadro-alimentacion-tcc-imagen"], tests: ["scoff"] },
+  { key: "autoestima", label: "Autoestima", icd10: "", materials: ["cuadro-autoestima-entender", "cuadro-autoestima-practica", "cuadro-autoestima-tcc-creencias", "cuadro-autoestima-act-yo"], tests: ["rses"] },
+  { key: "pareja", label: "Pareja y vínculos", icd10: "Z63.0", materials: ["cuadro-pareja-entender", "cuadro-pareja-practica", "cuadro-pareja-dbt-pedir", "cuadro-pareja-tcc-pensamientos"], tests: [] },
+  { key: "adolescentes", label: "Adolescentes", icd10: "", materials: ["brujula-entender-lo-que-me-pasa", "brujula-emocion-sube-a-100", "brujula-red-de-apoyo", "brujula-plan-momentos-dificiles", "cuadro-adolescentes-tcc-ansiedad", "cuadro-adolescentes-dbt-habilidades"], tests: ["phq9", "gad7"] },
+  { key: "regulacion", label: "Regulación emocional", icd10: "F43.2 · F60.3", materials: ["cuadro-regulacion-entender", "cuadro-regulacion-practica", "cuadro-regulacion-dbt-hechos", "cuadro-regulacion-act-espacio"], tests: [] },
 ];
 
 export const focusByKey = (key: string) => CLINICAL_FOCI.find((f) => f.key === key);

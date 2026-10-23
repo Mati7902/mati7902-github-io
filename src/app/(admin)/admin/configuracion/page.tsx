@@ -7,6 +7,7 @@ import { EmergencyMessageForm, EmergencyResourcesEditor } from "@/components/adm
 import { FaqsEditor } from "@/components/admin/settings/faqs-form";
 import { GoogleCalendarCard } from "@/components/admin/settings/google-calendar-card";
 import { IdentityForm } from "@/components/admin/settings/identity-form";
+import { LocationsEditor } from "@/components/admin/settings/locations-editor";
 import { RemindersForm } from "@/components/admin/settings/reminders-form";
 import { SchedulingForm } from "@/components/admin/settings/scheduling-form";
 import { TestimonialsEditor } from "@/components/admin/settings/testimonials-form";
@@ -15,7 +16,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { requireAdmin } from "@/lib/auth/session";
 import { consentParams } from "@/lib/consent/treatment";
 import { createClient } from "@/lib/supabase/server";
-import { listAvailabilityRules, listBlockedSlots } from "@/server/services/admin-schedule";
+import { listAvailabilityRules, listBlockedSlots, listPracticeLocations } from "@/server/services/admin-schedule";
+import { isEmailConfigured } from "@/server/services/email";
 import { isGoogleConfigured } from "@/server/services/google-calendar/client";
 import { getSettings } from "@/server/services/settings";
 
@@ -28,10 +30,11 @@ export default async function SettingsPage({ searchParams }: { searchParams: Pro
   const session = await requireAdmin();
   const { tab, google } = await searchParams;
   const supabase = await createClient();
-  const [settings, rules, blocked, { data: resources }, { data: faqs }, { data: testimonials }, { data: integration }] = await Promise.all([
+  const [settings, rules, blocked, locations, { data: resources }, { data: faqs }, { data: testimonials }, { data: integration }] = await Promise.all([
     getSettings(supabase, ["site.identity", "scheduling", "reminders", "emergency", "gamification", "theme", "legal", "landing", "treatment_consent"] as const),
     listAvailabilityRules(supabase),
     listBlockedSlots(supabase, new Date()),
+    listPracticeLocations(supabase),
     supabase.from("emergency_resources").select("*").order("sort_order"),
     supabase.from("faqs").select("*").order("sort_order"),
     supabase.from("testimonials").select("*").order("sort_order").order("created_at"),
@@ -69,9 +72,14 @@ export default async function SettingsPage({ searchParams }: { searchParams: Pro
             <SchedulingForm initial={settings.scheduling} />
           </section>
           <section className="space-y-3">
+            <h2 className="font-display text-xl font-medium">Sedes de atención presencial</h2>
+            <p className="text-sm text-muted-foreground">Se muestran en la portada con foto, mapa y «Cómo llegar». Los días de cada sede salen de las franjas de abajo que tengan esa sede.</p>
+            <LocationsEditor locations={locations} />
+          </section>
+          <section className="space-y-3">
             <h2 className="font-display text-xl font-medium">Días y horarios de atención</h2>
             <p className="text-sm text-muted-foreground">Cada franja define los horarios que se ofrecen a los pacientes. Los turnos se generan cada “duración + intervalo”.</p>
-            <AvailabilityEditor rules={rules} defaultDuration={settings.scheduling.default_duration_minutes} />
+            <AvailabilityEditor rules={rules} defaultDuration={settings.scheduling.default_duration_minutes} locations={locations} />
           </section>
           <section className="space-y-3">
             <h2 className="font-display text-xl font-medium">Bloqueos, vacaciones y feriados</h2>
@@ -84,7 +92,7 @@ export default async function SettingsPage({ searchParams }: { searchParams: Pro
         </TabsContent>
 
         <TabsContent value="recordatorios" className="max-w-3xl">
-          <RemindersForm initial={settings.reminders} />
+          <RemindersForm initial={settings.reminders} emailConfigured={isEmailConfigured()} />
         </TabsContent>
 
         <TabsContent value="emergencia" className="max-w-3xl space-y-10">

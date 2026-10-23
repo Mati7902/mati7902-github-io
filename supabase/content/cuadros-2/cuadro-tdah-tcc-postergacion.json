@@ -1,0 +1,123 @@
+{
+  "slug": "cuadro-tdah-tcc-postergacion",
+  "title": "TDAH: salir de la postergación",
+  "description": "Desde la TCC: detectá los pensamientos que sostienen la postergación, usá la regla de los 5 minutos, definí un primer paso y elegí una recompensa.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 12,
+  "sort_order": 347,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Postergar no es ser vago/a",
+      "content": "Postergar es muy común, y con TDAH suele ser más intenso: cuesta arrancar tareas aburridas, largas o poco claras, aunque sean importantes para vos.\n\nPostergar no es pereza. Muchas veces es una forma de **evitar una emoción incómoda**: aburrimiento, miedo a hacerlo mal, sensación de no saber por dónde empezar. Al postergar, el malestar baja un rato… y después vuelve más fuerte, con culpa incluida.\n\nEn este ejercicio de **TCC** vas a:\n\n- Detectar los **pensamientos** que sostienen la postergación.\n- Probar la **regla de los 5 minutos**.\n- Definir un **primer paso** concreto y una **recompensa**."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "**Si estás en crisis o aparecen pensamientos de hacerte daño, pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "tarea",
+      "type": "text",
+      "prompt": "¿Qué tarea venís postergando y te gustaría destrabar?",
+      "placeholder": "Por ejemplo: hacer el trámite del banco, empezar el trabajo práctico"
+    },
+    {
+      "id": "pensamientos",
+      "type": "checklist",
+      "prompt": "¿Cuáles de estos pensamientos aparecen cuando pensás en esa tarea?",
+      "options": [
+        "Lo hago cuando tenga ganas",
+        "Tiene que salir perfecto",
+        "Trabajo mejor bajo presión",
+        "Es demasiado, no sé por dónde empezar",
+        "Primero tengo que ordenar todo lo demás",
+        "Ya es tarde para hacerlo bien",
+        "Mañana voy a tener más energía"
+      ],
+      "min": 1,
+      "max": 7
+    },
+    {
+      "id": "pensamientos_info",
+      "type": "info",
+      "title": "Revisar esos pensamientos",
+      "content": "Estos pensamientos suenan razonables, pero suelen mantener la postergación:\n\n- **«Lo hago cuando tenga ganas»:** las ganas muchas veces llegan **después** de empezar, no antes. Esperar la motivación puede ser esperar mucho.\n- **«Tiene que salir perfecto»:** si la vara está altísima, empezar da miedo. Un borrador imperfecto es mejor que una tarea perfecta que no existe.\n- **«Trabajo mejor bajo presión»:** a veces la urgencia ayuda a arrancar, pero también suma estrés, errores y noches sin dormir.\n- **«Es demasiado»:** la tarea entera abruma; un paso chico, no.\n\nUna pregunta útil: «¿qué le diría a un amigo/a que piensa esto?»."
+    },
+    {
+      "id": "alternativo",
+      "type": "text",
+      "prompt": "Elegí el pensamiento que más te frena y escribí una respuesta más útil.",
+      "placeholder": "Por ejemplo: «no necesito ganas para empezar, solo 5 minutos; las ganas pueden venir después»"
+    },
+    {
+      "id": "primer_paso",
+      "type": "text",
+      "prompt": "¿Cuál es el primer paso más chiquito y concreto de esa tarea? Algo que se pueda empezar ya.",
+      "help": "Tan chico que dé un poco de vergüenza. «Hacer el trabajo» es mucho; «abrir el archivo y escribir el título» es un primer paso.",
+      "placeholder": "Por ejemplo: buscar el formulario en la página del banco"
+    },
+    {
+      "id": "cinco_info",
+      "type": "info",
+      "title": "La regla de los 5 minutos",
+      "content": "La idea es simple: te comprometés a trabajar en la tarea **solo 5 minutos**. Cuando pasan, podés parar sin culpa.\n\n¿Por qué funciona? Porque arrancar es lo más difícil. Cinco minutos se sienten posibles, y muchas veces, una vez que empezaste, seguir cuesta menos. Si parás a los 5 minutos, igual avanzaste.\n\nAyuda mucho usar un **temporizador** visible y preparar el entorno antes: celular lejos, solo lo necesario a mano."
+    },
+    {
+      "id": "cinco_practica",
+      "type": "timed_info",
+      "title": "Probalo ahora (o preparalo)",
+      "content": "Si la tarea se puede empezar ahora, hacé tu primer paso durante estos minutos. Cuando suene, decidí si seguís o parás.\n\nSi no se puede ahora, usá este tiempo para **preparar el terreno**:\n\n- Dejá a mano lo que vas a necesitar.\n- Anotá el primer paso en un papel visible.\n- Poné una alarma para el momento en que vas a empezar.",
+      "seconds": 180
+    },
+    {
+      "id": "cuando",
+      "type": "text",
+      "prompt": "Si no la empezaste ahora, ¿cuándo y dónde vas a hacer tus 5 minutos?",
+      "placeholder": "Por ejemplo: mañana a las 10, en el escritorio, con el celular en otra habitación",
+      "optional": true
+    },
+    {
+      "id": "recompensa",
+      "type": "text",
+      "prompt": "¿Qué recompensa chica te vas a dar después de hacerlo?",
+      "help": "Con TDAH, las recompensas inmediatas ayudan más que las lejanas. Por ejemplo: un mate, un capítulo de una serie, un rato de música, contarle a alguien que lo hiciste.",
+      "placeholder": "Después me voy a…"
+    },
+    {
+      "id": "como_fue",
+      "type": "choice",
+      "prompt": "Si ya probaste los 5 minutos, ¿qué pasó?",
+      "options": [
+        "Seguí más tiempo",
+        "Hice los 5 minutos y paré",
+        "Me costó arrancar",
+        "Todavía no lo probé"
+      ],
+      "feedback": {
+        "Seguí más tiempo": "¡Muy bien! Notá esto: las ganas llegaron después de empezar. Es un buen dato para la próxima vez.",
+        "Hice los 5 minutos y paré": "Eso es cumplir el plan. Cinco minutos de avance son mucho más que cero. Date tu recompensa.",
+        "Me costó arrancar": "Es frecuente. Probá achicar todavía más el primer paso, o hacerlo acompañado/a (alguien al lado, aunque haga otra cosa).",
+        "Todavía no lo probé": "Está bien. Lo importante es que tengas el primer paso definido y un momento elegido para hacerlo."
+      }
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Tu plan contra la postergación",
+      "template": "Tarea: {{tarea}}. Pensamientos que me frenan: {{pensamientos}}. Me voy a decir: «{{alternativo}}». Primer paso: {{primer_paso}}. Cuándo: {{cuando}}. Recompensa: {{recompensa}}.",
+      "content": "Si un día no sale, no es una prueba de que «no tenés remedio». Es información para ajustar el plan: un paso más chico, otro horario, otra recompensa. Podés revisarlo en sesión."
+    }
+  ],
+  "material": {
+    "title": "TDAH: salir de la postergación (TCC)",
+    "description": "Ejercicio de TCC para la procrastinación en TDAH: pensamientos que la sostienen, regla de los 5 minutos, primer paso concreto y recompensas.",
+    "category": "tdah"
+  }
+}

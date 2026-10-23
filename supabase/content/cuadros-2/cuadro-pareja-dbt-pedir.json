@@ -1,0 +1,124 @@
+{
+  "slug": "cuadro-pareja-dbt-pedir",
+  "title": "Pedirle algo a mi pareja cuidando el vínculo",
+  "description": "Habilidades DBT para la pareja: DEAR MAN para pedir con claridad, GIVE para cuidar la relación y tres niveles simples de validación.",
+  "kind": "custom",
+  "approach": "dbt",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 14,
+  "sort_order": 352,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Pedir y cuidar a la vez",
+      "content": "En pareja, muchas veces sentimos que hay que elegir: **o pido lo que necesito, o cuido la relación**. Entonces nos callamos hasta explotar, o pedimos de una manera que termina en pelea.\n\nDBT propone dos habilidades que se usan juntas:\n\n- **DEAR MAN**, para pedir algo con claridad.\n- **GIVE**, para cuidar el vínculo mientras hablan.\n\nNinguna garantiza que el otro diga que sí. Lo que sí hacen es **aumentar las chances** de que la conversación sea escuchada, y ayudarte a quedar bien con vos por cómo la llevaste."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Primero, tu seguridad",
+      "content": "**Si en tu relación hay violencia** (golpes, empujones, amenazas, insultos constantes, control de tu celular, tu plata o tus salidas) o sentís miedo de la reacción de tu pareja, **la prioridad es tu seguridad, no la técnica.** Estas habilidades sirven entre dos personas que pueden hablar sin peligro; no son para negociar con la violencia.\n\nSi estás en riesgo o en crisis, pedí ayuda ya: a emergencias, a una línea de ayuda o en la guardia del hospital más cercano. En la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nTambién podés hablarlo con tu psicólogo para armar un plan de seguridad."
+    },
+    {
+      "id": "es_seguro",
+      "type": "choice",
+      "prompt": "¿Sentís que podés hablar de esto con tu pareja sin peligro?",
+      "options": [
+        "Sí, puedo hablar tranquilo o tranquila",
+        "No estoy seguro o segura",
+        "No, tengo miedo de su reacción"
+      ],
+      "feedback": {
+        "Sí, puedo hablar tranquilo o tranquila": "**Bien.** Seguí con el recurso para preparar tu pedido.",
+        "No estoy seguro o segura": "**Esa duda merece atención.** Podés seguir para ordenar tus ideas, pero antes de tener la conversación hablalo con tu psicólogo o con alguien de confianza.",
+        "No, tengo miedo de su reacción": "**Gracias por decirlo.** Si sentís miedo, la prioridad no es esta conversación sino tu seguridad. Hablalo con tu psicólogo y, si estás en riesgo, pedí ayuda ya desde el recuadro de ayuda urgente en **Calmarme**."
+      }
+    },
+    {
+      "id": "dearman_info",
+      "type": "info",
+      "title": "DEAR MAN",
+      "content": "Cada letra es un paso (las siglas vienen del inglés):\n\n- **D: Describir** la situación con hechos, sin juicios.\n- **E: Expresar** lo que sentís o pensás, en primera persona.\n- **A: Afirmar** tu pedido: decir claramente qué querés.\n- **R: Reforzar**: contar qué de bueno traería para los dos.\n\nY mientras hablás:\n\n- **M: Mantener el foco**. Si la charla se desvía, volvé con calma a tu pedido («disco rayado»).\n- **A: Aparentar seguridad**: tono firme, mirada tranquila, aunque estés nervioso o nerviosa.\n- **N: Negociar**: estar dispuesto o dispuesta a buscar una alternativa."
+    },
+    {
+      "id": "describir",
+      "type": "text",
+      "prompt": "D: Describí la situación solo con hechos, como la contaría una cámara.",
+      "placeholder": "Las últimas tres noches cenamos con el celular en la mesa…"
+    },
+    {
+      "id": "expresar",
+      "type": "text",
+      "prompt": "E: Expresá qué sentís o pensás sobre eso. Empezá con «Me siento…» o «Me pasa que…».",
+      "placeholder": "Me siento…"
+    },
+    {
+      "id": "afirmar",
+      "type": "text",
+      "prompt": "A: Pedí de forma clara y concreta. Empezá con «Me gustaría que…».",
+      "placeholder": "Me gustaría que…"
+    },
+    {
+      "id": "reforzar",
+      "type": "text",
+      "prompt": "R: ¿Qué de bueno traería para los dos que esto se dé?",
+      "placeholder": "Creo que nos ayudaría a…"
+    },
+    {
+      "id": "negociar",
+      "type": "text",
+      "prompt": "N: Si no puede o no quiere exactamente eso, ¿qué alternativa te parecería aceptable?",
+      "placeholder": "Podríamos probar…",
+      "optional": true
+    },
+    {
+      "id": "give_info",
+      "type": "info",
+      "title": "GIVE: cuidar el vínculo",
+      "content": "Mientras pedís, GIVE te ayuda a que tu pareja no se sienta atacada:\n\n- **G: Gentileza.** Sin insultos, amenazas, ironías ni «siempre/nunca».\n- **I: Interés.** Escuchá su punto de vista sin interrumpir, aunque no estés de acuerdo.\n- **V: Validar.** Mostrá que entendés lo que siente o piensa.\n- **E: Estilo tranquilo.** Un tono relajado, una sonrisa, algo de humor si encaja.\n\nElegir un buen momento también cuenta: no en medio de una pelea, ni con apuro, ni cuando alguno está muy cansado."
+    },
+    {
+      "id": "give_elegidos",
+      "type": "checklist",
+      "prompt": "¿Qué te cuesta más y querés cuidar especialmente en esta charla?",
+      "options": [
+        "No subir el tono",
+        "No usar «siempre» o «nunca»",
+        "Escuchar sin interrumpir",
+        "No traer temas viejos",
+        "Mostrar que entiendo lo que siente",
+        "Volver a mi pedido si nos desviamos",
+        "Elegir un buen momento"
+      ],
+      "min": 1,
+      "max": 3
+    },
+    {
+      "id": "validacion_info",
+      "type": "info",
+      "title": "Validar en tres niveles",
+      "content": "**Validar no es darle la razón.** Es mostrar que entendés que lo que siente tiene sentido desde su lugar. Tres niveles simples:\n\n- **1. Prestar atención.** Mirarlo, dejar el celular, asentir. Que note que lo escuchás.\n- **2. Reflejar.** Decir con tus palabras lo que entendiste: «O sea que llegás muy cansado y no tenés ganas de hablar».\n- **3. Darle sentido.** Mostrar que su reacción es comprensible: «Tiene sentido que te moleste, con el día que tuviste».\n\nMuchas veces, cuando el otro se siente entendido, **baja la defensa** y es más fácil que escuche tu pedido."
+    },
+    {
+      "id": "validacion",
+      "type": "text",
+      "prompt": "¿Qué podría sentir tu pareja al escucharte? Escribí una frase para validarla.",
+      "placeholder": "Entiendo que…"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Tu guion para la conversación",
+      "template": "«{{describir}}. {{expresar}}. {{afirmar}}. {{reforzar}}.» Si no se puede así: {{negociar}}. Mientras hablamos voy a cuidar: {{give_elegidos}}. Para validar puedo decir: «{{validacion}}».",
+      "content": "No hace falta repetir el guion de memoria: es una guía. Si la conversación no sale como esperabas, **no es un fracaso**: podés retomarla otro día o traerla a sesión para revisarla."
+    }
+  ],
+  "material": {
+    "title": "Pedir y cuidar el vínculo en pareja (DBT)",
+    "description": "DEAR MAN para pedir algo concreto a la pareja, GIVE para cuidar la relación y validación en tres niveles, con aviso de seguridad.",
+    "category": "relaciones"
+  }
+}

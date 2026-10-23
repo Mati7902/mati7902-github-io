@@ -1,0 +1,109 @@
+{
+  "slug": "cuadro-fobias-act-disposicion",
+  "title": "Miedo: hacerle lugar para ir hacia lo que te importa",
+  "description": "Desde ACT: la metáfora del pasajero en el colectivo, la disposición a sentir miedo al servicio de tus valores y un paso valioso para dar.",
+  "kind": "custom",
+  "approach": "act",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 12,
+  "sort_order": 345,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "¿Y si no hace falta esperar a no tener miedo?",
+      "content": "Cuando algo nos da mucho miedo, es lógico querer que el miedo se vaya **antes** de hacer cosas. Pero a veces esa espera se hace larga, y mientras tanto la vida se achica: dejamos de ir, de hablar, de probar.\n\nLa **Terapia de Aceptación y Compromiso (ACT)** propone otra pregunta: no «¿cómo hago para no sentir miedo?», sino «**¿qué es lo que me importa y estoy dispuesto/a a sentir miedo para acercarme a eso?**».\n\nA eso se le llama **disposición** (en inglés, *willingness*): abrirle la puerta a la incomodidad, no porque te guste, sino porque te importa adónde vas."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "**Si estás en crisis o aparecen pensamientos de hacerte daño, pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nDisposición no significa tirarte a lo más difícil de golpe ni aguantar a la fuerza. Los pasos los elegís vos, y conviene acordarlos con tu psicólogo/a."
+    },
+    {
+      "id": "valor",
+      "type": "text",
+      "prompt": "¿Qué te gustaría hacer o vivir si el miedo no decidiera por vos?",
+      "help": "Pensá en lo que te importa: vínculos, estudiar, trabajar, viajar, disfrutar. Por ejemplo: «ir a los cumpleaños de mis amigos», «presentarme a un trabajo nuevo».",
+      "placeholder": "Me gustaría…"
+    },
+    {
+      "id": "costo",
+      "type": "text",
+      "prompt": "¿Qué te viene costando evitar lo que temés? ¿Qué te perdiste?",
+      "placeholder": "Por evitarlo, dejé de…"
+    },
+    {
+      "id": "colectivo",
+      "type": "info",
+      "title": "El pasajero en el colectivo",
+      "content": "Imaginá que manejás un colectivo. Es **tu** colectivo, y el recorrido lo elegís vos: va hacia lo que te importa.\n\nEn el camino se suben pasajeros: el miedo, los pensamientos de «vas a hacer el ridículo», el corazón acelerado. Algunos son ruidosos y amenazantes. Te gritan: «¡doblá acá! ¡volvé a casa!».\n\nPodés hacerles caso para que se callen: doblás, volvés, y por un rato hay calma… pero terminás lejos de donde querías ir.\n\nO podés seguir manejando **con los pasajeros a bordo**. Siguen gritando, pero no tienen el volante. No hace falta echarlos ni convencerlos. Solo seguir el recorrido que elegiste."
+    },
+    {
+      "id": "pasajeros",
+      "type": "list",
+      "prompt": "¿Qué «pasajeros» se te suben cuando te acercás a lo que temés? (pensamientos, sensaciones, impulsos)",
+      "help": "Por ejemplo: «se van a dar cuenta de que estoy nervioso/a», el corazón a mil, ganas de irme.",
+      "count": 4,
+      "min": 1
+    },
+    {
+      "id": "quiz_disposicion",
+      "type": "choice",
+      "prompt": "En ACT, ¿qué significa estar dispuesto/a a sentir miedo?",
+      "options": [
+        "Que me tiene que gustar sentir miedo",
+        "Hacerle lugar al miedo mientras hago algo que me importa",
+        "Aguantar apretando los dientes hasta que pase"
+      ],
+      "feedback": {
+        "Que me tiene que gustar sentir miedo": "No hace falta que te guste. La disposición es hacerle lugar a algo incómodo, no desearlo.",
+        "Hacerle lugar al miedo mientras hago algo que me importa": "Exacto. El miedo puede venir de pasajero; vos seguís manejando hacia donde elegiste.",
+        "Aguantar apretando los dientes hasta que pase": "Es una confusión frecuente. Aguantar con tensión es otra forma de pelear con el miedo. La disposición es más abierta: notarlo, dejarlo estar y seguir."
+      }
+    },
+    {
+      "id": "practica_lugar",
+      "type": "timed_info",
+      "title": "Hacerle lugar al miedo",
+      "content": "Traé a la mente, con suavidad, la situación que te da miedo. No la más difícil: una intermedia.\n\n- Notá dónde aparece el miedo en el cuerpo. ¿Pecho, panza, garganta?\n- Respirá hacia esa zona, como si le hicieras espacio.\n- Ponele nombre: «acá está el miedo».\n- No intentes que se vaya. Solo dejalo estar, como un pasajero más.\n\nSi en algún momento se vuelve demasiado, abrí los ojos, mirá a tu alrededor y apoyá los pies en el piso.",
+      "seconds": 90
+    },
+    {
+      "id": "disposicion",
+      "type": "scale",
+      "prompt": "¿Qué tan dispuesto/a estás a sentir miedo si eso te acerca a lo que te importa?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Totalmente"
+    },
+    {
+      "id": "paso",
+      "type": "text",
+      "prompt": "Elegí un paso valioso, chico y concreto, que podrías dar esta semana con los pasajeros a bordo.",
+      "help": "Que vaya en dirección a tu valor y sea posible. Por ejemplo: «quedarme 20 minutos en el cumpleaños del sábado», «mandar un mensaje para preguntar por el curso».",
+      "placeholder": "Qué, cuándo y dónde…"
+    },
+    {
+      "id": "frase",
+      "type": "text",
+      "prompt": "¿Qué te vas a decir cuando los pasajeros empiecen a gritar?",
+      "placeholder": "Por ejemplo: «ahí está el miedo; puede venir conmigo, yo sigo manejando»"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Tu recorrido",
+      "template": "Lo que me importa: {{valor}}. Mis pasajeros: {{pasajeros}}. Mi paso valioso: {{paso}}. Me voy a decir: «{{frase}}».",
+      "content": "El éxito no se mide por cuánto miedo sentiste, sino por si diste el paso que elegiste. Contá en sesión cómo te fue."
+    }
+  ],
+  "material": {
+    "title": "Miedo y disposición: el pasajero en el colectivo (ACT)",
+    "description": "Ejercicio de ACT para fobias y ansiedad social: disposición a sentir miedo al servicio de valores, metáfora del colectivo y un paso valioso.",
+    "category": "ansiedad"
+  }
+}

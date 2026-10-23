@@ -1,0 +1,117 @@
+{
+  "slug": "cuadro-trauma-dbt-tolerancia",
+  "title": "Atravesar momentos de mucha activación",
+  "description": "Habilidades de DBT para tolerar el malestar cuando el cuerpo se activa mucho: TIPP, autocalmarte y aceptación radical.",
+  "kind": "custom",
+  "approach": "dbt",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 13,
+  "sort_order": 336,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Cuando el cuerpo se dispara",
+      "content": "Después de experiencias muy difíciles, el cuerpo a veces **se activa de golpe**: el corazón se acelera, aparece mucha tensión, enojo, miedo o ganas de escapar, a veces sin un motivo claro.\n\nLa Terapia Dialéctica Conductual (DBT) ofrece habilidades de **tolerancia al malestar**: maneras de atravesar ese momento sin hacer algo que te dañe o que empeore las cosas.\n\nEste ejercicio **no trabaja recuerdos** ni te pide contar lo que pasó. Solo se enfoca en qué hacer en el momento de la activación. Lo ideal es practicarlo cuando estás más tranquilo/a."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si necesitás ayuda urgente",
+      "content": "Si estás en crisis, sentís que podés hacerte daño o que no estás a salvo, **pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nSi mientras hacés el ejercicio el malestar sube mucho, podés pararlo en cualquier momento.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "activacion",
+      "type": "scale",
+      "prompt": "¿Cuánta tensión o activación sentís en este momento?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísima",
+      "maps_to": "emotion_before"
+    },
+    {
+      "id": "tipp",
+      "type": "info",
+      "title": "TIPP: bajar la activación con el cuerpo",
+      "content": "Cuando la activación es muy alta, TIPP ayuda a bajarla rápido a través del cuerpo:\n\n- **Temperatura:** agua fría en la cara unos segundos, o algo frío en la nuca o las muñecas.\n- **Intenso ejercicio:** unos minutos de movimiento fuerte (subir escaleras, saltar, caminar rápido).\n- **Pausar la respiración:** exhalaciones más largas que las inhalaciones.\n- **Progresiva relajación:** tensar y soltar grupos de músculos.\n\n**Precauciones:** el agua fría y el ejercicio intenso cambian el ritmo cardíaco. Si tenés problemas de corazón, presión baja, trastornos de la alimentación u otra condición médica, o estás embarazada, **consultá antes con tu médico/a** y usá solo la respiración y la relajación."
+    },
+    {
+      "id": "tipp_elegir",
+      "type": "checklist",
+      "prompt": "¿Cuáles de estas habilidades te gustaría probar? Marcá las que sean seguras para vos.",
+      "options": [
+        "Temperatura (agua fría)",
+        "Ejercicio intenso",
+        "Respiración pausada",
+        "Relajación muscular"
+      ],
+      "min": 1
+    },
+    {
+      "id": "relajacion",
+      "type": "timed_info",
+      "title": "Respirar y soltar",
+      "content": "Vamos a practicar las dos partes más suaves de TIPP.\n\n- **Inhalá** contando hasta 4 y **exhalá lento** contando hasta 6.\n- En la próxima inhalación, **apretá los puños** fuerte unos segundos.\n- Al exhalar, **soltalos** y notá la diferencia.\n- Repetí con los hombros (subilos hacia las orejas y soltalos) y después con la cara.\n\nSi en algún momento te sentís incómodo/a, abrí los ojos, mirá a tu alrededor y respirá normal.",
+      "seconds": 120
+    },
+    {
+      "id": "calmarme",
+      "type": "list",
+      "prompt": "¿Qué cosas te ayudan a calmarte a través de los sentidos? (una música, un olor, una manta, una bebida tibia)",
+      "count": 4,
+      "min": 2
+    },
+    {
+      "id": "aceptacion_info",
+      "type": "info",
+      "title": "Aceptación radical, con cuidado",
+      "content": "Hay cosas que no podemos cambiar: lo que ya pasó, o lo que sentimos en este momento. Pelear contra eso («esto no debería estar pasando») suele sumar sufrimiento al dolor.\n\nLa aceptación radical es **reconocer la realidad tal como es**, para poder decidir qué hacer desde ahí.\n\nEs muy importante aclararlo: **aceptar no es aprobar**. No significa que lo que pasó estuvo bien, que fue tu culpa, que tenés que perdonar ni que no te importa. Podés aceptar que algo ocurrió y, al mismo tiempo, sentir que fue injusto.\n\nEs una práctica que lleva tiempo, y está bien si hoy no sale."
+    },
+    {
+      "id": "aceptar_quiz",
+      "type": "choice",
+      "prompt": "Según DBT, ¿qué significa «aceptar radicalmente» algo doloroso?",
+      "options": [
+        "Que estoy de acuerdo con lo que pasó",
+        "Reconocer que pasó, aunque no me guste",
+        "Que ya no me tiene que doler"
+      ],
+      "feedback": {
+        "Que estoy de acuerdo con lo que pasó": "No. Aceptar no es aprobar ni justificar. Podés reconocer que algo pasó y seguir sintiendo que estuvo mal.",
+        "Reconocer que pasó, aunque no me guste": "Sí. Es dejar de pelear con la realidad para poder decidir qué hacer desde ahí. No implica estar de acuerdo.",
+        "Que ya no me tiene que doler": "No. El dolor puede seguir. La aceptación busca bajar el sufrimiento extra de pelear con lo que no se puede cambiar."
+      }
+    },
+    {
+      "id": "frase_aceptacion",
+      "type": "text",
+      "prompt": "Escribí una frase de aceptación que te resulte amable, sobre el momento presente.",
+      "placeholder": "Por ejemplo: «Ahora estoy muy activado/a. Es así en este momento. Puedo atravesarlo.»"
+    },
+    {
+      "id": "activacion_despues",
+      "type": "scale",
+      "prompt": "Ahora, ¿cuánta tensión o activación sentís?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísima",
+      "maps_to": "emotion_after"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Mi plan para la activación",
+      "template": "Habilidades TIPP que voy a usar: {{tipp_elegir}}. Lo que me calma: {{calmarme}}. Mi frase de aceptación: {{frase_aceptacion}}.",
+      "content": "Si notás que la activación aparece muy seguido o es muy intensa, contáselo a tu psicólogo/a: es parte de lo que se trabaja en terapia, a tu ritmo."
+    }
+  ],
+  "material": {
+    "title": "Atravesar momentos de mucha activación (DBT)",
+    "description": "Tolerancia al malestar para la activación postraumática: TIPP con precauciones médicas, autocalmarse con los sentidos y aceptación radical (aceptar no es aprobar).",
+    "category": "trauma"
+  }
+}

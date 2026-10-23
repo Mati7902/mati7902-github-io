@@ -1,0 +1,123 @@
+{
+  "slug": "cuadro-pareja-tcc-pensamientos",
+  "title": "Lo que pienso cuando discutimos",
+  "description": "Detectá pensamientos automáticos en la pareja (lectura de mente, personalización, siempre/nunca), buscá otra mirada y armá un pedido concreto.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 12,
+  "sort_order": 353,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "La pelea que pasa en la cabeza",
+      "content": "En una discusión de pareja, muchas veces no reaccionamos solo a lo que el otro hizo, sino a **lo que pensamos que significa**.\n\nLlega tarde sin avisar y en un segundo la mente dice: «no le importo». Ese pensamiento automático trae enojo o tristeza, y con eso respondemos. El otro se defiende, y la pelea crece.\n\nRevisar esos pensamientos **no es darle la razón al otro ni restarle importancia a lo que te pasa**. Es separar lo que pasó de la historia que se armó encima, para poder pedir lo que necesitás con más claridad."
+    },
+    {
+      "id": "trampas",
+      "type": "info",
+      "title": "Tres trampas frecuentes en pareja",
+      "content": "- **Lectura de mente:** suponer que sabés lo que el otro piensa o siente. «Está serio, seguro está harto de mí». «Si me quisiera, sabría lo que necesito».\n- **Personalización:** tomar como dirigido a vos algo que puede tener otras causas. «Llegó de mal humor: algo hice».\n- **Siempre y nunca:** convertir una situación en una regla. «Nunca me escuchás». «Siempre hacés lo mismo».\n\nLas tres son muy humanas. El problema es que **se sienten como hechos**, y discutir desde ahí hace que el otro se defienda en lugar de escuchar."
+    },
+    {
+      "id": "quiz",
+      "type": "choice",
+      "prompt": "«No me contestó en dos horas: ya no le importo». ¿Qué trampa aparece más acá?",
+      "options": [
+        "Lectura de mente",
+        "Personalización",
+        "Siempre y nunca"
+      ],
+      "feedback": {
+        "Lectura de mente": "**Sí.** Se da por sentado lo que el otro siente («no le importo») sin datos: podría estar ocupado, sin batería o distraído.",
+        "Personalización": "**Tiene algo de eso**, porque se toma la demora como algo sobre vos. Pero la trampa principal es la **lectura de mente**: suponer lo que el otro siente sin preguntarle.",
+        "Siempre y nunca": "**Acá no aparece un «siempre» o «nunca».** La trampa principal es la **lectura de mente**: suponer que no le importás sin datos que lo confirmen."
+      }
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de seguir",
+      "content": "Este recurso es para conflictos comunes entre dos personas que pueden hablar sin miedo. **Si en tu relación hay violencia**, amenazas o control, o sentís miedo de tu pareja, lo que pasa no es una trampa de tu pensamiento: **la prioridad es tu seguridad**.\n\nSi estás en riesgo o en crisis, pedí ayuda ya: a emergencias, a una línea de ayuda o en la guardia del hospital más cercano. En la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos. Y hablalo con tu psicólogo."
+    },
+    {
+      "id": "situacion",
+      "type": "text",
+      "prompt": "Pensá en un conflicto reciente. ¿Qué pasó? Contalo como lo vería una cámara, sin interpretaciones.",
+      "placeholder": "El sábado llegó dos horas tarde y no avisó…"
+    },
+    {
+      "id": "pensamiento",
+      "type": "text",
+      "prompt": "¿Qué pensaste en ese momento sobre tu pareja, sobre vos o sobre la relación?",
+      "placeholder": "Pensé que…"
+    },
+    {
+      "id": "malestar_antes",
+      "type": "scale",
+      "prompt": "Al recordar ese pensamiento ahora, ¿qué tan fuerte es el malestar?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísimo",
+      "maps_to": "emotion_before"
+    },
+    {
+      "id": "trampas_mias",
+      "type": "checklist",
+      "prompt": "¿En qué trampas pudiste haber caído?",
+      "options": [
+        "Lectura de mente",
+        "Personalización",
+        "Siempre y nunca",
+        "Pensar en lo peor que puede pasar",
+        "Ponerle una etiqueta al otro («es un egoísta»)",
+        "No estoy seguro o segura"
+      ],
+      "min": 1
+    },
+    {
+      "id": "preguntas",
+      "type": "info",
+      "title": "Buscar otra mirada",
+      "content": "Algunas preguntas para revisar el pensamiento:\n\n- ¿Qué **datos** tengo de que esto es así? ¿Se lo pregunté?\n- ¿Qué **otras explicaciones** podría haber?\n- ¿Es **siempre**, o fue esta vez (o algunas veces)?\n- Si una amiga o un amigo me contara esto, **¿qué le diría?**\n\nEl pensamiento alternativo no tiene que negar lo que te dolió. Puede ser algo como: «Me dolió que no avisara. No sé por qué fue; puedo preguntarle y decirle qué necesito»."
+    },
+    {
+      "id": "alternativo",
+      "type": "text",
+      "prompt": "Escribí un pensamiento alternativo, más completo y justo con los dos.",
+      "placeholder": "Me molestó que… y a la vez…"
+    },
+    {
+      "id": "pedido",
+      "type": "text",
+      "prompt": "Convertí la queja en un pedido concreto. Ej.: «¿Me avisás con un mensaje si vas a llegar tarde?».",
+      "placeholder": "¿Podrías…?"
+    },
+    {
+      "id": "malestar_despues",
+      "type": "scale",
+      "prompt": "Después de revisarlo, ¿qué tan fuerte es ahora el malestar?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísimo",
+      "maps_to": "emotion_after"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Tu registro del conflicto",
+      "template": "Lo que pasó: {{situacion}}. Lo que pensé: «{{pensamiento}}» (trampas: {{trampas_mias}}). Otra forma de verlo: «{{alternativo}}». Mi pedido concreto: «{{pedido}}».",
+      "content": "Un pedido concreto le da al otro algo que **puede hacer**, en lugar de algo de lo que defenderse. Si el malestar no bajó, está bien: algunas heridas necesitan más que un ejercicio. Traé este registro a tu próxima sesión."
+    }
+  ],
+  "material": {
+    "title": "Pensamientos automáticos en la pareja (TCC)",
+    "description": "Lectura de mente, personalización y «siempre/nunca» en la pareja: registro de un conflicto, pensamiento alternativo y pedido concreto.",
+    "category": "relaciones"
+  }
+}

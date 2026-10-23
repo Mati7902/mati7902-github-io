@@ -1,0 +1,129 @@
+{
+  "slug": "cuadro-autoestima-act-yo",
+  "title": "Vos no sos lo que tu mente dice de vos",
+  "description": "El yo como contexto (ACT): mirá tus pensamientos sobre vos desde el lugar del observador y hacé algo valioso con la voz crítica a bordo.",
+  "kind": "custom",
+  "approach": "act",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 12,
+  "sort_order": 351,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "El que piensa y lo pensado",
+      "content": "Tu mente produce juicios sobre vos todo el día: «sos lento», «no das la talla», «a nadie le importa lo que decís». Muchas veces esos juicios se sienten como **la verdad sobre quién sos**.\n\nEn ACT no se intenta ganarle la discusión a esa voz. Se propone algo distinto: notar que **hay una parte tuya que puede observar** esos pensamientos. Esa parte estuvo en todas tus edades, en tus días buenos y en los malos.\n\nLos pensamientos sobre vos cambian. **El lugar desde donde los notás, no.** A eso se le llama el «yo como contexto»."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "Si mientras hacés este recurso aparecen pensamientos de hacerte daño, de que no valés la pena vivir, o sentís que estás en crisis, **dejá el ejercicio para otro momento y pedí ayuda ya**: a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nNo tenés que atravesarlo solo ni sola. Contáselo también a tu psicólogo."
+    },
+    {
+      "id": "voz_critica",
+      "type": "text",
+      "prompt": "¿Qué frase te dice la voz crítica sobre vos con más frecuencia?",
+      "placeholder": "Me dice que…"
+    },
+    {
+      "id": "enganche_antes",
+      "type": "scale",
+      "prompt": "Cuando aparece esa frase, ¿cuánto te atrapa? ¿Cuánto te la creés y te arrastra?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Por completo"
+    },
+    {
+      "id": "cielo",
+      "type": "info",
+      "title": "El cielo y el clima",
+      "content": "Imaginá que **vos sos el cielo** y que tus pensamientos, emociones y sensaciones son **el clima**.\n\nA veces hay sol, a veces nubes, a veces una tormenta fuerte. Pero ninguna tormenta, por más intensa que sea, **daña al cielo**. El cielo le hace lugar, la contiene, y sigue ahí cuando pasa.\n\nLa voz crítica es parte del clima. Puede ser una tormenta que dure días. Y aun así, **vos sos el espacio donde esa tormenta ocurre**, no la tormenta.\n\nDesde ese lugar no hace falta que el clima mejore para que puedas seguir viviendo."
+    },
+    {
+      "id": "metafora",
+      "type": "choice",
+      "prompt": "En esta metáfora, ¿qué lugar ocupás vos?",
+      "options": [
+        "Las nubes de tormenta",
+        "El cielo que las contiene",
+        "El sol que tiene que ganarles"
+      ],
+      "feedback": {
+        "Las nubes de tormenta": "**Así se siente cuando estamos enganchados:** como si fuéramos la tormenta. Pero las nubes vienen y van. Vos sos el cielo donde aparecen.",
+        "El cielo que las contiene": "**Exacto.** Los pensamientos sobre vos son clima: cambian. Vos sos el espacio que los contiene, también cuando la tormenta es fuerte.",
+        "El sol que tiene que ganarles": "**Es una idea muy común: que hay que pelear y vencer a los pensamientos negativos.** En ACT se propone otra cosa: no necesitás ganarle a la tormenta, podés hacerle lugar."
+      }
+    },
+    {
+      "id": "observador",
+      "type": "timed_info",
+      "title": "Práctica del observador",
+      "seconds": 120,
+      "content": "Sentate cómodo o cómoda y, si querés, cerrá los ojos.\n\nNotá tu respiración, sin cambiarla. Notá el apoyo del cuerpo en la silla.\n\nAhora notá los pensamientos que aparezcan, como nubes que cruzan. Si aparece la voz crítica, nombrala: «ahí está el pensamiento de que…».\n\nY fijate en esto: **hay alguien que está notando**. Los pensamientos pasan; ese que nota se queda.\n\nRecordá un momento de cuando eras chico o chica. Ese mismo observador estaba ahí. Es el mismo que está ahora.\n\nCuando suene el aviso, volvé despacio al lugar donde estás."
+    },
+    {
+      "id": "lo_que_notaste",
+      "type": "checklist",
+      "prompt": "¿Qué notaste durante la práctica?",
+      "options": [
+        "Pensamientos sobre mí",
+        "Sensaciones en el cuerpo",
+        "Ganas de cortar la práctica",
+        "Un poco de distancia de la voz crítica",
+        "Algo de calma",
+        "Inquietud o incomodidad",
+        "Nada en particular"
+      ],
+      "min": 1
+    },
+    {
+      "id": "enganche_despues",
+      "type": "scale",
+      "prompt": "Pensando ahora en la frase crítica, ¿cuánto te atrapa en este momento?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Por completo"
+    },
+    {
+      "id": "accion_info",
+      "type": "info",
+      "title": "La voz puede venir de pasajera",
+      "content": "Muchas personas esperan a que la voz crítica se calle para animarse: «cuando me sienta más seguro, me anoto», «cuando me crea capaz, lo digo».\n\nDesde ACT, la propuesta es al revés: **elegir una acción que te importe y hacerla con la voz a bordo**. La voz puede ir de pasajera; lo que no hace falta es dejarle el volante.\n\nNo tiene que ser algo grande. Alcanza con un paso chico, concreto y posible esta semana."
+    },
+    {
+      "id": "importa",
+      "type": "text",
+      "prompt": "¿Qué te importa y venís postergando porque la voz dice que no vas a estar a la altura?",
+      "placeholder": "Me importa…"
+    },
+    {
+      "id": "accion",
+      "type": "text",
+      "prompt": "¿Qué paso chico y concreto vas a dar esta semana? ¿Cuándo?",
+      "placeholder": "El jueves voy a…"
+    },
+    {
+      "id": "frase_observador",
+      "type": "text",
+      "prompt": "Cuando aparezca la voz, ¿qué te vas a decir? Ej.: «Ahí está la tormenta de siempre; soy el cielo y sigo».",
+      "placeholder": "Me voy a decir…"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Tu plan",
+      "template": "La voz crítica suele decirme: «{{voz_critica}}». Eso es clima, no es quién soy. Me importa {{importa}}, así que esta semana voy a {{accion}}. Cuando la voz aparezca, me voy a decir: «{{frase_observador}}».",
+      "content": "Si la voz aparece fuerte mientras das el paso, **eso no significa que lo estés haciendo mal**: significa que estás haciendo algo que te importa. Podés repetir la práctica del observador cuando quieras y contar en sesión cómo te fue."
+    }
+  ],
+  "material": {
+    "title": "El yo como contexto (ACT)",
+    "description": "Metáfora del cielo y el clima, práctica guiada del observador de 2 minutos y una acción valiosa a pesar de la voz crítica.",
+    "category": "autoestima"
+  }
+}

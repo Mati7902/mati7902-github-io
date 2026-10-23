@@ -6,7 +6,7 @@ import { isSupabaseConfigured } from "@/lib/env";
 import { createLogger, errorMeta } from "@/lib/logger";
 import { LANDING_TESTIMONIALS } from "@/lib/testimonials";
 import { createAnonClient } from "@/server/services/public-settings";
-import type { AvailabilityRule, EmergencyResource, Faq, PublicTestimonial, TherapyPlan } from "@/types/domain";
+import type { AvailabilityRule, EmergencyResource, Faq, PracticeLocation, PublicTestimonial, TherapyPlan } from "@/types/domain";
 
 const log = createLogger("public-content");
 
@@ -79,6 +79,19 @@ export const getPublicAvailability = cache(async (): Promise<AvailabilityRule[]>
     "horarios",
     async () => {
       const { data, error } = await createAnonClient().from("availability_rules").select("*").eq("is_active", true).order("weekday").order("start_time");
+      if (error) throw error;
+      return data ?? [];
+    },
+    [],
+  ),
+);
+
+/** Sedes activas para la portada ("Dónde atiendo"). Los horarios salen de las franjas con esa sede. */
+export const getPublicLocations = cache(async (): Promise<PracticeLocation[]> =>
+  safe(
+    "sedes",
+    async () => {
+      const { data, error } = await createAnonClient().from("practice_locations").select("*").eq("is_active", true).order("sort_order").order("name");
       if (error) throw error;
       return data ?? [];
     },

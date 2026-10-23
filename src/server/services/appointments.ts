@@ -6,6 +6,7 @@ import { AppError, fromDatabaseError } from "@/lib/errors";
 import { createLogger } from "@/lib/logger";
 import { generateDaySlots, upcomingAvailableDates, type BusyRange, type Slot } from "@/lib/scheduling/slots";
 import { toDateKey, zonedToUtc } from "@/lib/dates";
+import { locationLabel } from "@/lib/locations";
 import { createAdminClient, type AdminSupabaseClient } from "@/lib/supabase/admin";
 import type { ServerSupabaseClient } from "@/lib/supabase/server";
 import { getGoogleBusyRanges } from "@/server/services/google-calendar/sync";
@@ -87,7 +88,13 @@ export async function getAppointmentHistory(client: AnyClient, appointmentId: st
 /* ------------------------------------------------------------------------ */
 /* Disponibilidad                                                            */
 /* ------------------------------------------------------------------------ */
-export type AvailabilityDay = { dateKey: string; slots: Slot[] };
+export type AvailabilityDay = { dateKey: string; slots: (Slot & { locationName?: string | null })[] };
+
+/** Sedes por id, para nombrar el lugar de cada horario y guardar la dirección en el turno. */
+async function loadLocations(admin: AdminSupabaseClient): Promise<Map<string, { name: string; address: string; city: string | null }>> {
+  const { data } = await admin.from("practice_locations").select("id, name, address, city");
+  return new Map((data ?? []).map((l) => [l.id, l]));
+}
 
 async function loadAvailabilityContext(admin: AdminSupabaseClient, from: Date, to: Date, excludeAppointmentId?: string) {
   const [{ data: rules }, { data: appointments }, { data: blocked }] = await Promise.all([
@@ -138,7 +145,7 @@ export async function getAvailableSlots(options: {
   from.setUTCDate(from.getUTCDate() - 1);
   const to = addDays(from, days + 2);
 
-  const { rules, busy } = await loadBusyContext(admin, from, to, options.excludeAppointmentId);
+  const [{ rules, busy }, locations] = await Promise.all([loadBusyContext(admin, from, to, options.excludeAppointmentId), loadLocations(admin)]);
   const filteredBusy = options.externalBusy?.length ? [...busy, ...options.externalBusy] : busy;
 
   const dateKeys = upcomingAvailableDates(rules, tz, days, new Date(`${startKey}T12:00:00Z`));
@@ -155,7 +162,7 @@ export async function getAvailableSlots(options: {
       now,
       minHoursBeforeBooking: settings.min_hours_before_booking,
       maxDaysInAdvance: settings.max_days_in_advance,
-    }),
+    }).map((slot) => ({ ...slot, locationName: options.modality === "presencial" && slot.locationId ? (locations.get(slot.locationId)?.name ?? null) : null })),
   }));
 
   return { days: result.filter((d) => d.slots.length > 0), settings };
@@ -183,7 +190,7 @@ async function loadBusyContext(admin: AdminSupabaseClient, from: Date, to: Date,
  * turno generado por la grilla (regla, duración, intervalo, anticipación, máximo de días) y estar
  * libre. El FIN lo decide el servidor (duración de la regla): nunca se confía en el del cliente.
  */
-export async function assertSlotAvailable(start: Date, modality: AppointmentModality, excludeAppointmentId?: string): Promise<{ settings: SchedulingSettings; end: Date }> {
+export async function assertSlotAvailable(start: Date, modality: AppointmentModality, excludeAppointmentId?: string): Promise<{ settings: SchedulingSettings; end: Date; location: string | null }> {
   const admin = createAdminClient();
   const settings = await getSetting(admin, "scheduling");
   const tz = settings.timezone;
@@ -194,7 +201,15 @@ export async function assertSlotAvailable(start: Date, modality: AppointmentModa
   const base = { dateKey, timezone: tz, rules, modality, now: new Date(), minHoursBeforeBooking: settings.min_hours_before_booking, maxDaysInAdvance: settings.max_days_in_advance };
 
   const match = generateDaySlots({ ...base, busy }).find((s) => s.start.getTime() === start.getTime());
-  if (match) return { settings, end: match.end };
+  if (match) {
+    // Presencial en una sede: el turno guarda nombre y dirección (salen en la confirmación y los recordatorios).
+    let location: string | null = null;
+    if (modality === "presencial" && match.locationId) {
+      const place = (await loadLocations(admin)).get(match.locationId);
+      location = place ? locationLabel(place) : null;
+    }
+    return { settings, end: match.end, location };
+  }
 
   const existsInGrid = generateDaySlots({ ...base, busy: [] }).some((s) => s.start.getTime() === start.getTime());
   if (existsInGrid) throw new AppError("CONFLICT", "Ese horario ya no está disponible. Elegí otro.");
@@ -241,7 +256,16 @@ export async function createAppointment(client: AnyClient, input: CreateAppointm
 
 export async function rescheduleAppointment(
   client: AnyClient,
-  input: { appointmentId: string; start: Date; end: Date; newStatus: AppointmentStatus; reason?: string | null; source: "app" | "admin" | "whatsapp" | "google" | "system" },
+  input: {
+    appointmentId: string;
+    start: Date;
+    end: Date;
+    newStatus: AppointmentStatus;
+    reason?: string | null;
+    source: "app" | "admin" | "whatsapp" | "google" | "system";
+    /** Sede del nuevo horario (la grilla la decide). Sin definir: no se toca. */
+    location?: string | null;
+  },
 ): Promise<Appointment> {
   const { data, error } = await client.rpc("reschedule_appointment_tx", {
     p_appointment_id: input.appointmentId,
@@ -252,7 +276,14 @@ export async function rescheduleAppointment(
     p_source: input.source,
   });
   if (error) throw fromDatabaseError(error, "No pudimos reprogramar el turno.");
-  return data as Appointment;
+  const updated = data as Appointment;
+  // Al pasar de una sede a otra (martes alternados) el turno se lleva la dirección nueva.
+  if (input.location !== undefined && input.location !== updated.location && updated.modality === "presencial") {
+    const { data: moved, error: moveError } = await createAdminClient().from("appointments").update({ location: input.location }).eq("id", updated.id).select("*").single();
+    if (moveError) log.warn("No se actualizó la sede del turno reprogramado", { code: moveError.code });
+    return (moved as Appointment | null) ?? updated;
+  }
+  return updated;
 }
 
 export async function cancelAppointment(client: AnyClient, appointmentId: string, reason?: string | null, source: "app" | "admin" | "whatsapp" | "google" | "system" = "app"): Promise<Appointment> {

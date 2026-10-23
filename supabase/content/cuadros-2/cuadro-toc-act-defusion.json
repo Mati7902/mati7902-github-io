@@ -1,0 +1,111 @@
+{
+  "slug": "cuadro-toc-act-defusion",
+  "title": "TOC: tomar distancia de las obsesiones",
+  "description": "Prácticas de ACT para ver las obsesiones como pensamientos que pasan, sin discutirlas, sin rituales mentales y sin buscar certeza.",
+  "kind": "custom",
+  "approach": "act",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 12,
+  "sort_order": 334,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Pensamientos pegajosos",
+      "content": "En el TOC, algunos pensamientos se sienten **urgentes y peligrosos**, como si hubiera que hacer algo ya para neutralizarlos: revisar, repasar, rezar, buscar que alguien te asegure.\n\nDesde la Terapia de Aceptación y Compromiso (ACT) se trabaja la **defusión**: aprender a ver el pensamiento como un pensamiento, y no como una orden o una verdad.\n\nOjo: **el objetivo no es que la obsesión se vaya ni sentirte seguro/a**. Es poder dejarla estar, sin responderle, mientras seguís con lo que estabas haciendo."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si necesitás ayuda urgente",
+      "content": "Si en algún momento estás en crisis, sentís que no podés más o pensás en hacerte daño, **pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "trampas",
+      "type": "checklist",
+      "prompt": "Cuando aparece la obsesión, ¿cuáles de estas cosas hacés para sacártela de encima? Marcá las que reconozcas.",
+      "options": [
+        "Discutir mentalmente con el pensamiento",
+        "Repasar recuerdos para estar seguro/a",
+        "Rezar o repetir frases para neutralizar",
+        "Buscar información en internet",
+        "Preguntar a otros si está todo bien",
+        "Intentar no pensar en eso",
+        "Reemplazarlo por un pensamiento «bueno»"
+      ],
+      "min": 1
+    },
+    {
+      "id": "trampa_info",
+      "type": "info",
+      "title": "La trampa de la certeza",
+      "content": "Todo lo que marcaste tiene algo en común: **intenta conseguir certeza** de que no va a pasar nada malo. Da alivio un rato, pero le enseña al cerebro que la duda era peligrosa, y la obsesión vuelve con más fuerza.\n\nLos rituales mentales también son rituales, aunque nadie los vea.\n\nLa defusión propone algo distinto: **no contestarle a la obsesión**. Ni para darle la razón ni para discutirla. Solo notarla y dejarla estar, aunque la duda quede abierta."
+    },
+    {
+      "id": "obsesion",
+      "type": "text",
+      "prompt": "Escribí, en pocas palabras, una obsesión que te aparezca seguido. No hace falta detallarla.",
+      "placeholder": "Por ejemplo: «¿y si dejé la puerta abierta?»"
+    },
+    {
+      "id": "prefijo",
+      "type": "info",
+      "title": "«Estoy teniendo el pensamiento de…»",
+      "content": "Probá decir la obsesión en voz baja, tal como aparece. Después decila así:\n\n**«Estoy teniendo el pensamiento de que…»**\n\nY después:\n\n**«Me doy cuenta de que estoy teniendo el pensamiento de que…»**\n\nNotá si cambia algo, aunque sea un poco, la distancia entre vos y el pensamiento. No buscás que el pensamiento deje de molestar ni que se vuelva falso: buscás verlo **desde un poquito más lejos**."
+    },
+    {
+      "id": "historia",
+      "type": "text",
+      "prompt": "Si tu mente contara siempre la misma historia, ¿qué nombre le pondrías? Por ejemplo: «la historia del desastre».",
+      "placeholder": "Ah, ahí está otra vez «la historia de…»"
+    },
+    {
+      "id": "hojas",
+      "type": "timed_info",
+      "title": "Hojas en el río",
+      "content": "Sentate cómodo/a. Imaginá un arroyo que corre tranquilo, con hojas que flotan.\n\n- Cada vez que aparezca un pensamiento, una imagen o una duda, **ponela sobre una hoja** y mirá cómo se aleja con el agua.\n- Si aparece la obsesión, también va a una hoja. **No la empujes ni la retengas.**\n- Si te enganchás y empezás a analizarla, está bien: notalo, y volvé a poner el pensamiento sobre una hoja.\n- Si aparece la urgencia de revisar o de asegurarte, eso también puede ir a una hoja.\n\nNo hace falta que el río esté vacío. Solo practicás mirar.",
+      "seconds": 150
+    },
+    {
+      "id": "notaste",
+      "type": "text",
+      "prompt": "¿Qué notaste? ¿Hubo momentos en que te enganchaste con la obsesión? ¿Qué pasó cuando la dejaste pasar?",
+      "placeholder": "Lo que noté"
+    },
+    {
+      "id": "quiz",
+      "type": "choice",
+      "prompt": "Aparece la duda «¿y si lastimé a alguien sin darme cuenta?». ¿Qué respuesta va más con la defusión?",
+      "options": [
+        "Repasar el día para asegurarme de que no pasó",
+        "«Estoy teniendo el pensamiento de que lastimé a alguien» y seguir",
+        "Convencerme de que soy buena persona"
+      ],
+      "feedback": {
+        "Repasar el día para asegurarme de que no pasó": "Eso es un ritual mental: busca certeza y alimenta el círculo, aunque alivie un rato.",
+        "«Estoy teniendo el pensamiento de que lastimé a alguien» y seguir": "Sí. Notás el pensamiento, no le contestás y volvés a lo que estabas haciendo, aunque la duda siga ahí.",
+        "Convencerme de que soy buena persona": "Suena lógico, pero también es una forma de neutralizar y buscar certeza. La defusión no discute el contenido."
+      }
+    },
+    {
+      "id": "frase",
+      "type": "text",
+      "prompt": "Escribí una frase corta para usar cuando aparezca la obsesión, sin buscar certeza.",
+      "placeholder": "Por ejemplo: «Ahí está la historia de la puerta. Puede quedarse; yo sigo.»"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Mi distancia de la obsesión",
+      "template": "Lo que suelo hacer con la obsesión: {{trampas}}. La obsesión: {{obsesion}}. El nombre de la historia: {{historia}}. Mi frase: {{frase}}.",
+      "content": "Es normal que la obsesión vuelva: cada vez es una nueva oportunidad para practicar. Estas prácticas complementan, no reemplazan, la exposición con prevención de respuesta que se planifica con tu psicólogo/a."
+    }
+  ],
+  "material": {
+    "title": "TOC: tomar distancia de las obsesiones (ACT)",
+    "description": "Defusión para obsesiones: «estoy teniendo el pensamiento de…», nombrar la historia y hojas en el río, sin rituales mentales ni búsqueda de certeza.",
+    "category": "toc"
+  }
+}

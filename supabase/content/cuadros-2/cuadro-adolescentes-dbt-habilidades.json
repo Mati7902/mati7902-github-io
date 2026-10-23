@@ -1,0 +1,120 @@
+{
+  "slug": "cuadro-adolescentes-dbt-habilidades",
+  "title": "Habilidades para cuando la emoción explota",
+  "description": "Para adolescentes: tu sabio o sabia interior, TIPP con cuidados, caminos del medio y validarte, más un plan para la próxima vez.",
+  "kind": "custom",
+  "approach": "dbt",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 14,
+  "sort_order": 357,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Tres formas de estar",
+      "content": "En DBT se habla de tres «mentes», o formas de estar:\n\n- **Mente emocional:** la emoción manda. Todo es urgente y hacés lo primero que te sale.\n- **Mente racional:** solo lógica, como si no sintieras nada.\n- **Mente sabia:** tu **sabio o sabia interior**. Escucha lo que sentís *y* lo que pensás, y elige qué te conviene de verdad.\n\nTodas las personas tienen una parte sabia, aunque a veces quede tapada por la emoción. Las habilidades de este recurso te ayudan a encontrarla."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de seguir",
+      "content": "Si en algún momento sentís que no podés más, tenés ganas de hacerte daño o pensás que sería mejor no estar, **no te lo guardes: pedí ayuda ya**.\n\n- Contáselo a un **adulto de confianza**: tu mamá, tu papá, otro familiar, un profe, el psicólogo de la escuela.\n- Si es urgente, llamá a emergencias, a una línea de ayuda o andá a la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos. Pedir ayuda no es exagerar: es cuidarte."
+    },
+    {
+      "id": "quiz_mente",
+      "type": "choice",
+      "prompt": "Te dejaron en visto y querés mandar diez mensajes enojado o enojada. ¿Qué mente está al mando?",
+      "options": [
+        "Mente emocional",
+        "Mente racional",
+        "Mente sabia"
+      ],
+      "feedback": {
+        "Mente emocional": "**Sí.** Cuando la emoción manda, todo parece urgente. La mente sabia podría decir: «Estoy enojado; espero diez minutos y después decido qué escribir».",
+        "Mente racional": "**No tanto:** la racional sería pensar «es solo un mensaje» sin registrar lo que sentís. Acá la que manda es la **emocional**.",
+        "Mente sabia": "**Todavía no:** la sabia escucharía el enojo sin dejar que decida por vos. Mandar diez mensajes es la **mente emocional** al mando."
+      }
+    },
+    {
+      "id": "sabio",
+      "type": "timed_info",
+      "title": "Encontrar a tu sabio o sabia interior",
+      "seconds": 60,
+      "content": "Sentate cómodo o cómoda y respirá despacio.\n\nCon cada inhalación, decite por dentro «sabia» (o «sabio»). Con cada exhalación, «mente».\n\nImaginá que bajás despacio a un lugar tranquilo dentro tuyo, como una piedra que se hunde en un lago calmo.\n\nDesde ahí, preguntate: **¿qué necesito de verdad ahora?** No hace falta que la respuesta llegue enseguida. Solo escuchá."
+    },
+    {
+      "id": "tipp",
+      "type": "info",
+      "title": "TIPP: cuando estás en 9 o 10",
+      "content": "Cuando la emoción está altísima, primero hay que **bajar el cuerpo**:\n\n- **T, temperatura:** agua fría en la cara unos 30 segundos, o una bolsa fría en los ojos y las mejillas.\n- **I, ejercicio intenso:** unos minutos de saltar, correr o subir escaleras.\n- **P, respiración pausada:** soltar el aire más lento de lo que lo tomás.\n- **P, relajación muscular:** apretar un músculo unos segundos y soltarlo.\n\n**Cuidados importantes:** el agua fría baja el ritmo del corazón. Si tenés algún problema del corazón, presión baja, desmayos, asma, un trastorno de la alimentación u otra condición médica, **no uses agua fría ni ejercicio intenso sin consultarlo antes** con un adulto y tu médico. No te metas entero en agua helada. No te pases con el ejercicio."
+    },
+    {
+      "id": "caminos_info",
+      "type": "info",
+      "title": "Caminos del medio",
+      "content": "Cuando la emoción sube, la cabeza piensa en **todo o nada**:\n\n- «O estudio cinco horas, o no estudio nada».\n- «O me quiere, o me odia».\n- «Si me equivoqué en una cosa, arruiné todo».\n\nCasi siempre hay un **camino del medio**: estudiar 30 minutos; «estamos peleados y igual me quiere»; «me salió mal esto y otras cosas me salen bien».\n\nUna clave: cambiar el **«pero»** por el **«y»**. «Estoy enojado con mi mamá **y** la quiero». Las dos cosas pueden ser verdad al mismo tiempo."
+    },
+    {
+      "id": "todo_nada",
+      "type": "text",
+      "prompt": "Escribí un pensamiento de «todo o nada» que te aparezca seguido.",
+      "placeholder": "O… o…"
+    },
+    {
+      "id": "medio",
+      "type": "text",
+      "prompt": "Ahora escribí una versión del medio, más flexible.",
+      "placeholder": "…y también…"
+    },
+    {
+      "id": "validar_info",
+      "type": "info",
+      "title": "Validarte a vos",
+      "content": "**Validarte es decirte que lo que sentís tiene sentido**, sin retarte por sentirlo.\n\nNo significa que todo lo que hagas esté bien. Significa reconocer: «Con lo que pasó, tiene sentido que esté triste». A partir de ahí es más fácil elegir qué hacer.\n\nLo contrario sería decirte «sos un exagerado», «no deberías sentirte así», «qué tonta que sos». Eso suele hacer que la emoción **suba**, no que baje.\n\nProbá hablarte como le hablarías a alguien que querés y que la está pasando mal."
+    },
+    {
+      "id": "validacion",
+      "type": "text",
+      "prompt": "Escribí una frase para validarte la próxima vez que algo te duela.",
+      "placeholder": "Tiene sentido que me sienta así porque…"
+    },
+    {
+      "id": "senales",
+      "type": "text",
+      "prompt": "Tu plan: ¿qué señales te avisan que la emoción está empezando a subir?",
+      "placeholder": "Se me cierra la garganta, aprieto los puños…"
+    },
+    {
+      "id": "habilidad",
+      "type": "choice",
+      "prompt": "Cuando notes esas señales, ¿qué vas a probar primero?",
+      "options": [
+        "Buscar a mi sabio o sabia interior",
+        "Una parte del TIPP",
+        "Buscar un camino del medio",
+        "Validarme",
+        "Hablar con alguien de confianza"
+      ]
+    },
+    {
+      "id": "adulto",
+      "type": "text",
+      "prompt": "¿A qué adulto de confianza le podés pedir ayuda si la emoción no baja?",
+      "placeholder": "Mi tía, mi profe de…"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Tu plan para la próxima vez",
+      "template": "Cuando note que {{senales}}, primero voy a: {{habilidad}}. Me voy a decir: «{{validacion}}». Si pienso «{{todo_nada}}», busco el camino del medio: «{{medio}}». Si la emoción no baja, le pido ayuda a: {{adulto}}.",
+      "content": "Las habilidades se aprenden practicando, sobre todo cuando la emoción está en 4 o 5, no solo en 10. Si un día no te salen, **no pasa nada**: es parte de aprender. Y pedir ayuda a un adulto también es una habilidad."
+    }
+  ],
+  "material": {
+    "title": "Habilidades DBT para adolescentes",
+    "description": "Mente sabia, TIPP con precauciones médicas, caminos del medio y autovalidación, con un plan para cuando la emoción sube.",
+    "category": "adolescentes"
+  }
+}

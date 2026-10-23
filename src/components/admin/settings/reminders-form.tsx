@@ -11,11 +11,11 @@ import { Switch } from "@/components/ui/switch";
 import { useSettingsSave } from "@/hooks/use-settings-save";
 import type { RemindersSettings } from "@/server/services/settings";
 
-export function RemindersForm({ initial }: { initial: RemindersSettings }) {
+export function RemindersForm({ initial, emailConfigured = false }: { initial: RemindersSettings; emailConfigured?: boolean }) {
   const [value, setValue] = useState(initial);
   const { save, pending, fieldErrors } = useSettingsSave("reminders");
   const set = <K extends keyof RemindersSettings>(key: K, v: RemindersSettings[K]) => setValue((s) => ({ ...s, [key]: v }));
-  const toggleChannel = (c: "whatsapp" | "in_app", on: boolean) => set("channels", on ? Array.from(new Set([...value.channels, c])) : value.channels.filter((x) => x !== c));
+  const toggleChannel = (c: "whatsapp" | "in_app" | "email", on: boolean) => set("channels", on ? Array.from(new Set([...value.channels, c])) : value.channels.filter((x) => x !== c));
 
   return (
     <form
@@ -47,11 +47,16 @@ export function RemindersForm({ initial }: { initial: RemindersSettings }) {
           </FormField>
         </div>
       </div>
-      <div className="flex items-center gap-6 rounded-2xl border border-border/70 bg-card px-4 py-3 text-sm">
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-2xl border border-border/70 bg-card px-4 py-3 text-sm">
         <span>Canales</span>
         <label className="flex items-center gap-2"><Checkbox checked={value.channels.includes("whatsapp")} onCheckedChange={(v) => toggleChannel("whatsapp", Boolean(v))} /> WhatsApp</label>
         <label className="flex items-center gap-2"><Checkbox checked={value.channels.includes("in_app")} onCheckedChange={(v) => toggleChannel("in_app", Boolean(v))} /> Notificación en la app</label>
+        <label className="flex items-center gap-2"><Checkbox checked={value.channels.includes("email")} onCheckedChange={(v) => toggleChannel("email", Boolean(v))} /> Email (Gmail u otro)</label>
       </div>
+      {value.channels.includes("email") && !emailConfigured ? (
+        <p className="text-xs text-warning">Para enviar emails falta cargar RESEND_API_KEY en Vercel (Settings › Environment Variables). Mientras tanto se usan los otros canales.</p>
+      ) : null}
+      {value.channels.includes("email") ? <p className="text-xs text-muted-foreground">El email llega a la dirección cargada en la ficha del paciente, con fecha, hora, lugar (o enlace) y un botón para confirmar o cambiar el turno.</p> : null}
       <Button type="submit" loading={pending}>Guardar recordatorios</Button>
     </form>
   );
