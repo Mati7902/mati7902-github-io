@@ -1,0 +1,117 @@
+{
+  "slug": "cuadro-duelo-entender",
+  "title": "Entender el duelo",
+  "description": "Qué es el duelo, por qué no tiene etapas fijas, cómo vamos y venimos entre el dolor y la vida cotidiana, y cuándo pedir más ayuda.",
+  "kind": "custom",
+  "approach": "general",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 310,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "que_es",
+      "type": "info",
+      "title": "Qué es el duelo",
+      "content": "Si llegaste hasta acá, probablemente perdiste a alguien o algo muy importante. Lo sentimos mucho. Podés recorrer esta guía a tu ritmo y frenar cuando quieras.\n\nEl duelo es la respuesta natural a una pérdida significativa. Suele pensarse en la muerte de un ser querido, pero también puede aparecer con una separación, una mudanza, la pérdida de un trabajo, de la salud o de una mascota.\n\nEl duelo puede sentirse en todo el cuerpo y en toda la vida:\n\n- **Emociones:** tristeza, enojo, culpa, alivio, miedo, anhelo.\n- **Cuerpo:** cansancio, cambios en el sueño o el apetito, opresión en el pecho.\n- **Pensamientos:** recuerdos que aparecen de golpe, dificultad para concentrarte.\n- **Vida diaria:** cosas que antes eran simples ahora cuestan.\n\n**El duelo no es una enfermedad.** Es una forma de amor que sigue buscando a quien ya no está."
+    },
+    {
+      "id": "sin_etapas",
+      "type": "info",
+      "title": "No hay etapas fijas",
+      "content": "Tal vez escuchaste que el duelo tiene cinco etapas que se recorren en orden. Esa idea se volvió muy popular, pero hoy sabemos que **la mayoría de las personas no vive el duelo así**.\n\nLo más común es que las emociones vayan y vengan, que un día te sientas mejor y al siguiente vuelva el dolor, sobre todo en fechas especiales, aniversarios o lugares cargados de recuerdos.\n\nEso no quiere decir que estés retrocediendo. **No hay una forma correcta ni un calendario** para hacer el duelo. Cada persona y cada vínculo son distintos."
+    },
+    {
+      "id": "proceso_dual",
+      "type": "info",
+      "title": "Ir y venir: el proceso dual",
+      "content": "Un modelo muy útil para entender el duelo dice que oscilamos entre dos movimientos:\n\n- **Mirar hacia la pérdida:** llorar, recordar, extrañar, mirar fotos, hablar de la persona.\n- **Mirar hacia la vida que sigue:** ocuparte de tareas nuevas, retomar rutinas, descansar del dolor, animarte a cosas distintas.\n\nLas dos cosas son necesarias. Quedarse solo en el dolor agota; escapar siempre del dolor tampoco ayuda a procesarlo.\n\n**Ir y venir entre ambos es parte sana del duelo.** Tomarte un respiro, reírte o distraerte no significa que hayas olvidado ni que quieras menos."
+    },
+    {
+      "id": "donde_estas",
+      "type": "choice",
+      "prompt": "En estos días, ¿hacia dónde sentís que estás mirando más?",
+      "options": [
+        "Mucho hacia la pérdida",
+        "Mucho hacia la vida cotidiana",
+        "Voy y vengo entre los dos",
+        "No sabría decirlo"
+      ],
+      "feedback": {
+        "Mucho hacia la pérdida": "Es muy comprensible, sobre todo si la pérdida es reciente. Con el tiempo puede ayudar darte pequeños momentos de descanso del dolor, sin culpa.",
+        "Mucho hacia la vida cotidiana": "A veces ocuparnos nos sostiene. Si notás que evitás todo lo que te recuerda la pérdida, puede ayudar darte de a poco algún espacio para recordar.",
+        "Voy y vengo entre los dos": "Ese ir y venir es justamente lo que describe el modelo. No hace falta forzar nada.",
+        "No sabría decirlo": "Está bien no saberlo. Podés ir observándolo estos días, o pensarlo en sesión."
+      }
+    },
+    {
+      "id": "que_lo_complica",
+      "type": "info",
+      "title": "Qué puede hacerlo más pesado",
+      "content": "Algunas cosas pueden hacer que el duelo se sienta más difícil o se trabe:\n\n- **Evitar todo** lo que recuerda la pérdida, durante mucho tiempo.\n- **Aislarte** y dejar de lado a las personas que te quieren.\n- **Pérdidas repentinas o traumáticas**, o varias pérdidas juntas.\n- **Culpa** o temas que quedaron sin resolver con la persona.\n- **Poco descanso**, mala alimentación o más alcohol para aguantar.\n- **Sentir que no te dejan hacer el duelo**, porque te apuran o no se habla de la pérdida.\n\nNada de esto es tu culpa. Solo son cosas a tener en cuenta y que se pueden trabajar."
+    },
+    {
+      "id": "cuando_consultar",
+      "type": "info",
+      "title": "Cuándo pedir más ayuda",
+      "content": "La mayoría de las personas, con el tiempo y con apoyo, encuentra una forma de seguir viviendo con la pérdida. A veces, en cambio, el dolor se queda muy intenso y no cede.\n\nVale la pena consultar con un profesional si, pasado bastante tiempo (en adultos suele hablarse de alrededor de un año):\n\n- El anhelo o la preocupación por la persona ocupan casi todo tu día.\n- Sentís que una parte tuya murió o que la vida no tiene sentido.\n- No podés aceptar la pérdida o evitás todo lo que la recuerda.\n- Te cuesta mucho retomar tu trabajo, tus vínculos o tus actividades.\n\nNo hace falta esperar: **podés pedir ayuda en cualquier momento** del duelo."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si el dolor se vuelve insoportable",
+      "content": "En el duelo a veces aparecen pensamientos como «no quiero seguir sin esa persona» o «ojalá no despertara». Si te pasa, no estás solo/a y no tenés que cargarlo en silencio.\n\n**Si aparecen pensamientos de no querer vivir, de hacerte daño, o sentís que no podés mantenerte a salvo, pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano. También podés avisarle a alguien de confianza para que te acompañe.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "en_terapia",
+      "type": "info",
+      "title": "Cómo se trabaja en terapia",
+      "content": "La terapia no busca que olvides ni que «superes» a la persona. Busca acompañarte para que puedas llevar la pérdida de una forma que te permita seguir viviendo.\n\nAlgunas cosas que se suelen trabajar:\n\n- Darle lugar a la historia de la pérdida y a lo que sentís, sin juicio.\n- Mantener un **vínculo de otra forma** con quien ya no está: recuerdos, rituales, legados.\n- Trabajar la culpa, el enojo o lo que quedó pendiente.\n- Retomar de a poco actividades y personas importantes.\n- Pensar qué es importante para vos ahora y cómo querés vivir.\n\nVamos a tu ritmo. Vos marcás qué se puede hablar y cuándo."
+    },
+    {
+      "id": "mito_tiempo",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Si después de unos meses sigo llorando, algo anda mal conmigo».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Correcto: es un mito.** El duelo no tiene fecha de vencimiento. Llorar meses después, sobre todo en fechas especiales, es muy común. Lo que importa es si, de a poco, podés también seguir con tu vida.",
+        "Realidad": "**En realidad, es un mito.** El duelo no tiene fecha de vencimiento. Llorar meses después es muy común. Lo que importa es si, de a poco, podés también seguir con tu vida."
+      }
+    },
+    {
+      "id": "mito_olvidar",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Para estar bien tengo que dejar de pensar en la persona».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Correcto: es un mito.** Muchas personas mantienen un vínculo con quien murió a través de recuerdos y rituales, y eso puede ser fuente de consuelo.",
+        "Realidad": "**En realidad, es un mito.** No hace falta cortar el vínculo. Muchas personas lo mantienen a través de recuerdos y rituales, y eso puede ser fuente de consuelo."
+      }
+    },
+    {
+      "id": "entre_sesiones",
+      "type": "info",
+      "title": "Qué podés hacer entre sesiones",
+      "content": "Pequeñas cosas que suelen ayudar:\n\n- **Cuidar lo básico:** dormir, comer algo nutritivo, moverte un poco.\n- **Darte un momento para recordar**, por ejemplo mirando una foto o escribiendo.\n- **Darte también un descanso del dolor**, sin culpa.\n- **Hablar con alguien de confianza**, aunque sea un rato.\n- **Prepararte para las fechas difíciles** pensando cómo querés pasarlas.\n- **Ser amable con vos:** hay días en los que alcanza con lo mínimo.\n\nEn la práctica «Duelo: recuerdo y conexión» vas a poder trabajar algunas de estas ideas."
+    },
+    {
+      "id": "me_llevo",
+      "type": "text",
+      "prompt": "¿Qué te llevás de esta guía? ¿Qué idea te sirvió o te quedó dando vueltas?",
+      "placeholder": "Lo que me llevo…",
+      "help": "Gracias por darte este tiempo. Si querés, traé esto a la próxima sesión para conversarlo."
+    }
+  ],
+  "material": {
+    "title": "Entender el duelo",
+    "category": "duelo",
+    "description": "Psicoeducación sobre el duelo: qué es y qué no es, el modelo de proceso dual, mitos frecuentes, cuándo consultar y qué hacer entre sesiones."
+  }
+}

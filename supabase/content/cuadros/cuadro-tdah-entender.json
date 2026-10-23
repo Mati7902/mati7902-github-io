@@ -1,0 +1,116 @@
+{
+  "slug": "cuadro-tdah-entender",
+  "title": "Entender el TDAH en adultos",
+  "description": "Qué es el TDAH en la adultez, cómo afecta a las funciones ejecutivas, por qué no es falta de voluntad y qué estrategias ayudan.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 316,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "que_es",
+      "type": "info",
+      "title": "Qué es el TDAH",
+      "content": "El **trastorno por déficit de atención e hiperactividad (TDAH)** es una forma diferente de funcionamiento del cerebro que empieza en la infancia y muchas veces continúa en la adultez.\n\nEn adultos puede verse como:\n\n- Distraerte con facilidad o perder el hilo.\n- Postergar tareas, sobre todo las aburridas.\n- Olvidar citas, objetos o pendientes.\n- Llegar tarde o calcular mal el tiempo.\n- Inquietud interna, impaciencia o actuar sin pensar.\n- Concentrarte muchísimo en lo que te interesa y nada en lo que no.\n\nA todos nos pasan estas cosas a veces. En el TDAH son frecuentes, vienen de siempre y afectan varias áreas de la vida."
+    },
+    {
+      "id": "funciones_ejecutivas",
+      "type": "info",
+      "title": "Las funciones ejecutivas",
+      "content": "Las **funciones ejecutivas** son como el «director de orquesta» del cerebro. Nos ayudan a:\n\n- **Planificar y organizar** los pasos de una tarea.\n- **Empezar** algo aunque no tengamos ganas.\n- **Sostener la atención** y retomar después de una interrupción.\n- **Recordar** lo que teníamos que hacer (memoria de trabajo).\n- **Manejar el tiempo** y anticipar cuánto lleva algo.\n- **Frenar impulsos** y regular emociones.\n\nEn el TDAH estas funciones cuestan más. No es que no sepas qué hacer: el problema suele estar en **hacer lo que sabés, en el momento justo**."
+    },
+    {
+      "id": "no_es_voluntad",
+      "type": "info",
+      "title": "No es falta de voluntad",
+      "content": "Muchas personas con TDAH crecieron escuchando «sos vago/a», «si quisieras, podrías» o «no te esforzás». Con el tiempo eso puede convertirse en culpa, vergüenza y baja autoestima.\n\nPero el TDAH **no es falta de voluntad, de inteligencia ni de valores**. Es una diferencia en cómo el cerebro regula la atención, la motivación y el tiempo.\n\nPor eso exigirte más fuerza de voluntad no suele alcanzar. Lo que más ayuda es **cambiar el entorno y usar apoyos externos**, en lugar de depender solo de la memoria y la motivación."
+    },
+    {
+      "id": "estrategias_externas",
+      "type": "info",
+      "title": "Sacar las cosas de la cabeza",
+      "content": "Una idea central es **externalizar**: poner afuera lo que al cerebro le cuesta sostener adentro.\n\n- **Un solo lugar** para anotar pendientes, en vez de papelitos sueltos.\n- **Agenda o calendario** con alarmas para citas y vencimientos.\n- **Temporizadores** para hacer visible el paso del tiempo.\n- **Dividir tareas** grandes en pasos muy chicos y concretos.\n- **Preparar el entorno:** dejar a la vista lo que necesitás y lejos lo que distrae.\n- **Rutinas y lugares fijos** para llaves, documentos, cargador.\n\nNo es hacer trampa: es usar herramientas que se adapten a cómo funciona tu cabeza."
+    },
+    {
+      "id": "dificultades",
+      "type": "checklist",
+      "prompt": "¿En qué áreas sentís que más te cuesta hoy?",
+      "options": [
+        "Empezar tareas",
+        "Terminar lo que empiezo",
+        "Recordar citas y pendientes",
+        "Manejar el tiempo",
+        "Mantener el orden",
+        "Controlar impulsos o emociones",
+        "Concentrarme en reuniones o clases"
+      ],
+      "help": "No es un test ni un diagnóstico. Sirve para elegir por dónde empezar.",
+      "min": 1
+    },
+    {
+      "id": "diagnostico",
+      "type": "info",
+      "title": "El diagnóstico y la medicación",
+      "content": "Muchas cosas pueden parecerse al TDAH: la ansiedad, la depresión, el mal dormir, el estrés o algunos problemas médicos. Por eso **el diagnóstico lo hace un profesional** con una evaluación cuidadosa, que incluye tu historia desde la infancia.\n\nEsta guía no sirve para diagnosticarte. Si te identificás con lo que leíste, es un buen tema para conversar en sesión.\n\nEn algunos casos la **medicación** puede ayudar mucho. Si corresponde, la evalúa y la indica un médico psiquiatra o neurólogo. La terapia y las estrategias prácticas son un complemento importante, con o sin medicación."
+    },
+    {
+      "id": "en_terapia",
+      "type": "info",
+      "title": "Cómo se trabaja en terapia",
+      "content": "La terapia cognitivo-conductual adaptada al TDAH en adultos suele enfocarse en:\n\n- **Organización y planificación:** armar y sostener un sistema externo.\n- **Manejo del tiempo y la postergación.**\n- **Reducir distracciones** y preparar el entorno.\n- **Pensamientos autocríticos** como «siempre arruino todo».\n- **Regulación emocional** y manejo de la impulsividad.\n- **Fortalezas:** creatividad, energía, capacidad de hiperconcentrarte en lo que te apasiona.\n\nSe trabaja con objetivos concretos y practicando en tu vida real, entre sesiones."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si estás pasando un momento muy difícil",
+      "content": "Vivir con dificultades que nadie entendió puede generar mucho cansancio y frustración.\n\n**Si estás en crisis, sentís que no das más o aparecen pensamientos de hacerte daño, pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "mito_ninos",
+      "type": "choice",
+      "prompt": "Mito o realidad: «El TDAH es solo de chicos; de grande se te pasa».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Correcto: es un mito.** En muchas personas los síntomas continúan en la adultez, aunque a veces cambian de forma: por ejemplo, la hiperactividad puede volverse inquietud interna.",
+        "Realidad": "**En realidad, es un mito.** En muchas personas los síntomas continúan en la adultez, aunque a veces cambian de forma: por ejemplo, la hiperactividad puede volverse inquietud interna."
+      }
+    },
+    {
+      "id": "mito_concentrar",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Si puedo concentrarme horas en algo que me gusta, no puedo tener TDAH».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Correcto: es un mito.** Es muy común en el TDAH poder hiperconcentrarse en lo que interesa. El problema está en regular la atención cuando la tarea no es estimulante.",
+        "Realidad": "**En realidad, es un mito.** Es muy común en el TDAH poder hiperconcentrarse en lo que interesa. El problema está en regular la atención cuando la tarea no es estimulante."
+      }
+    },
+    {
+      "id": "entre_sesiones",
+      "type": "info",
+      "title": "Qué podés hacer entre sesiones",
+      "content": "Algunas ideas para empezar:\n\n- **Elegí un solo lugar** para anotar pendientes y usalo durante una semana.\n- **Poné alarmas** para lo importante, con un aviso previo.\n- **Probá trabajar en bloques cortos** con un temporizador y pausas.\n- **Antes de empezar**, escribí el primer paso más chico posible.\n- **Tratate con amabilidad:** los olvidos y errores son información, no prueba de que fallaste.\n\nEn la práctica «TDAH: mi sistema externo» vas a poder armar tu propio sistema."
+    },
+    {
+      "id": "me_llevo",
+      "type": "text",
+      "prompt": "¿Qué te llevás de esta guía? ¿Qué idea te sirvió o te quedó dando vueltas?",
+      "placeholder": "Lo que me llevo…",
+      "help": "Si querés, traé esto a la próxima sesión para conversarlo."
+    }
+  ],
+  "material": {
+    "title": "Entender el TDAH en adultos",
+    "category": "tdah",
+    "description": "Psicoeducación sobre TDAH adulto: funciones ejecutivas, por qué no es falta de voluntad, estrategias externas, diagnóstico, mitos y qué hacer."
+  }
+}

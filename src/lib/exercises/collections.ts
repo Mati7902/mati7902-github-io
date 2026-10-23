@@ -17,7 +17,14 @@ export type CollectionPart = { title: string; from: number; to: number };
 /** Plan para momentos muy difíciles (Brújula, página 14): tiene acceso rápido desde Calmarme. */
 export const PLAN_SLUG = "brujula-plan-momentos-dificiles";
 
-export type CollectionInfo = { title: string; description: string; audience: Audience; parts: CollectionPart[] };
+export type CollectionInfo = {
+  title: string;
+  description: string;
+  audience: Audience;
+  parts: CollectionPart[];
+  /** El paciente solo ve los ejercicios que el profesional le asignó (no se ofrecen por edad). */
+  assignedOnly?: boolean;
+};
 
 export const COLLECTIONS: Record<string, CollectionInfo> = {
   brujula: {
@@ -42,6 +49,13 @@ export const COLLECTIONS: Record<string, CollectionInfo> = {
       { title: "Registros para repetir", from: 210, to: 219 },
       { title: "Para consultar", from: 220, to: 299 },
     ],
+  },
+  cuadros: {
+    title: "Recursos de tu proceso",
+    description: "Lecturas y prácticas que tu psicólogo eligió para lo que estás trabajando en terapia.",
+    audience: "todos",
+    assignedOnly: true,
+    parts: [{ title: "Recursos", from: 300, to: 399 }],
   },
 };
 

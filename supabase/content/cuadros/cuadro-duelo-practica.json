@@ -1,0 +1,112 @@
+{
+  "slug": "cuadro-duelo-practica",
+  "title": "Duelo: recuerdo y conexión",
+  "description": "Una práctica para escribirle a quien perdiste o guardar un recuerdo, pensar un ritual de conexión y apoyarte en tu red.",
+  "kind": "custom",
+  "approach": "general",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 311,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Una práctica para tu duelo",
+      "content": "Este ejercicio te propone tres cosas: **escribir** algo para la persona o lo que perdiste, pensar un **ritual** que te ayude a sentirte en conexión, y mirar quiénes forman tu **red de apoyo**.\n\nPuede movilizar emociones fuertes. Es esperable. Buscá un lugar tranquilo y un momento en el que no tengas que salir corriendo después.\n\nPodés frenar cuando quieras, saltear lo que no te sale hoy y volver otro día."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si te sentís muy mal",
+      "content": "Si mientras hacés el ejercicio el dolor se vuelve insoportable, frená y hacé algo que te calme: respirar despacio, tomar agua, llamar a alguien.\n\n**Si aparecen pensamientos de no querer vivir o de hacerte daño, pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "como_llegas",
+      "type": "scale",
+      "prompt": "Antes de empezar, ¿cuánto dolor o malestar sentís ahora?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísimo",
+      "maps_to": "emotion_before"
+    },
+    {
+      "id": "forma",
+      "type": "choice",
+      "prompt": "¿Qué preferís hacer hoy?",
+      "options": [
+        "Escribir una carta",
+        "Escribir un recuerdo significativo"
+      ],
+      "feedback": {
+        "Escribir una carta": "En la próxima pantalla podés escribirle directamente. Algunas ideas: qué te gustaría que supiera, qué extrañás, qué le agradecés, qué te quedó pendiente decir.",
+        "Escribir un recuerdo significativo": "En la próxima pantalla contá un momento compartido: dónde estaban, qué pasaba, qué sentías. Con todos los detalles que quieras."
+      }
+    },
+    {
+      "id": "escrito",
+      "type": "text",
+      "prompt": "Escribí tu carta o tu recuerdo. No hace falta que esté prolijo ni completo.",
+      "help": "Nadie lo va a leer si vos no querés. Si llorás mientras escribís, está bien: podés hacer una pausa y seguir.",
+      "placeholder": "Querido/a… / Me acuerdo de cuando…"
+    },
+    {
+      "id": "como_quedaste",
+      "type": "text",
+      "prompt": "¿Cómo te quedaste después de escribir? ¿Qué notaste?",
+      "optional": true,
+      "placeholder": "Lo que sentí…"
+    },
+    {
+      "id": "rituales",
+      "type": "info",
+      "title": "Rituales de conexión",
+      "content": "Los rituales son gestos que nos ayudan a darle un lugar a la pérdida y a sentir que el vínculo sigue de otra forma. Pueden ser muy simples:\n\n- Encender una vela o poner una flor en una fecha especial.\n- Cocinar su comida favorita o escuchar su música.\n- Visitar un lugar que compartían.\n- Armar una caja o un álbum de recuerdos.\n- Hacer algo que a esa persona le importaba, como un pequeño legado.\n\nElegí lo que tenga sentido para vos y para tus creencias."
+    },
+    {
+      "id": "ritual",
+      "type": "text",
+      "prompt": "¿Qué ritual o gesto de conexión te gustaría hacer? ¿Cuándo?",
+      "placeholder": "Por ejemplo: el domingo voy a cocinar su receta de…"
+    },
+    {
+      "id": "red",
+      "type": "list",
+      "prompt": "¿Con quiénes podés hablar de tu pérdida o pedir compañía?",
+      "help": "Pueden ser familiares, amistades, alguien de tu comunidad o tu psicólogo/a. Un nombre por renglón.",
+      "count": 3,
+      "min": 1
+    },
+    {
+      "id": "pedido",
+      "type": "text",
+      "prompt": "¿Qué te gustaría pedirle a alguna de esas personas esta semana?",
+      "optional": true,
+      "placeholder": "Por ejemplo: que me acompañe al cementerio, que me llame el viernes…"
+    },
+    {
+      "id": "como_salis",
+      "type": "scale",
+      "prompt": "Ahora, ¿cuánto dolor o malestar sentís?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísimo",
+      "maps_to": "emotion_after"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Tu plan de conexión",
+      "template": "Mi ritual de conexión: {{ritual}}. Personas con las que puedo hablar: {{red}}.",
+      "content": "Si el malestar subió, es normal después de tocar algo tan importante: date un momento de cuidado. Podés traer lo que escribiste a la próxima sesión, si querés."
+    }
+  ],
+  "material": {
+    "title": "Duelo: recuerdo y conexión",
+    "category": "duelo",
+    "description": "Ejercicio guiado: carta o recuerdo significativo, rituales de conexión con quien ya no está y red de apoyo para los días difíciles."
+  }
+}

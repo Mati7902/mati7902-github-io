@@ -1,0 +1,103 @@
+{
+  "slug": "cuadro-pareja-practica",
+  "title": "Preparar una conversación difícil",
+  "description": "Prepará lo que querés decir con «Yo siento… cuando… necesito…» y repasá cómo escuchar al otro de verdad.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 13,
+  "sort_order": 325,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Antes de hablar",
+      "content": "Las conversaciones difíciles salen mejor cuando se preparan. Vas a:\n\n- Elegir **un tema** concreto.\n- Armar una frase con **«Yo siento… cuando… necesito…»**.\n- Repasar cómo practicar la **escucha activa** cuando hable el otro.\n- Elegir un buen momento.\n\nSirve para la pareja y también para otros vínculos cercanos."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Primero, tu seguridad",
+      "content": "Esta práctica es para **conflictos entre personas que se respetan**. Si la otra persona te da miedo, te controla, te amenaza o te lastimó, **no hace falta que te prepares para hablar con ella**: lo primero es tu seguridad. Contáselo a tu psicólogo o a alguien de confianza.\n\nSi estás en peligro ahora o sentís que estás en crisis, **pedí ayuda ya**: a emergencias, a una línea de ayuda o en la guardia del hospital más cercano. En la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "es_seguro",
+      "type": "choice",
+      "prompt": "¿Te sentís con seguridad para tener esta conversación con esa persona?",
+      "options": ["Sí", "No estoy seguro o segura", "No"],
+      "feedback": {
+        "Sí": "**Bien.** Seguí adelante con la preparación.",
+        "No estoy seguro o segura": "**Esa duda es importante.** Podés seguir preparando la conversación, pero antes de tenerla, hablalo con tu psicólogo. Si en algún momento sentís miedo, priorizá tu seguridad.",
+        "No": "**Gracias por decirlo.** En ese caso, lo más importante no es cómo decirlo, sino cuidarte. Te recomendamos no tener esta conversación a solas y hablarlo con tu psicólogo o con alguien de confianza. Si estás en peligro, pedí ayuda ya."
+      }
+    },
+    {
+      "id": "tema",
+      "type": "text",
+      "prompt": "¿De qué tema querés hablar? Elegí uno solo y concreto.",
+      "placeholder": "Por ejemplo: cómo nos repartimos las tareas de la casa"
+    },
+    {
+      "id": "siento",
+      "type": "text",
+      "prompt": "Yo siento… ¿Qué emoción te genera esto?",
+      "help": "Hablá de tu emoción, no de lo que el otro «es». Por ejemplo: cansancio, tristeza, enojo, soledad, preocupación.",
+      "placeholder": "Me siento…"
+    },
+    {
+      "id": "cuando",
+      "type": "text",
+      "prompt": "…cuando… ¿Qué situación concreta pasa?",
+      "help": "Describí lo que pasa como lo vería una cámara, sin «siempre» ni «nunca». Por ejemplo: «cuando llego del trabajo y la cocina está sin ordenar».",
+      "placeholder": "Cuando…"
+    },
+    {
+      "id": "necesito",
+      "type": "text",
+      "prompt": "…necesito… ¿Qué pedido concreto y posible querés hacer?",
+      "help": "Un pedido en positivo y concreto. Por ejemplo: «necesito que nos repartamos los días para cocinar y ordenar».",
+      "placeholder": "Necesito…"
+    },
+    {
+      "id": "frase",
+      "type": "reflect",
+      "title": "Tu frase",
+      "template": "Me siento {{siento}} cuando {{cuando}}. Necesito {{necesito}}.",
+      "content": "Leela en voz alta. ¿Suena a una crítica o a algo que te pasa a vos? Si suena a ataque, podés tocar «Atrás» y ajustarla."
+    },
+    {
+      "id": "escucha",
+      "type": "info",
+      "title": "Escucha activa",
+      "content": "Después de decir lo tuyo, **le toca al otro**. Escuchar de verdad es tan importante como hablar bien:\n\n- **Escuchá para entender,** no para preparar tu respuesta.\n- **Resumí** lo que entendiste: «Te entiendo que llegás muy cansado y no te dan ganas de ordenar, ¿es así?».\n- **Validá** lo que tenga sentido: «Tiene sentido que estés cansado».\n- **Preguntá** antes de suponer: «¿Qué te ayudaría a vos?».\n\nValidar no es darle la razón en todo: es mostrar que entendés cómo lo vive."
+    },
+    {
+      "id": "escucha_plan",
+      "type": "checklist",
+      "prompt": "¿Qué te comprometés a hacer mientras el otro habla?",
+      "options": ["No interrumpir", "Resumir lo que entendí", "Validar lo que tenga sentido", "Preguntar antes de suponer", "Pedir una pausa si me desbordo", "Evitar el sarcasmo y las burlas"],
+      "min": 1
+    },
+    {
+      "id": "momento",
+      "type": "text",
+      "prompt": "¿Cuándo y dónde podría ser un buen momento para hablar?",
+      "help": "Mejor un momento tranquilo, sin apuro y sin otras personas. Evitá hacerlo en medio de una discusión o con alguien muy cansado.",
+      "placeholder": "Por ejemplo: el sábado a la mañana, tomando mate"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Tu plan para la conversación",
+      "template": "Tema: {{tema}}. Voy a decir: «Me siento {{siento}} cuando {{cuando}}. Necesito {{necesito}}». Mientras el otro habla, me comprometo a: {{escucha_plan}}. Momento: {{momento}}.",
+      "content": "No podés controlar cómo va a responder la otra persona, pero sí cómo te expresás vos. Si la conversación se pone tensa, pedí una pausa y acordá cuándo retomar. Después, contá en sesión cómo te fue."
+    }
+  ],
+  "material": {
+    "title": "Preparar una conversación difícil",
+    "description": "Guía para preparar una conversación con «Yo siento… cuando… necesito…», practicar la escucha activa y cuidar la seguridad.",
+    "category": "relaciones"
+  }
+}

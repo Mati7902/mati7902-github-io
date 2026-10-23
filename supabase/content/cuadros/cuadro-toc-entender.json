@@ -1,0 +1,135 @@
+{
+  "slug": "cuadro-toc-entender",
+  "title": "Entender el TOC",
+  "description": "Qué son las obsesiones y las compulsiones, por qué el círculo se mantiene y cómo se trabaja en terapia.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 16,
+  "sort_order": 304,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Entender el TOC",
+      "content": "El trastorno obsesivo-compulsivo (TOC) es mucho más que \"ser ordenado/a\" o \"maniático/a\". Quienes lo viven saben lo agotador que puede ser: pensamientos que no se van y la necesidad de hacer algo para calmarlos.\n\nEn este recurso vas a ver cómo funciona el círculo del TOC, qué no es y cómo se trabaja. **Lo que te pasa tiene explicación y se puede tratar.** Andá a tu ritmo."
+    },
+    {
+      "id": "obsesiones",
+      "type": "info",
+      "title": "Las obsesiones",
+      "content": "Las **obsesiones** son pensamientos, imágenes o impulsos que aparecen sin que los busques, se sienten intrusivos y generan mucha ansiedad, asco, culpa o sensación de que algo \"no está bien\".\n\nAlgunos temas frecuentes:\n\n- Contaminación o enfermedades.\n- Dudas: \"¿cerré la puerta?\", \"¿apagué la hornalla?\".\n- Miedo a hacer daño a alguien sin querer.\n- Necesidad de orden, simetría o de que algo se sienta \"justo\".\n- Pensamientos que chocan con tus valores (religiosos, sexuales, agresivos).\n\nQue aparezcan **no dice nada de quién sos**. Justamente molestan tanto porque van en contra de lo que querés."
+    },
+    {
+      "id": "compulsiones",
+      "type": "info",
+      "title": "Las compulsiones",
+      "content": "Las **compulsiones** son lo que hacés para bajar la ansiedad o \"neutralizar\" la obsesión. Pueden ser visibles o mentales:\n\n- Lavar, limpiar, revisar una y otra vez.\n- Ordenar, contar, repetir hasta que \"se sienta bien\".\n- Rezar, repetir frases o pensar un pensamiento \"bueno\" para anular el \"malo\".\n- Pedir que te aseguren que todo está bien.\n- Repasar mentalmente lo que pasó, buscar en internet.\n- Evitar lo que dispara la obsesión.\n\nNo son caprichos: son intentos de protegerte que terminan atrapándote."
+    },
+    {
+      "id": "circulo",
+      "type": "info",
+      "title": "El círculo del TOC",
+      "content": "El TOC se mantiene en un círculo:\n\n- **Disparador:** tocar un picaporte, salir de casa, una noticia.\n- **Obsesión:** \"me voy a enfermar\", \"¿y si dejé la puerta abierta?\".\n- **Ansiedad o malestar** muy fuerte.\n- **Compulsión o neutralización:** lavarte, volver a revisar, pedir que te aseguren.\n- **Alivio rápido…** que dura poco.\n\nEse alivio le enseña al cerebro que la obsesión era peligrosa y que el ritual \"te salvó\". Entonces la próxima vez la obsesión vuelve con más fuerza y el ritual se hace más largo. **No es tu culpa:** así aprende el cerebro."
+    },
+    {
+      "id": "que_no_es",
+      "type": "info",
+      "title": "Qué no es",
+      "content": "- **No es \"ser perfeccionista\"** o que te guste el orden. En el TOC, los rituales generan sufrimiento y ocupan mucho tiempo.\n- **Tener un pensamiento no es lo mismo que desearlo ni que hacerlo.** Casi todas las personas tienen pensamientos intrusivos raros; la diferencia está en cuánto pesan y en lo que hacés con ellos.\n- **No es falta de voluntad.** \"Dejar de hacerlo y listo\" no suele funcionar sin ayuda, porque la ansiedad es muy intensa.\n\nSi te reconocés en esto, charlalo con tu psicólogo/a: no tenés que entenderlo todo solo/a."
+    },
+    {
+      "id": "tus_compulsiones",
+      "type": "checklist",
+      "prompt": "¿Reconocés alguna de estas conductas en tu día a día? Marcá las que quieras.",
+      "options": [
+        "Lavar o limpiar de más",
+        "Revisar varias veces",
+        "Ordenar o acomodar hasta que esté \"justo\"",
+        "Contar o repetir acciones",
+        "Rezar o repetir frases para anular un pensamiento",
+        "Pedir que me aseguren que todo está bien",
+        "Repasar mentalmente o buscar en internet",
+        "Evitar lugares, objetos o personas"
+      ],
+      "min": 1
+    },
+    {
+      "id": "terapia",
+      "type": "info",
+      "title": "Cómo se trabaja en terapia",
+      "content": "El tratamiento psicológico con más respaldo para el TOC es la **exposición con prevención de respuesta (EPR)**, dentro de la terapia cognitivo-conductual.\n\n- **Exposición:** acercarte de a poco, con un plan, a lo que dispara la obsesión.\n- **Prevención de respuesta:** no hacer el ritual (o hacerlo menos), dejando que la ansiedad suba y baje sola.\n\nAsí el cerebro aprende que puede tolerar la duda y el malestar sin el ritual. **La EPR se planifica en sesión, paso a paso y con tu acuerdo.** También pueden sumarse herramientas de ACT, para relacionarte distinto con los pensamientos, y, si hace falta, una evaluación médica o psiquiátrica."
+    },
+    {
+      "id": "mito_pensar",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Si tengo un pensamiento horrible, es porque en el fondo lo deseo».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Exacto.** Los pensamientos intrusivos le pasan a casi todo el mundo. En el TOC molestan tanto **porque van en contra** de lo que valorás. Un pensamiento no es un deseo ni una intención.",
+        "Realidad": "**Es lo que el TOC te hace sentir, pero es un mito.** Los pensamientos intrusivos le pasan a casi todo el mundo. En el TOC molestan tanto **porque van en contra** de lo que valorás. Un pensamiento no es un deseo ni una intención."
+      }
+    },
+    {
+      "id": "mito_asegurar",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Que me aseguren que todo está bien me ayuda a salir del TOC».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Bien visto.** Pedir que te aseguren funciona como un ritual más: alivia un rato, pero después la duda vuelve y necesitás otra confirmación. En terapia se trabaja, de a poco, también con las personas que te acompañan.",
+        "Realidad": "**Se entiende, porque alivia, pero es un mito.** Pedir que te aseguren funciona como un ritual más: alivia un rato, pero después la duda vuelve y necesitás otra confirmación. En terapia se trabaja, de a poco, también con las personas que te acompañan."
+      }
+    },
+    {
+      "id": "mito_suprimir",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Lo mejor es esforzarme por no pensar más en eso».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Así es.** Cuanto más intentás no pensar en algo, más vuelve (probá no pensar en un elefante rosa). Lo que ayuda es aprender a dejar que el pensamiento esté, sin engancharte ni responderle con un ritual.",
+        "Realidad": "**Es lo primero que uno intenta, pero es un mito.** Cuanto más intentás no pensar en algo, más vuelve (probá no pensar en un elefante rosa). Lo que ayuda es aprender a dejar que el pensamiento esté, sin engancharte ni responderle con un ritual."
+      }
+    },
+    {
+      "id": "entre_sesiones",
+      "type": "info",
+      "title": "Qué podés hacer entre sesiones",
+      "content": "- **Registrar** obsesiones y compulsiones: qué las disparó, qué sentiste y qué hiciste. En esta colección tenés la práctica «Mi registro del TOC».\n- **Ponerle nombre:** \"esto es el TOC hablando\" ayuda a tomar distancia.\n- **Notar los rituales mentales y los pedidos de que te aseguren,** que a veces pasan desapercibidos.\n- **Tratarte con amabilidad.** Los días con más rituales no son un fracaso.\n- **No armar exposiciones por tu cuenta:** lo ideal es planificarlas en sesión.\n\nLlevá lo que observes a la próxima sesión."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si necesitás ayuda urgente",
+      "content": "Si te sentís desbordado/a, en crisis o pensás en hacerte daño, **pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "me_llevo",
+      "type": "text",
+      "prompt": "¿Qué te llevás de esto? ¿Hay algo que quieras charlar en la próxima sesión?",
+      "placeholder": "Lo que me quedó resonando…"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Lo que te llevás",
+      "template": "Conductas que reconozco: {{tus_compulsiones}}. Lo que me llevo: {{me_llevo}}",
+      "content": "Entender el círculo del TOC te ayuda a verlo desde un poco más de distancia. Podés compartir esto con tu psicólogo/a."
+    }
+  ],
+  "material": {
+    "title": "Entender el TOC",
+    "description": "Psicoeducación sobre el TOC: obsesiones, compulsiones y neutralización, el círculo que lo mantiene, la EPR en terapia y mitos frecuentes.",
+    "category": "toc"
+  }
+}

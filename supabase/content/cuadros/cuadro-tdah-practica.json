@@ -1,0 +1,119 @@
+{
+  "slug": "cuadro-tdah-practica",
+  "title": "TDAH: mi sistema externo",
+  "description": "Armá un sistema externo con lista, agenda y temporizador, dividí una tarea en pasos chicos, probá bloques cortos y prepará tu entorno.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 317,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Tu sistema externo",
+      "content": "En este ejercicio vas a armar un **sistema externo**: herramientas que hacen fuera de tu cabeza el trabajo que a tu cerebro le cuesta más.\n\nVas a elegir tus herramientas, **dividir una tarea** que venís postergando, planificar **bloques de trabajo** con temporizador y **preparar tu entorno**.\n\nNo tiene que quedar perfecto. Un sistema simple que usás vale más que uno perfecto que abandonás."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "**Si estás en crisis, sentís que no das más o aparecen pensamientos de hacerte daño, pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "herramientas",
+      "type": "checklist",
+      "prompt": "¿Qué herramientas vas a usar en tu sistema?",
+      "options": [
+        "Una lista única de pendientes",
+        "Agenda o calendario con alarmas",
+        "Temporizador",
+        "Notas a la vista (pizarra, post-its)",
+        "Recordatorios del celular",
+        "Una persona que me acompañe o me pregunte cómo voy"
+      ],
+      "help": "Elegí pocas. Lo importante es que estén siempre en el mismo lugar y que las mires todos los días.",
+      "min": 1,
+      "max": 4
+    },
+    {
+      "id": "momento_revision",
+      "type": "text",
+      "prompt": "¿En qué momento del día vas a revisar tu lista y tu agenda?",
+      "help": "Atarlo a algo que ya hacés ayuda: con el desayuno, al llegar al trabajo, antes de cenar.",
+      "placeholder": "Por ejemplo: todas las mañanas con el primer mate"
+    },
+    {
+      "id": "tarea",
+      "type": "text",
+      "prompt": "¿Qué tarea venís postergando y te gustaría avanzar esta semana?",
+      "placeholder": "Por ejemplo: ordenar los papeles del banco"
+    },
+    {
+      "id": "pasos",
+      "type": "list",
+      "prompt": "Dividila en pasos muy chicos y concretos, que puedas hacer en menos de 15 minutos cada uno.",
+      "help": "El primer paso tiene que ser tan chico que dé casi risa. Por ejemplo: «sacar la carpeta del cajón».",
+      "count": 5,
+      "min": 3
+    },
+    {
+      "id": "pomodoro",
+      "type": "info",
+      "title": "Bloques de trabajo a tu medida",
+      "content": "La **técnica pomodoro** consiste en trabajar en un bloque con temporizador y después hacer una pausa corta. La versión clásica usa bloques de 25 minutos, pero **podés adaptarla**:\n\n- Si te cuesta arrancar, empezá con **bloques de 10 o 15 minutos**.\n- Al terminar el bloque, **pausa de 5 minutos** de verdad: pararte, moverte, tomar agua.\n- Antes de cada bloque, decidí **un solo paso** de tu lista.\n- Si te llega una idea o un pendiente, **anotalo** y seguí.\n- Después de tres o cuatro bloques, hacé una pausa más larga.\n\nSi estás hiperconcentrado/a, la alarma también te sirve para comer, moverte o pasar a otra cosa."
+    },
+    {
+      "id": "bloque",
+      "type": "choice",
+      "prompt": "¿Con qué largo de bloque querés empezar?",
+      "options": [
+        "10 minutos",
+        "15 minutos",
+        "20 minutos",
+        "25 minutos"
+      ],
+      "feedback": {
+        "10 minutos": "Buen punto de partida. Si te resulta fácil, podés ir sumando de a poco.",
+        "15 minutos": "Un buen equilibrio para arrancar sin agobiarte.",
+        "20 minutos": "Bien. Si notás que te cuesta sostenerlo, probá acortarlo sin culpa.",
+        "25 minutos": "Es el bloque clásico. Si se te hace largo, achicarlo también está bien."
+      }
+    },
+    {
+      "id": "entorno",
+      "type": "checklist",
+      "prompt": "Preparar el entorno: ¿qué vas a hacer antes de empezar un bloque?",
+      "options": [
+        "Dejar el celular en otro lugar o en silencio",
+        "Cerrar pestañas y notificaciones",
+        "Tener a mano todo lo que necesito",
+        "Avisar que no me interrumpan",
+        "Ponerme auriculares o música sin letra",
+        "Despejar la mesa"
+      ],
+      "min": 1,
+      "max": 4
+    },
+    {
+      "id": "cuando_bloque",
+      "type": "text",
+      "prompt": "¿Cuándo vas a hacer tu primer bloque con el primer paso de tu tarea?",
+      "placeholder": "Por ejemplo: mañana a las 18, en la mesa del comedor"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Tu sistema",
+      "template": "Mis herramientas: {{herramientas}}. Las reviso: {{momento_revision}}. Tarea: {{tarea}}. Pasos: {{pasos}}. Bloques de {{bloque}}. Antes de empezar: {{entorno}}. Primer bloque: {{cuando_bloque}}.",
+      "content": "Si algún día el sistema falla, no significa que vos fallaste: es una señal para ajustarlo. Traé lo que observes a la próxima sesión."
+    }
+  ],
+  "material": {
+    "title": "TDAH: mi sistema externo",
+    "category": "tdah",
+    "description": "Ejercicio guiado: sistema externo de lista, agenda y temporizador, dividir tareas, bloques de trabajo tipo pomodoro adaptados y preparar el entorno."
+  }
+}

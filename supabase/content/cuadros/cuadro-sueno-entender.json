@@ -1,0 +1,110 @@
+{
+  "slug": "cuadro-sueno-entender",
+  "title": "Entender el insomnio y el sueño",
+  "description": "Por qué aparece y se mantiene el insomnio, qué es la hiperactivación, cómo la cama se asocia a estar despierto y cómo ayuda la TCC-I.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 314,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "que_es",
+      "type": "info",
+      "title": "Qué es el insomnio",
+      "content": "Hablamos de **insomnio** cuando cuesta dormirse, te despertás varias veces o muy temprano y no podés volver a dormir, y eso pasa seguido y te afecta durante el día: cansancio, irritabilidad, dificultad para concentrarte.\n\nUna mala noche de vez en cuando le pasa a cualquiera y no es insomnio. Tampoco hay una cantidad exacta de horas que «tenés que» dormir: las necesidades cambian entre personas y con la edad.\n\nLa buena noticia es que el insomnio **se puede trabajar**, y hay tratamientos con mucha evidencia."
+    },
+    {
+      "id": "tres_p",
+      "type": "info",
+      "title": "Por qué empieza y por qué sigue: las 3 P",
+      "content": "Un modelo muy usado explica el insomnio con tres tipos de factores:\n\n- **Predisponentes:** lo que te hace más propenso/a, como tender a preocuparte o tener un sueño más liviano.\n- **Precipitantes:** lo que lo dispara, como un estrés fuerte, una pérdida, un problema de salud o un cambio de horarios.\n- **Perpetuantes:** lo que hacés para compensar y que, sin querer, lo mantiene: quedarte más tiempo en la cama, dormir siestas largas, acostarte temprano «por las dudas», preocuparte por no dormir.\n\nMuchas veces el disparador ya pasó, pero los factores perpetuantes siguen. **Ahí es donde más se puede trabajar.**"
+    },
+    {
+      "id": "hiperactivacion",
+      "type": "info",
+      "title": "Hiperactivación: cuerpo y mente en alerta",
+      "content": "Para dormir, el cuerpo y la mente necesitan bajar un cambio. En el insomnio suele pasar lo contrario: hay **hiperactivación**.\n\n- La mente repasa pendientes, problemas o el miedo a no dormir.\n- El cuerpo está tenso, el corazón acelerado.\n- Mirás el reloj, calculás cuántas horas te quedan… y te activás más.\n\nCuanto más te esforzás por dormir, más difícil se vuelve. **El sueño no se puede forzar**: lo que sí podemos hacer es crear las condiciones para que llegue."
+    },
+    {
+      "id": "condicionamiento",
+      "type": "info",
+      "title": "Cuando la cama se asocia a estar despierto",
+      "content": "Nuestro cerebro aprende por asociación. Si pasás muchas horas en la cama dando vueltas, preocupándote, mirando el celular o la tele, el cerebro empieza a asociar **cama = estar despierto/a y en alerta**.\n\nPor eso a muchas personas con insomnio les pasa que se mueren de sueño en el sillón, pero apenas se acuestan se despiertan.\n\nParte del tratamiento consiste en **reentrenar esa asociación** para que la cama vuelva a ser una señal de sueño."
+    },
+    {
+      "id": "reconoces",
+      "type": "checklist",
+      "prompt": "¿Cuáles de estas cosas te pasan o hacés seguido?",
+      "options": [
+        "Me quedo en la cama dando vueltas mucho rato",
+        "Uso el celular o la tele en la cama",
+        "Miro la hora durante la noche",
+        "Duermo siestas largas",
+        "Me acuesto temprano para «recuperar»",
+        "Me preocupo por no poder dormir",
+        "Ninguna de estas"
+      ],
+      "help": "No es un test. Sirve para identificar qué factores podrían estar manteniendo el problema.",
+      "min": 1
+    },
+    {
+      "id": "tcc_i",
+      "type": "info",
+      "title": "El tratamiento de primera línea: la TCC-I",
+      "content": "Las guías clínicas recomiendan como **primera opción** para el insomnio crónico la **terapia cognitivo-conductual para el insomnio (TCC-I)**. Suele ser breve y sus efectos tienden a mantenerse en el tiempo.\n\nIncluye, entre otras cosas:\n\n- **Diario de sueño** para conocer tu patrón real.\n- **Control de estímulos:** usar la cama solo para dormir (y la intimidad) y salir de la cama si no te dormís.\n- **Ajuste del tiempo en cama**, siempre planificado y acompañado por el profesional.\n- Trabajar los **pensamientos y preocupaciones** sobre el sueño.\n- **Relajación** y hábitos que favorecen el descanso.\n\nLa medicación para dormir la evalúa un médico; no la empieces ni la dejes por tu cuenta."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si estás en crisis",
+      "content": "Dormir mal durante mucho tiempo puede hacer que todo se sienta más difícil.\n\n**Si estás en crisis, sentís que no das más o aparecen pensamientos de hacerte daño, pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nSi tenés mucho sueño durante el día, evitá manejar o usar máquinas peligrosas, y contáselo a tu profesional."
+    },
+    {
+      "id": "mito_ocho",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Todos necesitamos dormir exactamente ocho horas».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Correcto: es un mito.** La necesidad de sueño varía entre personas. Lo importante es cómo te sentís y funcionás durante el día, no llegar a un número exacto.",
+        "Realidad": "**En realidad, es un mito.** La necesidad de sueño varía entre personas. Lo importante es cómo te sentís y funcionás durante el día, no llegar a un número exacto."
+      }
+    },
+    {
+      "id": "mito_cama",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Si no me duermo, lo mejor es quedarme en la cama hasta que llegue el sueño».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Correcto: es un mito.** Quedarse dando vueltas refuerza la asociación cama-vigilia. Suele ayudar más levantarte, hacer algo tranquilo con poca luz y volver cuando tengas sueño.",
+        "Realidad": "**En realidad, es un mito.** Quedarse dando vueltas refuerza la asociación cama-vigilia. Suele ayudar más levantarte, hacer algo tranquilo con poca luz y volver cuando tengas sueño."
+      }
+    },
+    {
+      "id": "entre_sesiones",
+      "type": "info",
+      "title": "Qué podés hacer entre sesiones",
+      "content": "Algunos primeros pasos:\n\n- **Levantarte a la misma hora** todos los días, incluso el fin de semana.\n- **Usar la cama solo para dormir.** Nada de pantallas ni trabajo en la cama.\n- **Si no te dormís en unos 20 minutos**, levantate, hacé algo tranquilo con poca luz y volvé cuando tengas sueño.\n- **Bajar el ritmo** una hora antes de acostarte.\n- **Evitar cafeína** por la tarde y alcohol cerca de la hora de dormir.\n- **No mirar la hora** durante la noche.\n\nEn la práctica «Sueño: diario y hábitos» vas a poder empezar tu diario de sueño."
+    },
+    {
+      "id": "me_llevo",
+      "type": "text",
+      "prompt": "¿Qué te llevás de esta guía? ¿Qué idea te sirvió o te quedó dando vueltas?",
+      "placeholder": "Lo que me llevo…",
+      "help": "Si querés, traé esto a la próxima sesión para conversarlo."
+    }
+  ],
+  "material": {
+    "title": "Entender el insomnio y el sueño",
+    "category": "sueno",
+    "description": "Psicoeducación sobre insomnio: modelo de las 3 P, hiperactivación, condicionamiento cama-vigilia, TCC-I como primera línea, mitos y qué hacer."
+  }
+}

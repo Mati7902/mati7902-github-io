@@ -583,6 +583,45 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"patient_clinical_focus": {
+                  Row: {
+                    "created_at": string,"created_by": string | null,"focus_key": string,"icd10": string | null,"id": string,"note": string | null,"patient_id": string,"updated_at": string
+                  }
+                  Insert: {
+                    "created_at"?: string,"created_by"?: string | null,"focus_key": string,"icd10"?: string | null,"id"?: string,"note"?: string | null,"patient_id": string,"updated_at"?: string
+                  }
+                  Update: {
+                    "created_at"?: string,"created_by"?: string | null,"focus_key"?: string,"icd10"?: string | null,"id"?: string,"note"?: string | null,"patient_id"?: string,"updated_at"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"test_assignments": {
+                  Row: {
+                    "assigned_at": string,"assigned_by": string | null,"completed_at": string | null,"due_on": string | null,"focus_key": string | null,"id": string,"note": string | null,"patient_id": string,"show_result": boolean,"status": string,"test_id": string
+                  }
+                  Insert: {
+                    "assigned_at"?: string,"assigned_by"?: string | null,"completed_at"?: string | null,"due_on"?: string | null,"focus_key"?: string | null,"id"?: string,"note"?: string | null,"patient_id": string,"show_result"?: boolean,"status"?: string,"test_id": string
+                  }
+                  Update: {
+                    "assigned_at"?: string,"assigned_by"?: string | null,"completed_at"?: string | null,"due_on"?: string | null,"focus_key"?: string | null,"id"?: string,"note"?: string | null,"patient_id"?: string,"show_result"?: boolean,"status"?: string,"test_id"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"test_responses": {
+                  Row: {
+                    "answers": Json,"assignment_id": string,"band_label": string | null,"completed_at": string,"flags": Json,"id": string,"level": string | null,"max_score": number | null,"patient_id": string,"risk": boolean,"score": number | null,"summary": string | null,"test_id": string
+                  }
+                  Insert: {
+                    "answers": Json,"assignment_id": string,"band_label"?: string | null,"completed_at"?: string,"flags"?: Json,"id"?: string,"level"?: string | null,"max_score"?: number | null,"patient_id": string,"risk"?: boolean,"score"?: number | null,"summary"?: string | null,"test_id": string
+                  }
+                  Update: {
+                    "answers"?: Json,"assignment_id"?: string,"band_label"?: string | null,"completed_at"?: string,"flags"?: Json,"id"?: string,"level"?: string | null,"max_score"?: number | null,"patient_id"?: string,"risk"?: boolean,"score"?: number | null,"summary"?: string | null,"test_id"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"testimonials": {
                   Row: {
                     "consent_confirmed": boolean,"consent_confirmed_at": string | null,"context": string | null,"created_at": string,"gender": string,"id": string,"is_published": boolean,"quote": string,"sort_order": number,"updated_at": string

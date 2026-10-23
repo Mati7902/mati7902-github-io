@@ -1,0 +1,107 @@
+{
+  "slug": "cuadro-pareja-entender",
+  "title": "Entender los problemas de pareja",
+  "description": "Patrones de comunicación que dañan el vínculo, cómo pedir lo que necesitás y por qué la violencia no es un problema de comunicación.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 324,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Cuando el vínculo duele",
+      "content": "Todas las parejas tienen desacuerdos. Discutir no significa que la relación esté mal. Lo que suele marcar la diferencia es **cómo** se discute, cómo se repara después y si las dos personas se sienten seguras y respetadas.\n\nEste recurso te ayuda a reconocer algunos patrones frecuentes, a pensar en tus necesidades y a distinguir un conflicto de una situación de violencia.\n\nSirve para cualquier tipo de pareja, y muchas ideas también aplican a otros vínculos cercanos."
+    },
+    {
+      "id": "que_es",
+      "type": "info",
+      "title": "Qué es y qué no es",
+      "content": "**Un conflicto de pareja es:** un desacuerdo entre dos personas que se respetan, donde las dos pueden decir lo que piensan sin miedo.\n\n**No es lo mismo que:**\n\n- **Violencia:** cuando una persona controla, amenaza, humilla, aísla, lastima o da miedo a la otra.\n- **Incompatibilidad total:** a veces el conflicto muestra que se quieren cosas muy distintas, y eso también merece hablarse.\n\nCuando hay conflicto, se puede trabajar la comunicación. **Cuando hay violencia, lo primero es la seguridad**, y eso lo vemos más adelante."
+    },
+    {
+      "id": "patrones",
+      "type": "info",
+      "title": "Cuatro patrones que desgastan",
+      "content": "La investigación sobre parejas describe cuatro patrones que, cuando se repiten, desgastan mucho el vínculo:\n\n- **Críticas:** atacar a la persona en lugar de hablar de una conducta. «Sos un egoísta» en lugar de «me molestó que no avisaras».\n- **Defensividad:** responder a cada queja con excusas o contraataques, sin escuchar.\n- **Desprecio:** burlas, sarcasmo, gestos de superioridad. Es el patrón más dañino.\n- **Evasión:** cerrarse, irse, no contestar, «hacer la pared».\n\nCasi todas las personas caemos en alguno a veces. Reconocerlos es el primer paso para cambiarlos."
+    },
+    {
+      "id": "alternativas",
+      "type": "info",
+      "title": "Qué hacer en su lugar",
+      "content": "Para cada patrón hay una alternativa:\n\n- **En vez de criticar:** hablá de lo que sentís y de una situación concreta. «Yo siento… cuando… necesito…».\n- **En vez de defenderte:** buscá la parte de razón que tiene el otro y hacete cargo de tu parte.\n- **En vez de despreciar:** recordá lo que valorás de esa persona y expresalo.\n- **En vez de evadir:** si te desbordás, pedí una pausa y acordá cuándo retomar. «Necesito veinte minutos para calmarme, después seguimos».\n\nNo se trata de no discutir, sino de discutir sin lastimar."
+    },
+    {
+      "id": "necesidades",
+      "type": "info",
+      "title": "Necesidades y pedidos claros",
+      "content": "Muchas discusiones se repiten porque detrás de la queja hay una **necesidad** que no se dice: sentirse tenido en cuenta, tener tiempo juntos, sentir apoyo, tener espacio propio.\n\nUn **pedido claro** es concreto, posible y dicho en positivo:\n\n- Poco claro: «Nunca me das bola».\n- Más claro: «Me gustaría que el domingo a la tarde hagamos algo juntos, sin celulares».\n\nPedir no garantiza que el otro diga que sí, pero le da una oportunidad real de responder. En esta sección tenés una práctica para preparar una conversación así."
+    },
+    {
+      "id": "violencia",
+      "type": "info",
+      "title": "La violencia no es un problema de comunicación",
+      "content": "Algunas señales de violencia en la pareja:\n\n- Te da **miedo** cómo va a reaccionar.\n- Controla tu celular, tu plata, tu ropa o con quién te ves.\n- Te humilla, te insulta o te amenaza, en privado o delante de otros.\n- Te aleja de tu familia o tus amistades.\n- Te empuja, golpea, rompe cosas o te obliga a algo sexual que no querés.\n\nNada de esto es tu culpa ni se arregla «comunicándote mejor». **Si te pasa, lo primero es tu seguridad.** No hace falta que estés segura o seguro de que «es violencia» para pedir ayuda: contáselo a tu psicólogo o a alguien de confianza."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si estás en peligro",
+      "content": "Si estás en peligro ahora, si alguien te lastimó o te amenaza, o si sentís que estás en crisis, **pedí ayuda ya**: a emergencias, a una línea de ayuda o en la guardia del hospital más cercano. En la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nSi convivís con la persona, pensá en un lugar y una persona a los que puedas ir, y hablalo con tu psicólogo.\n\nSi te preocupa que alguien vea esta app en tu celular, cuidá tu privacidad: podés cerrar sesión al terminar."
+    },
+    {
+      "id": "terapia",
+      "type": "info",
+      "title": "Cómo se trabaja en terapia",
+      "content": "Los temas de pareja se pueden trabajar **en terapia individual**, entendiendo tus patrones, tus necesidades y cómo te gustaría vincularte, o a veces **en terapia de pareja**, si las dos personas quieren y no hay violencia.\n\nSe suele trabajar en:\n\n- Reconocer los patrones que se repiten en las discusiones.\n- Aprender a expresar emociones y pedidos de forma clara.\n- Practicar la escucha activa.\n- Reparar después de una discusión.\n- Revisar si el vínculo es seguro y te hace bien."
+    },
+    {
+      "id": "mito_pelear",
+      "type": "choice",
+      "prompt": "Verdadero o falso: «Las parejas que funcionan bien no discuten nunca».",
+      "options": ["Verdadero", "Falso"],
+      "feedback": {
+        "Verdadero": "**Es un mito frecuente.** Las parejas que funcionan bien también discuten. La diferencia está en cómo lo hacen: con respeto, sin desprecio, y con capacidad de reparar después.",
+        "Falso": "**Así es.** Los desacuerdos son parte de cualquier vínculo. Lo importante es discutir sin lastimar y poder reparar después."
+      }
+    },
+    {
+      "id": "mito_celos",
+      "type": "choice",
+      "prompt": "Si tu pareja revisa tu celular y controla con quién hablás, ¿qué es?",
+      "options": ["Una prueba de amor", "Una señal de control que conviene tomar en serio", "Algo normal en toda pareja"],
+      "feedback": {
+        "Una prueba de amor": "**Es una idea muy instalada, pero el control no es amor.** Revisar el celular o decidir con quién hablás son señales de control. Vale la pena hablarlo con tu psicólogo o con alguien de confianza.",
+        "Una señal de control que conviene tomar en serio": "**Sí.** El control no es una forma de cuidado. Si te pasa, no es tu culpa, y podés hablarlo con tu psicólogo o con alguien de confianza. Si sentís miedo, priorizá tu seguridad.",
+        "Algo normal en toda pareja": "**Pasa seguido, pero no es sano.** Revisar el celular o controlar con quién hablás son señales de control. Vale la pena tomarlo en serio y hablarlo con tu psicólogo."
+      }
+    },
+    {
+      "id": "entre_sesiones",
+      "type": "info",
+      "title": "Qué podés hacer entre sesiones",
+      "content": "- **Observá** qué patrones aparecen en tus discusiones, en vos y en el otro.\n- **Pensá** qué necesidad hay detrás de tu queja más frecuente.\n- **Prepará** una conversación con «Yo siento… cuando… necesito…». En esta sección tenés una práctica.\n- **Pedí una pausa** cuando te desbordes, y acordá cuándo retomar.\n- **Si hay miedo o violencia,** no hace falta prepararse para hablar: priorizá tu seguridad y contáselo a tu psicólogo."
+    },
+    {
+      "id": "me_llevo",
+      "type": "text",
+      "prompt": "¿Qué te llevás de este recurso?",
+      "placeholder": "Me llevo…"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Lo que te llevás",
+      "template": "{{me_llevo}}",
+      "content": "Gracias por darte este tiempo. Merecés vínculos en los que te sientas con seguridad y respeto."
+    }
+  ],
+  "material": {
+    "title": "Entender los problemas de pareja",
+    "description": "Críticas, defensividad, desprecio y evasión; necesidades y pedidos claros; señales de violencia y por qué priorizar la seguridad.",
+    "category": "relaciones"
+  }
+}

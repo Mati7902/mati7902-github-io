@@ -1,0 +1,100 @@
+{
+  "slug": "cuadro-fobias-practica",
+  "title": "Mi escalera de exposición",
+  "description": "Armá una escalera de situaciones de menor a mayor malestar para revisarla con tu psicólogo/a.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 12,
+  "sort_order": 303,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Mi escalera de exposición",
+      "content": "Vas a armar una **escalera**: una lista de situaciones relacionadas con tu miedo, ordenadas de la que menos malestar te da a la que más.\n\n**Importante:** hoy solo la armás. **No hace falta que hagas ninguna de estas situaciones todavía.** La escalera se revisa y se ajusta con tu psicólogo/a, y juntos deciden por dónde empezar y cómo.\n\nEs un mapa, no una obligación."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "Si pensar en estas situaciones te desborda, podés parar cuando quieras y retomarlo otro día.\n\nSi estás en crisis o pensás en hacerte daño, **pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano. En la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "miedo",
+      "type": "text",
+      "prompt": "¿A qué le tenés miedo? Describilo con tus palabras.",
+      "placeholder": "Por ejemplo: hablar en reuniones, los perros, los ascensores"
+    },
+    {
+      "id": "temor",
+      "type": "text",
+      "prompt": "¿Qué temés que pase si te enfrentás a eso?",
+      "placeholder": "Por ejemplo: «se van a reír de mí», «me va a morder», «me voy a quedar encerrado/a»"
+    },
+    {
+      "id": "costo",
+      "type": "text",
+      "prompt": "¿Qué te está costando este miedo? ¿Qué te gustaría poder hacer?",
+      "placeholder": "Por ejemplo: participar en clase, visitar a mi hermana que tiene perro"
+    },
+    {
+      "id": "puntaje_info",
+      "type": "info",
+      "title": "El termómetro del malestar",
+      "content": "Para ordenar la escalera vas a usar un puntaje de **0 a 100**:\n\n- **0:** nada de malestar, tranquilidad total.\n- **30:** algo incómodo, pero manejable.\n- **50:** bastante ansiedad, cuesta.\n- **80:** muchísimo malestar.\n- **100:** lo peor que te imaginás.\n\nNo hay puntajes correctos: es tu termómetro. Lo importante es que los números te ayuden a ordenar."
+    },
+    {
+      "id": "lluvia",
+      "type": "list",
+      "prompt": "Anotá situaciones relacionadas con tu miedo, con su puntaje de 0 a 100. Una por renglón, sin ordenarlas todavía.",
+      "help": "Pensá variantes: más cerca o más lejos, con o sin compañía, más corto o más largo. Por ejemplo: «Mirar fotos de perros: 20», «Saludar a un compañero nuevo: 40».",
+      "count": 10,
+      "min": 5
+    },
+    {
+      "id": "ordenar_info",
+      "type": "info",
+      "title": "Ahora, a ordenar",
+      "content": "Mirá la lista que hiciste y elegí entre **5 y 8 situaciones** que vayan subiendo de a poco.\n\n- El **primer escalón** debería ser difícil pero posible (alrededor de 20 a 40).\n- Entre un escalón y otro, que no haya saltos muy grandes.\n- Si falta un escalón intermedio, inventalo: por ejemplo, la misma situación pero acompañado/a, o por menos tiempo."
+    },
+    {
+      "id": "escalera",
+      "type": "list",
+      "prompt": "Tu escalera: escribí las situaciones de menor a mayor malestar, con su puntaje.",
+      "help": "El primer renglón es el escalón más bajo. Por ejemplo: «1. Ver un video de perros: 25».",
+      "count": 8,
+      "min": 5
+    },
+    {
+      "id": "seguridades",
+      "type": "text",
+      "prompt": "¿Qué hacés para sentirte más a salvo en esas situaciones? (conductas de seguridad)",
+      "placeholder": "Por ejemplo: no mirar a los ojos, ir acompañado/a, tener el celular en la mano",
+      "optional": true
+    },
+    {
+      "id": "confianza",
+      "type": "scale",
+      "prompt": "¿Cuánta confianza tenés en que, con un plan, podrías empezar por el primer escalón?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Ninguna",
+      "max_label": "Mucha"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Tu escalera",
+      "template": "Mi miedo: {{miedo}}. Lo que temo: {{temor}}. Lo que me gustaría poder hacer: {{costo}}. Mi escalera: {{escalera}}.",
+      "content": "**Llevá esta escalera a la próxima sesión.** Con tu psicólogo/a van a revisar los puntajes, ajustar los escalones y acordar cuándo y cómo empezar. Hasta entonces, no hace falta que la pongas en práctica."
+    }
+  ],
+  "material": {
+    "title": "Mi escalera de exposición",
+    "description": "Guía para armar una jerarquía de exposición con puntaje de malestar 0 a 100, para revisar y acordar con el psicólogo antes de ponerla en práctica.",
+    "category": "ansiedad"
+  }
+}

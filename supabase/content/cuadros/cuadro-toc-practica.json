@@ -1,0 +1,108 @@
+{
+  "slug": "cuadro-toc-practica",
+  "title": "Mi registro del TOC",
+  "description": "Registrá una obsesión y lo que hiciste con ella, y probá posponer un ritual unos minutos.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 12,
+  "sort_order": 305,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Mi registro del TOC",
+      "content": "Este ejercicio tiene dos partes:\n\n- **Registrar** una obsesión reciente y lo que hiciste con ella, para ver tu propio círculo.\n- **Probar posponer un ritual** unos pocos minutos, solo si te sentís con ganas.\n\n**La exposición con prevención de respuesta (EPR) se planifica en sesión** con tu psicólogo/a. Esto es una práctica chica, de observación, no un reemplazo de ese trabajo."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "Si en algún momento te desbordás, podés parar y retomarlo otro día.\n\nSi estás en crisis o pensás en hacerte daño, **pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano. En la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "disparador",
+      "type": "text",
+      "prompt": "¿Qué pasó justo antes de que apareciera la obsesión? (lugar, situación, algo que viste o tocaste)",
+      "placeholder": "Por ejemplo: salí de casa apurado/a"
+    },
+    {
+      "id": "obsesion",
+      "type": "text",
+      "prompt": "¿Qué pensamiento, imagen o duda apareció? Podés describirlo en pocas palabras.",
+      "help": "No hace falta que lo escribas con detalle si te incomoda: alcanza con una etiqueta, como «duda sobre la puerta» o «pensamiento de contaminación».",
+      "placeholder": "Por ejemplo: «¿y si dejé la puerta abierta?»"
+    },
+    {
+      "id": "malestar",
+      "type": "scale",
+      "prompt": "¿Cuánto malestar sentiste en ese momento?",
+      "min": 0,
+      "max": 100,
+      "min_label": "Nada",
+      "max_label": "Muchísimo"
+    },
+    {
+      "id": "ritual",
+      "type": "text",
+      "prompt": "¿Qué hiciste para bajar el malestar? (revisar, lavar, pedir que te aseguren, un ritual mental…)",
+      "placeholder": "Por ejemplo: volví tres veces a revisar"
+    },
+    {
+      "id": "despues",
+      "type": "text",
+      "prompt": "¿Qué pasó después del ritual? ¿Cuánto duró el alivio?",
+      "placeholder": "Por ejemplo: me calmé un rato, pero a la hora volvió la duda"
+    },
+    {
+      "id": "posponer_info",
+      "type": "info",
+      "title": "Posponer el ritual",
+      "content": "La próxima vez que aparezca el impulso de hacer un ritual, podés probar **esperar un poco antes de hacerlo**: por ejemplo, 5 minutos.\n\n- No se trata de prohibirte el ritual: solo de **correrlo un rato**.\n- Mientras esperás, notá qué pasa con el malestar: ¿sube, se queda, baja?\n- Si pasados los minutos todavía lo hacés, **está bien.** Es información útil.\n\nElegí algo que te resulte **posible**, no lo más difícil. Si un ritual te genera mucho malestar o te pone en riesgo, dejalo para trabajarlo en sesión."
+    },
+    {
+      "id": "minutos",
+      "type": "choice",
+      "prompt": "¿Cuánto tiempo te parece posible posponer un ritual esta semana?",
+      "options": [
+        "2 minutos",
+        "5 minutos",
+        "10 minutos",
+        "Prefiero charlarlo primero en sesión"
+      ],
+      "feedback": {
+        "2 minutos": "**Un buen comienzo.** Dos minutos alcanzan para empezar a notar qué pasa con el malestar cuando no respondés enseguida.",
+        "5 minutos": "**Bien.** Cinco minutos es un desafío razonable. Fijate qué pasa con el malestar mientras esperás.",
+        "10 minutos": "**Bien.** Si en algún momento se vuelve demasiado, podés achicar el tiempo: lo importante es practicar, no aguantar a toda costa.",
+        "Prefiero charlarlo primero en sesión": "**Es una decisión válida.** Con lo que registraste hoy ya tenés mucho para trabajar con tu psicólogo/a."
+      }
+    },
+    {
+      "id": "pausa",
+      "type": "timed_info",
+      "title": "Un minuto para practicar",
+      "content": "Si ahora sentís el impulso de un ritual, podés usar este minuto para practicar. Si no, simplemente respirá.\n\n- Notá el impulso como una ola: sube, llega a un punto y después baja.\n- Ponele nombre: \"esto es el TOC pidiéndome que revise\".\n- Respirá lento, alargando la exhalación.\n- No hace falta discutir con el pensamiento ni convencerte de nada. Solo dejalo estar.",
+      "seconds": 60
+    },
+    {
+      "id": "aprendi",
+      "type": "text",
+      "prompt": "¿Qué notaste hoy sobre tu círculo del TOC?",
+      "placeholder": "Por ejemplo: el alivio dura poco y después necesito revisar más"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Tu registro",
+      "template": "Disparador: {{disparador}}. Obsesión: {{obsesion}}. Lo que hice: {{ritual}}. Después: {{despues}}. Para esta semana: {{minutos}}. Lo que noté: {{aprendi}}",
+      "content": "Llevá este registro a la próxima sesión. Con tu psicólogo/a van a usarlo para planificar la EPR paso a paso."
+    }
+  ],
+  "material": {
+    "title": "Mi registro del TOC",
+    "description": "Registro guiado de disparador, obsesión, malestar y compulsión, y una práctica breve y voluntaria de posponer el ritual. La EPR se planifica en sesión.",
+    "category": "toc"
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "slug": "cuadro-panico-entender",
+  "title": "Entender los ataques de pánico",
+  "description": "Qué es un ataque de pánico, por qué se repite, cómo se trabaja en terapia y qué podés hacer entre sesiones.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 300,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Entender el pánico",
+      "content": "Si estás leyendo esto, quizás alguna vez sentiste de golpe que el corazón se aceleraba, que te faltaba el aire o que algo grave estaba por pasar.\n\nEsa experiencia asusta mucho. **No estás exagerando ni te lo estás inventando:** lo que sentís es real.\n\nEn las próximas pantallas vas a ver qué pasa en el cuerpo y en la mente durante una crisis, por qué a veces se repite y qué se puede hacer. Andá a tu ritmo."
+    },
+    {
+      "id": "que_es",
+      "type": "info",
+      "title": "Qué es un ataque de pánico",
+      "content": "Un ataque de pánico es una **subida intensa y repentina de miedo** que llega a su punto más alto en pocos minutos y después baja sola.\n\nPuede venir con:\n\n- Corazón acelerado o palpitaciones.\n- Falta de aire o sensación de ahogo.\n- Mareo, temblor, sudor, hormigueo.\n- Presión en el pecho o náuseas.\n- Sensación de irrealidad o de estar \"afuera\" de vos.\n- Miedo a desmayarte, a volverte loco/a o a morir.\n\nEs la **alarma natural del cuerpo** (la respuesta de lucha o huida) que se dispara cuando no hay un peligro real delante."
+    },
+    {
+      "id": "que_no_es",
+      "type": "info",
+      "title": "Qué no es",
+      "content": "- **No es debilidad** ni falta de voluntad. Le pasa a muchísimas personas.\n- **No es \"estar loco/a\".** La sensación de perder el control es parte de la alarma, no una señal de que vayas a perderlo.\n- **No es peligroso en sí mismo,** aunque se sienta terrible. La alarma está hecha para subir y después bajar.\n\nIgual, es importante que un médico o una médica descarte causas físicas, sobre todo la primera vez o si los síntomas cambian. Eso no es \"perder el tiempo\": te da tranquilidad para trabajar el pánico con más confianza."
+    },
+    {
+      "id": "circulo",
+      "type": "info",
+      "title": "El círculo del pánico",
+      "content": "Muchas veces el pánico se arma como un círculo:\n\n- **Una sensación:** notás el corazón más rápido (por subir una escalera, un café, estrés…).\n- **Una interpretación catastrófica:** \"me está dando un infarto\", \"me voy a desmayar\".\n- **Más miedo:** el cuerpo se alarma todavía más.\n- **Más sensaciones:** el corazón se acelera más, falta el aire.\n\nY vuelta a empezar. No es la sensación la que dispara la crisis, sino **lo que la mente concluye sobre ella**. La buena noticia: ese punto del círculo se puede trabajar."
+    },
+    {
+      "id": "evitacion",
+      "type": "info",
+      "title": "Por qué se mantiene",
+      "content": "Después de una crisis, es muy entendible querer evitar que vuelva a pasar. Entonces aparecen:\n\n- **Evitación:** dejar de ir a ciertos lugares, de hacer ejercicio, de viajar solo/a.\n- **Conductas de seguridad:** llevar siempre agua o una pastilla \"por las dudas\", ir siempre acompañado/a, sentarte cerca de la salida, controlarte el pulso.\n- **Estar pendiente del cuerpo:** revisar cada latido.\n\nA corto plazo alivian. A largo plazo, le enseñan a la mente que \"me salvé porque evité\", y el miedo no tiene oportunidad de bajar. Así el mundo se va achicando."
+    },
+    {
+      "id": "tus_sensaciones",
+      "type": "checklist",
+      "prompt": "¿Cuáles de estas sensaciones reconocés en tus crisis? Marcá las que quieras.",
+      "options": [
+        "Corazón acelerado o palpitaciones",
+        "Falta de aire",
+        "Mareo o sensación de desmayo",
+        "Temblor o sudor",
+        "Presión en el pecho",
+        "Hormigueo",
+        "Sensación de irrealidad",
+        "Náuseas o malestar de panza"
+      ],
+      "min": 1
+    },
+    {
+      "id": "terapia",
+      "type": "info",
+      "title": "Cómo se trabaja en terapia",
+      "content": "La terapia cognitivo-conductual es uno de los tratamientos con más respaldo para el pánico. En general incluye:\n\n- **Psicoeducación:** entender la alarma, como estás haciendo ahora.\n- **Revisar las interpretaciones:** buscar explicaciones más realistas para las sensaciones.\n- **Exposición interoceptiva:** con tu psicólogo/a, provocar sensaciones parecidas (por ejemplo, girar en una silla o respirar por una pajita) para que el cuerpo aprenda que no son peligrosas.\n- **Exposición gradual a situaciones evitadas,** de a poco y con un plan.\n- **Dejar de a poco las conductas de seguridad.**\n\nEstos pasos se planifican juntos, a tu ritmo. No hace falta que los hagas solo/a."
+    },
+    {
+      "id": "mito_respirar",
+      "type": "choice",
+      "prompt": "Mito o realidad: «En una crisis tengo que respirar hondo y rápido para que no me falte el aire».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Exacto, es un mito.** Respirar rápido y hondo suele aumentar el mareo y el hormigueo. Lo que más ayuda es respirar **lento**, alargando la exhalación. La sensación de falta de aire es incómoda, pero el cuerpo sigue recibiendo oxígeno.",
+        "Realidad": "**Es una idea muy común, pero es un mito.** Respirar rápido y hondo suele aumentar el mareo y el hormigueo. Lo que más ayuda es respirar **lento**, alargando la exhalación. La sensación de falta de aire es incómoda, pero el cuerpo sigue recibiendo oxígeno."
+      }
+    },
+    {
+      "id": "mito_evitar",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Si evito los lugares donde me dio pánico, me voy a sentir mejor con el tiempo».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Bien visto.** Evitar trae alivio rápido, pero con el tiempo suele hacer que el miedo crezca y que haya cada vez más lugares \"prohibidos\". Volver de a poco, con un plan acordado en terapia, es lo que ayuda a recuperar terreno.",
+        "Realidad": "**Se entiende que lo pienses, pero es un mito.** Evitar trae alivio rápido, pero con el tiempo suele hacer que el miedo crezca y que haya cada vez más lugares \"prohibidos\". Volver de a poco, con un plan acordado en terapia, es lo que ayuda a recuperar terreno."
+      }
+    },
+    {
+      "id": "mito_control",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Si no corto la crisis a tiempo, voy a perder el control para siempre».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Así es.** La crisis sube, llega a un pico y baja, aunque no hagas nada especial. La sensación de perder el control es parte de la alarma. Cuanto menos peleás con las sensaciones, más rápido suelen pasar.",
+        "Realidad": "**Es lo que el miedo te dice, pero es un mito.** La crisis sube, llega a un pico y baja, aunque no hagas nada especial. La sensación de perder el control es parte de la alarma. Cuanto menos peleás con las sensaciones, más rápido suelen pasar."
+      }
+    },
+    {
+      "id": "entre_sesiones",
+      "type": "info",
+      "title": "Qué podés hacer entre sesiones",
+      "content": "- **Registrar las crisis:** cuándo, qué sentiste, qué pensaste y qué hiciste. Ayuda a ver el círculo. En esta misma colección tenés la práctica «Mi registro del pánico».\n- **Practicar la respiración lenta** en momentos tranquilos, no solo en la crisis.\n- **Recordarte la frase clave:** \"es la alarma, es incómoda, va a bajar\".\n- **Notar tus conductas de seguridad,** sin presionarte a dejarlas todas de golpe.\n- **Cuidar lo básico:** sueño, comidas, moverte, bajar la cafeína si notás que te afecta.\n\nLlevá lo que observes a la próxima sesión."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si necesitás ayuda urgente",
+      "content": "Si tenés dolor de pecho fuerte, síntomas nuevos o distintos, o no estás seguro/a de que sea pánico, **consultá ya en la guardia del hospital más cercano** o llamá a emergencias.\n\nSi estás en crisis o pensás en hacerte daño, pedí ayuda ya: a emergencias, a una línea de ayuda o en la guardia.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "me_llevo",
+      "type": "text",
+      "prompt": "¿Qué te llevás de todo esto? ¿Hay algo que quieras charlar en la próxima sesión?",
+      "placeholder": "Lo que me quedó resonando…"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Lo que te llevás",
+      "template": "Las sensaciones que reconozco: {{tus_sensaciones}}. Lo que me llevo: {{me_llevo}}",
+      "content": "Entender el círculo ya es un paso. Lo que anotaste queda guardado y lo podés compartir con tu psicólogo/a."
+    }
+  ],
+  "material": {
+    "title": "Entender los ataques de pánico",
+    "description": "Psicoeducación sobre el pánico: la alarma del cuerpo, el círculo de interpretación catastrófica y evitación, cómo se trabaja en TCC y mitos frecuentes.",
+    "category": "ansiedad"
+  }
+}

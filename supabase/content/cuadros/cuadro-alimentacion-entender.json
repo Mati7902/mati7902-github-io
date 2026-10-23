@@ -1,0 +1,105 @@
+{
+  "slug": "cuadro-alimentacion-entender",
+  "title": "Entender la relación con la comida",
+  "description": "Qué pasa cuando comer se vuelve una preocupación, el ciclo restricción–atracón–compensación y cómo se trabaja en terapia.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 320,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Cuando la comida ocupa mucho lugar",
+      "content": "A veces la comida, el cuerpo o el peso empiezan a ocupar gran parte de los pensamientos del día. Puede aparecer culpa después de comer, reglas muy estrictas sobre qué está permitido, momentos en los que sentís que perdés el control, o mucha preocupación por cómo te ves.\n\nSi te reconocés en algo de esto, **no estás solo ni sola**, y no es falta de voluntad. Es algo que se puede entender y trabajar, con ayuda.\n\nEste recurso no reemplaza una evaluación profesional: te ayuda a entender qué suele pasar y a llevar preguntas a tu sesión."
+    },
+    {
+      "id": "que_es",
+      "type": "info",
+      "title": "Qué es y qué no es",
+      "content": "**Qué es:** una relación con la comida y con el cuerpo que genera sufrimiento, ocupa mucho tiempo mental y empieza a afectar tu salud, tu ánimo o tu vida social.\n\n**Qué no es:**\n\n- No es un capricho ni una forma de llamar la atención.\n- No se ve siempre «desde afuera»: le puede pasar a personas de cualquier cuerpo, edad o género.\n- No se resuelve solo con «comer bien» o con más fuerza de voluntad.\n\nMuchas veces la comida termina siendo una forma de manejar emociones difíciles, de sentir control o de calmar la angustia. Entender esa función es parte del trabajo."
+    },
+    {
+      "id": "ciclo",
+      "type": "info",
+      "title": "El ciclo que lo mantiene",
+      "content": "Muchas personas quedan atrapadas en un ciclo que se repite:\n\n- **Restricción:** reglas estrictas, saltear comidas o prohibirse alimentos.\n- **Hambre y tensión:** el cuerpo y la mente reclaman. Aparecen pensamientos insistentes sobre la comida.\n- **Atracón o pérdida de control:** comer mucho, rápido, sin disfrutar, a veces a escondidas.\n- **Culpa y compensación:** la culpa empuja a «compensar» o a restringir todavía más.\n\nY vuelta a empezar. Lo importante: **la restricción no es la solución, es parte del motor del ciclo.** Por eso el tratamiento no apunta a «controlarte más», sino a salir del ciclo."
+    },
+    {
+      "id": "comer_regular",
+      "type": "info",
+      "title": "El valor de comer regularmente",
+      "content": "Uno de los primeros pasos que suelen recomendarse es **comer de forma regular**: varias comidas a lo largo del día, en horarios más o menos previsibles, sin pasar muchas horas sin comer.\n\n¿Por qué ayuda?\n\n- Le baja la intensidad al hambre acumulada, que es una de las chispas del atracón.\n- Le da al cuerpo y a la mente una señal de que la comida va a estar.\n- Ordena el día y reduce la cantidad de decisiones difíciles.\n\nNo se trata de contar ni de pesar nada. Se trata de **regularidad**. El plan concreto conviene armarlo con tu equipo de salud."
+    },
+    {
+      "id": "equipo",
+      "type": "info",
+      "title": "Cómo se trabaja en terapia",
+      "content": "El tratamiento de las dificultades con la alimentación **suele ser en equipo**: psicólogo o psicóloga, médico o médica, y nutricionista. Cada uno cuida una parte, y se comunican entre sí.\n\nEn terapia (por ejemplo, con TCC) se suele trabajar en:\n\n- Registrar qué comés y qué pasa alrededor: emociones, situaciones, pensamientos.\n- Pasar de reglas rígidas a una alimentación regular y flexible.\n- Entender qué emociones se mezclan con la comida y buscar otras formas de manejarlas.\n- Revisar la preocupación por el cuerpo y la autocrítica.\n\nVas a tu ritmo. Lo que se acuerda en sesión se revisa juntos."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Cuándo pedir ayuda ya",
+      "content": "Algunas señales del cuerpo necesitan **consulta médica urgente**, aunque te parezca que «no es para tanto»:\n\n- Desmayos o sensación de que te vas a desmayar.\n- Palpitaciones, latidos muy rápidos o irregulares, o dolor en el pecho.\n- Mareos fuertes, mucha debilidad o confusión.\n- Vómitos frecuentes o no poder retener líquidos.\n\nSi te pasa algo así, o si sentís que estás en crisis o tenés pensamientos de hacerte daño, **pedí ayuda ya**: a emergencias, a una línea de ayuda o en la guardia del hospital más cercano. En la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "mito_voluntad",
+      "type": "choice",
+      "prompt": "Verdadero o falso: «Si tuviera más fuerza de voluntad, podría controlar lo que como».",
+      "options": ["Verdadero", "Falso"],
+      "feedback": {
+        "Verdadero": "**Es una idea muy común, pero no es así.** Muchas veces el problema no es la falta de control sino el exceso de reglas: la restricción alimenta el hambre y la tensión, y eso empuja al atracón. Más control suele hacer el ciclo más fuerte.",
+        "Falso": "**Exacto.** No es una cuestión de voluntad. La restricción es parte del motor del ciclo, y salir de él tiene más que ver con comer regularmente y con entender qué emociones se mezclan con la comida."
+      }
+    },
+    {
+      "id": "mito_saltear",
+      "type": "choice",
+      "prompt": "Si ayer comiste mucho, ¿qué suele ayudar más hoy?",
+      "options": ["Saltear comidas para compensar", "Volver a tus comidas regulares", "Comer lo menos posible todo el día"],
+      "feedback": {
+        "Saltear comidas para compensar": "**Se entiende el impulso, pero suele sostener el ciclo.** Saltear comidas aumenta el hambre y la tensión, y eso hace más probable otro atracón. Lo que más ayuda es volver a la regularidad.",
+        "Volver a tus comidas regulares": "**Sí.** Volver a tu ritmo habitual, sin castigo, es lo que corta el ciclo. Un día difícil no borra lo que venís trabajando.",
+        "Comer lo menos posible todo el día": "**Es una forma de restricción, y la restricción es parte del motor del ciclo.** Lo que más ayuda es volver a tus comidas regulares, sin compensar."
+      }
+    },
+    {
+      "id": "mito_cuerpo",
+      "type": "choice",
+      "prompt": "¿Se puede saber si alguien tiene dificultades con la comida mirando su cuerpo?",
+      "options": ["Sí, se nota", "No, no siempre se nota"],
+      "feedback": {
+        "Sí, se nota": "**No necesariamente.** Las dificultades con la alimentación aparecen en personas de todos los cuerpos. Por eso nadie debería quedarse sin ayuda porque «no se le nota».",
+        "No, no siempre se nota": "**Así es.** Le puede pasar a cualquier persona, con cualquier cuerpo. Lo que importa es el sufrimiento y cómo afecta tu vida, no cómo te ves."
+      }
+    },
+    {
+      "id": "entre_sesiones",
+      "type": "info",
+      "title": "Qué podés hacer entre sesiones",
+      "content": "- **Registrá** tus comidas y lo que pasa alrededor (qué sentías, dónde estabas), sin contar nada. En esta sección tenés una práctica para hacerlo.\n- **Apuntá a la regularidad**, aunque al principio cueste.\n- **Tratate con amabilidad** después de un día difícil: la culpa no ayuda a salir del ciclo.\n- **Anotá preguntas** para tu psicólogo, tu médico o tu nutricionista.\n- **Contale a alguien de confianza** cómo estás, si podés.\n\nNo hace falta hacerlo todo a la vez. Un paso por vez."
+    },
+    {
+      "id": "me_llevo",
+      "type": "text",
+      "prompt": "¿Qué te llevás de este recurso? ¿Algo que quieras hablar en tu próxima sesión?",
+      "placeholder": "Me llevo… / Quiero preguntar…"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Lo que te llevás",
+      "template": "{{me_llevo}}",
+      "content": "Gracias por darte este tiempo. Entender lo que pasa ya es un paso. Cuando toques «Terminar», queda guardado y lo podés compartir en tu próxima sesión."
+    }
+  ],
+  "material": {
+    "title": "Entender la relación con la comida",
+    "description": "Qué es y qué no es, el ciclo restricción–atracón–compensación, el valor de comer regularmente, el trabajo en equipo y señales de alarma.",
+    "category": "alimentacion"
+  }
+}

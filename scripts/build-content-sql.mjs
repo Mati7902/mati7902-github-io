@@ -1,7 +1,10 @@
-// Genera la migración con los ejercicios y materiales de los cuadernillos a partir de
-// supabase/content/ejercicios/*.json (un archivo por ejercicio). Uso: pnpm db:contenido
+// Genera las migraciones con los ejercicios y materiales a partir de los JSON (un archivo por
+// ejercicio). Uso: pnpm db:contenido
+//   supabase/content/ejercicios/*.json → cuadernillos (20261009000003)
+//   supabase/content/cuadros/*.json    → recursos por cuadro clínico (20261024000002)
 // Los ejercicios se insertan solo si su slug no existe y los materiales solo si el
 // ejercicio todavía no tiene uno: nada de lo que se edite desde el panel se pisa.
+// Los materiales nacen "asignados": el paciente los ve solo cuando el profesional se los asigna.
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -9,6 +12,14 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 export const CONTENT_DIR = path.join(ROOT, "supabase", "content", "ejercicios");
 export const CONTENT_SQL_PATH = path.join(ROOT, "supabase", "migrations", "20261009000003_cuadernillos.sql");
+export const FOCUS_CONTENT_DIR = path.join(ROOT, "supabase", "content", "cuadros");
+export const FOCUS_CONTENT_SQL_PATH = path.join(ROOT, "supabase", "migrations", "20261024000002_recursos_cuadros.sql");
+
+/** Conjuntos de contenido: cada uno genera su propia migración. */
+export const CONTENT_SETS = [
+  { dir: CONTENT_DIR, sqlPath: CONTENT_SQL_PATH, title: "Ejercicios y materiales de los cuadernillos del Lic. Matías Sánchez" },
+  { dir: FOCUS_CONTENT_DIR, sqlPath: FOCUS_CONTENT_SQL_PATH, title: "Recursos por cuadro clínico (psicoeducación y prácticas; borradores para revisión del profesional)" },
+];
 
 /** Lee los ejercicios ordenados por colección y orden. */
 export function loadContent(dir = CONTENT_DIR) {
@@ -27,7 +38,7 @@ const json = (v) => {
 };
 
 /** Devuelve el SQL de la migración. */
-export function buildContentSql(items = loadContent()) {
+export function buildContentSql(items = loadContent(), title = CONTENT_SETS[0].title) {
   const templates = items
     .map(
       (e) =>
@@ -41,10 +52,10 @@ export function buildContentSql(items = loadContent()) {
   const sources = [...new Set(items.map((e) => e.source?.split(",")[0]).filter(Boolean))];
 
   return `-- =============================================================================
--- Ejercicios y materiales de los cuadernillos del Lic. Matías Sánchez
+-- ${title}
 -- (${sources.join(" · ") || "sin contenido"}).
 --
--- Archivo generado con \`pnpm db:contenido\` a partir de supabase/content/ejercicios/*.json.
+-- Archivo generado con \`pnpm db:contenido\` a partir de los JSON de supabase/content/.
 -- No lo edites a mano: cambiá los JSON y volvé a generarlo.
 -- Solo agrega lo que falta: no pisa ejercicios ni materiales editados desde el panel.
 -- =============================================================================
@@ -60,7 +71,7 @@ ${
     ? `
 -- Recursos de la biblioteca de Materiales (abren el ejercicio correspondiente).
 insert into public.materials (title, description, type, category_id, exercise_template_id, duration_minutes, visibility, is_published)
-select v.title, v.description, 'exercise', c.id, t.id, t.estimated_minutes, 'public', true
+select v.title, v.description, 'exercise', c.id, t.id, t.estimated_minutes, 'assigned', true
 from (values
 ${materials}
 ) as v(slug, title, description, category)
@@ -74,6 +85,9 @@ where not exists (select 1 from public.materials m where m.exercise_template_id 
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  writeFileSync(CONTENT_SQL_PATH, buildContentSql());
-  console.log(`✔ ${path.relative(ROOT, CONTENT_SQL_PATH)} actualizado (${loadContent().length} ejercicios)`);
+  for (const set of CONTENT_SETS) {
+    const items = loadContent(set.dir);
+    writeFileSync(set.sqlPath, buildContentSql(items, set.title));
+    console.log(`✔ ${path.relative(ROOT, set.sqlPath)} actualizado (${items.length} ejercicios)`);
+  }
 }
