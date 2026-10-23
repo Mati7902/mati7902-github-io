@@ -37,10 +37,10 @@ export const focusByKey = (key: string) => CLINICAL_FOCI.find((f) => f.key === k
 
 /**
  * Tests que se pueden asignar para completar en casa. ASQ y Plutchik quedan para sesión:
- * un positivo exige una evaluación de seguridad en el momento. El TIPI no da un puntaje
- * único para seguir en el tiempo.
+ * un positivo exige una evaluación de seguridad en el momento. El SAPAS es una entrevista y el
+ * TIPI no da un puntaje único para seguir en el tiempo.
  */
-const IN_SESSION_ONLY = new Set(["asq", "plut", "tipi"]);
+const IN_SESSION_ONLY = new Set(["asq", "plut", "tipi", "sapas"]);
 export const ASSIGNABLE_TESTS: TestDef[] = TESTS.filter((t) => !IN_SESSION_ONLY.has(t.id));
 export const assignableTest = (id: string) => ASSIGNABLE_TESTS.find((t) => t.id === id);
 

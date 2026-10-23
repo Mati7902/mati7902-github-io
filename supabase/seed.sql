@@ -88,10 +88,10 @@ begin
   select id into v_t_breath from public.exercise_templates where slug = 'respiracion-diafragmatica';
 
   insert into public.materials (title, description, type, category_id, external_url, visibility, is_published, created_by)
-  values ('¿Qué es la ansiedad y por qué aparece?', 'Una explicación breve y clara sobre cómo funciona la respuesta de ansiedad en el cuerpo.', 'link', v_cat_ansiedad, 'https://example.org/ansiedad', 'public', true, v_admin_id)
+  values ('¿Qué es la ansiedad y por qué aparece?', 'Una explicación breve y clara sobre cómo funciona la respuesta de ansiedad en el cuerpo.', 'link', v_cat_ansiedad, 'https://example.org/ansiedad', 'assigned', true, v_admin_id)
   returning id into v_m1;
   insert into public.materials (title, description, type, category_id, external_url, visibility, is_published, created_by)
-  values ('Higiene del sueño: 7 hábitos', 'Pautas simples para dormir mejor.', 'pdf', v_cat_sueno, 'https://example.org/sueno.pdf', 'public', true, v_admin_id)
+  values ('Higiene del sueño: 7 hábitos', 'Pautas simples para dormir mejor.', 'pdf', v_cat_sueno, 'https://example.org/sueno.pdf', 'assigned', true, v_admin_id)
   returning id into v_m2;
   insert into public.materials (title, description, type, category_id, exercise_template_id, visibility, is_published, created_by)
   values ('Ejercicio: ordenar mis pensamientos', 'Registro cognitivo guiado dentro de la app.', 'exercise', v_cat_regulacion, v_t_thought, 'assigned', true, v_admin_id)
@@ -100,7 +100,7 @@ begin
   values ('Audio: relajación muscular progresiva', 'Audio guiado de 12 minutos.', 'audio', v_cat_regulacion, 'https://example.org/relajacion.mp3', 12, 'assigned', true, v_admin_id)
   returning id into v_m4;
   insert into public.materials (title, description, type, category_id, external_url, visibility, is_published, created_by)
-  values ('Hablarte como a alguien que querés', 'Psicoeducación sobre autocompasión y diálogo interno.', 'link', v_cat_autoestima, 'https://example.org/autocompasion', 'public', true, v_admin_id)
+  values ('Hablarte como a alguien que querés', 'Psicoeducación sobre autocompasión y diálogo interno.', 'link', v_cat_autoestima, 'https://example.org/autocompasion', 'assigned', true, v_admin_id)
   returning id into v_m5;
 
   insert into public.patient_materials (patient_id, material_id, assigned_by, note, viewed_at)

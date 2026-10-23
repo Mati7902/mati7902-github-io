@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CalendarPlus } from "lucide-react";
+import { ArrowRight, CalendarPlus, ClipboardCheck } from "lucide-react";
 
 import { AppointmentCard } from "@/components/appointments/appointment-card";
 import { ConsentCard } from "@/components/consent/consent-card";
@@ -39,6 +39,7 @@ export default async function PatientHomePage() {
     getPublicSettingsSafe(),
     getLatestConsent(supabase, patient.id).catch(() => undefined),
   ]);
+  const { count: pendingTests } = await supabase.from("test_assignments").select("id", { count: "exact", head: true }).eq("patient_id", patient.id).eq("status", "pending");
   // Primero el consentimiento; la ficha de ingreso se ofrece una vez firmado.
   const consentSettings = settings.treatment_consent;
   const needsConsent = consentSettings.enabled && consent !== undefined && consent?.version !== consentSettings.version;
@@ -60,6 +61,19 @@ export default async function PatientHomePage() {
 
       {!consentPending && intake !== undefined && !intake?.submitted_at ? (
         <IntakeCard answered={answeredCount(intakeAnswersOf(intake))} started={Boolean(intake)} professionalName={publicSettings["site.identity"].professional_name} />
+      ) : null}
+
+      {pendingTests ? (
+        <Link href="/app/tests" className="surface-card group flex items-center gap-4 border-l-4 border-l-primary p-5 transition-shadow hover:shadow-[var(--shadow-float)]">
+          <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-primary">
+            <ClipboardCheck className="size-5" aria-hidden />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block font-display text-lg font-medium">{pendingTests === 1 ? "Tenés un cuestionario para completar" : `Tenés ${pendingTests} cuestionarios para completar`}</span>
+            <span className="text-sm text-muted-foreground">Tu psicólogo te pidió responderlo. Lleva unos minutos.</span>
+          </span>
+          <ArrowRight className="size-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden />
+        </Link>
       ) : null}
 
       {next ? (

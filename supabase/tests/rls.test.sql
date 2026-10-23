@@ -621,6 +621,41 @@ select pg_temp.logout();
 rollback;
 
 -- ---------------------------------------------------------------------------
+-- 6c. Diagnóstico probable, biblioteca privada y tests asignados
+-- ---------------------------------------------------------------------------
+begin;
+select pg_temp.assert((select count(*) from public.materials where visibility = 'public') = 0, 'la biblioteca es privada: ningún material es público');
+select pg_temp.assert((select count(*) from public.materials m join public.exercise_templates t on t.id = m.exercise_template_id where t.collection = 'cuadros') >= 24, 'los recursos por cuadro están en la biblioteca');
+select set_config('test.juan_id', (select id::text from public.patients where email = 'juan.perez@demo.local'), true);
+-- El profesional carga el diagnóstico y asigna tests.
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+insert into public.patient_clinical_focus (patient_id, focus_key, icd10, note) values (current_setting('test.juan_id')::uuid, 'ansiedad', 'F41.1', 'nota clínica');
+insert into public.test_assignments (patient_id, test_id, show_result) values (current_setting('test.juan_id')::uuid, 'gad7', false);
+insert into public.test_assignments (patient_id, test_id, show_result) values (current_setting('test.juan_id')::uuid, 'phq9', true);
+select pg_temp.expect_error($q$insert into public.test_assignments (patient_id, test_id) values (current_setting('test.juan_id')::uuid, 'gad7')$q$, array['23505'], 'un test no queda pendiente dos veces');
+select pg_temp.logout();
+-- Respuestas: las guarda el servidor (sin RLS), como hace la app con la service role.
+insert into public.test_responses (assignment_id, patient_id, test_id, answers, score)
+select id, patient_id, test_id, '{}'::jsonb, 5 from public.test_assignments where patient_id = current_setting('test.juan_id')::uuid;
+-- El paciente.
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+select pg_temp.assert((select count(*) from public.patient_clinical_focus) = 0, 'el paciente NO ve su diagnóstico');
+select pg_temp.assert((select count(*) from public.test_assignments) = 2, 'el paciente ve sus tests asignados');
+select pg_temp.assert((select count(*) from public.test_responses) = 1, 'el paciente ve solo el resultado habilitado');
+select pg_temp.assert((select test_id from public.test_responses) = 'phq9', 'el resultado visible es el que tiene show_result');
+select pg_temp.expect_error($q$insert into public.test_responses (assignment_id, patient_id, test_id, answers, score) select id, patient_id, test_id, '{}', 0 from public.test_assignments limit 1$q$, array['42501'], 'el paciente no escribe respuestas ni puntajes');
+select pg_temp.expect_error($q$insert into public.test_assignments (patient_id, test_id) values (current_setting('test.juan_id')::uuid, 'ocir')$q$, array['42501'], 'el paciente no se asigna tests');
+select pg_temp.expect_error($q$insert into public.patient_clinical_focus (patient_id, focus_key) values (current_setting('test.juan_id')::uuid, 'toc')$q$, array['42501'], 'el paciente no carga diagnósticos');
+update public.test_assignments set show_result = true;
+select pg_temp.assert((select count(*) from public.test_assignments where show_result) = 1, 'el paciente no puede habilitarse ver resultados');
+select pg_temp.logout();
+-- Otra paciente no ve nada de Juan.
+select pg_temp.login('33333333-3333-4333-8333-333333333333');
+select pg_temp.assert((select count(*) from public.test_assignments) = 0, 'otro paciente no ve tests ajenos');
+select pg_temp.logout();
+rollback;
+
+-- ---------------------------------------------------------------------------
 -- 7. Rate limiting (solo servidor)
 -- ---------------------------------------------------------------------------
 begin;

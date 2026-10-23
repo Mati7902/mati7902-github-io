@@ -102,6 +102,6 @@ export function audiencesFor(age: number | null): Audience[] {
  * Ejercicios activos que un paciente ve en su lista: los de su público y, además, los que el
  * profesional le asignó (aunque sean de otro público).
  */
-export function visibleTemplates<T extends { id: string; audience?: string | null }>(templates: T[], allowed: Audience[], assignedIds: Set<string>): T[] {
-  return templates.filter((t) => assignedIds.has(t.id) || isForAudience(t.audience, allowed));
+export function visibleTemplates<T extends { id: string; audience?: string | null; collection?: string | null }>(templates: T[], allowed: Audience[], assignedIds: Set<string>): T[] {
+  return templates.filter((t) => assignedIds.has(t.id) || (!COLLECTIONS[t.collection ?? ""]?.assignedOnly && isForAudience(t.audience, allowed)));
 }
