@@ -2,6 +2,7 @@
 // ejercicio). Uso: pnpm db:contenido
 //   supabase/content/ejercicios/*.json → cuadernillos (20261009000003)
 //   supabase/content/cuadros/*.json    → recursos por cuadro clínico (20261024000002)
+//   supabase/content/cuadros-2/*.json  → segunda tanda: técnicas de TCC, DBT y ACT (20261025000002)
 // Los ejercicios se insertan solo si su slug no existe y los materiales solo si el
 // ejercicio todavía no tiene uno: nada de lo que se edite desde el panel se pisa.
 // Los materiales nacen "asignados": el paciente los ve solo cuando el profesional se los asigna.
@@ -14,11 +15,14 @@ export const CONTENT_DIR = path.join(ROOT, "supabase", "content", "ejercicios");
 export const CONTENT_SQL_PATH = path.join(ROOT, "supabase", "migrations", "20261009000003_cuadernillos.sql");
 export const FOCUS_CONTENT_DIR = path.join(ROOT, "supabase", "content", "cuadros");
 export const FOCUS_CONTENT_SQL_PATH = path.join(ROOT, "supabase", "migrations", "20261024000002_recursos_cuadros.sql");
+export const FOCUS2_CONTENT_DIR = path.join(ROOT, "supabase", "content", "cuadros-2");
+export const FOCUS2_CONTENT_SQL_PATH = path.join(ROOT, "supabase", "migrations", "20261025000002_recursos_cuadros_2.sql");
 
 /** Conjuntos de contenido: cada uno genera su propia migración. */
 export const CONTENT_SETS = [
   { dir: CONTENT_DIR, sqlPath: CONTENT_SQL_PATH, title: "Ejercicios y materiales de los cuadernillos del Lic. Matías Sánchez" },
   { dir: FOCUS_CONTENT_DIR, sqlPath: FOCUS_CONTENT_SQL_PATH, title: "Recursos por cuadro clínico (psicoeducación y prácticas; borradores para revisión del profesional)" },
+  { dir: FOCUS2_CONTENT_DIR, sqlPath: FOCUS2_CONTENT_SQL_PATH, title: "Recursos por cuadro clínico, segunda tanda: técnicas de TCC, DBT y ACT (borradores para revisión del profesional)" },
 ];
 
 /** Lee los ejercicios ordenados por colección y orden. */
