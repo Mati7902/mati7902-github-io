@@ -17,12 +17,14 @@ export function SiteHeader({
   subtitle,
   logoUrl,
   showAreas = true,
+  whatsappHref,
 }: {
   brandName: string;
   subtitle?: string | null;
   logoUrl?: string | null;
   /** Sin áreas de trabajo cargadas, la sección no existe y su enlace se oculta. */
   showAreas?: boolean;
+  whatsappHref?: string;
 }) {
   const links = showAreas ? publicLinks : publicLinks.filter((link) => link.href !== "/#areas");
   return (
@@ -46,7 +48,7 @@ export function SiteHeader({
             <Link href="/#solicitar-turno">Solicitar turno</Link>
           </Button>
         </div>
-        <PublicMobileMenu links={links} />
+        <PublicMobileMenu links={links} whatsappHref={whatsappHref} />
       </div>
     </header>
   );

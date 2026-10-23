@@ -1,13 +1,13 @@
 "use client";
 
-import { Menu } from "lucide-react";
+import { Menu, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
-export function PublicMobileMenu({ links }: { links: { href: string; label: string }[] }) {
+export function PublicMobileMenu({ links, whatsappHref }: { links: { href: string; label: string }[]; whatsappHref?: string }) {
   const [open, setOpen] = useState(false);
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -36,7 +36,14 @@ export function PublicMobileMenu({ links }: { links: { href: string; label: stri
           <Button asChild size="lg" onClick={() => setOpen(false)}>
             <Link href="/#solicitar-turno">Solicitar turno</Link>
           </Button>
-          <Button asChild size="lg" variant="outline" onClick={() => setOpen(false)}>
+          {whatsappHref ? (
+            <Button asChild size="lg" variant="outline" onClick={() => setOpen(false)}>
+              <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
+                <MessageCircle aria-hidden /> Escribir por WhatsApp
+              </a>
+            </Button>
+          ) : null}
+          <Button asChild size="lg" variant="ghost" onClick={() => setOpen(false)}>
             <Link href="/login">Acceso pacientes</Link>
           </Button>
         </div>

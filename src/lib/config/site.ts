@@ -20,6 +20,21 @@ export const siteDefaults = {
   locale: "es-PY",
 } as const;
 
+/** Contacto público del consultorio. La fuente editable es Configuración › Identidad; esto es el valor de respaldo. */
+export const practiceContact = {
+  whatsapp: "+595985569077",
+  whatsappMessage: "Hola Lic. Matías, quisiera consultar por una sesión de psicología.",
+} as const;
+
+/** Datos de posicionamiento (SEO local y GEO). */
+export const seoDefaults = {
+  city: "Encarnación",
+  region: "Itapúa",
+  /** Fecha de última revisión del contenido público (se muestra en las páginas y en llms.txt). */
+  contentUpdated: "2026-10-23",
+  contentUpdatedLabel: "octubre de 2026",
+} as const;
+
 export const patientNav = [
   { href: "/app", label: "Inicio", icon: "home" },
   { href: "/app/ejercicios", label: "Ejercicios", icon: "sparkles" },
