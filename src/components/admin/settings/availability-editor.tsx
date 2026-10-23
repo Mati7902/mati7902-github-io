@@ -121,6 +121,7 @@ export function AvailabilityEditor({ rules, defaultDuration, locations = [] }: {
                     </select>
                     {r.every_weeks > 1 ? <Input type="date" value={r.anchor_date} onChange={(e) => update(i, { anchor_date: e.target.value })} className="h-10 w-40" aria-label="Primer día de la franja" title="Un día en que esta franja sí ocurre; desde ahí se alterna" /> : null}
                   </div>
+                  {r.every_weeks > 1 && !r.anchor_date ? <p className="mt-1 text-xs text-warning">Falta la fecha: no se ofrece hasta cargarla.</p> : null}
                 </td>
                 <td className="px-3 py-2"><Switch checked={r.is_active} onCheckedChange={(v) => update(i, { is_active: v })} aria-label="Activo" /></td>
                 <td className="px-3 py-2">

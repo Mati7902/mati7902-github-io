@@ -3029,9 +3029,10 @@ where not exists (select 1 from public.materials m where m.exercise_template_id 
 --      location_id → en qué sede es la franja (el turno guarda esa dirección);
 --      every_weeks → 1 = todas las semanas, 2 = cada 15 días, etc.;
 --      anchor_date → una fecha en la que la franja SÍ ocurre (cuenta desde ahí).
+--      Sin fecha, una franja cada 15 días se muestra pero no se ofrece para reservar.
 -- 3. is_bookable_slot respeta la frecuencia (espejo de src/lib/scheduling/slots.ts).
 -- 4. Carga inicial: Sanatorio La Trinidad y Sanatorio Adventista de Hohenau,
---    martes alternados. Las fechas de inicio se cambian desde Configuración.
+--    martes alternados, SIN fecha de inicio: el profesional la carga en Configuración.
 -- ============================================================================
 
 -- 1. Sedes --------------------------------------------------------------------
@@ -3071,18 +3072,17 @@ alter table public.availability_rules
 
 alter table public.availability_rules drop constraint if exists availability_rules_every_weeks_check;
 alter table public.availability_rules add constraint availability_rules_every_weeks_check
-  check (every_weeks between 1 and 4 and (every_weeks = 1 or anchor_date is not null));
+  check (every_weeks between 1 and 4);
 
 comment on column public.availability_rules.every_weeks is '1 = todas las semanas, 2 = cada 15 días (semana sí, semana no), hasta 4.';
 comment on column public.availability_rules.anchor_date is 'Una fecha en la que la franja ocurre; la alternancia se cuenta desde esa semana.';
 
--- ¿La franja ocurre en esa fecha? (semana a semana desde anchor_date)
+-- ¿La franja ocurre en esa fecha? (semana a semana desde anchor_date; sin fecha, nunca)
 create or replace function public.rule_occurs_on(p_every_weeks smallint, p_anchor date, p_day date)
 returns boolean
 language sql immutable as $$
   select coalesce(p_every_weeks, 1) <= 1
-      or p_anchor is null
-      or (((floor((p_day - p_anchor) / 7.0)::int % p_every_weeks) + p_every_weeks) % p_every_weeks) = 0;
+      or (p_anchor is not null and (((floor((p_day - p_anchor) / 7.0)::int % p_every_weeks) + p_every_weeks) % p_every_weeks) = 0);
 $$;
 
 -- 3. Validación de la grilla con la frecuencia --------------------------------
@@ -3129,13 +3129,14 @@ insert into public.practice_locations (id, name, address, city, maps_url, sort_o
 on conflict (id) do nothing;
 
 -- Martes alternados: La Trinidad 16:00–20:00 y el Adventista 12:00–17:00, cada 15 días.
--- Turnos de la duración por defecto, uno por hora. Solo si todavía no hay franjas en esas sedes.
+-- Turnos de la duración por defecto, uno por hora. Sin fecha de inicio (se carga en Configuración).
+-- Solo si todavía no hay franjas en esas sedes.
 insert into public.availability_rules (weekday, start_time, end_time, slot_duration_minutes, buffer_minutes, modality, is_active, location_id, every_weeks, anchor_date)
-select 2, s.start_time, s.end_time, d.duration, greatest(0, 60 - d.duration), 'presencial', true, s.location_id, 2, s.anchor
+select 2, s.start_time, s.end_time, d.duration, greatest(0, 60 - d.duration), 'presencial', true, s.location_id, 2, null::date
 from (values
-  ('16:00'::time, '20:00'::time, '5ede0001-0000-4000-8000-000000000001'::uuid, date '2026-10-27'),
-  ('12:00'::time, '17:00'::time, '5ede0001-0000-4000-8000-000000000002'::uuid, date '2026-11-03')
-) as s (start_time, end_time, location_id, anchor)
+  ('16:00'::time, '20:00'::time, '5ede0001-0000-4000-8000-000000000001'::uuid),
+  ('12:00'::time, '17:00'::time, '5ede0001-0000-4000-8000-000000000002'::uuid)
+) as s (start_time, end_time, location_id)
 cross join (
   select least(greatest(coalesce((public.setting_value('scheduling') ->> 'default_duration_minutes')::int, 50), 15), 240) as duration
 ) d

@@ -73,10 +73,14 @@ function ruleValidOn(rule: AvailabilityRuleInput, dateKey: string): boolean {
   return ruleOccursOn(rule, dateKey);
 }
 
-/** Frecuencia: con every_weeks = 2 la franja ocurre la semana de anchor_date y luego semana por medio. */
+/**
+ * Frecuencia: con every_weeks = 2 la franja ocurre la semana de anchor_date y luego semana por medio.
+ * Sin fecha de inicio todavía no se sabe qué semanas tocan: no se ofrece (se carga en Configuración).
+ */
 export function ruleOccursOn(rule: Pick<AvailabilityRuleInput, "every_weeks" | "anchor_date">, dateKey: string): boolean {
   const every = rule.every_weeks ?? 1;
-  if (every <= 1 || !rule.anchor_date) return true;
+  if (every <= 1) return true;
+  if (!rule.anchor_date) return false;
   const days = (Date.parse(`${dateKey}T00:00:00Z`) - Date.parse(`${rule.anchor_date}T00:00:00Z`)) / 86_400_000;
   const weeks = Math.floor(days / 7);
   return ((weeks % every) + every) % every === 0;

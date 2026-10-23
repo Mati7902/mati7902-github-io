@@ -98,6 +98,7 @@ describe("motor de disponibilidad", () => {
       expect(ruleOccursOn(trinidad, "2026-10-13")).toBe(true);
       expect(ruleOccursOn(trinidad, "2026-10-20")).toBe(false);
       expect(ruleOccursOn({ every_weeks: 1, anchor_date: null }, "2026-11-03")).toBe(true);
+      expect(ruleOccursOn({ every_weeks: 2, anchor_date: null }, "2026-11-03")).toBe(false);
     });
 
     it("cada martes ofrece solo la sede que corresponde y marca la sede en el horario", () => {
