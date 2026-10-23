@@ -1,0 +1,121 @@
+{
+  "slug": "cuadro-burnout-act-valores",
+  "title": "Burnout: volver a lo que te importa",
+  "description": "Desde ACT: distinguí valores de metas, reconectá con lo que te importa dentro y fuera del trabajo y elegí una acción y un «no» alineados.",
+  "kind": "custom",
+  "approach": "act",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 340,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Cuando el trabajo se come todo",
+      "content": "Con el agotamiento es común sentir que el día se reduce a cumplir, apagar incendios y llegar a la noche sin resto. De a poco se pierde de vista **para qué** hacés lo que hacés, y también lo que te importa fuera del trabajo.\n\nEste ejercicio viene de la **Terapia de Aceptación y Compromiso (ACT)**. No busca que rindas más ni que te guste todo de tu trabajo. Busca que vuelvas a ver tu brújula: tus **valores**, y que elijas una acción chica en esa dirección.\n\nTambién vas a pensar en un **«no»**: a veces cuidar lo que te importa implica dejar de hacer algo."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "**Si estás en crisis, sentís que no das más o aparecen pensamientos de hacerte daño, pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nEste ejercicio no reemplaza la consulta médica si tenés síntomas físicos que te preocupan."
+    },
+    {
+      "id": "valores_metas",
+      "type": "info",
+      "title": "Valores y metas no son lo mismo",
+      "content": "Una **meta** se cumple y se tacha: entregar el informe, conseguir el ascenso, terminar el año. Un **valor** es una dirección que nunca se termina: ser una persona confiable, aprender, cuidar a otros, crear, ser justo/a.\n\nEn el burnout muchas veces vivimos solo de metas: siempre hay una más, y cuando se cumple, aparece la siguiente. Los valores, en cambio, se pueden vivir **hoy**, en acciones chicas, aunque la meta esté lejos.\n\nPor ejemplo: la meta es «cerrar todos los pendientes»; el valor puede ser «hacer un trabajo cuidadoso» o «ayudar a las personas que atiendo»."
+    },
+    {
+      "id": "quiz_valor",
+      "type": "choice",
+      "prompt": "¿Cuál de estas frases describe un valor (y no una meta)?",
+      "options": [
+        "Terminar el proyecto antes de fin de mes",
+        "Tratar con respeto a las personas con las que trabajo",
+        "Conseguir un aumento este año"
+      ],
+      "feedback": {
+        "Terminar el proyecto antes de fin de mes": "Eso es una meta: tiene un final y se puede tachar. Puede estar al servicio de un valor, como «ser responsable» o «colaborar con mi equipo».",
+        "Tratar con respeto a las personas con las que trabajo": "Exacto. Es una dirección que no se termina y que podés vivir hoy mismo, en cualquier interacción, aunque el día sea difícil.",
+        "Conseguir un aumento este año": "Eso es una meta. Puede ser importante, y detrás quizás haya valores como «cuidar a mi familia» o «que mi trabajo sea reconocido»."
+      }
+    },
+    {
+      "id": "valores_trabajo",
+      "type": "checklist",
+      "prompt": "Pensando en tu trabajo, ¿qué te importó alguna vez o te sigue importando? Marcá hasta 3.",
+      "options": [
+        "Ayudar o cuidar a otras personas",
+        "Aprender y crecer",
+        "Hacer las cosas con calidad",
+        "Colaborar con un equipo",
+        "Crear o resolver problemas",
+        "Ser justo/a y honesto/a",
+        "Tener autonomía",
+        "Sostener a mi familia"
+      ],
+      "min": 1,
+      "max": 3
+    },
+    {
+      "id": "valores_fuera",
+      "type": "list",
+      "prompt": "Fuera del trabajo, ¿qué áreas de tu vida te importan y quedaron relegadas?",
+      "help": "Por ejemplo: vínculos, salud y cuerpo, descanso, juego, espiritualidad, comunidad, aprender algo por gusto.",
+      "count": 3,
+      "min": 1
+    },
+    {
+      "id": "distancia",
+      "type": "scale",
+      "prompt": "Hoy, ¿qué tan cerca sentís que estás viviendo de acuerdo con lo que te importa?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Muy lejos",
+      "max_label": "Muy cerca"
+    },
+    {
+      "id": "pausa_valores",
+      "type": "timed_info",
+      "title": "Un minuto para conectar",
+      "content": "Cerrá los ojos o bajá la mirada. Respirá con calma.\n\nTraé a la mente un momento, aunque sea chiquito, en el que hiciste algo que te importaba de verdad: ayudar a alguien, aprender algo, compartir con quien querés.\n\n- ¿Dónde estabas?\n- ¿Qué hiciste?\n- ¿Qué sentiste en el cuerpo?\n\nNo hace falta que sea un gran logro. Solo notá que esa parte tuya sigue ahí, aunque esté cansada.",
+      "seconds": 90
+    },
+    {
+      "id": "accion",
+      "type": "text",
+      "prompt": "Elegí una acción chica, para esta semana, que vaya en la dirección de uno de tus valores.",
+      "help": "Que sea concreta y posible aunque estés con poca energía. Por ejemplo: «el jueves almuerzo con mi compañera sin hablar de pendientes» o «el sábado camino 20 minutos».",
+      "placeholder": "Qué, cuándo y dónde…"
+    },
+    {
+      "id": "no_alineado",
+      "type": "text",
+      "prompt": "¿A qué podrías decir «no» (o «ahora no») para hacerle lugar a lo que te importa?",
+      "help": "Un «no» alineado con valores no es egoísmo: es elegir. Por ejemplo: no responder mensajes del trabajo durante la cena para estar con tu familia.",
+      "placeholder": "Voy a decir que no a…"
+    },
+    {
+      "id": "obstaculos",
+      "type": "text",
+      "prompt": "¿Qué pensamientos o sensaciones podrían aparecer y frenarte? ¿Cómo los vas a dejar estar sin que manejen?",
+      "help": "Por ejemplo: culpa, «si no contesto van a pensar que no me comprometo». Podés notarlos, nombrarlos («apareció la culpa») y hacer igual tu acción.",
+      "optional": true
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Tu brújula para esta semana",
+      "template": "En el trabajo me importa: {{valores_trabajo}}. Fuera del trabajo quiero hacerle lugar a: {{valores_fuera}}. Mi acción comprometida: {{accion}}. Mi «no» alineado: {{no_alineado}}.",
+      "content": "No se trata de hacerlo perfecto. Si no sale, no es un fracaso: es información. Volvé a tu brújula y elegí de nuevo. Podés traer lo que pasó a la próxima sesión."
+    }
+  ],
+  "material": {
+    "title": "Burnout: volver a lo que te importa (ACT)",
+    "description": "Ejercicio de ACT para el estrés laboral: valores y metas, reconectar con lo que importa dentro y fuera del trabajo, acción comprometida y un «no» alineado.",
+    "category": "estres"
+  }
+}

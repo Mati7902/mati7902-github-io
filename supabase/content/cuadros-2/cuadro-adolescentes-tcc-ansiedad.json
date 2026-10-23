@@ -1,0 +1,119 @@
+{
+  "slug": "cuadro-adolescentes-tcc-ansiedad",
+  "title": "Ansiedad en la escuela y los exámenes",
+  "description": "Para adolescentes: qué pensamientos aparecen antes de una prueba, cómo estudiar por partes, respirar antes de rendir y a quién pedir ayuda.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 13,
+  "sort_order": 356,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Nervios antes de rendir",
+      "content": "Ponerte nervioso o nerviosa antes de una prueba es **normal**. Un poco de nervios hasta ayuda: te mantiene despierto y concentrado.\n\nEl problema es cuando los nervios se vuelven tanto que **no te dejan estudiar, dormir o pensar** en el momento de la prueba.\n\nSuele pasar algo así: aparece un pensamiento («me va a ir horrible») → el cuerpo se acelera → dan ganas de evitar (no estudiar, faltar, dejar para después) → al evitar, la prueba se ve más difícil y los nervios suben más.\n\nAcá vas a ver cómo cortar ese círculo en tres partes: **lo que pensás, cómo estudiás y qué hacés con el cuerpo**."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de seguir",
+      "content": "Si en algún momento sentís que no podés más, tenés ganas de hacerte daño o pensás que sería mejor no estar, **no te lo guardes: pedí ayuda ya**.\n\n- Contáselo a un **adulto de confianza**: tu mamá, tu papá, otro familiar, un profe, el psicólogo de la escuela.\n- Si es urgente, llamá a emergencias, a una línea de ayuda o andá a la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos. Pedir ayuda no es exagerar: es cuidarte."
+    },
+    {
+      "id": "senales",
+      "type": "checklist",
+      "prompt": "¿Qué te pasa cuando se acerca una prueba? Marcá lo que te suene.",
+      "options": [
+        "Dolor de panza o de cabeza",
+        "Me cuesta dormir",
+        "Me quedo en blanco",
+        "Dejo estudiar para último momento",
+        "Tengo ganas de faltar",
+        "Siento el corazón rápido",
+        "Pienso que me va a ir mal",
+        "Estoy más irritable"
+      ],
+      "min": 1
+    },
+    {
+      "id": "pensamientos_info",
+      "type": "info",
+      "title": "Lo que te dice la cabeza",
+      "content": "Antes de una prueba es común que aparezcan pensamientos como:\n\n- «Me voy a sacar un 1».\n- «Me voy a quedar en blanco».\n- «Todos entienden menos yo».\n- «Si me va mal, soy un fracaso».\n\nSon **predicciones**, no hechos. Tu cabeza intenta protegerte imaginando lo peor, pero se pasa de rosca.\n\nPreguntas que ayudan:\n\n- ¿Qué pasó **de verdad** en otras pruebas?\n- Si me va mal, ¿qué podría hacer? (recuperatorio, pedir ayuda, aprender para la próxima)\n- Una nota habla de una prueba, **no de quién soy**."
+    },
+    {
+      "id": "pensamiento",
+      "type": "text",
+      "prompt": "¿Qué pensamiento te aparece más antes de una prueba?",
+      "placeholder": "Me voy a…"
+    },
+    {
+      "id": "amigo",
+      "type": "text",
+      "prompt": "Si tu mejor amigo o amiga tuviera ese pensamiento, ¿qué le dirías?",
+      "placeholder": "Le diría que…"
+    },
+    {
+      "id": "estudio_info",
+      "type": "info",
+      "title": "Estudiar por partes",
+      "content": "Un tema entero puede parecer una montaña. **Dividido en partes, se vuelve una escalera.**\n\n- **Dividí** el tema en partes chicas (un capítulo, un tipo de ejercicio, una unidad).\n- **Repartilas** en los días que faltan, dejando el último día para repasar.\n- **Estudiá en bloques** de unos 25 minutos con 5 de descanso. Celular lejos durante el bloque.\n- **Arrancá por algo fácil** para entrar en ritmo.\n- **Practicá** como si fuera la prueba: hacé ejercicios, explicá en voz alta, armá preguntas.\n- **Dormí.** Quedarte despierto toda la noche suele empeorar la memoria y los nervios."
+    },
+    {
+      "id": "prueba",
+      "type": "text",
+      "prompt": "¿Qué prueba o entrega tenés cerca? Anotá de qué materia es y cuándo.",
+      "placeholder": "Matemática, el viernes"
+    },
+    {
+      "id": "partes",
+      "type": "list",
+      "prompt": "Dividí lo que tenés que estudiar en partes chicas. Una por línea.",
+      "count": 5,
+      "min": 2
+    },
+    {
+      "id": "respiracion",
+      "type": "timed_info",
+      "title": "Respirar antes de la prueba",
+      "seconds": 90,
+      "content": "Esto lo podés hacer en el banco, antes de que repartan las hojas, sin que nadie lo note.\n\nApoyá bien los dos pies en el piso. Sentí el contacto.\n\nTomá aire por la nariz **contando hasta 4**.\n\nSoltalo despacio por la boca **contando hasta 6**, como si apagaras una vela de a poco.\n\nRepetilo. Si te perdés en la cuenta, no pasa nada: volvé a empezar.\n\nSi te quedás en blanco durante la prueba, hacé tres respiraciones así, leé otra pregunta que te resulte más fácil y después volvé."
+    },
+    {
+      "id": "adultos",
+      "type": "checklist",
+      "prompt": "¿A qué adulto de confianza le podrías contar cómo te sentís con las pruebas?",
+      "help": "Contarlo no es quejarse ni ser débil. Un adulto puede ayudarte a organizarte, hablar con la escuela o acompañarte si los nervios son muchos.",
+      "options": [
+        "Mi mamá o mi papá",
+        "Otro familiar",
+        "Un profe o tutor",
+        "El psicólogo o psicóloga de la escuela",
+        "Mi psicólogo o psicóloga",
+        "Otro adulto"
+      ],
+      "min": 1
+    },
+    {
+      "id": "primer_paso",
+      "type": "text",
+      "prompt": "¿Cuál es tu primer paso para hoy o mañana?",
+      "placeholder": "Hoy voy a estudiar la primera parte 25 minutos…"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Tu plan para la prueba",
+      "template": "Prueba: {{prueba}}. Cuando mi cabeza diga «{{pensamiento}}», me voy a acordar de lo que le diría a un amigo: «{{amigo}}». Voy a estudiar por partes: {{partes}}. Mi primer paso: {{primer_paso}}. Si los nervios son muchos, se lo cuento a: {{adultos}}.",
+      "content": "Antes de rendir, acordate de la respiración 4 y 6. Y si la ansiedad no te deja dormir, comer o ir a la escuela, **contáselo a un adulto**: hay ayuda para esto."
+    }
+  ],
+  "material": {
+    "title": "Ansiedad ante exámenes para adolescentes (TCC)",
+    "description": "Pensamientos antes de una prueba, plan de estudio por partes, respiración antes de rendir y pedir ayuda a un adulto de confianza.",
+    "category": "adolescentes"
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "slug": "cuadro-autoestima-tcc-creencias",
+  "title": "Revisar una creencia de fondo sobre mí",
+  "description": "Identificá una creencia nuclear como «no valgo», registrá evidencias a favor y en contra, y armá una creencia alternativa más justa.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 14,
+  "sort_order": 350,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Una creencia, una semana",
+      "content": "Las **creencias nucleares** son ideas de fondo sobre vos, como «no valgo» o «soy insuficiente». Funcionan como anteojos: te hacen ver lo que las confirma y pasar por alto lo que las contradice.\n\nEn este recurso vas a elegir **una sola creencia** y tratarla como lo que es: una **hipótesis aprendida**, no una verdad. Vas a juntar evidencia de los dos lados, como haría un buen investigador, y armar una idea más equilibrada.\n\nNo se trata de pensar «positivo» a la fuerza. Se trata de mirarte con **todos los datos**, no solo con los que la creencia elige."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "Si mientras hacés este recurso aparecen pensamientos de hacerte daño, de que no valés la pena vivir, o sentís que estás en crisis, **dejá el ejercicio para otro momento y pedí ayuda ya**: a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nNo tenés que atravesarlo solo ni sola. Contáselo también a tu psicólogo."
+    },
+    {
+      "id": "creencias_tipicas",
+      "type": "checklist",
+      "prompt": "¿Cuáles de estas frases se parecen a lo que sentís de vos en los peores momentos?",
+      "options": [
+        "«No valgo»",
+        "«Soy insuficiente»",
+        "«No soy querible»",
+        "«Soy un fracaso»",
+        "«Soy menos que los demás»",
+        "«Soy una carga para otros»",
+        "Otra parecida"
+      ],
+      "min": 1
+    },
+    {
+      "id": "creencia",
+      "type": "text",
+      "prompt": "Elegí una sola y escribila con tus palabras. Empezá con «Soy…» o «No soy…».",
+      "placeholder": "Soy…"
+    },
+    {
+      "id": "credibilidad_antes",
+      "type": "scale",
+      "prompt": "Ahora mismo, ¿cuánto te creés esa idea sobre vos?",
+      "min": 0,
+      "max": 100,
+      "min_label": "0 %: nada",
+      "max_label": "100 %: totalmente"
+    },
+    {
+      "id": "como_registrar",
+      "type": "info",
+      "title": "Cómo se junta evidencia",
+      "content": "Durante una semana, tomate **unos minutos por día** para anotar dos columnas:\n\n- **A favor:** situaciones que parecen confirmar la creencia.\n- **En contra:** situaciones que no encajan con ella, aunque sean chicas.\n\nAlgunas reglas que ayudan:\n\n- Anotá **hechos**, no conclusiones. «Me olvidé de llamar a mi hermana» es un hecho; «soy un desastre» es una conclusión.\n- La columna «en contra» suele costar más: los anteojos la esconden. Preguntate **qué diría alguien que te quiere**.\n- Cuentan las cosas cotidianas: cumplir algo, ayudar a alguien, animarte a algo difícil, recibir un gesto de cariño."
+    },
+    {
+      "id": "a_favor",
+      "type": "list",
+      "prompt": "Empezá hoy: ¿qué hechos de estos días parecen confirmar la creencia?",
+      "count": 3,
+      "min": 1
+    },
+    {
+      "id": "hecho_o_conclusion",
+      "type": "choice",
+      "prompt": "Te equivocaste en algo del trabajo o del estudio. ¿Qué frase describe lo que pasó con más justicia?",
+      "options": [
+        "«Soy un incompetente»",
+        "«Cometí un error en esta tarea»",
+        "«Nunca hago nada bien»"
+      ],
+      "feedback": {
+        "«Soy un incompetente»": "**Esa es una conclusión sobre toda tu persona a partir de un hecho.** Fijate si alguna de tus evidencias «a favor» tiene esta forma: muchas veces son interpretaciones disfrazadas de hechos.",
+        "«Cometí un error en esta tarea»": "**Exacto.** Describe lo que pasó sin convertirlo en un juicio sobre quién sos. Revisá tu lista «a favor» con este criterio.",
+        "«Nunca hago nada bien»": "**El «nunca» borra todas las veces que sí salió bien.** Es una de las formas en que la creencia se defiende. Revisá tu lista «a favor» buscando palabras como «siempre», «nunca» o «todo»."
+      }
+    },
+    {
+      "id": "en_contra",
+      "type": "list",
+      "prompt": "Ahora lo difícil: ¿qué hechos no encajan con esa creencia? Logros, cualidades, gestos que recibiste.",
+      "help": "Si te cuesta, pensá en lo que diría alguien que te conoce bien y te quiere. También valen cosas de otras épocas de tu vida.",
+      "count": 5,
+      "min": 2
+    },
+    {
+      "id": "alternativa_info",
+      "type": "info",
+      "title": "Una creencia más equilibrada",
+      "content": "Con las dos columnas a la vista, la idea es escribir una **creencia alternativa**: una frase que tome en cuenta **toda** la evidencia, también tus límites.\n\nNo tiene que ser perfecta ni sonar a frase de póster. Tiene que ser **creíble**. Por ejemplo:\n\n- En lugar de «no valgo»: «Tengo cualidades y también cosas que me cuestan, como cualquier persona. Mi valor no depende de no equivocarme».\n- En lugar de «soy insuficiente»: «A veces no llego a todo, y eso no borra lo que sí hago»."
+    },
+    {
+      "id": "alternativa",
+      "type": "text",
+      "prompt": "Escribí tu creencia alternativa, equilibrada y creíble para vos.",
+      "placeholder": "Soy una persona que…"
+    },
+    {
+      "id": "credibilidad_alternativa",
+      "type": "scale",
+      "prompt": "¿Cuánto te creés hoy la creencia alternativa? Está bien si es poco.",
+      "min": 0,
+      "max": 100,
+      "min_label": "0 %: nada",
+      "max_label": "100 %: totalmente"
+    },
+    {
+      "id": "credibilidad_despues",
+      "type": "scale",
+      "prompt": "Y después de mirar la evidencia, ¿cuánto te creés ahora la creencia original?",
+      "min": 0,
+      "max": 100,
+      "min_label": "0 %: nada",
+      "max_label": "100 %: totalmente"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Tu registro de esta semana",
+      "template": "La creencia que estoy revisando es: «{{creencia}}». Hechos que parecían confirmarla: {{a_favor}}. Hechos que no encajan: {{en_contra}}. Una forma más justa de verlo: «{{alternativa}}».",
+      "content": "**Para esta semana:** volvé cada día a sumar evidencias, sobre todo en la columna «en contra». Al final de la semana puntuá de nuevo cuánto te creés cada idea.\n\nLas creencias de fondo cambian **de a poco**, no de un día para otro: es normal que los porcentajes se muevan apenas. Traé el registro a tu próxima sesión."
+    }
+  ],
+  "material": {
+    "title": "Revisar una creencia de fondo (TCC)",
+    "description": "Registro de evidencias a favor y en contra de una creencia nuclear durante una semana, con creencia alternativa y porcentajes de credibilidad.",
+    "category": "autoestima"
+  }
+}

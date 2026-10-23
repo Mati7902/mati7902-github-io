@@ -1,0 +1,115 @@
+{
+  "slug": "cuadro-sueno-tcc-pensamientos",
+  "title": "Sueño: los pensamientos que desvelan",
+  "description": "Desde la TCC: identificá los pensamientos que te mantienen en vela, revisalos con otra mirada y programá un tiempo de preocupación lejos de la cama.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 342,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Cuando la cabeza no se apaga",
+      "content": "Muchas veces no es solo el cuerpo lo que no se duerme: es la cabeza. Aparecen pensamientos sobre el sueño mismo («si no me duermo ya, mañana va a ser un desastre») o sobre los problemas del día.\n\nEsos pensamientos generan **alerta**, y la alerta es lo opuesto al sueño. Se arma un círculo: no duermo → me preocupo → me activo → duermo peor.\n\nEn este ejercicio de **TCC** vas a hacer dos cosas:\n\n- **Revisar** los pensamientos sobre el sueño que te desvelan.\n- Programar un **tiempo de preocupación** de día, lejos de la cama, para que las preocupaciones tengan otro lugar."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "**Si estás en crisis o aparecen pensamientos de hacerte daño, pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nSi roncás fuerte, te despertás ahogándote o tenés mucho sueño durante el día, consultá también con un médico: hay problemas de sueño que necesitan evaluación médica."
+    },
+    {
+      "id": "pensamientos",
+      "type": "checklist",
+      "prompt": "¿Cuáles de estos pensamientos te aparecen en la cama? Marcá los que quieras.",
+      "options": [
+        "Si no duermo 8 horas, mañana es un desastre",
+        "Ya perdí la capacidad de dormir bien",
+        "Tengo que dormirme ya",
+        "Mañana no voy a rendir nada",
+        "Esto me va a enfermar",
+        "Me quedan solo X horas para dormir",
+        "Repaso todo lo que tengo que hacer mañana"
+      ],
+      "min": 1,
+      "max": 7
+    },
+    {
+      "id": "pensamiento_clave",
+      "type": "text",
+      "prompt": "Elegí el pensamiento que más te desvela y escribilo tal como aparece.",
+      "placeholder": "Por ejemplo: «si no me duermo ya, mañana voy a hacer todo mal en el trabajo»"
+    },
+    {
+      "id": "creencia_antes",
+      "type": "scale",
+      "prompt": "¿Cuánto te creés ese pensamiento cuando aparece de noche?",
+      "min": 0,
+      "max": 100,
+      "min_label": "Nada",
+      "max_label": "Totalmente"
+    },
+    {
+      "id": "revisar_info",
+      "type": "info",
+      "title": "Revisar el pensamiento",
+      "content": "De noche, cansados, los pensamientos suelen ser más **catastróficos** y absolutos. No se trata de pensar «en positivo», sino de mirar el pensamiento con datos.\n\nAlgunas preguntas útiles:\n\n- ¿Qué pasó **realmente** las otras veces que dormí mal? ¿Fue un desastre o fue un día más pesado?\n- ¿Hay días en que dormí poco y aun así pude hacer lo importante?\n- ¿Preocuparme ahora me ayuda a dormir o me activa más?\n- ¿Qué le diría a una persona querida que piensa esto?\n\nAlgo para tener presente: la cantidad de sueño que cada persona necesita varía, y el cuerpo suele compensar después de una mala noche."
+    },
+    {
+      "id": "evidencia",
+      "type": "text",
+      "prompt": "Mirando tu experiencia real, ¿qué pasó los días después de dormir mal?",
+      "placeholder": "Por ejemplo: estuve más cansado/a, pero fui al trabajo y resolví lo urgente"
+    },
+    {
+      "id": "alternativo",
+      "type": "text",
+      "prompt": "Escribí un pensamiento más equilibrado, que puedas decirte de noche.",
+      "help": "Que sea creíble para vos. Por ejemplo: «Dormir mal es incómodo, pero ya pasé muchos días así y salí adelante. Descansar en calma también me sirve».",
+      "placeholder": "Puedo decirme…"
+    },
+    {
+      "id": "creencia_despues",
+      "type": "scale",
+      "prompt": "Ahora, ¿cuánto te creés el pensamiento original?",
+      "min": 0,
+      "max": 100,
+      "min_label": "Nada",
+      "max_label": "Totalmente"
+    },
+    {
+      "id": "tiempo_info",
+      "type": "info",
+      "title": "Un tiempo para preocuparte (que no sea en la cama)",
+      "content": "El **tiempo de preocupación programado** consiste en reservar unos 15 minutos por día, a la tarde o temprano a la noche, para sentarte con papel y pensar en tus preocupaciones a propósito.\n\n- Elegí un lugar que **no sea el dormitorio**.\n- Que sea al menos un par de horas antes de acostarte.\n- Anotá cada preocupación y, si se puede, un próximo paso concreto. Si no tiene solución ahora, anotala igual.\n- Cuando se termina el tiempo, cerrá el cuaderno.\n\nSi de noche aparece una preocupación, podés decirte: «esto lo miro mañana en mi tiempo de preocupación». No siempre funciona de entrada; con la práctica, la cabeza aprende que hay otro momento para eso."
+    },
+    {
+      "id": "tiempo_plan",
+      "type": "text",
+      "prompt": "¿A qué hora y en qué lugar vas a hacer tu tiempo de preocupación esta semana?",
+      "placeholder": "Por ejemplo: a las 19 h, en la mesa de la cocina, con un cuaderno"
+    },
+    {
+      "id": "frase_noche",
+      "type": "text",
+      "prompt": "¿Qué te vas a decir si una preocupación aparece cuando estás en la cama?",
+      "placeholder": "Por ejemplo: «gracias, cabeza; esto lo anoto y lo miro mañana a las 19»"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Tu plan para las noches",
+      "template": "Pensamiento que me desvela: «{{pensamiento_clave}}». Lo que muestra mi experiencia: {{evidencia}}. Me voy a decir: «{{alternativo}}». Mi tiempo de preocupación: {{tiempo_plan}}. Si aparece de noche: «{{frase_noche}}».",
+      "content": "Esto se complementa con el diario de sueño y el control de estímulos que ves con tu psicólogo/a. Si después de un rato en la cama seguís muy despierto/a, levantarte a hacer algo tranquilo sigue siendo parte del plan."
+    }
+  ],
+  "material": {
+    "title": "Sueño: los pensamientos que desvelan (TCC)",
+    "description": "Ejercicio de TCC para el insomnio: identificar y revisar pensamientos catastróficos sobre el sueño y programar un tiempo de preocupación lejos de la cama.",
+    "category": "sueno"
+  }
+}

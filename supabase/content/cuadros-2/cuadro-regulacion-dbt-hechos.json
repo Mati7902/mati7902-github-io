@@ -1,0 +1,123 @@
+{
+  "slug": "cuadro-regulacion-dbt-hechos",
+  "title": "Verificar los hechos y resolver",
+  "description": "Revisá si tu emoción y su intensidad encajan con los hechos (DBT) y decidí si conviene resolver el problema o probar la acción opuesta.",
+  "kind": "custom",
+  "approach": "dbt",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 13,
+  "sort_order": 354,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "¿La emoción encaja con lo que pasó?",
+      "content": "Las emociones tienen una función: el miedo nos protege de un peligro, el enojo nos ayuda a defender algo importante, la tristeza nos avisa de una pérdida.\n\nPero a veces la emoción no responde tanto a **lo que pasó** como a **lo que interpretamos** de lo que pasó. Y otras veces la emoción encaja, pero llega con una intensidad mucho mayor.\n\nEn DBT, **verificar los hechos** es frenar un momento y preguntarte: ¿mi emoción, y su intensidad, encajan con los hechos? La respuesta te ayuda a elegir qué hacer después."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "Si mientras hacés este recurso aparecen pensamientos de hacerte daño, de que no valés la pena vivir, o sentís que estás en crisis, **dejá el ejercicio para otro momento y pedí ayuda ya**: a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nNo tenés que atravesarlo solo ni sola. Contáselo también a tu psicólogo."
+    },
+    {
+      "id": "emocion",
+      "type": "text",
+      "prompt": "¿Qué emoción querés revisar? Nombrala y contá en una frase qué la disparó.",
+      "placeholder": "Enojo, porque…"
+    },
+    {
+      "id": "intensidad_antes",
+      "type": "scale",
+      "prompt": "¿Qué tan intensa es esa emoción ahora?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Al máximo",
+      "maps_to": "emotion_before"
+    },
+    {
+      "id": "pasos_info",
+      "type": "info",
+      "title": "Cómo verificar los hechos",
+      "content": "Hacete estas preguntas, de a una:\n\n- **¿Qué pasó exactamente?** Solo lo que vería una cámara.\n- **¿Qué interpretaciones le sumé?** Lo que supuse sobre las intenciones del otro o sobre lo que va a pasar.\n- **¿Estoy viendo una amenaza?** ¿Cuál? ¿Qué tan probable es que ocurra de verdad?\n- **Si ocurriera lo peor, ¿cómo podría afrontarlo?**\n- **¿La emoción y su intensidad encajan con los hechos**, no con la interpretación?\n\nNo buscás «tener razón» ni convencerte de que no te pasa nada: buscás **ver con más claridad**."
+    },
+    {
+      "id": "hechos",
+      "type": "text",
+      "prompt": "¿Qué pasó? Escribí solo los hechos, sin interpretaciones.",
+      "placeholder": "Mi jefa me pidió que rehaga el informe…"
+    },
+    {
+      "id": "interpretaciones",
+      "type": "text",
+      "prompt": "¿Qué interpretaciones o suposiciones le sumaste a esos hechos?",
+      "placeholder": "Pensé que…"
+    },
+    {
+      "id": "encaja",
+      "type": "choice",
+      "prompt": "Mirando solo los hechos, ¿tu emoción y su intensidad encajan?",
+      "options": [
+        "Sí, encajan con lo que pasó",
+        "La emoción encaja, pero no tanta intensidad",
+        "No encaja: responde más a mi interpretación"
+      ],
+      "feedback": {
+        "Sí, encajan con lo que pasó": "**Entonces tu emoción te está dando información válida.** Si hay un problema que se puede cambiar, el camino suele ser **resolverlo**. Si no se puede cambiar, toca tolerar y cuidarte mientras pasa.",
+        "La emoción encaja, pero no tanta intensidad": "**Es muy frecuente.** Podés reconocer que algo te afectó y, a la vez, bajar la intensidad: con habilidades del cuerpo, con acción opuesta parcial y resolviendo la parte del problema que sí depende de vos.",
+        "No encaja: responde más a mi interpretación": "**Bien visto.** Cuando la emoción no encaja con los hechos, una opción útil es la **acción opuesta**: hacer lo contrario de lo que la emoción te empuja a hacer."
+      }
+    },
+    {
+      "id": "cuando_info",
+      "type": "info",
+      "title": "¿Resolver o acción opuesta?",
+      "content": "- **La emoción encaja y el problema se puede cambiar:** usá **resolución de problemas**.\n- **La emoción no encaja con los hechos**, o encaja pero actuar según ella te perjudica (por ejemplo, gritar te hace perder algo que te importa): probá la **acción opuesta**. Si el miedo no encaja, acercarte; si el enojo no encaja, alejarte con amabilidad.\n- **La emoción encaja y el problema no se puede cambiar:** el trabajo es tolerar y aceptar, cuidándote mientras dura.\n\nLa acción opuesta la tenés explicada en la práctica de habilidades para emociones intensas de esta sección."
+    },
+    {
+      "id": "resolver_info",
+      "type": "info",
+      "title": "Resolución de problemas, paso a paso",
+      "content": "1. **Definí el problema** con hechos, en una frase.\n2. **Elegí un objetivo realista**: qué tendría que pasar para que esté un poco mejor.\n3. **Pensá varias soluciones** sin juzgarlas todavía. Cuantas más, mejor.\n4. **Elegí una o dos** que tengan más chances de funcionar y que puedas hacer.\n5. **Dividila en pasos** chicos y empezá por el primero.\n6. **Evaluá cómo salió.** Si no funcionó, volvé al paso 3: no es un fracaso, es información."
+    },
+    {
+      "id": "soluciones",
+      "type": "list",
+      "prompt": "Si hay un problema para resolver, anotá posibles soluciones sin juzgarlas todavía.",
+      "count": 4,
+      "min": 1,
+      "optional": true
+    },
+    {
+      "id": "plan",
+      "type": "text",
+      "prompt": "¿Qué vas a hacer ahora? Escribí el primer paso concreto, sea resolver o acción opuesta.",
+      "placeholder": "Voy a…"
+    },
+    {
+      "id": "intensidad_despues",
+      "type": "scale",
+      "prompt": "Después de revisar los hechos, ¿qué tan intensa es la emoción ahora?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Al máximo",
+      "maps_to": "emotion_after"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Lo que verificaste",
+      "template": "Emoción: {{emocion}}. Los hechos: {{hechos}}. Lo que le sumé: {{interpretaciones}}. ¿Encaja? {{encaja}}. Posibles soluciones: {{soluciones}}. Mi primer paso: {{plan}}.",
+      "content": "Verificar los hechos no borra la emoción, y no tiene por qué. Te ayuda a **elegir qué hacer con ella** en lugar de que ella elija por vos. Con práctica, este chequeo se vuelve más rápido."
+    }
+  ],
+  "material": {
+    "title": "Verificar los hechos y resolver problemas (DBT)",
+    "description": "Chequear si la emoción y su intensidad encajan con los hechos, resolución de problemas paso a paso y cuándo usar acción opuesta.",
+    "category": "regulacion-emocional"
+  }
+}

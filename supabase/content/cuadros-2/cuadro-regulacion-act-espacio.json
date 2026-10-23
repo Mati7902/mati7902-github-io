@@ -1,0 +1,126 @@
+{
+  "slug": "cuadro-regulacion-act-espacio",
+  "title": "Hacerle espacio a lo que siento",
+  "description": "Practicá la expansión de ACT: observar, respirar hacia la sensación, permitir y nombrar una emoción difícil, y elegir una acción valiosa.",
+  "kind": "custom",
+  "approach": "act",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 11,
+  "sort_order": 355,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Cuando pelear la agranda",
+      "content": "Ante una emoción difícil, lo natural es querer sacársela de encima: distraerse, taparla, discutirla, aguantar apretando los dientes. A veces funciona un rato. Pero muchas veces, **cuanto más peleamos con una emoción, más espacio ocupa**.\n\nEn ACT se propone otra opción: la **expansión**, o hacerle espacio. No es resignarse ni que te tenga que gustar lo que sentís. Es dejar de forcejear, para que la emoción pueda estar **sin manejar tu vida**.\n\nLleva práctica, y al principio puede sentirse raro. Está bien."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "Si mientras hacés este recurso aparecen pensamientos de hacerte daño, de que no valés la pena vivir, o sentís que estás en crisis, **dejá el ejercicio para otro momento y pedí ayuda ya**: a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nNo tenés que atravesarlo solo ni sola. Contáselo también a tu psicólogo."
+    },
+    {
+      "id": "emocion",
+      "type": "text",
+      "prompt": "¿Qué emoción difícil está presente ahora, o aparece seguido? Nombrala.",
+      "placeholder": "Angustia, miedo, bronca…"
+    },
+    {
+      "id": "intensidad_antes",
+      "type": "scale",
+      "prompt": "¿Qué tan intensa la sentís en este momento?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Al máximo",
+      "maps_to": "emotion_before"
+    },
+    {
+      "id": "cuerpo",
+      "type": "checklist",
+      "prompt": "¿Dónde la notás en el cuerpo?",
+      "options": [
+        "Pecho",
+        "Garganta",
+        "Estómago o panza",
+        "Hombros o cuello",
+        "Cara o mandíbula",
+        "Manos",
+        "Cabeza",
+        "No la ubico en un lugar"
+      ],
+      "min": 1
+    },
+    {
+      "id": "pasos_info",
+      "type": "info",
+      "title": "Cuatro movimientos",
+      "content": "- **Observar.** Notá la sensación con curiosidad, como si fuera la primera vez: ¿dónde empieza y termina?, ¿es pesada, caliente, apretada?, ¿se mueve?\n- **Respirar hacia la sensación.** Imaginá que el aire llega hasta ese lugar y la rodea.\n- **Permitir.** No hace falta que te guste. Solo dejá de empujarla: «no me gusta, y puedo dejarla estar».\n- **Nombrar.** Ponele nombre: «esto es angustia», «acá hay miedo». Nombrar ayuda a mirarla un poco desde afuera.\n\nSi en algún momento sentís que te desbordás, abrí los ojos, apoyá los pies y mirá a tu alrededor. Podés parar cuando quieras."
+    },
+    {
+      "id": "practica",
+      "type": "timed_info",
+      "title": "Práctica guiada",
+      "seconds": 150,
+      "content": "Apoyá los pies en el piso y soltá un poco los hombros.\n\nLlevá la atención al lugar del cuerpo donde está la emoción. **Observala**: su tamaño, su forma, su temperatura.\n\nAhora **respirá hacia ella**. Con cada inhalación, imaginá que el aire la rodea y le hace un poco más de lugar.\n\n**Permitila.** Si aparece el impulso de pelearla, notalo y volvé a aflojar. Podés decirte: «hay lugar para esto».\n\n**Nombrala** en silencio: «esto es…».\n\nSi la mente se va, está bien: volvé con suavidad a la sensación. Seguí respirando hasta que suene el aviso."
+    },
+    {
+      "id": "que_paso",
+      "type": "checklist",
+      "prompt": "¿Qué notaste durante la práctica?",
+      "options": [
+        "La sensación cambió de forma o de lugar",
+        "Bajó un poco",
+        "Subió al principio",
+        "Me costó quedarme con ella",
+        "Sentí más espacio alrededor",
+        "Tuve ganas de distraerme",
+        "No noté cambios"
+      ],
+      "min": 1
+    },
+    {
+      "id": "intensidad_despues",
+      "type": "scale",
+      "prompt": "Y ahora, ¿qué tan intensa la sentís?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Al máximo",
+      "maps_to": "emotion_after"
+    },
+    {
+      "id": "valores_info",
+      "type": "info",
+      "title": "Y ahora, ¿hacia dónde?",
+      "content": "El objetivo de hacer espacio **no es que la emoción desaparezca** (a veces baja, a veces no). Es que deje de decidir por vos.\n\nLa energía que se iba en pelear con lo que sentís queda disponible para **lo que te importa**: una persona, un proyecto, cuidarte, aprender algo.\n\nLa emoción puede venir con vos mientras hacés eso. Como un pasajero incómodo: está en el auto, pero el volante lo tenés vos."
+    },
+    {
+      "id": "accion",
+      "type": "text",
+      "prompt": "Si esta emoción pudiera acompañarte, ¿qué harías hoy que vaya con lo que te importa?",
+      "placeholder": "Hoy voy a…"
+    },
+    {
+      "id": "frase",
+      "type": "text",
+      "prompt": "¿Qué frase corta te puede recordar hacer espacio? Ej.: «Hay lugar para esto».",
+      "placeholder": "Hay lugar para…"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Tu práctica",
+      "template": "Hoy le hice espacio a: {{emocion}}. La noté en: {{cuerpo}}. Durante la práctica: {{que_paso}}. Con ella a bordo, voy a {{accion}}. Mi frase: «{{frase}}».",
+      "content": "Hacer espacio es una habilidad que se entrena: cuanto más la practiques en momentos de malestar moderado, más disponible la vas a tener cuando la emoción sea fuerte. Contá en sesión cómo te fue."
+    }
+  ],
+  "material": {
+    "title": "Hacer espacio a emociones difíciles (ACT)",
+    "description": "Expansión en cuatro movimientos (observar, respirar hacia la sensación, permitir y nombrar), práctica guiada y acción valiosa.",
+    "category": "regulacion-emocional"
+  }
+}

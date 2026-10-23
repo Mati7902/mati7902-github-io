@@ -1,0 +1,112 @@
+{
+  "slug": "cuadro-toc-tcc-responsabilidad",
+  "title": "TOC: revisar la amenaza y la responsabilidad",
+  "description": "Un ejercicio de TCC para revisar tres trampas del TOC: sobreestimar el peligro, sentirte responsable de todo y creer que pensar es hacer.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 14,
+  "sort_order": 335,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Tres trampas del TOC",
+      "content": "En el TOC suelen aparecer tres formas de pensar que hacen que una duda se sienta insoportable:\n\n- **Sobreestimar la amenaza:** sentir que algo malo es muy probable o muy grave.\n- **Responsabilidad inflada:** sentir que, si pasa algo, va a ser enteramente tu culpa, y que tenés que evitarlo a toda costa.\n- **Fusión pensamiento-acción:** creer que pensar algo lo hace más probable, o que pensarlo es tan grave como hacerlo.\n\nEn este ejercicio vas a revisarlas con calma. No es para convencerte de que «no va a pasar nada», sino para mirar la situación de forma más equilibrada."
+    },
+    {
+      "id": "aclaracion",
+      "type": "info",
+      "title": "Importante",
+      "content": "Este ejercicio es para hacerlo **con calma, una vez**, y no para repetirlo cada vez que aparece la obsesión. Si lo usás para tranquilizarte una y otra vez, puede convertirse en un ritual más.\n\nEl tratamiento central del TOC es la **exposición con prevención de respuesta (EPR)**, que se planifica en sesión con tu psicólogo/a, de forma gradual. No hace falta que empieces exposiciones por tu cuenta.\n\nSi en algún momento estás en crisis, sentís que no podés más o pensás en hacerte daño, **pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "situacion",
+      "type": "text",
+      "prompt": "Elegí una situación que te genere una obsesión. ¿Qué temés que pase?",
+      "placeholder": "Por ejemplo: «si no reviso la hornalla, se incendia la casa»"
+    },
+    {
+      "id": "prob_antes",
+      "type": "scale",
+      "prompt": "Cuando aparece la obsesión, ¿qué tan probable sentís que pase eso?",
+      "min": 0,
+      "max": 100,
+      "min_label": "Imposible",
+      "max_label": "Seguro"
+    },
+    {
+      "id": "cadena_info",
+      "type": "info",
+      "title": "Las preguntas de probabilidad",
+      "content": "Para que lo que temés suceda, en general tienen que darse **varias cosas seguidas**. Por ejemplo: que la hornalla quede abierta, que nadie lo note, que haya algo cerca que se prenda, que el fuego se extienda…\n\nCada paso tiene su propia probabilidad, y todas juntas suelen dar algo **mucho menos probable** de lo que se siente.\n\nPreguntate también:\n\n- ¿Cuántas veces temí esto y qué pasó realmente?\n- ¿Qué pensaría alguien sin TOC en esta misma situación?\n- Si pasara, ¿cuánto podría hacer para afrontarlo?"
+    },
+    {
+      "id": "cadena",
+      "type": "list",
+      "prompt": "Escribí los pasos que tendrían que darse, uno tras otro, para que pase lo que temés.",
+      "count": 5,
+      "min": 3
+    },
+    {
+      "id": "prob_despues",
+      "type": "scale",
+      "prompt": "Mirando toda la cadena, ¿qué tan probable te parece ahora?",
+      "min": 0,
+      "max": 100,
+      "min_label": "Imposible",
+      "max_label": "Seguro"
+    },
+    {
+      "id": "torta_info",
+      "type": "info",
+      "title": "La torta de la responsabilidad",
+      "content": "Imaginá que lo que temés sí pasara. ¿Sería todo culpa tuya?\n\nHacé una lista de **todas las personas y factores** que podrían influir: otras personas, el azar, el estado de los objetos, la situación, el tiempo.\n\nDespués, repartí la «torta» del 100 %: asignale a cada factor un porcentaje, y **dejá tu parte para el final**.\n\nEs común que, al terminar, tu parte sea bastante más chica de lo que sentías al principio."
+    },
+    {
+      "id": "torta",
+      "type": "text",
+      "prompt": "Repartí la torta: escribí cada factor con su porcentaje, dejando tu parte para el final.",
+      "placeholder": "Por ejemplo: la hornalla vieja 30 %, mi pareja que también cocina 20 %, azar 30 %, yo 20 %"
+    },
+    {
+      "id": "resp_antes",
+      "type": "text",
+      "prompt": "Antes de hacer la torta, ¿qué porcentaje de responsabilidad sentías que era tuya? ¿Y ahora?",
+      "placeholder": "Antes: …%. Ahora: …%"
+    },
+    {
+      "id": "fusion",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Si pienso que algo malo le va a pasar a alguien, es más probable que pase».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "Correcto. Los pensamientos no mueven el mundo. Podés hacer la prueba: pensá que va a llover ahora mismo, y fijate si cambia algo. Pensar no es hacer.",
+        "Realidad": "Así se siente con el TOC, pero los pensamientos no hacen que las cosas pasen. Pensar algo, incluso algo feo, no es lo mismo que hacerlo ni que desearlo."
+      }
+    },
+    {
+      "id": "conclusion",
+      "type": "text",
+      "prompt": "Escribí una mirada más equilibrada sobre la situación, sin buscar certeza absoluta.",
+      "placeholder": "Por ejemplo: «es poco probable y no depende solo de mí; puedo convivir con la duda»"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Lo que revisé",
+      "template": "Lo que temo: {{situacion}}. La cadena: {{cadena}}. La torta de la responsabilidad: {{torta}}. Mi responsabilidad, antes y ahora: {{resp_antes}}. Mi mirada más equilibrada: {{conclusion}}.",
+      "content": "Llevá esto a la próxima sesión: puede ayudar a planificar con tu psicólogo/a los pasos de exposición. Recordá no usar este ejercicio para asegurarte cada vez que aparece la duda."
+    }
+  ],
+  "material": {
+    "title": "TOC: revisar la amenaza y la responsabilidad (TCC)",
+    "description": "Reevaluación de la sobreestimación de la amenaza, la responsabilidad inflada (torta de responsabilidad) y la fusión pensamiento-acción. La EPR se planifica en sesión.",
+    "category": "toc"
+  }
+}

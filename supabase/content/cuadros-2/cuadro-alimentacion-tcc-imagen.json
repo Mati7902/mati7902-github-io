@@ -1,0 +1,122 @@
+{
+  "slug": "cuadro-alimentacion-tcc-imagen",
+  "title": "Imagen corporal: mirar el cuerpo con otros ojos",
+  "description": "Desde la TCC: reconocé el chequeo y la evitación del cuerpo, las comparaciones y el efecto de las redes, y probá una mirada funcional del cuerpo.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 349,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Cuando el cuerpo ocupa demasiado lugar",
+      "content": "Para muchas personas, cómo se ven ocupa un lugar enorme: en lo que piensan, en cómo se sienten con ellas mismas y en lo que hacen o dejan de hacer.\n\nLa **imagen corporal** no es solo cómo es tu cuerpo: es cómo lo **percibís**, qué **pensás** y **sentís** sobre él y qué **hacés** a partir de eso. Y esa imagen se puede trabajar.\n\nEn este ejercicio de **TCC** vas a mirar tres cosas que suelen mantener el malestar:\n\n- El **chequeo** del cuerpo.\n- La **evitación** del cuerpo.\n- Las **comparaciones**, incluidas las de las **redes sociales**.\n\nY vas a probar una forma distinta de mirarlo: por lo que **hace**, no solo por cómo se ve."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "**Si estás en crisis o aparecen pensamientos de hacerte daño, pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nSi tenés **desmayos, mareos fuertes, palpitaciones** o mucha debilidad, consultá con urgencia a un médico. Este ejercicio funciona mejor dentro de un tratamiento acompañado por tu equipo."
+    },
+    {
+      "id": "malestar",
+      "type": "scale",
+      "prompt": "Hoy, ¿cuánto malestar te genera pensar en tu cuerpo?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísimo",
+      "maps_to": "emotion_before"
+    },
+    {
+      "id": "chequeo_info",
+      "type": "info",
+      "title": "Chequear y evitar: dos caras de lo mismo",
+      "content": "**Chequear** es revisar el cuerpo una y otra vez: mirarse en cada espejo o vidriera, pellizcarse, probarse la misma ropa para ver «cómo queda», pesarse seguido, sacarse fotos para controlar.\n\nEl chequeo parece dar tranquilidad, pero tiene trampa: **cuanto más mirás algo buscando defectos, más defectos encontrás**. La atención agranda lo que mira.\n\n**Evitar** es lo contrario: no mirarse nunca, tapar el cuerpo con ropa muy holgada, no ir a la playa o a la pileta, no dejar que te saquen fotos.\n\nLa evitación alivia un rato, pero mantiene el miedo y achica la vida. Muchas personas alternan entre las dos."
+    },
+    {
+      "id": "conductas",
+      "type": "checklist",
+      "prompt": "¿Cuáles de estas conductas reconocés en vos? Marcá las que quieras.",
+      "options": [
+        "Mirarme mucho en espejos o vidrieras",
+        "Pellizcarme o tocar partes del cuerpo para controlarlas",
+        "Probarme ropa para ver si me queda igual",
+        "Sacarme fotos para revisar cómo me veo",
+        "Evitar espejos",
+        "Usar ropa para taparme",
+        "Evitar fotos, playa, pileta o ciertas salidas",
+        "Compararme con otras personas"
+      ],
+      "min": 1,
+      "max": 8
+    },
+    {
+      "id": "conducta_reducir",
+      "type": "text",
+      "prompt": "Elegí una conducta de chequeo o evitación para empezar a reducir. ¿Qué podrías hacer distinto?",
+      "help": "Pasos chicos. Por ejemplo: «usar el espejo solo para peinarme, sin revisar el cuerpo» o «ir a la pileta con mi amiga aunque me dé vergüenza».",
+      "placeholder": "Voy a…"
+    },
+    {
+      "id": "comparaciones_info",
+      "type": "info",
+      "title": "Comparaciones y redes sociales",
+      "content": "Cuando nos comparamos, solemos hacerlo de forma **injusta**: elegimos a la persona que más se acerca al ideal, la miramos en su mejor momento y la comparamos con la parte de nosotros que menos nos gusta.\n\nEn las **redes** esto se multiplica: las imágenes están elegidas, editadas y filtradas, y el algoritmo muestra más de lo que más mirás.\n\nAlgunas preguntas útiles:\n\n- ¿Con quién me comparo y en qué situación?\n- ¿Me comparo con la persona entera o solo con una parte de su cuerpo?\n- ¿Cómo me siento después de mirar ciertas cuentas?\n\nNo se trata de dejar las redes, sino de elegir qué querés ver."
+    },
+    {
+      "id": "redes",
+      "type": "checklist",
+      "prompt": "¿Qué cambios podrías probar con tus redes esta semana?",
+      "options": [
+        "Silenciar o dejar de seguir cuentas que me hacen sentir mal con mi cuerpo",
+        "Seguir cuentas sobre otros intereses (arte, deporte, humor, naturaleza)",
+        "Seguir cuentas con cuerpos diversos y reales",
+        "Limitar el tiempo en las apps que más me afectan",
+        "No mirar redes antes de dormir o al despertarme"
+      ],
+      "min": 1,
+      "max": 5
+    },
+    {
+      "id": "funcional_info",
+      "type": "timed_info",
+      "title": "Tu cuerpo, por lo que hace",
+      "content": "Tomate un par de minutos para pensar en tu cuerpo de otra forma: no por cómo se ve, sino por lo que **te permite hacer**.\n\n- Tus piernas, que te llevan a lugares.\n- Tus brazos y manos, que abrazan, cocinan, escriben, saludan.\n- Tus sentidos: lo que ves, escuchás, saboreás.\n- Tu respiración y tu corazón, que trabajan todo el día sin que se lo pidas.\n- Tu cuerpo en momentos lindos: bailando, riéndote, descansando.\n\nNo hace falta que te guste todo de tu cuerpo. Solo probá mirarlo, por un rato, desde lo que hace por vos.",
+      "seconds": 120
+    },
+    {
+      "id": "funcional",
+      "type": "list",
+      "prompt": "Escribí tres cosas que tu cuerpo te permite hacer y que valorás.",
+      "count": 3,
+      "min": 3
+    },
+    {
+      "id": "malestar_despues",
+      "type": "scale",
+      "prompt": "Ahora, ¿cuánto malestar te genera pensar en tu cuerpo?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísimo",
+      "maps_to": "emotion_after"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Lo que te llevás",
+      "template": "Conductas que reconozco: {{conductas}}. Voy a empezar por: {{conducta_reducir}}. Con las redes voy a probar: {{redes}}. Mi cuerpo me permite: {{funcional}}.",
+      "content": "Cambiar la relación con el cuerpo lleva tiempo y suele tener idas y vueltas. Si este ejercicio te removió cosas difíciles, traelas a la próxima sesión."
+    }
+  ],
+  "material": {
+    "title": "Imagen corporal: chequeo, evitación y comparaciones (TCC)",
+    "description": "Ejercicio de TCC sobre imagen corporal: chequeo y evitación del cuerpo, comparaciones, redes sociales y apreciación funcional del cuerpo.",
+    "category": "alimentacion"
+  }
+}

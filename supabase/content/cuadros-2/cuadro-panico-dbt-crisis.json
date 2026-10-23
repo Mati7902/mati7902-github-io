@@ -1,0 +1,119 @@
+{
+  "slug": "cuadro-panico-dbt-crisis",
+  "title": "Mi kit para un pico de ansiedad",
+  "description": "Habilidades de DBT para atravesar un pico de ansiedad sin empeorar las cosas: STOP, respiración pausada, cinco sentidos y distracción.",
+  "kind": "custom",
+  "approach": "dbt",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 13,
+  "sort_order": 331,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Sobrevivir al pico",
+      "content": "Hay momentos en que la ansiedad sube tanto que cuesta pensar. En la Terapia Dialéctica Conductual (DBT) existen las **habilidades de supervivencia a la crisis**: herramientas para atravesar ese pico **sin hacer algo que empeore las cosas**.\n\nNo resuelven el problema de fondo ni hacen desaparecer la ansiedad: ayudan a que el momento pase con menos daño.\n\nEn este ejercicio vas a conocer algunas y a **armar tu propio kit**, para tenerlo a mano. Conviene practicarlas cuando estás tranquilo/a, así después salen más fácil."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si necesitás ayuda urgente",
+      "content": "Si estás en una crisis que no podés manejar, tenés síntomas nuevos o dolor de pecho intenso, o pensás en hacerte daño, **pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "senales",
+      "type": "checklist",
+      "prompt": "¿Qué señales te avisan que la ansiedad está subiendo fuerte? Marcá las tuyas.",
+      "options": [
+        "Corazón acelerado",
+        "Respiración corta",
+        "Ganas de salir corriendo",
+        "Pensamientos que se aceleran",
+        "Tensión en el cuerpo",
+        "Irritabilidad",
+        "Sensación de irrealidad",
+        "Ganas de llorar"
+      ],
+      "min": 1
+    },
+    {
+      "id": "stop",
+      "type": "info",
+      "title": "STOP",
+      "content": "Cuando notás que la ansiedad se dispara, probá **STOP**:\n\n- **S – Stop (pará):** frená un segundo. No hagas nada todavía.\n- **T – Tomá distancia:** da un paso atrás, físico o mental. Respirá.\n- **O – Observá:** ¿qué pasa en tu cuerpo, qué pensás, qué está pasando alrededor?\n- **P – Procedé con conciencia:** elegí qué hacer pensando en lo que te sirve, no solo en escapar de la sensación.\n\nSTOP lleva unos segundos y te da margen para elegir."
+    },
+    {
+      "id": "respiracion",
+      "type": "timed_info",
+      "title": "Respiración pausada",
+      "content": "Vamos a practicar una respiración en la que la exhalación es más larga que la inhalación. Eso le avisa al cuerpo que puede bajar un cambio.\n\n- **Inhalá por la nariz** contando hasta 4.\n- **Exhalá lento** contando hasta 6 u 8, como si soplaras por una pajita.\n\nSin forzar ni llenar del todo los pulmones. Si te mareás, volvé a respirar normal.",
+      "seconds": 90
+    },
+    {
+      "id": "sentidos_info",
+      "type": "info",
+      "title": "Autocalmarme con los cinco sentidos",
+      "content": "Otra habilidad es **darte algo amable por cada sentido**, como harías con alguien querido que está pasándola mal:\n\n- **Vista:** una foto que te guste, mirar el cielo o las plantas.\n- **Oído:** una canción tranquila, un audio que te calme.\n- **Olfato:** un perfume, café, una crema con aroma.\n- **Gusto:** un caramelo, un mate o un té tibio, tomado despacio.\n- **Tacto:** una manta, una ducha tibia, acariciar a una mascota.\n\nLo ideal es tener algunas de estas cosas a mano antes de que las necesites."
+    },
+    {
+      "id": "sentidos",
+      "type": "list",
+      "prompt": "Elegí una cosa concreta para cada sentido que te sirva para calmarte (vista, oído, olfato, gusto, tacto).",
+      "count": 5,
+      "min": 3
+    },
+    {
+      "id": "accepts_info",
+      "type": "info",
+      "title": "Distraerme a propósito: ACCEPTS",
+      "content": "Cuando la ansiedad está muy alta, a veces sirve **cambiar el foco por un rato**. En DBT se resume en ACCEPTS:\n\n- **Actividades:** ordenar, cocinar, caminar.\n- **Contribuir:** ayudar a alguien, mandar un mensaje lindo.\n- **Comparar:** recordar otras veces en que lo atravesaste.\n- **Emociones opuestas:** un video gracioso, música alegre.\n- **Pausar (dejar de lado):** «esto lo pienso después».\n- **Pensamientos:** contar de 100 para atrás de a 7, armar una lista mental.\n- **Sensaciones:** apretar una pelotita, un hielo en la mano.\n\nNo es evitar para siempre: es ganar tiempo hasta que el pico baje."
+    },
+    {
+      "id": "accepts",
+      "type": "checklist",
+      "prompt": "¿Cuáles de estas formas de distraerte podrías usar vos? Marcá las que te parezcan útiles.",
+      "options": [
+        "Actividades",
+        "Contribuir",
+        "Comparar",
+        "Emociones opuestas",
+        "Pausar",
+        "Pensamientos",
+        "Sensaciones"
+      ],
+      "min": 1
+    },
+    {
+      "id": "accepts_concreto",
+      "type": "text",
+      "prompt": "Escribí una o dos actividades concretas de las que marcaste.",
+      "placeholder": "Por ejemplo: salir a caminar a la cuadra, contar de 100 para atrás de a 7"
+    },
+    {
+      "id": "evitar",
+      "type": "text",
+      "prompt": "¿Qué cosas suelen empeorar el momento y querés evitar? (cafeína, discutir, buscar síntomas en internet…)",
+      "placeholder": "Lo que no me ayuda"
+    },
+    {
+      "id": "persona",
+      "type": "text",
+      "prompt": "¿A quién podrías escribirle o llamar si el pico no baja?",
+      "placeholder": "Nombre de una o dos personas"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Mi kit para un pico de ansiedad",
+      "template": "Mis señales: {{senales}}. Primero: STOP y respiración pausada. Para calmarme con los sentidos: {{sentidos}}. Para distraerme: {{accepts_concreto}}. Lo que evito: {{evitar}}. A quién recurro: {{persona}}.",
+      "content": "Sacale una captura o anotalo en el celular para tenerlo a mano. Estas habilidades no reemplazan el trabajo en sesión: contale a tu psicólogo/a cómo te fue al usarlas."
+    }
+  ],
+  "material": {
+    "title": "Mi kit para un pico de ansiedad (DBT)",
+    "description": "Habilidades de supervivencia a la crisis para picos de ansiedad: STOP, respiración pausada, autocalmarse con los cinco sentidos, distracción ACCEPTS y kit personal.",
+    "category": "ansiedad"
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "slug": "cuadro-alimentacion-dbt-impulsos",
+  "title": "Comida: surfear el impulso",
+  "description": "Desde DBT: cómo atravesar el impulso de atracón o de compensar sin actuarlo, con surfear la ola, distracción y autocalmarte.",
+  "kind": "custom",
+  "approach": "dbt",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 348,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "El impulso es una ola",
+      "content": "A veces aparece un impulso muy fuerte: comer mucho y rápido, o hacer algo para «compensar» lo que comiste. En ese momento parece que no hay otra salida y que el malestar no va a parar nunca.\n\nPero los impulsos funcionan como **olas**: suben, llegan a un pico y, si no les damos de comer, **bajan solos**. Lo que mantiene el problema es que actuar el impulso alivia por un rato, y el cerebro aprende que esa es la única forma de calmarse.\n\nEn este ejercicio de **DBT** vas a practicar:\n\n- **Surfear el impulso**: observarlo sin actuarlo.\n- **Distracción** y **autocalmarte**, para atravesar el pico.\n\nEstas habilidades funcionan mejor como parte de un **tratamiento en equipo** (psicología, medicina y nutrición)."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Cuándo pedir ayuda ya",
+      "content": "**Si estás en crisis o aparecen pensamientos de hacerte daño, pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nConsultá **con urgencia** a un médico o andá a la guardia si tenés **desmayos o mareos fuertes**, **palpitaciones** o latidos irregulares, dolor en el pecho, confusión, mucha debilidad o vómitos que no paran. Las conductas compensatorias pueden afectar el cuerpo aunque por fuera no se note."
+    },
+    {
+      "id": "momentos",
+      "type": "checklist",
+      "prompt": "¿En qué momentos suele aparecer el impulso? Marcá los que reconozcas.",
+      "options": [
+        "Después de pasar mucho tiempo sin comer",
+        "Cuando estoy solo/a en casa",
+        "Después de una discusión o un mal momento",
+        "Cuando estoy aburrido/a o cansado/a",
+        "De noche",
+        "Después de mirarme o compararme",
+        "Después de comer algo que considero «prohibido»"
+      ],
+      "min": 1,
+      "max": 7
+    },
+    {
+      "id": "senales",
+      "type": "text",
+      "prompt": "¿Cómo te das cuenta de que el impulso está empezando? ¿Qué sentís o pensás?",
+      "placeholder": "Por ejemplo: ansiedad en el pecho, pensamiento de «ya fue, total…», ir a la cocina sin pensar"
+    },
+    {
+      "id": "surfear_info",
+      "type": "info",
+      "title": "Cómo surfear el impulso",
+      "content": "Cuando aparece el impulso, en lugar de pelear con él o seguirlo, lo **observás con curiosidad**, como un surfista que se sube a la ola:\n\n- **Notá** dónde lo sentís en el cuerpo: panza, pecho, boca, manos.\n- **Ponele un número** del 0 al 10 a su intensidad.\n- **Respirá** despacio, con la exhalación más larga.\n- **Describilo** sin juzgarlo: «tengo un impulso fuerte de comer, está en 8».\n- **Seguí observando** cómo cambia. Sube, se mantiene, baja.\n\nNo tenés que hacer que el impulso desaparezca. Solo dejar que pase **sin actuarlo**. Cada vez que lo atravesás, el cerebro aprende que podés."
+    },
+    {
+      "id": "surfear_practica",
+      "type": "timed_info",
+      "title": "Practicá surfear la ola",
+      "content": "Si ahora no tenés un impulso, recordá uno reciente, con suavidad.\n\n- Apoyá los pies en el piso y notá tu respiración.\n- Buscá en el cuerpo dónde está el impulso. ¿Qué forma tiene? ¿Es calor, presión, inquietud?\n- Ponele un número.\n- Imaginá que es una ola: notá cómo sube… y acompañala con la respiración.\n- Cada tanto, volvé a ponerle número. ¿Cambió algo?\n\nSi en algún momento se vuelve demasiado intenso, abrí los ojos, mirá cinco cosas a tu alrededor y pasá a la distracción.",
+      "seconds": 120
+    },
+    {
+      "id": "intensidad",
+      "type": "scale",
+      "prompt": "Al terminar la práctica, ¿qué tan intenso es el impulso (o el recuerdo del impulso)?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muy intenso",
+      "maps_to": "emotion_after"
+    },
+    {
+      "id": "distraccion_info",
+      "type": "info",
+      "title": "Distracción y autocalmarte",
+      "content": "Mientras la ola pasa, ayuda **cambiar de escenario** un rato. No es «tapar» lo que sentís: es darle tiempo al impulso para que baje.\n\n**Distracción:** salir de la cocina o del lugar donde aparece el impulso, llamar o escribirle a alguien, ordenar algo, una serie, un juego, salir a la vereda.\n\n**Autocalmarte con los sentidos:** algo tibio en las manos, una ducha, música tranquila, un aroma que te guste, una manta, mirar algo lindo.\n\nUna regla útil: **esperar al menos 20 minutos** haciendo otra cosa antes de decidir. Muchas veces el impulso baja en ese tiempo."
+    },
+    {
+      "id": "plan_distraccion",
+      "type": "list",
+      "prompt": "Armá tu lista: ¿qué cosas de distracción o para calmarte podrías hacer cuando aparezca el impulso?",
+      "help": "Que sean posibles en tu casa, a cualquier hora, y lejos de la cocina si se puede.",
+      "count": 5,
+      "min": 3
+    },
+    {
+      "id": "persona",
+      "type": "text",
+      "prompt": "¿A quién podrías escribirle o llamar en un momento así, aunque no le cuentes todo?",
+      "placeholder": "Por ejemplo: mi hermana, una amiga",
+      "optional": true
+    },
+    {
+      "id": "si_pasa",
+      "type": "choice",
+      "prompt": "Si a pesar de todo actuás el impulso, ¿qué ayuda más después?",
+      "options": [
+        "Saltear la próxima comida para compensar",
+        "Volver a comer de forma regular en la próxima comida",
+        "Decirme que no sirvo para esto y abandonar"
+      ],
+      "feedback": {
+        "Saltear la próxima comida para compensar": "Es lo que el cuerpo y la cabeza suelen pedir, pero saltear comidas alimenta el ciclo: más hambre, más impulso. Lo que ayuda es volver al plan de comidas regulares.",
+        "Volver a comer de forma regular en la próxima comida": "Exacto. Volver a tu plan de comidas regulares corta el ciclo. Y anotar qué pasó (sin juzgarte) es información valiosa para la sesión.",
+        "Decirme que no sirvo para esto y abandonar": "Los tropiezos son parte de cualquier proceso. La autocrítica dura suele aumentar el malestar y, con él, el impulso. Tratate como tratarías a alguien que querés."
+      }
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Tu plan para la próxima ola",
+      "template": "Momentos de riesgo: {{momentos}}. Cómo me doy cuenta: {{senales}}. Mi lista para atravesar el pico: {{plan_distraccion}}. Puedo contactar a: {{persona}}.",
+      "content": "Guardá esta lista en un lugar visible o en el celular. Contá en sesión cómo te fue: lo que funcionó y lo que no es información para ajustar el plan con tu equipo de tratamiento."
+    }
+  ],
+  "material": {
+    "title": "Comida: surfear el impulso (DBT)",
+    "description": "Ejercicio de DBT para impulsos de atracón o de compensar: surfear la ola, distracción, autocalmarse y qué hacer después, dentro de un tratamiento en equipo.",
+    "category": "alimentacion"
+  }
+}

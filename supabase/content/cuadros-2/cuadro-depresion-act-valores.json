@@ -1,0 +1,129 @@
+{
+  "slug": "cuadro-depresion-act-valores",
+  "title": "Mis valores y un paso chico",
+  "description": "Un ejercicio de ACT para reconectar con lo que te importa en distintas áreas de tu vida y elegir una acción chica para esta semana.",
+  "kind": "custom",
+  "approach": "act",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 14,
+  "sort_order": 332,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Cuando todo cuesta",
+      "content": "Cuando el ánimo está bajo, es común perder las ganas y sentir que nada tiene sentido. Muchas veces esperamos **tener ganas para hacer**, pero con el ánimo bajo las ganas tardan en llegar.\n\nDesde la Terapia de Aceptación y Compromiso (ACT) se propone otro camino: **orientarte por tus valores**, es decir, por lo que te importa, y dar pasos chicos en esa dirección, aunque las ganas no estén del todo.\n\nNo es «pensar en positivo» ni obligarte a estar bien. Es ir recuperando, de a poco, cosas que tienen sentido para vos."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si necesitás ayuda urgente",
+      "content": "Si en algún momento sentís que no podés más, pensás en hacerte daño o en no seguir viviendo, **pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano. También podés avisarle a alguien de confianza.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "valores_info",
+      "type": "info",
+      "title": "Qué son los valores",
+      "content": "Los valores son **direcciones**, no metas. Una meta se cumple y se tacha («terminar un curso»). Un valor es una forma de vivir que podés seguir eligiendo siempre («seguir aprendiendo»).\n\nAlgunos ejemplos: ser una persona presente con tu familia, cuidar tu cuerpo, ser honesto/a, aportar a otros, disfrutar de la naturaleza, crear cosas.\n\nLos valores no tienen que justificarse ni ser los «correctos»: **son tuyos**. Y siguen ahí aunque hoy te cueste ir hacia ellos."
+    },
+    {
+      "id": "areas",
+      "type": "checklist",
+      "prompt": "¿Qué áreas de tu vida te importan más en este momento? Elegí hasta tres.",
+      "options": [
+        "Familia",
+        "Pareja",
+        "Amistades",
+        "Trabajo o estudio",
+        "Salud y cuerpo",
+        "Tiempo libre y disfrute",
+        "Crecimiento personal",
+        "Comunidad o espiritualidad"
+      ],
+      "min": 1,
+      "max": 3
+    },
+    {
+      "id": "valor",
+      "type": "text",
+      "prompt": "En una de esas áreas, ¿qué tipo de persona te gustaría ser? ¿Qué querés que se note de vos?",
+      "placeholder": "Por ejemplo: en mis amistades, quiero ser alguien que está presente"
+    },
+    {
+      "id": "diana_info",
+      "type": "info",
+      "title": "La diana de valores",
+      "content": "Imaginá una diana de tiro al blanco. El centro es **vivir plenamente de acuerdo con ese valor**. Los bordes, estar muy lejos de él.\n\nNo se trata de juzgarte por dónde estás. Con el ánimo bajo, es esperable alejarse un poco de lo que nos importa. La idea es **ver con honestidad y sin castigarte** dónde estás hoy, para saber hacia dónde mover el próximo paso."
+    },
+    {
+      "id": "diana",
+      "type": "scale",
+      "prompt": "Hoy, ¿qué tan cerca sentís que estás de vivir de acuerdo con ese valor?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Muy lejos",
+      "max_label": "En el centro"
+    },
+    {
+      "id": "accion",
+      "type": "text",
+      "prompt": "¿Qué acción chica y concreta podrías hacer esta semana en esa dirección?",
+      "placeholder": "Por ejemplo: mandarle un mensaje a una amiga el jueves"
+    },
+    {
+      "id": "accion_quiz",
+      "type": "choice",
+      "prompt": "¿Cuál de estas acciones es más fácil de llevar a cabo?",
+      "options": [
+        "Ser mejor amigo/a",
+        "Llamar a Laura el sábado a la tarde",
+        "Cambiar mi vida social"
+      ],
+      "feedback": {
+        "Ser mejor amigo/a": "Eso se parece más a un valor. Para la acción conviene algo concreto: qué, con quién y cuándo.",
+        "Llamar a Laura el sábado a la tarde": "Sí. Es chica, concreta y tiene día. Así es más probable que pase, aunque las ganas no acompañen.",
+        "Cambiar mi vida social": "Es una meta grande y difusa. Probá achicarla hasta algo que puedas hacer en un rato."
+      }
+    },
+    {
+      "id": "cuando",
+      "type": "text",
+      "prompt": "¿Cuándo y dónde la vas a hacer?",
+      "placeholder": "Día, hora o momento del día"
+    },
+    {
+      "id": "barreras",
+      "type": "checklist",
+      "prompt": "¿Qué podría aparecer en el camino? Marcá lo que te parezca probable.",
+      "options": [
+        "Cansancio",
+        "Falta de ganas",
+        "Pensamientos como «no sirve de nada»",
+        "Vergüenza o miedo",
+        "Falta de tiempo",
+        "Otra cosa"
+      ],
+      "min": 1
+    },
+    {
+      "id": "disposicion",
+      "type": "text",
+      "prompt": "Si aparecen esas barreras, ¿qué te gustaría decirte o hacer para dar el paso igual, aunque sea más chico?",
+      "placeholder": "Por ejemplo: «puedo hacerlo cansado/a; con cinco minutos alcanza»"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Mi paso de esta semana",
+      "template": "Áreas que me importan: {{areas}}. Mi valor: {{valor}}. Mi acción: {{accion}}. Cuándo: {{cuando}}. Lo que puede aparecer: {{barreras}}. Lo que me voy a decir: {{disposicion}}.",
+      "content": "Si no sale como planeaste, no es un fracaso: es información para ajustar el paso. Contáselo a tu psicólogo/a en la próxima sesión."
+    }
+  ],
+  "material": {
+    "title": "Mis valores y un paso chico (ACT)",
+    "description": "Valores por área de vida, diana de valores, una acción comprometida chica para la semana y plan para las barreras, para el ánimo bajo.",
+    "category": "depresion"
+  }
+}

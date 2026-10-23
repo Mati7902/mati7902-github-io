@@ -1,0 +1,119 @@
+{
+  "slug": "cuadro-duelo-act-valores",
+  "title": "Llevar a quien perdí en lo que hago",
+  "description": "Un ejercicio de ACT para hacerle lugar al dolor y honrar a quien perdiste a través de tus valores y acciones.",
+  "kind": "custom",
+  "approach": "act",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 13,
+  "sort_order": 338,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "El dolor y el amor",
+      "content": "Cuando perdemos a alguien, el dolor puede sentirse enorme. Desde la Terapia de Aceptación y Compromiso (ACT) se propone mirarlo así: **el dolor y el amor son dos caras de la misma moneda**. Duele tanto porque esa persona te importaba.\n\nNo se trata de dejar de sentir dolor ni de «superar» la pérdida. Se trata de **hacerle lugar** y, al mismo tiempo, encontrar formas de seguir llevando a esa persona con vos: en lo que te enseñó y en cómo elegís vivir.\n\nAndá a tu ritmo. Podés saltear lo que hoy no puedas responder."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si te sentís muy mal",
+      "content": "Si el dolor se vuelve insoportable, sentís que no podés seguir o pensás en hacerte daño o en reunirte con quien perdiste, **pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano. También podés avisarle a alguien de confianza.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "dolor",
+      "type": "scale",
+      "prompt": "Antes de empezar, ¿cuánto dolor sentís ahora?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísimo",
+      "maps_to": "emotion_before"
+    },
+    {
+      "id": "lugar",
+      "type": "timed_info",
+      "title": "Hacerle lugar al dolor",
+      "content": "Sentate cómodo/a y respirá con calma.\n\n- **Notá dónde sentís el dolor** en el cuerpo: el pecho, la garganta, la panza.\n- Si podés, **apoyá una mano ahí**, con suavidad.\n- Respirá hacia ese lugar, como **haciéndole espacio**, sin intentar que se vaya.\n- Si aparecen lágrimas, recuerdos o pensamientos, dejalos estar.\n\nPodés decirte: «esto duele porque te quise».",
+      "seconds": 90
+    },
+    {
+      "id": "nombre",
+      "type": "text",
+      "prompt": "¿A quién perdiste? Podés escribir su nombre o cómo te gusta llamarle.",
+      "placeholder": "Nombre",
+      "optional": true
+    },
+    {
+      "id": "ensenanzas",
+      "type": "list",
+      "prompt": "¿Qué te enseñó o te dejó esa persona? (una forma de ser, una costumbre, algo que decía)",
+      "count": 3,
+      "min": 1
+    },
+    {
+      "id": "valores_info",
+      "type": "info",
+      "title": "De lo que te dejó a lo que hacés",
+      "content": "Muchas veces, lo que más queríamos de alguien se parece a **lo que valoramos**: su generosidad, su humor, su forma de cuidar a los demás, su amor por la tierra o la música.\n\nUna forma de honrar a quien se fue es **llevar esos valores a tus acciones**: cocinar su receta para la familia, ayudar a alguien como esa persona lo hacía, retomar algo que compartían.\n\nNo es reemplazar a nadie ni «seguir adelante» como si nada. Es que el vínculo siga vivo de otra manera, **en lo que vos hacés**."
+    },
+    {
+      "id": "valor",
+      "type": "text",
+      "prompt": "De lo que te dejó, ¿qué te gustaría mantener vivo en tu forma de vivir?",
+      "placeholder": "Por ejemplo: su manera de recibir a todos en casa"
+    },
+    {
+      "id": "accion",
+      "type": "text",
+      "prompt": "¿Qué acción chica podrías hacer este mes para honrar eso?",
+      "placeholder": "Por ejemplo: invitar a mis hermanos a almorzar el domingo, como hacía ella"
+    },
+    {
+      "id": "barrera",
+      "type": "choice",
+      "prompt": "Si al hacerlo aparece mucho dolor, ¿qué te parece más cercano a lo que propone ACT?",
+      "options": [
+        "Esperar a que deje de doler para hacerlo",
+        "Hacerlo con el dolor, a un ritmo posible",
+        "Obligarme a hacerlo sin sentir nada"
+      ],
+      "feedback": {
+        "Esperar a que deje de doler para hacerlo": "Es comprensible, pero el dolor puede tardar. ACT propone no esperar a que se vaya, sino hacerle lugar mientras hacés lo que importa.",
+        "Hacerlo con el dolor, a un ritmo posible": "Sí. El dolor puede acompañarte mientras honrás a esa persona. Y siempre podés achicar el paso si es mucho.",
+        "Obligarme a hacerlo sin sentir nada": "No hace falta dejar de sentir. Las emociones pueden estar presentes; no tenés que taparlas."
+      }
+    },
+    {
+      "id": "mensaje",
+      "type": "text",
+      "prompt": "Si pudieras decirle algo a esa persona sobre cómo querés llevarla con vos, ¿qué le dirías?",
+      "placeholder": "Lo que le diría",
+      "optional": true
+    },
+    {
+      "id": "dolor_despues",
+      "type": "scale",
+      "prompt": "Ahora, ¿cuánto dolor sentís?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísimo",
+      "maps_to": "emotion_after"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Llevarte conmigo",
+      "template": "Lo que me dejaste: {{ensenanzas}}. Lo que quiero mantener vivo: {{valor}}. Cómo lo voy a honrar: {{accion}}.",
+      "content": "Que el dolor siga presente no significa que lo estés haciendo mal. Si querés, compartí esto con tu psicólogo/a en la próxima sesión."
+    }
+  ],
+  "material": {
+    "title": "Llevar a quien perdí en lo que hago (ACT)",
+    "description": "Hacerle lugar al dolor del duelo y honrar a quien se perdió desde los valores: lo que te enseñó, cómo llevarlo en tus acciones, dolor y amor como dos caras.",
+    "category": "duelo"
+  }
+}

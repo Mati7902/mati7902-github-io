@@ -1,0 +1,115 @@
+{
+  "slug": "cuadro-depresion-dbt-positivos",
+  "title": "Sumar momentos buenos y cuidar el cuerpo",
+  "description": "Habilidades de DBT para el ánimo bajo: acumular emociones positivas y cuidar el cuerpo (PLEASE), con un plan para la semana.",
+  "kind": "custom",
+  "approach": "dbt",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 14,
+  "sort_order": 333,
+  "source": "Recursos por cuadro clínico (TCC, DBT y ACT) — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Llenar el tanque",
+      "content": "Cuando el ánimo está bajo, solemos dejar de hacer justamente las cosas que nos hacen bien. Y cuanto menos hacemos, más baja el ánimo.\n\nLa Terapia Dialéctica Conductual (DBT) propone dos habilidades para cortar ese círculo:\n\n- **Acumular emociones positivas:** sumar, a propósito, momentos agradables y cosas con sentido.\n- **PLEASE:** cuidar el cuerpo, porque un cuerpo agotado hace a las emociones más difíciles.\n\nNo se trata de obligarte a estar contento/a. Se trata de **darle al ánimo mejores condiciones**, de a poco."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si necesitás ayuda urgente",
+      "content": "Si en algún momento sentís que no podés más, pensás en hacerte daño o en no seguir viviendo, **pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano. También podés avisarle a alguien de confianza.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "animo",
+      "type": "scale",
+      "prompt": "¿Cómo está tu ánimo hoy?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Muy bajo",
+      "max_label": "Muy bien",
+      "maps_to": "emotion_before"
+    },
+    {
+      "id": "corto_info",
+      "type": "info",
+      "title": "A corto plazo: momentos agradables",
+      "content": "La idea es **hacer al menos una cosa agradable por día**, aunque sea chiquita, y estar presente mientras la hacés.\n\nAlgunos ejemplos: tomar un mate al sol, escuchar un tema que te guste, bañarte sin apuro, mirar una serie liviana, cocinar algo rico, salir a caminar, charlar con alguien.\n\nUn detalle importante: si la mente se va a «esto no me sirve» o «no me lo merezco», **notalo y volvé a lo que estás haciendo**. No hace falta disfrutar al máximo; alcanza con dejar que el momento esté."
+    },
+    {
+      "id": "agradables",
+      "type": "list",
+      "prompt": "Escribí cuatro cosas chicas y agradables que podrías hacer en tu día a día.",
+      "count": 4,
+      "min": 2
+    },
+    {
+      "id": "largo",
+      "type": "text",
+      "prompt": "A largo plazo: ¿qué te gustaría ir construyendo, aunque sea de a poco? (un vínculo, un proyecto, un hábito)",
+      "placeholder": "Por ejemplo: retomar la guitarra, volver a ver a mis amigos del club"
+    },
+    {
+      "id": "largo_paso",
+      "type": "text",
+      "prompt": "¿Cuál sería un primer paso chico hacia eso?",
+      "placeholder": "Por ejemplo: sacar la guitarra del ropero y afinarla"
+    },
+    {
+      "id": "please_info",
+      "type": "info",
+      "title": "PLEASE: cuidar el cuerpo",
+      "content": "PLEASE resume cuidados básicos que hacen a las emociones menos vulnerables:\n\n- **Salud física:** atender dolores o enfermedades y seguir las indicaciones médicas.\n- **Alimentación:** comer en horarios más o menos regulares, sin saltear comidas.\n- **Sustancias:** evitar o reducir alcohol y otras drogas, que empeoran el ánimo.\n- **Sueño:** horarios parecidos para acostarte y levantarte.\n- **Ejercicio:** moverte un poco cada día, a tu ritmo (caminar ya cuenta).\n\nSi tomás medicación, no la cambies por tu cuenta: cualquier ajuste se habla con quien te la indicó."
+    },
+    {
+      "id": "please",
+      "type": "checklist",
+      "prompt": "¿En qué área del cuerpo te gustaría poner más atención esta semana? Elegí una o dos.",
+      "options": [
+        "Salud física",
+        "Alimentación",
+        "Sustancias",
+        "Sueño",
+        "Ejercicio o movimiento"
+      ],
+      "min": 1,
+      "max": 2
+    },
+    {
+      "id": "please_accion",
+      "type": "text",
+      "prompt": "¿Qué vas a hacer concretamente en esa área? Que sea chico y realista.",
+      "placeholder": "Por ejemplo: acostarme antes de las 24 de lunes a jueves"
+    },
+    {
+      "id": "plan",
+      "type": "text",
+      "prompt": "Armá tu plan: ¿qué días vas a hacer tus actividades agradables y tu cuidado del cuerpo?",
+      "placeholder": "Por ejemplo: lunes caminata, miércoles llamo a mi tía, todos los días mate al sol"
+    },
+    {
+      "id": "animo_despues",
+      "type": "scale",
+      "prompt": "Después de armar tu plan, ¿cómo está tu ánimo?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Muy bajo",
+      "max_label": "Muy bien",
+      "maps_to": "emotion_after"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Mi plan de la semana",
+      "template": "Momentos agradables: {{agradables}}. Lo que quiero construir: {{largo}}, empezando por: {{largo_paso}}. Cuidado del cuerpo: {{please}} → {{please_accion}}. Mi plan: {{plan}}.",
+      "content": "Es esperable que algunos días no salga. Lo importante es retomar, no hacerlo perfecto. Llevá este plan a la próxima sesión."
+    }
+  ],
+  "material": {
+    "title": "Sumar momentos buenos y cuidar el cuerpo (DBT)",
+    "description": "Acumular emociones positivas a corto y largo plazo y habilidades PLEASE (salud, alimentación, sustancias, sueño, ejercicio), con plan semanal.",
+    "category": "depresion"
+  }
+}
