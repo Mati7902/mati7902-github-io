@@ -2,12 +2,14 @@ import Link from "next/link";
 
 import { BrandMark } from "@/components/shell/brand-mark";
 import { brandLogo } from "@/lib/brand";
+import { publicWhatsapp, whatsappLink } from "@/lib/contact";
+import { landingPages } from "@/lib/seo/landing-pages";
 import type { SiteIdentity } from "@/server/services/settings";
 
 export function SiteFooter({ identity }: { identity: SiteIdentity }) {
   return (
     <footer className="border-t border-border/60 bg-card">
-      <div className="mx-auto grid max-w-6xl gap-8 px-5 py-12 md:grid-cols-3 lg:px-8">
+      <div className="mx-auto grid max-w-6xl gap-8 px-5 py-12 md:grid-cols-4 lg:px-8">
         <div className="min-w-0 space-y-2">
           <p className="text-lg">
             <BrandMark name={identity.professional_name} subtitle={identity.brand_subtitle} logoUrl={brandLogo(identity)} />
@@ -28,15 +30,25 @@ export function SiteFooter({ identity }: { identity: SiteIdentity }) {
                 </a>
               </li>
             ) : null}
-            {identity.whatsapp ? (
-              <li>
-                <a href={`https://wa.me/${identity.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">
-                  WhatsApp
-                </a>
-              </li>
-            ) : null}
+            <li>
+              <a href={whatsappLink(identity)} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">
+                WhatsApp {publicWhatsapp(identity).display}
+              </a>
+            </li>
             {identity.location_address ? <li>{identity.location_address}</li> : null}
-            {!identity.email && !identity.whatsapp && !identity.location_address ? <li>Datos de contacto disponibles al solicitar turno.</li> : null}
+                      </ul>
+        </div>
+        <div className="space-y-2 text-sm">
+          <p className="font-medium">Atención</p>
+          <ul className="space-y-1 text-muted-foreground">
+            {landingPages.map((p) => (
+              <li key={p.slug}>
+                <Link href={p.path} className="hover:text-foreground">{p.name}</Link>
+              </li>
+            ))}
+            <li>
+              <Link href="/planes" className="hover:text-foreground">Planes de atención</Link>
+            </li>
           </ul>
         </div>
         <div className="space-y-2 text-sm">

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 
 import { LegalPage } from "@/components/public/legal-page";
+import { pageMetadata } from "@/lib/seo/metadata";
 import { getPublicSettingsSafe } from "@/server/services/public-settings";
 
-export const metadata: Metadata = { title: "Política de privacidad" };
+export const metadata: Metadata = pageMetadata({ title: "Política de privacidad", description: "Cómo se tratan y protegen tus datos personales y clínicos en la plataforma del consultorio psicológico.", path: "/privacidad" });
 
 export default async function PrivacyPage() {
   const { legal, "site.identity": identity } = await getPublicSettingsSafe();

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 
 import { LegalPage } from "@/components/public/legal-page";
+import { pageMetadata } from "@/lib/seo/metadata";
 import { getPublicSettingsSafe } from "@/server/services/public-settings";
 
-export const metadata: Metadata = { title: "Términos de uso" };
+export const metadata: Metadata = pageMetadata({ title: "Términos de uso", description: "Condiciones de uso de la plataforma del consultorio psicológico: alcance, responsabilidades y límites del servicio.", path: "/terminos" });
 
 export default async function TermsPage() {
   const { legal, "site.identity": identity } = await getPublicSettingsSafe();
