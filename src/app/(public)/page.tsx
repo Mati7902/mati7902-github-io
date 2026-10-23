@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { CredentialsSection } from "@/components/public/credentials-section";
 import { FaqList } from "@/components/public/faq-list";
 import { LocationsSection } from "@/components/public/locations-section";
 import { NeuralField } from "@/components/public/neural-field";
@@ -206,6 +207,9 @@ export default async function LandingPage() {
               ))}
             </ul>
           </div>
+        </div>
+        <div className="mx-auto max-w-6xl px-5 pb-20 lg:px-8">
+          <CredentialsSection />
         </div>
       </section>
 
