@@ -1,0 +1,103 @@
+{
+  "slug": "cuadro-sueno-practica",
+  "title": "Sueño: diario y hábitos",
+  "description": "Aprendé a llevar un diario de sueño durante una semana, revisá tus hábitos y armá tu plan de control de estímulos.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 12,
+  "sort_order": 315,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Conocer tu sueño para cambiarlo",
+      "content": "En este ejercicio vas a preparar tres cosas:\n\n- Un **diario de sueño** para llevar durante una semana.\n- Una revisión de tus **hábitos de sueño**.\n- Tu plan de **control de estímulos**, para que la cama vuelva a ser señal de dormir.\n\nOjo: hay una técnica llamada **restricción de sueño** que reduce el tiempo en cama. Es muy útil, pero **se hace solo con la guía del profesional**. No la pruebes por tu cuenta."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "**Si estás en crisis, sentís que no das más o aparecen pensamientos de hacerte daño, pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nSi tenés mucho sueño durante el día, evitá manejar o usar máquinas peligrosas."
+    },
+    {
+      "id": "diario",
+      "type": "info",
+      "title": "Qué anotar en tu diario de sueño",
+      "content": "Cada mañana, apenas te levantes, anotá en una libreta o en el celular (no durante la noche):\n\n- A qué hora te acostaste.\n- A qué hora apagaste la luz para dormir.\n- Cuánto tardaste, más o menos, en dormirte.\n- Cuántas veces te despertaste y cuánto tiempo estuviste despierto/a.\n- A qué hora te despertaste por última vez y a qué hora te levantaste.\n- Siestas, cafeína, alcohol o medicación del día anterior.\n- Qué tan descansado/a te sentís, del 0 al 10.\n\nNo hace falta que sea exacto: **alcanza con una estimación**. No mires el reloj de noche para anotar."
+    },
+    {
+      "id": "donde_anotar",
+      "type": "text",
+      "prompt": "¿Dónde y a qué hora vas a completar tu diario cada mañana?",
+      "placeholder": "Por ejemplo: en una libreta en la mesa de la cocina, con el desayuno"
+    },
+    {
+      "id": "calidad",
+      "type": "scale",
+      "prompt": "En general, ¿cómo venís durmiendo estas últimas semanas?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Muy mal",
+      "max_label": "Muy bien"
+    },
+    {
+      "id": "habitos",
+      "type": "checklist",
+      "prompt": "Higiene del sueño: ¿qué hábitos te gustaría cambiar?",
+      "options": [
+        "Tomar café, mate o tereré tarde",
+        "Usar pantallas antes de dormir",
+        "Cenar muy pesado o muy tarde",
+        "Tomar alcohol cerca de la hora de dormir",
+        "Horarios muy distintos entre semana y fin de semana",
+        "Pieza con mucha luz, ruido o calor",
+        "Hacer ejercicio intenso muy tarde"
+      ],
+      "help": "Elegí los que más se parezcan a tu situación. Mejor pocos y posibles.",
+      "min": 1,
+      "max": 3
+    },
+    {
+      "id": "control_estimulos",
+      "type": "info",
+      "title": "Control de estímulos",
+      "content": "Estas pautas ayudan a que tu cerebro vuelva a asociar la cama con el sueño:\n\n- **Acostate solo cuando tengas sueño**, no solo cansancio.\n- **Usá la cama solo para dormir** y para la intimidad: nada de celular, tele, trabajo ni comida.\n- **Si no te dormís en unos 20 minutos** (calculalo a ojo, sin mirar el reloj), levantate. Andá a otro lugar, hacé algo tranquilo con poca luz y volvé a la cama cuando tengas sueño. Repetilo las veces que haga falta.\n- **Levantate a la misma hora** todos los días, aunque hayas dormido mal.\n- **Evitá las siestas**, o que sean cortas y antes de media tarde.\n\nLas primeras noches puede costar más. Es esperable: el cambio se nota con constancia."
+    },
+    {
+      "id": "actividad_tranquila",
+      "type": "text",
+      "prompt": "Si te levantás porque no te dormís, ¿qué cosa tranquila vas a hacer y dónde?",
+      "help": "Algo aburrido o calmo, con poca luz y sin pantallas: leer algo liviano, doblar ropa, escuchar música suave.",
+      "placeholder": "Por ejemplo: leer una revista en el sillón con una lámpara chica"
+    },
+    {
+      "id": "hora_levantarse",
+      "type": "text",
+      "prompt": "¿A qué hora te vas a levantar todos los días esta semana?",
+      "placeholder": "Por ejemplo: 6:30, también sábado y domingo"
+    },
+    {
+      "id": "rutina",
+      "type": "list",
+      "prompt": "Armá una rutina para bajar el ritmo en la hora antes de acostarte.",
+      "help": "Por ejemplo: apagar pantallas, ducha tibia, preparar las cosas de mañana, anotar preocupaciones en un papel.",
+      "count": 3,
+      "min": 1
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Tu plan de sueño",
+      "template": "Voy a completar mi diario: {{donde_anotar}}. Hábitos a cambiar: {{habitos}}. Me levanto todos los días a las {{hora_levantarse}}. Si no me duermo, me levanto y hago esto: {{actividad_tranquila}}. Rutina para bajar el ritmo: {{rutina}}.",
+      "content": "Traé tu diario de sueño a la próxima sesión: con esa información vamos a ver los próximos pasos juntos, incluido si conviene ajustar el tiempo en cama."
+    }
+  ],
+  "material": {
+    "title": "Sueño: diario y hábitos",
+    "category": "sueno",
+    "description": "Ejercicio guiado: qué anotar en un diario de sueño de una semana, higiene del sueño y control de estímulos para el insomnio."
+  }
+}

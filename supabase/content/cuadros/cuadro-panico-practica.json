@@ -1,0 +1,122 @@
+{
+  "slug": "cuadro-panico-practica",
+  "title": "Mi registro del pánico",
+  "description": "Registrá una crisis, mirá tus sensaciones con otros ojos y practicá una respiración lenta.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 12,
+  "sort_order": 301,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Mi registro del pánico",
+      "content": "Este ejercicio es para hacer **cuando ya estés más tranquilo/a**, no en medio de una crisis.\n\nVas a repasar una crisis reciente (o la última que recuerdes), para ver el círculo del pánico en tu propia experiencia. Después vas a buscar otra forma de leer esas sensaciones y a practicar una respiración lenta.\n\nNo hay respuestas correctas. Escribí lo que te salga."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "Si ahora mismo estás en una crisis muy fuerte, tenés síntomas nuevos o dolor de pecho intenso, o pensás en hacerte daño, **pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "situacion",
+      "type": "text",
+      "prompt": "¿Dónde estabas y qué estabas haciendo cuando empezó la crisis?",
+      "placeholder": "Por ejemplo: en el colectivo, volviendo del trabajo"
+    },
+    {
+      "id": "sensaciones",
+      "type": "checklist",
+      "prompt": "¿Qué sentiste en el cuerpo? Marcá todas las que aparecieron.",
+      "options": [
+        "Corazón acelerado",
+        "Falta de aire",
+        "Mareo",
+        "Temblor o sudor",
+        "Presión en el pecho",
+        "Hormigueo",
+        "Sensación de irrealidad",
+        "Náuseas",
+        "Calor o frío de golpe"
+      ],
+      "min": 1
+    },
+    {
+      "id": "pensamiento",
+      "type": "text",
+      "prompt": "¿Qué pensaste que estaba pasando o que iba a pasar?",
+      "placeholder": "Por ejemplo: «me va a dar un infarto», «me voy a desmayar»"
+    },
+    {
+      "id": "creencia",
+      "type": "scale",
+      "prompt": "En ese momento, ¿cuánto creías ese pensamiento?",
+      "min": 0,
+      "max": 100,
+      "min_label": "Nada",
+      "max_label": "Totalmente"
+    },
+    {
+      "id": "que_hiciste",
+      "type": "text",
+      "prompt": "¿Qué hiciste para sentirte a salvo? (irte, llamar a alguien, tomar agua, controlarte el pulso…)",
+      "placeholder": "Lo que hice"
+    },
+    {
+      "id": "que_paso",
+      "type": "text",
+      "prompt": "¿Qué pasó al final? ¿Se cumplió lo que temías?",
+      "placeholder": "Por ejemplo: a los veinte minutos se me pasó"
+    },
+    {
+      "id": "reinterpretar_info",
+      "type": "info",
+      "title": "Mirarlo con otros ojos",
+      "content": "Ahora, con más calma, preguntate:\n\n- **¿Qué otra explicación puede tener** lo que sentí? (estrés, cansancio, calor, la alarma del cuerpo)\n- **¿Cuántas veces sentí esto** y qué pasó realmente después?\n- **¿Qué le diría a alguien querido** que me cuenta esto mismo?\n\nNo se trata de convencerte de que \"no es nada\", sino de buscar una explicación **más realista y equilibrada**."
+    },
+    {
+      "id": "otra_explicacion",
+      "type": "text",
+      "prompt": "Escribí una explicación más realista para lo que sentiste.",
+      "placeholder": "Por ejemplo: «el corazón se aceleró por la alarma del cuerpo; es incómodo, pero baja solo»"
+    },
+    {
+      "id": "creencia_despues",
+      "type": "scale",
+      "prompt": "Ahora, ¿cuánto creés el pensamiento del principio?",
+      "min": 0,
+      "max": 100,
+      "min_label": "Nada",
+      "max_label": "Totalmente"
+    },
+    {
+      "id": "respiracion",
+      "type": "timed_info",
+      "title": "Respiración lenta",
+      "content": "Sentate cómodo/a. Apoyá una mano en la panza.\n\n- **Inhalá por la nariz** contando hasta 4, sin forzar.\n- **Exhalá despacio por la boca** contando hasta 6, como si soplaras una vela sin apagarla.\n\nNo hace falta llenar los pulmones: lo importante es que la exhalación sea más larga. Si te mareás, volvé a respirar normal.\n\nSeguí así hasta que termine el tiempo. Practicarla en momentos tranquilos hace que después te salga más fácil.",
+      "seconds": 90
+    },
+    {
+      "id": "frase",
+      "type": "text",
+      "prompt": "Escribí una frase corta para recordarte la próxima vez que aparezcan las sensaciones.",
+      "placeholder": "Por ejemplo: «Es la alarma. Es incómoda. Va a bajar.»"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Tu registro",
+      "template": "Situación: {{situacion}}. Lo que sentí: {{sensaciones}}. Lo que pensé: {{pensamiento}}. Otra explicación: {{otra_explicacion}}. Mi frase: {{frase}}",
+      "content": "Llevá este registro a la próxima sesión: ayuda a ver tu propio círculo del pánico y a planificar los próximos pasos con tu psicólogo/a."
+    }
+  ],
+  "material": {
+    "title": "Mi registro del pánico",
+    "description": "Registro guiado de una crisis (situación, sensaciones, pensamiento, conducta), reinterpretación de las sensaciones y respiración lenta.",
+    "category": "ansiedad"
+  }
+}

@@ -26,14 +26,19 @@ export default async function ExercisesPage({ searchParams }: { searchParams: Pr
   const { patient } = await requirePatient();
   const { completado } = await searchParams;
   const supabase = await createClient();
-  const [templates, assignments, responses] = await Promise.all([
+  const [templates, assignments, responses, { data: assignedMaterials }] = await Promise.all([
     listExerciseTemplates(supabase),
     listPatientAssignments(supabase, patient.id),
     listPatientResponses(supabase, patient.id, 100),
+    // Materiales que el profesional habilitó y que abren un ejercicio (los recursos de su cuadro).
+    supabase.from("patient_materials").select("materials(exercise_template_id)").eq("patient_id", patient.id).not("assigned_by", "is", null),
   ]);
   const pendingAssignments = assignments.filter((a) => !a.completed_at && a.exercise_templates);
   const doneTemplateIds = new Set(responses.map((r) => r.template_id));
-  const assignedIds = new Set(assignments.map((a) => a.template_id));
+  const assignedIds = new Set([
+    ...assignments.map((a) => a.template_id),
+    ...(assignedMaterials ?? []).map((m) => (m.materials as { exercise_template_id: string | null } | null)?.exercise_template_id).filter((id): id is string => Boolean(id)),
+  ]);
   // Lo que se ofrece según la edad (Brújula hasta los 18, el cuadernillo de TCC para adultos) + lo asignado.
   const wizardTemplates = visibleTemplates(
     templates.filter((t) => !["breathing", "grounding", "mindful_pause"].includes(t.kind)),

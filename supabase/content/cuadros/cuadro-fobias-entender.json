@@ -1,0 +1,129 @@
+{
+  "slug": "cuadro-fobias-entender",
+  "title": "Entender las fobias y la ansiedad social",
+  "description": "Por qué el miedo intenso a algo concreto o a la mirada de los demás se mantiene, y cómo se trabaja en terapia.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 302,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Cuando el miedo achica la vida",
+      "content": "Todos tenemos miedos. A veces, sin embargo, el miedo a algo concreto (un animal, la altura, las agujas, volar) o a la mirada de los demás se vuelve tan intenso que empieza a decidir por vos: qué hacés, a dónde vas, con quién hablás.\n\nEn este recurso vas a ver qué son las fobias y la ansiedad social, por qué se mantienen y cómo se trabajan. **Sentir esto no habla mal de vos:** es una forma en que el cerebro intenta protegerte, aunque a veces se pase de rosca."
+    },
+    {
+      "id": "que_es",
+      "type": "info",
+      "title": "Qué son",
+      "content": "- **Fobia específica:** un miedo intenso a algo puntual (un animal, la sangre, las alturas, los lugares cerrados, volar) que se siente desproporcionado y lleva a evitarlo.\n- **Ansiedad social:** un miedo intenso a ser observado/a, juzgado/a o a pasar vergüenza. Puede aparecer al hablar en público, comer delante de otros, llamar por teléfono, hablar con alguien nuevo o participar en clase o en el trabajo.\n\nEn los dos casos el cuerpo reacciona con alarma (corazón rápido, temblor, sonrojarse, sudor, mente en blanco) y aparece un fuerte impulso de escapar o evitar."
+    },
+    {
+      "id": "que_no_es",
+      "type": "info",
+      "title": "Qué no es",
+      "content": "- **No es timidez \"de carácter\"** que haya que aceptar sin más. La timidez es común; cuando el miedo te impide hacer lo que te importa, vale la pena trabajarlo.\n- **No es falta de ganas** ni capricho. Muchas personas con ansiedad social desean mucho vincularse.\n- **No es algo que se \"supera\" a la fuerza** tirándose de cabeza a lo más difícil. Se trabaja de a poco y con un plan.\n\nCada persona es distinta: lo que te pasa a vos se entiende mejor charlándolo con tu psicólogo/a."
+    },
+    {
+      "id": "circulo",
+      "type": "info",
+      "title": "Cómo se mantiene el miedo",
+      "content": "El miedo suele sostenerse con dos estrategias que, a corto plazo, alivian:\n\n- **Evitación:** no ir, no hablar, cancelar, cruzar de vereda.\n- **Conductas de seguridad:** cosas que hacés para \"sobrevivir\" la situación, como no mirar a los ojos, ensayar cada frase, quedarte con el celular, tomar algo antes, hablar poco o taparte la cara.\n\nEl problema es que no te dejan comprobar que podías manejarlo. La mente concluye \"me salvé gracias a eso\", y la próxima vez el miedo es igual o más grande.\n\nEn la ansiedad social, además, la atención se va **hacia adentro** (\"se me nota\", \"estoy rojo/a\"), y eso aumenta la sensación de que todos te miran."
+    },
+    {
+      "id": "tus_seguridades",
+      "type": "checklist",
+      "prompt": "¿Reconocés alguna de estas conductas de seguridad o de evitación? Marcá las que quieras.",
+      "options": [
+        "Evitar ir a ciertos lugares o eventos",
+        "Cancelar a último momento",
+        "No mirar a los ojos",
+        "Ensayar mentalmente lo que voy a decir",
+        "Refugiarme en el celular",
+        "Ir solo/a si voy acompañado/a",
+        "Hablar lo mínimo",
+        "Irme apenas puedo"
+      ],
+      "min": 1
+    },
+    {
+      "id": "terapia",
+      "type": "info",
+      "title": "Cómo se trabaja en terapia",
+      "content": "La terapia cognitivo-conductual tiene mucho respaldo para fobias y ansiedad social. Suele incluir:\n\n- **Exposición gradual:** armar con tu psicólogo/a una \"escalera\" de situaciones, de la más fácil a la más difícil, y ir subiendo de a un escalón, **a tu ritmo y con acuerdo**.\n- **Soltar de a poco las conductas de seguridad,** para comprobar lo que pasa sin ellas.\n- **Revisar las predicciones:** \"¿qué temo que pase?\" y \"¿qué pasó realmente?\".\n- **Llevar la atención hacia afuera,** a la conversación o la tarea, en lugar de a cómo te ves.\n\nLa idea no es que dejes de sentir ansiedad, sino que **deje de decidir por vos**."
+    },
+    {
+      "id": "mito_pasar",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Si espero a dejar de tener miedo, después voy a poder enfrentarlo».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Exacto.** Esperar a no tener miedo suele hacer que la espera sea eterna. El miedo baja **haciendo**, de a poco, no antes de hacer. Por eso se avanza con pasos chicos y planificados.",
+        "Realidad": "**Es muy entendible pensarlo, pero suele ser un mito.** Esperar a no tener miedo suele hacer que la espera sea eterna. El miedo baja **haciendo**, de a poco, no antes de hacer. Por eso se avanza con pasos chicos y planificados."
+      }
+    },
+    {
+      "id": "mito_notan",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Todos se dan cuenta de lo nervioso/a que estoy».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Bien.** En general, los demás notan mucho menos de lo que creemos. Como vos sentís todo desde adentro, parece evidente, pero desde afuera casi no se ve. A esto se le llama \"ilusión de transparencia\".",
+        "Realidad": "**Así se siente, pero suele ser un mito.** En general, los demás notan mucho menos de lo que creemos. Como vos sentís todo desde adentro, parece evidente, pero desde afuera casi no se ve. A esto se le llama \"ilusión de transparencia\"."
+      }
+    },
+    {
+      "id": "mito_golpe",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Para superar una fobia hay que enfrentar lo peor de una, de golpe».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Así es.** La exposición que más se usa es **gradual**: se empieza por algo difícil pero posible y se sube de a poco. Se planifica con tu psicólogo/a para que sea un desafío posible, no algo abrumador.",
+        "Realidad": "**Es un mito bastante extendido.** La exposición que más se usa es **gradual**: se empieza por algo difícil pero posible y se sube de a poco. Se planifica con tu psicólogo/a para que sea un desafío posible, no algo abrumador."
+      }
+    },
+    {
+      "id": "entre_sesiones",
+      "type": "info",
+      "title": "Qué podés hacer entre sesiones",
+      "content": "- **Observar sin juzgarte:** ¿en qué situaciones aparece el miedo? ¿Qué hacés para aliviarlo?\n- **Anotar tus predicciones** (\"qué temo que pase\") para revisarlas en sesión.\n- **Armar tu escalera** con la práctica «Mi escalera de exposición» de esta colección, para después afinarla con tu psicólogo/a.\n- **Practicar llevar la atención afuera:** en una charla, fijate en lo que dice la otra persona, más que en cómo te ves.\n- **Reconocer tus pasos,** aunque sean chicos.\n\nNo hace falta que empieces a exponerte solo/a: eso se acuerda en sesión."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si necesitás ayuda urgente",
+      "content": "Si en algún momento te sentís desbordado/a, en crisis o pensás en hacerte daño, **pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "me_llevo",
+      "type": "text",
+      "prompt": "¿Qué te llevás de esto? ¿Qué situación te gustaría poder afrontar más adelante?",
+      "placeholder": "Lo que me llevo y lo que me gustaría lograr…"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Lo que te llevás",
+      "template": "Conductas que reconozco: {{tus_seguridades}}. Lo que me llevo: {{me_llevo}}",
+      "content": "Reconocer cómo se mantiene el miedo es el primer escalón. Podés compartir esto con tu psicólogo/a para planificar juntos."
+    }
+  ],
+  "material": {
+    "title": "Entender las fobias y la ansiedad social",
+    "description": "Psicoeducación sobre fobias específicas y ansiedad social: evitación, conductas de seguridad, exposición gradual en TCC y mitos frecuentes.",
+    "category": "ansiedad"
+  }
+}

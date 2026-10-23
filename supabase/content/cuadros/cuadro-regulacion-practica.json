@@ -1,0 +1,134 @@
+{
+  "slug": "cuadro-regulacion-practica",
+  "title": "Habilidades para emociones intensas",
+  "description": "Practicá STOP, TIPP y la acción opuesta de la DBT, y registrá una emoción intensa para revisarla en sesión.",
+  "kind": "custom",
+  "approach": "dbt",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 327,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Tu caja de herramientas",
+      "content": "Vas a repasar tres habilidades de la DBT y a registrar una emoción intensa reciente:\n\n- **STOP:** frenar antes de actuar por impulso.\n- **TIPP:** bajar rápido la activación del cuerpo.\n- **Acción opuesta:** hacer lo contrario de lo que pide la emoción, cuando esa emoción no te ayuda.\n\nLo ideal es practicarlas **cuando estás con calma**, para que estén a mano cuando las necesites."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "Si ahora mismo estás en crisis, con riesgo de hacerte daño o con pensamientos de no querer vivir, **pedí ayuda ya**: a emergencias, a una línea de ayuda o en la guardia del hospital más cercano. En la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nEstas habilidades ayudan a atravesar momentos difíciles, pero **no reemplazan la ayuda urgente** cuando hay riesgo."
+    },
+    {
+      "id": "intensidad_antes",
+      "type": "scale",
+      "prompt": "¿Qué tan intensa es tu emoción en este momento?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada intensa",
+      "max_label": "Muy intensa",
+      "maps_to": "emotion_before"
+    },
+    {
+      "id": "stop",
+      "type": "info",
+      "title": "STOP",
+      "content": "Cuando sentís el impulso de reaccionar ya:\n\n- **S — Pará.** Quedate quieto o quieta un momento. No hagas nada todavía.\n- **T — Tomá distancia.** Respirá. Si podés, alejate un poco de la situación.\n- **O — Observá.** ¿Qué pasa en tu cuerpo? ¿Qué pensás? ¿Qué está pasando afuera?\n- **P — Procedé con atención.** Preguntate: ¿qué me ayudaría ahora, de acuerdo con lo que me importa?\n\nA veces, solo frenar unos segundos ya cambia lo que hacés después."
+    },
+    {
+      "id": "stop_practica",
+      "type": "timed_info",
+      "title": "Probá STOP ahora",
+      "content": "Pará lo que estés haciendo. Respirá lento, soltando el aire despacio. Observá tu cuerpo: los pies en el piso, los hombros, la mandíbula. Notá qué pensamientos aparecen, sin pelearte con ellos.",
+      "seconds": 60
+    },
+    {
+      "id": "tipp",
+      "type": "info",
+      "title": "TIPP: bajar la activación del cuerpo",
+      "content": "Cuando la emoción está muy alta, primero ayuda calmar el cuerpo:\n\n- **T — Temperatura:** mojarte la cara con agua fría puede bajar la activación. **Cuidado:** no lo uses si tenés problemas cardíacos o de presión, o algún trastorno de la alimentación; si tenés dudas, consultá antes a tu médico.\n- **I — Ejercicio intenso:** unos minutos de movimiento fuerte, como caminar rápido o subir escaleras, dentro de lo que tu cuerpo pueda.\n- **P — Respiración pausada:** exhalar más lento de lo que inhalás.\n- **P — Relajación muscular:** tensar un grupo de músculos unos segundos y soltar.\n\nElegí la que te resulte más segura y posible."
+    },
+    {
+      "id": "respiracion",
+      "type": "timed_info",
+      "title": "Respiración pausada",
+      "content": "Inhalá por la nariz mientras contás hasta cuatro. Exhalá despacio por la boca mientras contás hasta seis. Repetí a tu ritmo. Si te mareás, volvé a respirar normal.",
+      "seconds": 90
+    },
+    {
+      "id": "accion_opuesta",
+      "type": "info",
+      "title": "Acción opuesta",
+      "content": "Cada emoción trae un impulso: el miedo empuja a evitar, la tristeza a aislarte, el enojo a atacar. Cuando la emoción **no encaja con los hechos** o seguirla te haría daño, podés hacer **lo opuesto**:\n\n- **Miedo que te hace evitar** algo que no es peligroso: acercarte de a poco.\n- **Tristeza que te aísla:** escribirle a alguien, salir un rato, hacer algo chiquito.\n- **Enojo que te empuja a atacar:** alejarte con amabilidad, bajar la voz, ponerte en el lugar del otro.\n\nNo se trata de fingir: se trata de no dejar que la emoción decida todo."
+    },
+    {
+      "id": "registro_intro",
+      "type": "info",
+      "title": "Registrar una emoción intensa",
+      "content": "Ahora pensá en una emoción intensa de los últimos días. Vas a registrar la cadena: qué te dejó más sensible, qué la disparó, qué sentiste, qué te dieron ganas de hacer y qué hiciste.\n\nNo hace falta que elijas la peor. Si recordarla te desborda, elegí otra más leve."
+    },
+    {
+      "id": "vulnerabilidad",
+      "type": "checklist",
+      "prompt": "¿Qué te dejaba más sensible ese día? Marcá las que correspondan.",
+      "options": ["Dormí mal", "No había comido bien", "Estaba con dolor o enfermo/a", "Mucho estrés acumulado", "Alcohol u otra sustancia", "Nada en particular"],
+      "min": 1
+    },
+    {
+      "id": "disparador",
+      "type": "text",
+      "prompt": "¿Qué pasó? ¿Qué disparó la emoción?",
+      "placeholder": "Por ejemplo: un mensaje que no me contestaron"
+    },
+    {
+      "id": "emocion",
+      "type": "text",
+      "prompt": "¿Qué emoción sentiste? ¿Dónde la notaste en el cuerpo?",
+      "placeholder": "Por ejemplo: enojo, con calor en la cara y el pecho apretado"
+    },
+    {
+      "id": "impulso",
+      "type": "text",
+      "prompt": "¿Qué te dieron ganas de hacer, y qué hiciste?",
+      "placeholder": "Tenía ganas de… / Hice…"
+    },
+    {
+      "id": "habilidad",
+      "type": "choice",
+      "prompt": "La próxima vez, ¿qué habilidad te gustaría probar primero?",
+      "options": ["STOP", "TIPP", "Acción opuesta", "Cuidar mi vulnerabilidad", "Todavía no sé"],
+      "feedback": {
+        "STOP": "**Buena elección.** Frenar unos segundos antes de actuar es una de las habilidades más útiles en el momento.",
+        "TIPP": "**Buena elección** cuando la emoción está muy alta. Recordá las precauciones del agua fría y elegí la opción más segura para vos.",
+        "Acción opuesta": "**Buena elección.** Funciona mejor cuando ya bajó un poco la intensidad y podés pensar qué te ayudaría.",
+        "Cuidar mi vulnerabilidad": "**Muy buena elección.** Dormir, comer regularmente y bajar el estrés hace que las olas sean menos frecuentes.",
+        "Todavía no sé": "**Está bien.** Podés probarlas de a una y ver cuál te sirve más. Lo pueden pensar juntos en sesión."
+      }
+    },
+    {
+      "id": "intensidad_despues",
+      "type": "scale",
+      "prompt": "Y ahora, después de la práctica, ¿qué tan intensa es tu emoción?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada intensa",
+      "max_label": "Muy intensa",
+      "maps_to": "emotion_after"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Tu registro",
+      "template": "Vulnerabilidad: {{vulnerabilidad}}. Disparador: {{disparador}}. Emoción: {{emocion}}. Impulso y acción: {{impulso}}. La próxima vez voy a probar: {{habilidad}}.",
+      "content": "Llevá este registro a tu próxima sesión: ver la cadena ayuda a encontrar dónde intervenir. **Las emociones intensas no son peligrosas, pero sí agotadoras:** date permiso para descansar después."
+    }
+  ],
+  "material": {
+    "title": "Habilidades para emociones intensas",
+    "description": "STOP, TIPP (con precauciones), acción opuesta y registro de la cadena de una emoción intensa, según la DBT.",
+    "category": "regulacion-emocional"
+  }
+}

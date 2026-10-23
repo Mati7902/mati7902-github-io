@@ -1,0 +1,113 @@
+{
+  "slug": "cuadro-burnout-practica",
+  "title": "Burnout: demandas, recursos y límites",
+  "description": "Hacé un inventario de lo que te quita y te da energía, elegí límites concretos, sumá micro-pausas y armá un plan de recuperación.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 313,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Tu plan de recuperación",
+      "content": "En este ejercicio vas a hacer un **inventario** de lo que te quita energía y de lo que te la devuelve, elegir **límites concretos**, planificar **micro-pausas** y armar un **plan de recuperación** para esta semana.\n\nNo se trata de cambiar todo de golpe. Buscamos pasos chicos y realistas."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "**Si estás en crisis, sentís que no das más o aparecen pensamientos de hacerte daño, pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "energia",
+      "type": "scale",
+      "prompt": "Hoy, ¿cuánta energía sentís que tenés?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Mucha"
+    },
+    {
+      "id": "demandas",
+      "type": "list",
+      "prompt": "Demandas: ¿qué cosas del trabajo (o de tu vida) te quitan más energía?",
+      "help": "Por ejemplo: reuniones sin fin, mensajes fuera de hora, un cliente difícil, tareas que no son tuyas.",
+      "count": 5,
+      "min": 2
+    },
+    {
+      "id": "recursos",
+      "type": "list",
+      "prompt": "Recursos: ¿qué cosas te devuelven energía o te sostienen?",
+      "help": "Por ejemplo: un compañero con quien hablar, caminar, dormir bien, una tarea que disfrutás, tu familia.",
+      "count": 5,
+      "min": 2
+    },
+    {
+      "id": "cambiable",
+      "type": "text",
+      "prompt": "De tus demandas, ¿cuál podrías reducir, delegar, negociar o hacer distinto?",
+      "help": "Elegí una sola. No tiene que ser la más grande: mejor una en la que tengas algo de control.",
+      "placeholder": "Por ejemplo: pedir que las reuniones de los lunes sean más cortas"
+    },
+    {
+      "id": "limites",
+      "type": "checklist",
+      "prompt": "¿Qué límites concretos te gustaría probar esta semana?",
+      "options": [
+        "No mirar mensajes del trabajo después de cierta hora",
+        "Tomarme el tiempo completo del almuerzo",
+        "Decir «déjame ver mi agenda» antes de aceptar algo",
+        "Pedir ayuda o delegar una tarea",
+        "Terminar la jornada a un horario fijo",
+        "Avisar con tiempo cuando un plazo no es realista"
+      ],
+      "min": 1,
+      "max": 3
+    },
+    {
+      "id": "frase_limite",
+      "type": "text",
+      "prompt": "Escribí cómo vas a decir uno de esos límites, con tus palabras.",
+      "help": "Una forma simple: lo que necesitás + una alternativa. Por ejemplo: «Hoy no llego con eso; puedo entregarlo el jueves a la mañana».",
+      "placeholder": "Lo que voy a decir…"
+    },
+    {
+      "id": "pausas_info",
+      "type": "timed_info",
+      "title": "Probá una micro-pausa ahora",
+      "content": "Durante el próximo minuto:\n\n- Alejá la vista de la pantalla y mirá algo lejano.\n- Soltá los hombros y la mandíbula.\n- Respirá despacio, con la exhalación un poco más larga que la inhalación.\n- Si podés, parate y estirate.\n\nEsto es una micro-pausa. Unas cuantas a lo largo del día suman.",
+      "seconds": 60
+    },
+    {
+      "id": "pausas_plan",
+      "type": "text",
+      "prompt": "¿Cuándo y cómo vas a hacer tus micro-pausas en la jornada?",
+      "placeholder": "Por ejemplo: cada dos horas, 3 minutos para caminar y tomar agua"
+    },
+    {
+      "id": "recuperacion",
+      "type": "list",
+      "prompt": "Plan de recuperación: ¿qué vas a hacer fuera del trabajo para recargar?",
+      "help": "Pensá en descanso, movimiento, vínculos y algo que disfrutes. Cosas chicas y posibles.",
+      "count": 3,
+      "min": 1
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Tu plan para esta semana",
+      "template": "Voy a trabajar sobre: {{cambiable}}. Mis límites: {{limites}}. Lo voy a decir así: «{{frase_limite}}». Micro-pausas: {{pausas_plan}}. Para recargar: {{recuperacion}}.",
+      "content": "Al final de la semana, mirá qué funcionó y qué no. Si algo no salió, no es un fracaso: es información para ajustar el plan en sesión."
+    }
+  ],
+  "material": {
+    "title": "Burnout: demandas, recursos y límites",
+    "category": "estres",
+    "description": "Ejercicio guiado: inventario de demandas y recursos, límites concretos, micro-pausas y plan de recuperación para el estrés laboral."
+  }
+}

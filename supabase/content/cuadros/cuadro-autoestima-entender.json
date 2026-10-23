@@ -1,0 +1,107 @@
+{
+  "slug": "cuadro-autoestima-entender",
+  "title": "Entender la autoestima",
+  "description": "Qué es la autoestima, cómo la sostienen la autocrítica, las creencias de fondo y la comparación, y por qué la autocompasión ayuda.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 14,
+  "sort_order": 322,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Cómo te tratás por dentro",
+      "content": "La **autoestima** es la forma en que te mirás, te valorás y te tratás a vos mismo o a vos misma. No es algo fijo: cambia con lo que vivís, con cómo te hablás y con lo que aprendiste de chico o de chica.\n\nCuando la autoestima está baja, es común sentir que no alcanzás, que los demás valen más, o que cualquier error confirma que «algo está mal en vos».\n\nEste recurso te ayuda a entender cómo se mantiene esa mirada y qué se puede hacer."
+    },
+    {
+      "id": "que_es",
+      "type": "info",
+      "title": "Qué es y qué no es",
+      "content": "**Tener una autoestima sana no es:**\n\n- Sentirte genial todo el tiempo.\n- Creer que sos mejor que los demás.\n- No tener nunca dudas ni inseguridades.\n\n**Sí es:**\n\n- Poder reconocer tus cualidades y tus límites, sin exagerar ninguno.\n- Tratarte con respeto también cuando te equivocás.\n- Sentir que valés como persona, más allá de lo que logres.\n\nLa baja autoestima no es un defecto de personalidad: es un patrón aprendido, y lo aprendido se puede revisar."
+    },
+    {
+      "id": "autocritica",
+      "type": "info",
+      "title": "La voz crítica",
+      "content": "Muchas personas tienen una **voz interna muy crítica**: «sos un desastre», «otra vez lo arruinaste», «nadie te va a querer así».\n\nEsa voz muchas veces apareció para protegerte (para que no te equivoques, para que no te rechacen), pero con el tiempo **lastima más de lo que ayuda**. La autocrítica dura no suele motivar: suele dar más miedo, más vergüenza y más ganas de evitar.\n\nUna pista: **¿le hablarías así a alguien que querés?** Si la respuesta es no, vale la pena revisar ese tono."
+    },
+    {
+      "id": "creencias",
+      "type": "info",
+      "title": "Las creencias de fondo",
+      "content": "En TCC se habla de **creencias nucleares**: ideas profundas sobre uno mismo, como «no soy suficiente», «no soy querible» o «soy un fracaso». Suelen formarse temprano, a partir de experiencias difíciles.\n\nEstas creencias funcionan como **anteojos**: hacen que notes lo que las confirma y pases por alto lo que las contradice. Si sacás una buena nota, «fue suerte»; si te equivocás, «¿viste? soy un desastre».\n\nNo son verdades: son **hipótesis aprendidas**. En terapia se revisan con calma, buscando la evidencia que los anteojos esconden."
+    },
+    {
+      "id": "comparacion",
+      "type": "info",
+      "title": "La trampa de la comparación",
+      "content": "Compararse es humano, pero cuando la autoestima está baja la comparación suele ser **injusta**: comparás tu interior (tus dudas, tus días malos) con el exterior de los demás (lo que muestran).\n\nLas redes sociales hacen esto más fácil: vemos fotos elegidas y momentos editados, no la vida completa.\n\nAlgunas preguntas útiles:\n\n- ¿Estoy comparando lo mismo con lo mismo?\n- ¿Qué no estoy viendo de la vida de esa persona?\n- ¿Me sirve esta comparación, o solo me hace sentir peor?"
+    },
+    {
+      "id": "autocompasion",
+      "type": "info",
+      "title": "La autocompasión como alternativa",
+      "content": "La **autocompasión** es tratarte con la misma amabilidad que le tendrías a un buen amigo o una buena amiga que la está pasando mal. Tiene tres partes:\n\n- **Atención:** notar que estás sufriendo, sin exagerarlo ni taparlo.\n- **Humanidad compartida:** recordar que equivocarse y sentirse inseguro les pasa a todas las personas.\n- **Amabilidad:** hablarte con calidez en lugar de con desprecio.\n\nNo es conformismo ni lástima: la investigación muestra que tratarse con amabilidad **ayuda a hacerse cargo** de los errores y a seguir intentando."
+    },
+    {
+      "id": "terapia",
+      "type": "info",
+      "title": "Cómo se trabaja en terapia",
+      "content": "En terapia se suele trabajar en:\n\n- **Reconocer** la voz crítica y los momentos en que aparece.\n- **Revisar** las creencias de fondo y buscar evidencia más completa.\n- **Registrar** logros y cualidades, para entrenar la mirada a ver también lo que funciona.\n- **Practicar** la autocompasión y otras formas de hablarte.\n- **Animarte** a hacer cosas que venís evitando por miedo a no estar a la altura.\n\nEs un proceso gradual. No se trata de pensar «positivo» a la fuerza, sino de mirarte de forma más justa."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si te sentís muy mal",
+      "content": "A veces la autocrítica se vuelve tan fuerte que aparecen pensamientos de que no valés la pena o de hacerte daño.\n\nSi te pasa, **no estás solo ni sola, y merecés ayuda ya**: pedila a emergencias, a una línea de ayuda o en la guardia del hospital más cercano. En la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nY contáselo también a tu psicólogo en la próxima sesión, o antes si podés."
+    },
+    {
+      "id": "mito_autocompasion",
+      "type": "choice",
+      "prompt": "Verdadero o falso: «Si soy amable conmigo, me voy a volver vago y no voy a mejorar».",
+      "options": ["Verdadero", "Falso"],
+      "feedback": {
+        "Verdadero": "**Es un miedo muy común, pero la evidencia dice lo contrario.** Las personas que se tratan con amabilidad suelen hacerse más cargo de sus errores y volver a intentar, porque equivocarse no les resulta tan amenazante.",
+        "Falso": "**Exacto.** La autocompasión no es conformismo: ayuda a aprender de los errores sin hundirse en la vergüenza, y eso hace más fácil seguir intentando."
+      }
+    },
+    {
+      "id": "mito_logros",
+      "type": "choice",
+      "prompt": "¿Qué crees que sostiene mejor la autoestima a largo plazo?",
+      "options": ["Lograr cada vez más cosas", "Tratarte con respeto, logres o no", "Que los demás te aprueben"],
+      "feedback": {
+        "Lograr cada vez más cosas": "**Los logros ayudan, pero si tu valor depende solo de ellos, la autoestima queda frágil:** cada error se vive como una amenaza. Una base más estable es tratarte con respeto también cuando las cosas no salen.",
+        "Tratarte con respeto, logres o no": "**Sí.** Una autoestima más estable no depende de rendir siempre: se apoya en cómo te tratás en los buenos y en los malos momentos.",
+        "Que los demás te aprueben": "**La aprobación de otros se siente bien, pero no la controlás**, y depender de ella deja la autoestima en manos ajenas. Una base más estable es cómo te tratás vos."
+      }
+    },
+    {
+      "id": "entre_sesiones",
+      "type": "info",
+      "title": "Qué podés hacer entre sesiones",
+      "content": "- **Registrá** cada día algo que hiciste bien o una cualidad que mostraste, por chica que sea. En esta sección tenés una práctica para hacerlo.\n- **Notá** cuándo aparece la voz crítica y qué dice.\n- **Probá** responderle como le hablarías a alguien que querés.\n- **Cuidá** lo que consumís en redes si notás que te deja peor.\n- **Anotá** situaciones para trabajar en tu próxima sesión."
+    },
+    {
+      "id": "me_llevo",
+      "type": "text",
+      "prompt": "¿Qué te llevás de este recurso?",
+      "placeholder": "Me llevo…"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Lo que te llevás",
+      "template": "{{me_llevo}}",
+      "content": "Gracias por darte este tiempo. Mirarte con más justicia es un aprendizaje, y se practica de a poco."
+    }
+  ],
+  "material": {
+    "title": "Entender la autoestima",
+    "description": "Qué es y qué no es la autoestima, la voz crítica, las creencias nucleares, la comparación social y la autocompasión como alternativa.",
+    "category": "autoestima"
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "slug": "cuadro-trauma-practica",
+  "title": "Anclarme al presente",
+  "description": "Herramientas de anclaje (5-4-3-2-1), tu ventana de tolerancia y un plan de autocuidado para los días difíciles.",
+  "kind": "custom",
+  "approach": "regulacion",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 12,
+  "sort_order": 307,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Anclarme al presente",
+      "content": "Este ejercicio te ayuda a **volver al aquí y ahora** cuando la mente o el cuerpo se van a momentos difíciles.\n\n**No vas a tener que recordar, contar ni escribir nada de lo que te pasó.** Todo el ejercicio está puesto en el presente: tus sentidos, tu cuerpo y lo que te hace bien.\n\nPodés parar cuando quieras."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si necesitás ayuda urgente",
+      "content": "Si estás en peligro, si alguien te está lastimando, si estás en crisis o pensás en hacerte daño, **pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "ahora",
+      "type": "scale",
+      "prompt": "¿Cuánta tensión o malestar sentís en este momento?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísimo",
+      "maps_to": "emotion_before"
+    },
+    {
+      "id": "ventana",
+      "type": "info",
+      "title": "Tu ventana de tolerancia",
+      "content": "Imaginá una ventana. **Adentro** es donde podés sentir emociones, aunque sean intensas, y seguir pensando y actuando.\n\nA veces el cuerpo sale de la ventana:\n\n- **Por arriba (hiperactivación):** corazón acelerado, angustia, enojo, ganas de escapar, estar en guardia.\n- **Por abajo (hipoactivación):** sentirte apagado/a, entumecido/a, desconectado/a, como \"en piloto automático\".\n\nNo es culpa tuya: es el sistema de alarma. Las herramientas de anclaje ayudan a **volver a la ventana**, y con práctica la ventana se puede ir ampliando."
+    },
+    {
+      "id": "senales",
+      "type": "checklist",
+      "prompt": "¿Qué señales te avisan que estás saliendo de tu ventana? Marcá las que reconozcas.",
+      "options": [
+        "Corazón acelerado o respiración rápida",
+        "Tensión en el cuerpo",
+        "Ganas de escapar o de pelear",
+        "Irritabilidad",
+        "Sentirme entumecido/a o apagado/a",
+        "Sentir que las cosas no son reales",
+        "Mente en blanco",
+        "Cansancio de golpe"
+      ],
+      "min": 1
+    },
+    {
+      "id": "grounding",
+      "type": "timed_info",
+      "title": "5-4-3-2-1",
+      "content": "Mirá a tu alrededor y, sin apuro, nombrá en voz baja o mentalmente:\n\n- **5 cosas que ves.** Fijate en colores y formas.\n- **4 cosas que podés tocar.** La silla, la ropa, el piso bajo tus pies.\n- **3 sonidos** que escuchás.\n- **2 olores** (o dos olores que te gusten, si no notás ninguno).\n- **1 cosa** que puedas saborear, o algo amable que te digas.\n\nDespués, decite: **\"Estoy acá, hoy, en este lugar. Ahora estoy a salvo.\"**",
+      "seconds": 120
+    },
+    {
+      "id": "cuerpo",
+      "type": "timed_info",
+      "title": "Anclar el cuerpo",
+      "content": "Ahora probá anclar el cuerpo:\n\n- **Apoyá bien los pies** en el piso y sentí el peso.\n- **Empujá suavemente** las palmas una contra otra durante unos segundos y soltá.\n- **Respirá lento,** con la exhalación un poco más larga que la inhalación.\n- Si te sirve, **sostené algo** con una textura o temperatura marcada (algo frío, una tela suave).\n\nSi alguna de estas cosas te incomoda, dejala y quedate con la que te haga bien.",
+      "seconds": 90
+    },
+    {
+      "id": "despues",
+      "type": "scale",
+      "prompt": "¿Y ahora, cuánta tensión o malestar sentís?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísimo",
+      "maps_to": "emotion_after"
+    },
+    {
+      "id": "herramientas",
+      "type": "checklist",
+      "prompt": "¿Qué herramientas te gustaría tener a mano cuando salgas de tu ventana?",
+      "options": [
+        "El 5-4-3-2-1",
+        "Pies en el piso y respiración lenta",
+        "Agua fría en las manos o la cara",
+        "Un objeto con textura o un aroma que me guste",
+        "Salir a caminar",
+        "Escuchar música tranquila",
+        "Hablar con una persona segura",
+        "Una frase que me recuerde que hoy estoy a salvo"
+      ],
+      "min": 1
+    },
+    {
+      "id": "autocuidado",
+      "type": "list",
+      "prompt": "Tu plan de autocuidado: ¿qué cosas chicas te hacen bien en el día a día?",
+      "help": "Por ejemplo: dormir a horario, tomar mate al sol, caminar, ver una serie liviana, cocinar algo rico.",
+      "count": 5,
+      "min": 2
+    },
+    {
+      "id": "personas",
+      "type": "list",
+      "prompt": "¿A quién podés recurrir cuando estás pasando un momento difícil?",
+      "help": "Personas seguras: alguien que te escucha sin juzgar y te respeta. No hace falta contarles lo que pasó.",
+      "count": 3,
+      "min": 1
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Tu plan para anclarte",
+      "template": "Mis señales: {{senales}}. Mis herramientas: {{herramientas}}. Lo que me hace bien: {{autocuidado}}. A quién recurro: {{personas}}.",
+      "content": "Este plan queda guardado y lo podés volver a ver cuando lo necesites. Practicar las herramientas en momentos tranquilos hace que después te salgan más fácil. Si querés, compartilo con tu psicólogo/a."
+    }
+  ],
+  "material": {
+    "title": "Anclarme al presente",
+    "description": "Ventana de tolerancia, anclaje 5-4-3-2-1 y corporal, y plan de autocuidado con personas seguras. No pide recordar ni escribir sobre el trauma.",
+    "category": "trauma"
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "slug": "cuadro-trauma-entender",
+  "title": "Entender el trauma y el estrés postraumático",
+  "description": "Cómo puede reaccionar la mente y el cuerpo después de una experiencia muy difícil, y cómo se trabaja en terapia.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 306,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "Este recurso habla de las reacciones que pueden aparecer después de vivir algo muy difícil. **No te va a pedir que cuentes ni recuerdes lo que te pasó.**\n\nSi en algún momento te sentís muy movilizado/a, podés parar, hacer algo que te calme y volver otro día. Tu bienestar es lo primero.\n\nLo que leas acá es información general: cada historia es única, y tu psicólogo/a te va a ayudar a entender la tuya."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si necesitás ayuda urgente",
+      "content": "Si estás en peligro, si alguien te está lastimando, si estás en crisis o pensás en hacerte daño, **pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos, y también herramientas para bajar la intensidad cuando lo necesites."
+    },
+    {
+      "id": "que_es",
+      "type": "info",
+      "title": "Qué es una experiencia traumática",
+      "content": "Una experiencia traumática es algo que vivimos (o presenciamos) en lo que sentimos que nuestra vida, nuestro cuerpo o el de alguien querido estaban en peligro. Por ejemplo: un accidente, una agresión, un abuso, una catástrofe o una pérdida repentina.\n\nDespués de algo así, **es muy común** tener reacciones fuertes durante un tiempo. Para muchas personas, esas reacciones van bajando con las semanas. Para otras, se quedan y siguen afectando el día a día: ahí se puede hablar de **estrés postraumático**, y es algo que se trata."
+    },
+    {
+      "id": "reacciones",
+      "type": "info",
+      "title": "Cómo puede manifestarse",
+      "content": "Las reacciones suelen agruparse así:\n\n- **Reexperimentación:** recuerdos que aparecen sin buscarlos, pesadillas, sentir como si volviera a pasar, reacciones fuertes ante algo que lo recuerda.\n- **Evitación:** no querer pensar ni hablar de eso, evitar lugares, personas o situaciones.\n- **Cambios en el ánimo y en cómo ves las cosas:** culpa, vergüenza, sentirte desconectado/a, pensar que el mundo es totalmente peligroso.\n- **Hiperalerta:** estar siempre en guardia, sobresaltarte fácil, dormir mal, irritabilidad, dificultad para concentrarte.\n\nNo hace falta tener todas. Y tenerlas **no significa que estés \"roto/a\"**: es la forma en que el cuerpo intenta protegerte."
+    },
+    {
+      "id": "circulo",
+      "type": "info",
+      "title": "Por qué a veces no se va",
+      "content": "Después de un trauma, el cerebro queda como una alarma muy sensible: detecta peligro donde a veces ya no lo hay.\n\nEntonces aparece un círculo:\n\n- Algo te lo recuerda y **la alarma se dispara** (recuerdos, angustia, el cuerpo en tensión).\n- Para no sentir eso, **evitás** recuerdos, lugares o conversaciones.\n- Evitar alivia, pero **el recuerdo queda \"sin procesar\"** y la alarma sigue sensible.\n- Además, quedarte en **hiperalerta** te mantiene agotado/a y en guardia.\n\nEvitar tiene sentido: fue una forma de sobrevivir. En terapia se busca, con cuidado, que ya no haga falta tanto."
+    },
+    {
+      "id": "que_no_es",
+      "type": "info",
+      "title": "Lo que no es",
+      "content": "- **No es debilidad.** Cualquier persona puede tener estas reacciones después de algo muy difícil.\n- **No es tu culpa** lo que te pasó, ni cómo reaccionaste en ese momento. Paralizarse, no poder defenderse o no recordar bien son respuestas comunes del cuerpo ante el peligro.\n- **No tenés que \"superarlo\" solo/a ni rápido.** Cada proceso tiene sus tiempos.\n- **No hace falta contarlo todo para que la terapia ayude.** Vos decidís qué, cuándo y cuánto compartir."
+    },
+    {
+      "id": "reconoces",
+      "type": "checklist",
+      "prompt": "¿Reconocés alguna de estas reacciones en vos últimamente? Marcá las que quieras, sin entrar en detalles.",
+      "options": [
+        "Recuerdos que aparecen sin buscarlos",
+        "Pesadillas o mal sueño",
+        "Evitar lugares, personas o temas",
+        "Estar siempre en guardia",
+        "Sobresaltarme fácil",
+        "Sentirme desconectado/a",
+        "Culpa o vergüenza",
+        "Irritabilidad",
+        "Prefiero no marcar nada ahora"
+      ],
+      "min": 1
+    },
+    {
+      "id": "terapia",
+      "type": "info",
+      "title": "Cómo se trabaja en terapia",
+      "content": "Hay tratamientos con buen respaldo para el estrés postraumático:\n\n- **Primero, seguridad y estabilización:** construir herramientas para calmar el cuerpo, ampliar tu \"ventana de tolerancia\" y cuidar el día a día.\n- **Terapias centradas en el trauma,** como la TCC focalizada en el trauma o la terapia de procesamiento cognitivo, que ayudan a revisar lo vivido y las conclusiones que dejó (culpa, peligro, desconfianza).\n- **EMDR,** otra opción con respaldo, que el profesional puede evaluar si es adecuada para vos.\n\nQué abordaje usar, cuándo y a qué ritmo lo decide tu psicólogo/a junto con vos. **El trabajo con los recuerdos se hace en sesión, acompañado/a, nunca solo/a.**"
+    },
+    {
+      "id": "mito_olvidar",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Lo mejor es no pensar nunca más en lo que pasó; con el tiempo se va solo».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Bien visto.** A veces el tiempo ayuda, pero cuando las reacciones siguen, evitar todo suele mantener la alarma encendida. Eso no significa que tengas que enfrentarlo solo/a: se trabaja en terapia, con cuidado y a tu ritmo.",
+        "Realidad": "**Se entiende que lo pienses: evitar alivia.** Pero cuando las reacciones siguen, evitar todo suele mantener la alarma encendida. Eso no significa que tengas que enfrentarlo solo/a: se trabaja en terapia, con cuidado y a tu ritmo."
+      }
+    },
+    {
+      "id": "mito_culpa",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Si no reaccioné o no me defendí, en parte fue mi culpa».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Así es.** Quedarse paralizado/a, no poder moverse o hacer lo que el otro pedía son respuestas automáticas del cuerpo para sobrevivir. No son una elección. La responsabilidad es de quien causó el daño.",
+        "Realidad": "**Es una idea muy frecuente y muy dolorosa, pero es un mito.** Quedarse paralizado/a, no poder moverse o hacer lo que el otro pedía son respuestas automáticas del cuerpo para sobrevivir. No son una elección. La responsabilidad es de quien causó el daño."
+      }
+    },
+    {
+      "id": "entre_sesiones",
+      "type": "info",
+      "title": "Qué podés hacer entre sesiones",
+      "content": "- **Practicar herramientas de anclaje** para cuando la alarma se dispare. En esta colección tenés «Anclarme al presente».\n- **Cuidar lo básico:** horarios de sueño, comidas, moverte, contacto con personas seguras.\n- **Tener a mano tu plan** para momentos difíciles (en **Calmarme**).\n- **Notar qué te dispara** la alarma, sin entrar en el recuerdo.\n- **No forzarte** a recordar ni escribir lo que pasó por tu cuenta: eso se hace en sesión, si y cuando corresponda.\n- **Evitar calmarte con alcohol u otras sustancias:** alivian un rato, pero suelen empeorar las cosas."
+    },
+    {
+      "id": "me_llevo",
+      "type": "text",
+      "prompt": "¿Qué te llevás de esto? ¿Qué te gustaría charlar con tu psicólogo/a?",
+      "placeholder": "Lo que me quedó resonando…"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Lo que te llevás",
+      "template": "Lo que me llevo: {{me_llevo}}",
+      "content": "Gracias por darte este espacio. Si quedaste movilizado/a, tomate un momento para hacer algo que te calme: respirar lento, tomar algo caliente, salir a caminar o hablar con alguien de confianza."
+    }
+  ],
+  "material": {
+    "title": "Entender el trauma y el estrés postraumático",
+    "description": "Psicoeducación sobre reacciones al trauma: reexperimentación, evitación, hiperalerta, por qué se mantienen, tratamientos con respaldo y mitos frecuentes.",
+    "category": "trauma"
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "slug": "cuadro-burnout-entender",
+  "title": "Entender el estrés laboral y el burnout",
+  "description": "Qué es el burnout, en qué se diferencia del estrés común, qué factores del trabajo y personales lo alimentan y cómo se trabaja.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 312,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "que_es",
+      "type": "info",
+      "title": "Qué es el burnout",
+      "content": "Todos tenemos épocas de mucho trabajo. El **estrés** suele sentirse como «demasiado»: demasiadas tareas, demasiada presión, pero con la idea de que, si se termina, vas a estar mejor.\n\nEl **burnout** o **síndrome de desgaste profesional** es otra cosa: aparece cuando el estrés del trabajo se sostiene mucho tiempo sin que haya suficiente recuperación. Se siente más como «no queda nada»: te vaciaste.\n\nNo es una debilidad ni falta de compromiso. Muchas veces les pasa justamente a personas muy comprometidas con lo que hacen."
+    },
+    {
+      "id": "tres_senales",
+      "type": "info",
+      "title": "Tres señales principales",
+      "content": "El burnout suele describirse con tres componentes:\n\n- **Agotamiento:** cansancio físico y emocional que no se va con un fin de semana. Te levantás cansado/a.\n- **Distanciamiento o cinismo:** el trabajo te genera rechazo, te volvés más irritable, distante o indiferente con las tareas o las personas.\n- **Menor eficacia:** sentís que rendís menos, que nada de lo que hacés alcanza o que ya no sos bueno/a en lo tuyo.\n\nTambién pueden aparecer dolores de cabeza, problemas de sueño, más enfermedades o más consumo de café, alcohol u otras sustancias para aguantar."
+    },
+    {
+      "id": "senales_propias",
+      "type": "checklist",
+      "prompt": "¿Cuáles de estas señales reconocés en vos últimamente?",
+      "options": [
+        "Me levanto cansado/a aunque duerma",
+        "Siento rechazo o irritación con el trabajo",
+        "Me volví más distante con compañeros o clientes",
+        "Siento que nada de lo que hago alcanza",
+        "Me cuesta desconectarme fuera del horario",
+        "Ninguna por ahora"
+      ],
+      "help": "No es un test ni un diagnóstico. Es solo para que puedas mirarte con más claridad.",
+      "min": 1
+    },
+    {
+      "id": "factores",
+      "type": "info",
+      "title": "Factores del trabajo y factores personales",
+      "content": "El burnout no depende solo de vos. La investigación muestra que tiene mucho que ver con **cómo está organizado el trabajo**:\n\n- Carga excesiva o plazos imposibles.\n- Poco control sobre cómo y cuándo hacés las cosas.\n- Poco reconocimiento o pago injusto.\n- Mal clima, conflictos o falta de apoyo.\n- Choque entre tus valores y lo que te piden hacer.\n\nTambién influyen **factores personales**: perfeccionismo, dificultad para decir que no, sentir que tu valor depende de rendir, o tener muchas otras cargas (cuidados, estudios, problemas económicos).\n\nMirar las dos partes ayuda a no culparte y a buscar cambios realistas."
+    },
+    {
+      "id": "como_se_mantiene",
+      "type": "info",
+      "title": "El círculo que lo mantiene",
+      "content": "Cuando estás agotado/a, es común entrar en un círculo:\n\n- Trabajás más horas para «ponerte al día».\n- Recortás sueño, descanso, ejercicio y encuentros con gente.\n- Tenés menos energía y te cuesta más concentrarte.\n- Rendís menos, te exigís más… y el ciclo sigue.\n\nLa salida no suele estar en esforzarte todavía más, sino en **recuperar la recuperación**: descanso real, límites y cambios en las demandas cuando sea posible."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si sentís que no das más",
+      "content": "**Si estás en crisis, sentís que no das más o aparecen pensamientos de hacerte daño, pedí ayuda ya:** a emergencias, a una línea de ayuda o en la guardia del hospital más cercano.\n\nEn la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos."
+    },
+    {
+      "id": "en_terapia",
+      "type": "info",
+      "title": "Cómo se trabaja en terapia",
+      "content": "En terapia vamos a mirar tu situación completa, no solo el trabajo. Algunas cosas que se suelen trabajar:\n\n- **Mapear demandas y recursos:** qué te quita energía y qué te la devuelve.\n- **Poner límites** concretos y practicar cómo comunicarlos.\n- Revisar **pensamientos exigentes** como «si no lo hago perfecto, fallé».\n- Recuperar **descanso, actividades placenteras y vínculos**.\n- Reconectar con lo que **te importa** del trabajo y de la vida.\n- Pensar decisiones más grandes, si hacen falta, con calma.\n\nA veces también es importante una consulta médica para descartar otras causas del cansancio."
+    },
+    {
+      "id": "mito_vacaciones",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Con unas buenas vacaciones el burnout se cura».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Correcto: es un mito.** Las vacaciones ayudan, pero si al volver las condiciones son las mismas, el agotamiento suele regresar rápido. Hacen falta cambios sostenidos en el día a día.",
+        "Realidad": "**En realidad, es un mito.** Las vacaciones ayudan, pero si al volver las condiciones son las mismas, el agotamiento suele regresar rápido. Hacen falta cambios sostenidos en el día a día."
+      }
+    },
+    {
+      "id": "mito_debil",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Si me pasa esto es porque soy débil o no sirvo para el trabajo».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Mito": "**Correcto: es un mito.** El burnout tiene mucho que ver con las condiciones del trabajo, y le pasa a gente muy capaz y comprometida. No habla de tu valor como persona.",
+        "Realidad": "**En realidad, es un mito.** El burnout tiene mucho que ver con las condiciones del trabajo, y le pasa a gente muy capaz y comprometida. No habla de tu valor como persona."
+      }
+    },
+    {
+      "id": "mito_pausas",
+      "type": "choice",
+      "prompt": "Mito o realidad: «Las pausas cortas durante la jornada ayudan a recuperar energía».",
+      "options": [
+        "Mito",
+        "Realidad"
+      ],
+      "feedback": {
+        "Realidad": "**Correcto: es real.** Pausas breves y frecuentes, sobre todo si te movés o te alejás de la pantalla, ayudan a sostener la energía y la concentración a lo largo del día.",
+        "Mito": "**En realidad, es real.** Pausas breves y frecuentes, sobre todo si te movés o te alejás de la pantalla, ayudan a sostener la energía y la concentración a lo largo del día."
+      }
+    },
+    {
+      "id": "entre_sesiones",
+      "type": "info",
+      "title": "Qué podés hacer entre sesiones",
+      "content": "Algunas ideas para empezar, de a poco:\n\n- **Marcar un fin a la jornada:** un horario o un ritual para «cerrar» el trabajo.\n- **Micro-pausas:** unos minutos cada una o dos horas para pararte, estirarte o respirar.\n- **Proteger el sueño** y alguna actividad que te guste, aunque sea corta.\n- **Elegir un límite pequeño** y practicarlo, por ejemplo no contestar mensajes de noche.\n- **Hablar con alguien** de confianza sobre cómo estás.\n\nEn la práctica «Burnout: demandas, recursos y límites» vas a poder armar tu propio plan."
+    },
+    {
+      "id": "me_llevo",
+      "type": "text",
+      "prompt": "¿Qué te llevás de esta guía? ¿Qué idea te sirvió o te quedó dando vueltas?",
+      "placeholder": "Lo que me llevo…",
+      "help": "Si querés, traé esto a la próxima sesión para conversarlo."
+    }
+  ],
+  "material": {
+    "title": "Entender el estrés laboral y el burnout",
+    "category": "estres",
+    "description": "Psicoeducación sobre burnout: agotamiento, distanciamiento y menor eficacia, factores del trabajo y personales, mitos y qué hacer entre sesiones."
+  }
+}

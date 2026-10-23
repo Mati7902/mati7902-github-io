@@ -2,7 +2,7 @@
 -- Ejercicios y materiales de los cuadernillos del Lic. Matías Sánchez
 -- (Brújula · Cuadernillo de TCC).
 --
--- Archivo generado con `pnpm db:contenido` a partir de supabase/content/ejercicios/*.json.
+-- Archivo generado con `pnpm db:contenido` a partir de los JSON de supabase/content/.
 -- No lo edites a mano: cambiá los JSON y volvé a generarlo.
 -- Solo agrega lo que falta: no pisa ejercicios ni materiales editados desde el panel.
 -- =============================================================================
@@ -76,7 +76,7 @@ on conflict (slug) do nothing;
 
 -- Recursos de la biblioteca de Materiales (abren el ejercicio correspondiente).
 insert into public.materials (title, description, type, category_id, exercise_template_id, duration_minutes, visibility, is_published)
-select v.title, v.description, 'exercise', c.id, t.id, t.estimated_minutes, 'public', true
+select v.title, v.description, 'exercise', c.id, t.id, t.estimated_minutes, 'assigned', true
 from (values
   ('brujula-entender-lo-que-me-pasa', 'Entender lo que me pasa', 'La cadena situación, pensamiento, emoción, cuerpo, conducta y consecuencia, con el ejemplo de Cami. Para adolescentes.', 'adolescentes'),
   ('brujula-detector-de-pensamientos', 'Mi detector de pensamientos', 'Hechos y pensamientos, la prueba de la cámara y las ocho trampas frecuentes de la mente. Para adolescentes.', 'adolescentes'),

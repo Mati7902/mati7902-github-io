@@ -1,0 +1,103 @@
+{
+  "slug": "cuadro-alimentacion-practica",
+  "title": "Mi registro de comidas y emociones",
+  "description": "Registrá una comida y lo que pasaba alrededor, sin contar nada, y esbozá un plan de comidas regulares para revisar en sesión.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 12,
+  "sort_order": 321,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Un registro amable",
+      "content": "Vas a registrar **una comida** (la última, o una que te haya resultado difícil) y lo que pasaba alrededor: dónde estabas, qué sentías, qué pensabas.\n\n**No vas a contar ni a pesar nada.** El objetivo no es juzgar lo que comiste, sino conocer mejor tus patrones para trabajarlos en sesión.\n\nAl final vas a esbozar un plan de comidas regulares para revisar con tu psicólogo y, si tenés, con tu nutricionista."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Antes de empezar",
+      "content": "Si en estos días tuviste **desmayos, palpitaciones, dolor en el pecho, mareos fuertes o vómitos frecuentes**, consultá a un médico o una médica cuanto antes: eso es prioridad.\n\nSi sentís que estás en crisis o con riesgo de hacerte daño, **pedí ayuda ya**: a emergencias, a una línea de ayuda o en la guardia del hospital más cercano. En la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nSi en algún momento este registro te angustia mucho, podés frenar y retomarlo después o en sesión."
+    },
+    {
+      "id": "momento",
+      "type": "choice",
+      "prompt": "¿Qué comida vas a registrar?",
+      "options": ["Desayuno", "Almuerzo", "Merienda", "Cena", "Una colación", "Otro momento"]
+    },
+    {
+      "id": "situacion",
+      "type": "text",
+      "prompt": "¿Dónde estabas, con quién y qué venía pasando antes de comer?",
+      "placeholder": "Por ejemplo: en casa, sola, después de una discusión…"
+    },
+    {
+      "id": "emociones_antes",
+      "type": "checklist",
+      "prompt": "¿Qué sentías antes de comer? Marcá las que quieras.",
+      "options": ["Hambre", "Tranquilidad", "Ansiedad", "Tristeza", "Enojo", "Aburrimiento", "Cansancio", "Soledad", "Culpa", "No sé bien"],
+      "min": 1
+    },
+    {
+      "id": "hambre",
+      "type": "scale",
+      "prompt": "¿Cuánta hambre tenías antes de comer?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada de hambre",
+      "max_label": "Muchísima hambre"
+    },
+    {
+      "id": "horas_sin_comer",
+      "type": "choice",
+      "prompt": "Antes de esta comida, ¿habías pasado mucho tiempo sin comer?",
+      "options": ["No, venía comiendo regularmente", "Sí, bastante tiempo", "No me acuerdo"],
+      "feedback": {
+        "No, venía comiendo regularmente": "**Bien.** La regularidad ayuda a que el hambre no se acumule.",
+        "Sí, bastante tiempo": "**Es un dato valioso.** Pasar mucho tiempo sin comer aumenta el hambre y la tensión, y puede hacer más difícil la comida siguiente. Es algo para tener en cuenta en tu plan.",
+        "No me acuerdo": "**Está bien.** Con el tiempo, registrar seguido ayuda a ver estos patrones con más claridad."
+      }
+    },
+    {
+      "id": "despues",
+      "type": "text",
+      "prompt": "¿Cómo te sentiste después y qué pensamientos aparecieron?",
+      "placeholder": "Por ejemplo: alivio, culpa, «ya arruiné el día»…"
+    },
+    {
+      "id": "plan_info",
+      "type": "info",
+      "title": "Un plan de comidas regulares",
+      "content": "Ahora vas a esbozar en qué momentos del día podrías comer de forma regular. Muchas personas apuntan a **varias comidas repartidas en el día**, sin pasar demasiadas horas sin comer.\n\nEs un **borrador para revisar con tu profesional**, no una dieta ni una regla nueva. No hace falta que sea perfecto: anotá horarios aproximados que te resulten posibles."
+    },
+    {
+      "id": "plan_horarios",
+      "type": "list",
+      "prompt": "¿En qué momentos del día podrías comer? Anotá un momento y horario aproximado por renglón.",
+      "help": "Por ejemplo: «Desayuno, antes de salir», «Merienda, al volver del trabajo».",
+      "count": 6,
+      "min": 3
+    },
+    {
+      "id": "obstaculo",
+      "type": "text",
+      "prompt": "¿Qué podría hacerte difícil sostener este plan? ¿Qué te ayudaría?",
+      "placeholder": "Por ejemplo: no tengo tiempo al mediodía; me ayudaría llevar algo preparado"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Para revisar en sesión",
+      "template": "Registré: {{momento}}. Antes sentía: {{emociones_antes}}. Contexto: {{situacion}}. Después: {{despues}}. Mi borrador de comidas regulares: {{plan_horarios}}. Posible obstáculo: {{obstaculo}}.",
+      "content": "Llevá esto a tu próxima sesión para revisarlo juntos, y con tu nutricionista si tenés. **Lo que hiciste hoy es información, no un examen.** Podés repetir este registro las veces que quieras."
+    }
+  ],
+  "material": {
+    "title": "Mi registro de comidas y emociones",
+    "description": "Registro de una comida y su contexto emocional, sin contar calorías, y un borrador de comidas regulares para revisar con el profesional.",
+    "category": "alimentacion"
+  }
+}

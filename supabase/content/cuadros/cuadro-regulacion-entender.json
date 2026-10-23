@@ -1,0 +1,107 @@
+{
+  "slug": "cuadro-regulacion-entender",
+  "title": "Entender las emociones intensas",
+  "description": "Para qué sirven las emociones, la ventana de tolerancia y cómo una emoción lleva a la acción, según la DBT.",
+  "kind": "custom",
+  "approach": "dbt",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 15,
+  "sort_order": 326,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Cuando las emociones desbordan",
+      "content": "Algunas personas sienten las emociones **muy rápido, muy fuerte y por mucho tiempo**. Un comentario chico puede disparar un enojo enorme, o una tristeza que tarda en irse. Después, a veces, aparece la vergüenza por cómo reaccionaste.\n\nSi te pasa, no es que estés «exagerando» ni que haya algo roto en vos. Hay personas con un sistema emocional más sensible, y hay **habilidades concretas** para manejarlo mejor.\n\nEste recurso te ayuda a entender qué está pasando."
+    },
+    {
+      "id": "funcion",
+      "type": "info",
+      "title": "Para qué sirven las emociones",
+      "content": "Las emociones no son el problema: **cumplen funciones**.\n\n- **Te avisan** de algo importante: el miedo de un peligro, la tristeza de una pérdida, el enojo de una injusticia.\n- **Te preparan para actuar:** el cuerpo se activa para huir, defenderte o buscar consuelo.\n- **Comunican** a los demás lo que te pasa, muchas veces sin palabras.\n\nLa dificultad aparece cuando la emoción es muy intensa para la situación, dura demasiado, o te lleva a hacer cosas que después lamentás. Regular no es dejar de sentir: es **poder sentir sin que la emoción decida todo por vos**."
+    },
+    {
+      "id": "que_no_es",
+      "type": "info",
+      "title": "Qué es y qué no es regularse",
+      "content": "**Regular las emociones no es:**\n\n- Reprimirlas o hacer como que no existen.\n- Estar tranquilo o tranquila todo el tiempo.\n- «Controlarte» a la fuerza.\n\n**Sí es:**\n\n- Notar qué estás sintiendo y ponerle nombre.\n- Bajar la intensidad cuando es demasiado alta.\n- Elegir qué hacer con lo que sentís, de acuerdo con lo que te importa.\n\nEs una habilidad, y como toda habilidad, **se aprende con práctica**."
+    },
+    {
+      "id": "ventana",
+      "type": "info",
+      "title": "La ventana de tolerancia",
+      "content": "Imaginá una **ventana**: dentro de ella, podés sentir emociones (incluso fuertes) y seguir pensando con claridad.\n\n- **Por arriba de la ventana:** demasiada activación. Ansiedad intensa, enojo que desborda, impulsos fuertes, sensación de que no podés pensar.\n- **Por debajo de la ventana:** muy poca activación. Sentirte vacío o vacía, desconectado, «apagado», sin energía.\n\nEl estrés, el cansancio o experiencias difíciles pueden **achicar** la ventana. Las habilidades que se aprenden en terapia ayudan a volver a ella y, con el tiempo, a **agrandarla**."
+    },
+    {
+      "id": "modelo",
+      "type": "info",
+      "title": "De la vulnerabilidad a la acción",
+      "content": "La DBT propone mirar una emoción como una cadena:\n\n- **Vulnerabilidad:** cosas que te dejan más sensible ese día: dormir mal, no comer, estar enfermo, mucho estrés acumulado.\n- **Disparador:** algo que pasa, afuera o adentro (un recuerdo, un pensamiento).\n- **Interpretación:** lo que pensás sobre lo que pasó.\n- **Emoción:** lo que sentís en el cuerpo y en la mente.\n- **Impulso y acción:** lo que te dan ganas de hacer, y lo que hacés.\n- **Consecuencias:** lo que pasa después.\n\nCada eslabón es un **punto donde podés intervenir**. Por ejemplo, cuidar el sueño baja la vulnerabilidad; frenar antes de actuar cambia la acción."
+    },
+    {
+      "id": "no_peligrosas",
+      "type": "info",
+      "title": "Intensas, pero no peligrosas",
+      "content": "Una emoción intensa puede sentirse insoportable, como si nunca fuera a terminar. Pero **las emociones, por sí mismas, no son peligrosas**: suben, llegan a un pico y bajan, como una ola. Lo que a veces sí puede ser riesgoso es lo que hacemos para sacárnoslas de encima rápido.\n\nAl mismo tiempo, **son agotadoras**. Vivir con emociones muy intensas cansa, y es entendible que quieras alivio.\n\nPor eso las habilidades DBT apuntan a dos cosas: **atravesar la ola** sin empeorar las cosas, y **bajar la vulnerabilidad** para que las olas sean menos frecuentes."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si estás en crisis",
+      "content": "Si la emoción es tan fuerte que sentís que podés hacerte daño, o tenés pensamientos de no querer vivir, **pedí ayuda ya**: a emergencias, a una línea de ayuda o en la guardia del hospital más cercano. En la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nNo tenés que atravesarlo sola ni solo. Contáselo también a tu psicólogo."
+    },
+    {
+      "id": "terapia",
+      "type": "info",
+      "title": "Cómo se trabaja en terapia",
+      "content": "En terapia (por ejemplo, con DBT) se suele trabajar en cuatro grupos de habilidades:\n\n- **Mindfulness:** notar lo que pasa adentro sin juzgarlo.\n- **Tolerancia al malestar:** atravesar una crisis sin empeorarla (por ejemplo, STOP y TIPP).\n- **Regulación emocional:** entender las emociones, bajar la vulnerabilidad y usar la acción opuesta.\n- **Efectividad interpersonal:** pedir lo que necesitás y poner límites cuidando el vínculo.\n\nTambién se usan **registros** para ver la cadena de cada emoción intensa y encontrar dónde intervenir."
+    },
+    {
+      "id": "mito_reprimir",
+      "type": "choice",
+      "prompt": "Verdadero o falso: «Para regularme tengo que dejar de sentir lo que siento».",
+      "options": ["Verdadero", "Falso"],
+      "feedback": {
+        "Verdadero": "**Es un error muy común.** Intentar no sentir suele hacer que la emoción vuelva más fuerte. Regularse es poder sentir, ponerle nombre y elegir qué hacer, no apagar la emoción.",
+        "Falso": "**Exacto.** Regular no es reprimir. Es poder sentir sin que la emoción decida todo por vos."
+      }
+    },
+    {
+      "id": "mito_ola",
+      "type": "choice",
+      "prompt": "Si no hacés nada para sacártela de encima, ¿qué pasa con una emoción muy intensa?",
+      "options": ["Sigue subiendo para siempre", "Llega a un pico y después baja", "Se vuelve peligrosa"],
+      "feedback": {
+        "Sigue subiendo para siempre": "**Se siente así, pero no es lo que pasa.** Las emociones funcionan como olas: suben, llegan a un pico y bajan. Saberlo ayuda a atravesarlas.",
+        "Llega a un pico y después baja": "**Sí.** Como una ola. Por eso muchas habilidades DBT apuntan a atravesar el pico sin hacer algo que empeore las cosas.",
+        "Se vuelve peligrosa": "**La emoción en sí no es peligrosa, aunque se sienta muy fuerte.** Lo que puede ser riesgoso es lo que hacemos para escapar de ella. Por eso se aprenden habilidades para atravesarla."
+      }
+    },
+    {
+      "id": "entre_sesiones",
+      "type": "info",
+      "title": "Qué podés hacer entre sesiones",
+      "content": "- **Cuidá tu vulnerabilidad:** dormir, comer regularmente, moverte un poco y bajar el consumo de alcohol u otras sustancias.\n- **Ponele nombre** a lo que sentís, aunque sea aproximado.\n- **Practicá una habilidad** cuando estés tranquilo o tranquila, para que esté a mano en una crisis. En esta sección tenés una práctica con STOP, TIPP y acción opuesta.\n- **Registrá** una emoción intensa para revisarla en sesión.\n- **Usá Calmarme** cuando lo necesites."
+    },
+    {
+      "id": "me_llevo",
+      "type": "text",
+      "prompt": "¿Qué te llevás de este recurso?",
+      "placeholder": "Me llevo…"
+    },
+    {
+      "id": "cierre",
+      "type": "reflect",
+      "title": "Lo que te llevás",
+      "template": "{{me_llevo}}",
+      "content": "Gracias por darte este tiempo. Sentir intensamente no es un defecto: es algo con lo que se puede aprender a convivir mejor."
+    }
+  ],
+  "material": {
+    "title": "Entender las emociones intensas",
+    "description": "La función de las emociones, la ventana de tolerancia, la cadena vulnerabilidad–emoción–acción de la DBT y por qué las emociones son olas.",
+    "category": "regulacion-emocional"
+  }
+}

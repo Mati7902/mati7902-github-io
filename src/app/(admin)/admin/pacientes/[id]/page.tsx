@@ -6,6 +6,8 @@ import { ClipboardList, FileSignature, Pencil } from "lucide-react";
 import { AppointmentListClient } from "@/components/admin/agenda/agenda-client";
 import { NewAppointmentDialog } from "@/components/admin/agenda/new-appointment-dialog";
 import { AssignExerciseForm, AssignMaterialForm } from "@/components/admin/patients/assign-forms";
+import { ClinicalFocusPanel } from "@/components/admin/patients/clinical-focus-panel";
+import { PatientTestsPanel } from "@/components/admin/patients/patient-tests-panel";
 import { ExerciseResponseList } from "@/components/exercises/exercise-response-list";
 import { MoodTrendChart } from "@/components/emotions/mood-trend-chart";
 import { PatientAccessControls } from "@/components/admin/patients/patient-access-controls";
@@ -23,6 +25,9 @@ import { commitmentProgress, getLatestConsent } from "@/server/services/consent"
 import { ageFrom } from "@/lib/exercises/collections";
 import { toDateKey } from "@/lib/dates";
 import { dailyMood } from "@/lib/mood";
+import { ASSIGNABLE_TESTS, CLINICAL_FOCI } from "@/lib/clinical/focus";
+import { TESTS } from "@/lib/guia/tests-data";
+import { getClinicalFocus, listTestAssignments, listTestResponses, materialsBySlug } from "@/server/services/clinical";
 import { listMoodEntries } from "@/server/services/emotional-logs";
 import { getIntakeStatus } from "@/server/services/intake";
 import { listSharedResponses } from "@/server/services/exercises";
@@ -71,6 +76,34 @@ export default async function PatientDetailPage({ params }: { params: Promise<{ 
   const past = appointments.filter((a) => !upcoming.some((u) => u.id === a.id)).slice(0, 10);
   const sharedLogs = logCount ?? 0;
   // RLS: solo devuelve registros si el paciente comparte; si no, la lista queda vacía.
+  const allFocusSlugs = [...new Set(CLINICAL_FOCI.flatMap((f) => f.materials))];
+  const [focusRows, focusMaterials, testAssignments, testResponses] = await Promise.all([
+    getClinicalFocus(supabase, patient.id),
+    materialsBySlug(supabase, allFocusSlugs),
+    listTestAssignments(supabase, patient.id),
+    listTestResponses(supabase, patient.id),
+  ]);
+  const assignedMaterialIds = new Set(assigned.map((a) => a.material_id));
+  const focusMaterialInfo = allFocusSlugs.flatMap((slug) => {
+    const m = focusMaterials.get(slug);
+    return m ? [{ slug, title: m.title, published: m.published, assigned: assignedMaterialIds.has(m.id) }] : [];
+  });
+  const testName = (id: string) => TESTS.find((t) => t.id === id)?.name ?? id;
+  const testRows = testAssignments
+    .filter((a) => a.status !== "cancelled")
+    .map((a) => {
+      const r = testResponses.find((x) => x.assignment_id === a.id);
+      return {
+        id: a.id,
+        testId: a.test_id,
+        testName: testName(a.test_id),
+        status: a.status,
+        assignedAt: a.assigned_at,
+        dueOn: a.due_on,
+        showResult: a.show_result,
+        response: r ? { score: r.score, max: r.max_score, band: r.band_label, level: r.level, summary: r.summary, risk: r.risk, completedAt: r.completed_at } : null,
+      };
+    });
   const moodDays = patient.share_records_with_professional ? dailyMood(await listMoodEntries(supabase, patient.id, 90), scheduling.timezone) : [];
 
   return (
@@ -156,6 +189,28 @@ export default async function PatientDetailPage({ params }: { params: Promise<{ 
             </ul>
           </details>
         ) : null}
+      </section>
+
+      <section className="grid gap-6 lg:grid-cols-2">
+        <div className="surface-card space-y-4 p-6" aria-labelledby="diagnostico">
+          <div className="space-y-1">
+            <h2 id="diagnostico" className="font-display text-lg font-medium">Diagnóstico y recursos</h2>
+            <p className="text-sm text-muted-foreground">Elegí el diagnóstico probable: se sugieren los materiales y tests de ese cuadro. Al confirmar, el paciente ve solo lo que dejaste tildado.</p>
+          </div>
+          <ClinicalFocusPanel
+            patientId={patient.id}
+            current={focusRows.map((f) => ({ key: f.focus_key, icd10: f.icd10, note: f.note }))}
+            materials={focusMaterialInfo}
+            pendingTests={testAssignments.filter((a) => a.status === "pending").map((a) => a.test_id)}
+          />
+        </div>
+        <div className="surface-card space-y-4 p-6" aria-labelledby="tests-paciente">
+          <div className="space-y-1">
+            <h2 id="tests-paciente" className="font-display text-lg font-medium">Tests</h2>
+            <p className="text-sm text-muted-foreground">El paciente los responde desde su panel. El puntaje lo calcula la plataforma.</p>
+          </div>
+          <PatientTestsPanel patientId={patient.id} rows={testRows} options={ASSIGNABLE_TESTS.map((t) => ({ id: t.id, name: t.name, full: t.full }))} />
+        </div>
       </section>
 
       <section className="grid gap-6 lg:grid-cols-2">

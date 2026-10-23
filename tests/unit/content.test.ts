@@ -5,11 +5,11 @@ import { describe, expect, it } from "vitest";
 import { z } from "zod";
 
 // @ts-expect-error: módulo JavaScript de scripts/ sin tipos
-import { buildContentSql, CONTENT_SQL_PATH, loadContent } from "../../scripts/build-content-sql.mjs";
+import { buildContentSql, CONTENT_SETS, loadContent } from "../../scripts/build-content-sql.mjs";
 import { COLLECTIONS } from "@/lib/exercises/collections";
 import { type ExerciseStep, stepsSchema } from "@/lib/exercises/steps";
 
-const CATEGORIES = ["ansiedad", "depresion", "autoestima", "tdah", "regulacion-emocional", "relaciones", "comunicacion", "sueno", "estres", "habitos", "duelo", "adicciones", "padres", "adolescentes", "psicoeducacion"];
+const CATEGORIES = ["ansiedad", "depresion", "autoestima", "tdah", "regulacion-emocional", "relaciones", "comunicacion", "sueno", "estres", "habitos", "duelo", "adicciones", "padres", "adolescentes", "psicoeducacion", "trauma", "toc", "alimentacion"];
 const EXISTING_SLUGS = readFileSync("supabase/migrations/20261005000006_reference_data.sql", "utf8").match(/^\s*\('([a-z0-9-]+)', '[^']+', '[^']*', '(?:breathing|grounding|mindful_pause|thought_record|values|committed_action|defusion|dbt_skill|custom)'/gm)?.map((l) => /\('([a-z0-9-]+)'/.exec(l)![1]) ?? [];
 
 const contentSchema = z.object({
@@ -29,7 +29,9 @@ const contentSchema = z.object({
 });
 
 type Item = z.infer<typeof contentSchema>;
-const items = loadContent() as Item[];
+type ContentSet = { dir: string; sqlPath: string; title: string };
+const sets = CONTENT_SETS as ContentSet[];
+const items = sets.flatMap((set) => loadContent(set.dir)) as Item[];
 
 /** Textos visibles de un paso (para revisar teléfonos y largo). */
 function texts(step: ExerciseStep): string[] {
@@ -103,7 +105,17 @@ describe("contenido de los cuadernillos (supabase/content/ejercicios)", () => {
     expect(orders.filter((o, i) => orders.indexOf(o) !== i)).toEqual([]);
   });
 
-  it("la migración está al día con los JSON (si falla: pnpm db:contenido)", () => {
-    expect(readFileSync(CONTENT_SQL_PATH, "utf8")).toBe(buildContentSql());
+  it.each(sets.map((set) => [set.sqlPath.split("/").pop()!, set] as const))("%s está al día con los JSON (si falla: pnpm db:contenido)", (_name, set) => {
+    expect(readFileSync(set.sqlPath, "utf8")).toBe(buildContentSql(loadContent(set.dir), set.title));
+  });
+
+  it("los recursos por cuadro son de la colección que solo se ve si está asignada", () => {
+    for (const item of loadContent(sets[1]!.dir) as Item[]) {
+      expect(item.collection).toBe("cuadros");
+      expect(item.sort_order).toBeGreaterThanOrEqual(300);
+      expect(item.sort_order).toBeLessThanOrEqual(399);
+      expect(item.material, `${item.slug} sin material`).toBeDefined();
+    }
+    expect(COLLECTIONS.cuadros?.assignedOnly).toBe(true);
   });
 });

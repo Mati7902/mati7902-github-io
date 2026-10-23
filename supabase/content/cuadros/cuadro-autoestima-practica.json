@@ -1,0 +1,103 @@
+{
+  "slug": "cuadro-autoestima-practica",
+  "title": "Logros, cualidades y la voz de un amigo",
+  "description": "Registrá logros y cualidades, y practicá responderle a tu voz crítica como le hablarías a alguien que querés.",
+  "kind": "custom",
+  "approach": "tcc",
+  "audience": "todos",
+  "collection": "cuadros",
+  "estimated_minutes": 12,
+  "sort_order": 323,
+  "source": "Recursos por cuadro clínico — borrador para revisión del Lic. Matías Sánchez (2026)",
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "title": "Entrenar otra mirada",
+      "content": "Cuando la autoestima está baja, la mente se especializa en ver lo que falta. Esta práctica tiene dos partes:\n\n- **Registrar logros y cualidades**, para entrenar la mirada a ver también lo que sí funciona.\n- **Responderle a la voz crítica** con la voz de un amigo o una amiga.\n\nNo hace falta creerte todo lo que escribas. Alcanza con intentarlo con honestidad."
+    },
+    {
+      "id": "seguridad",
+      "type": "info",
+      "title": "Si te sentís muy mal",
+      "content": "Si mientras hacés esto aparecen pensamientos de que no valés la pena o de hacerte daño, frená y **pedí ayuda ya**: a emergencias, a una línea de ayuda o en la guardia del hospital más cercano. En la app, la sección **Calmarme** tiene el recuadro «Si necesitás ayuda urgente» con los teléfonos.\n\nPodés retomar esta práctica otro día o hacerla en sesión."
+    },
+    {
+      "id": "logros",
+      "type": "list",
+      "prompt": "Anotá cosas que hiciste esta semana y te costaron, aunque sean chicas.",
+      "help": "Cuentan las cosas cotidianas: levantarte en un día difícil, pedir ayuda, terminar algo pendiente, cuidar a alguien.",
+      "count": 3,
+      "min": 1
+    },
+    {
+      "id": "cualidades",
+      "type": "checklist",
+      "prompt": "¿Qué cualidades mostraste en esas situaciones? Marcá las que veas.",
+      "options": ["Esfuerzo", "Paciencia", "Valentía", "Generosidad", "Honestidad", "Constancia", "Humor", "Cuidado por otros", "Creatividad", "Responsabilidad"],
+      "min": 1
+    },
+    {
+      "id": "otros_ven",
+      "type": "text",
+      "prompt": "¿Qué cualidad tuya diría alguien que te quiere, aunque a vos te cueste verla?",
+      "placeholder": "Mi amiga diría que soy…",
+      "optional": true
+    },
+    {
+      "id": "voz_intro",
+      "type": "info",
+      "title": "La voz crítica y la voz de un amigo",
+      "content": "Ahora pensá en una situación reciente en la que te criticaste con dureza. Vas a escribir **qué te dijo la voz crítica**, tal cual, y después vas a imaginar qué te diría **un buen amigo o una buena amiga** que te quiere y conoce lo que estás pasando.\n\nLa voz de un amigo no miente ni te dice que todo está perfecto: **reconoce lo difícil, te recuerda que es humano equivocarse y te habla con cariño.**"
+    },
+    {
+      "id": "situacion",
+      "type": "text",
+      "prompt": "¿Qué pasó? Describí la situación brevemente.",
+      "placeholder": "Por ejemplo: me olvidé de entregar algo en el trabajo"
+    },
+    {
+      "id": "voz_critica",
+      "type": "text",
+      "prompt": "¿Qué te dijo la voz crítica?",
+      "placeholder": "Por ejemplo: «Sos un desastre, siempre lo mismo»"
+    },
+    {
+      "id": "intensidad_antes",
+      "type": "scale",
+      "prompt": "¿Qué tan mal te hace sentir esa frase ahora?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísimo"
+    },
+    {
+      "id": "voz_amigo",
+      "type": "text",
+      "prompt": "¿Qué te diría un amigo o una amiga que te quiere, sobre esto mismo?",
+      "help": "Probá empezar con algo como: «Tiene sentido que te sientas así, porque…», «A cualquiera le puede pasar…», «Lo que sí hiciste bien fue…».",
+      "placeholder": "Tiene sentido que te sientas así…"
+    },
+    {
+      "id": "intensidad_despues",
+      "type": "scale",
+      "prompt": "Después de leer la voz de tu amigo, ¿qué tan mal te hace sentir la frase crítica?",
+      "min": 0,
+      "max": 10,
+      "min_label": "Nada",
+      "max_label": "Muchísimo"
+    },
+    {
+      "id": "resumen",
+      "type": "reflect",
+      "title": "Lo que registraste",
+      "template": "Esta semana logré: {{logros}}. Mostré: {{cualidades}}. Cuando la voz crítica me dijo «{{voz_critica}}», la voz de un amigo me respondió: «{{voz_amigo}}».",
+      "content": "Si la incomodidad bajó aunque sea un poco, es una señal de que esta voz se puede entrenar. Si no bajó, también está bien: **es una práctica, no un examen.** Podés repetirla cada vez que la voz crítica aparezca fuerte, y traerla a sesión."
+    }
+  ],
+  "material": {
+    "title": "Logros, cualidades y la voz de un amigo",
+    "description": "Registro de logros y cualidades, y práctica de autocompasión: responderle a la voz crítica con la voz de un amigo.",
+    "category": "autoestima"
+  }
+}
