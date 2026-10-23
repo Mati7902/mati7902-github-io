@@ -7,6 +7,7 @@ import { AppointmentListClient } from "@/components/admin/agenda/agenda-client";
 import { NewAppointmentDialog } from "@/components/admin/agenda/new-appointment-dialog";
 import { AssignExerciseForm, AssignMaterialForm } from "@/components/admin/patients/assign-forms";
 import { ExerciseResponseList } from "@/components/exercises/exercise-response-list";
+import { MoodTrendChart } from "@/components/emotions/mood-trend-chart";
 import { PatientAccessControls } from "@/components/admin/patients/patient-access-controls";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -21,6 +22,8 @@ import { getPatientOverview } from "@/server/services/admin-patients";
 import { commitmentProgress, getLatestConsent } from "@/server/services/consent";
 import { ageFrom } from "@/lib/exercises/collections";
 import { toDateKey } from "@/lib/dates";
+import { dailyMood } from "@/lib/mood";
+import { listMoodEntries } from "@/server/services/emotional-logs";
 import { getIntakeStatus } from "@/server/services/intake";
 import { listSharedResponses } from "@/server/services/exercises";
 import { getSetting, getSettings } from "@/server/services/settings";
@@ -67,6 +70,8 @@ export default async function PatientDetailPage({ params }: { params: Promise<{ 
     .map((a) => ({ ...a, patients: { id: patient.id, first_name: patient.first_name, last_name: patient.last_name, phone: patient.phone, whatsapp_phone: patient.whatsapp_phone, email: patient.email, profile_id: patient.profile_id } })) as AppointmentWithPatient[];
   const past = appointments.filter((a) => !upcoming.some((u) => u.id === a.id)).slice(0, 10);
   const sharedLogs = logCount ?? 0;
+  // RLS: solo devuelve registros si el paciente comparte; si no, la lista queda vacía.
+  const moodDays = patient.share_records_with_professional ? dailyMood(await listMoodEntries(supabase, patient.id, 90), scheduling.timezone) : [];
 
   return (
     <div className="space-y-8">
@@ -195,6 +200,18 @@ export default async function PatientDetailPage({ params }: { params: Promise<{ 
             </ul>
           )}
         </div>
+      </section>
+
+      <section className="surface-card space-y-4 p-6" aria-labelledby="animo-paciente">
+        <div className="space-y-1">
+          <h2 id="animo-paciente" className="font-display text-lg font-medium">Ánimo diario</h2>
+          <p className="text-sm text-muted-foreground">
+            {patient.share_records_with_professional
+              ? "Lo que registra el paciente en «Cómo me siento», de +1 (muy bajo) a +10 (muy bien). Promedio por día."
+              : "No comparte sus registros: su ánimo diario es privado. Puede activarlo desde su perfil."}
+          </p>
+        </div>
+        {patient.share_records_with_professional ? <MoodTrendChart days={moodDays} today={toDateKey(new Date(), scheduling.timezone)} who="professional" /> : null}
       </section>
 
       <section className="surface-card space-y-4 p-6">

@@ -7,15 +7,17 @@ import { toast } from "sonner";
 
 import { EmotionSelector } from "@/components/emotions/emotion-selector";
 import { EmotionSlider } from "@/components/emotions/emotion-slider";
+import { MoodScale } from "@/components/emotions/mood-scale";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
 import { saveEmotionalLogAction } from "@/server/actions/emotional-logs";
 
-type Step = { key: "emotions" | "intensity" | "situation" | "thought" | "behavior" | "need"; title: string; help?: string; optional?: boolean };
+type Step = { key: "mood" | "emotions" | "intensity" | "situation" | "thought" | "behavior" | "need"; title: string; help?: string; optional?: boolean };
 
 const STEPS: Step[] = [
-  { key: "emotions", title: "¿Cómo te sentís en este momento?", help: "Podés elegir hasta tres." },
+  { key: "mood", title: "¿Cómo está tu ánimo hoy?", help: "Elegí la insignia que mejor lo describa. Podés guardar ahora o contar un poco más." },
+  { key: "emotions", title: "¿Qué emociones notás?", help: "Podés elegir hasta tres.", optional: true },
   { key: "intensity", title: "¿Con qué intensidad?" },
   { key: "situation", title: "¿Qué estaba pasando?", help: "Un par de frases alcanzan.", optional: true },
   { key: "thought", title: "¿Qué pensamiento apareció?", optional: true },
@@ -26,20 +28,24 @@ const STEPS: Step[] = [
 export function EmotionalLogForm() {
   const router = useRouter();
   const [index, setIndex] = useState(0);
+  const [mood, setMood] = useState<number | null>(null);
   const [emotions, setEmotions] = useState<string[]>([]);
   const [intensity, setIntensity] = useState(5);
   const [texts, setTexts] = useState<Record<string, string>>({});
   const [pending, startTransition] = useTransition();
 
-  const step = STEPS[index]!;
-  const isLast = index === STEPS.length - 1;
-  const canContinue = step.key !== "emotions" || emotions.length > 0;
+  // La intensidad solo se pregunta si eligió emociones.
+  const steps = emotions.length > 0 ? STEPS : STEPS.filter((s) => s.key !== "intensity");
+  const step = steps[index]!;
+  const isLast = index === steps.length - 1;
+  const canContinue = step.key === "mood" ? mood !== null : step.key !== "emotions" || emotions.length > 0 || mood !== null;
 
   const submit = () =>
     startTransition(async () => {
       const result = await saveEmotionalLogAction({
+        mood,
         emotions,
-        intensity,
+        intensity: emotions.length > 0 ? intensity : null,
         situation: texts.situation ?? null,
         thought: texts.thought ?? null,
         behavior: texts.behavior ?? null,
@@ -59,9 +65,9 @@ export function EmotionalLogForm() {
   return (
     <div className="mx-auto flex max-w-lg flex-col gap-8">
       <div className="space-y-2">
-        <Progress value={((index + 1) / STEPS.length) * 100} aria-label={`Paso ${index + 1} de ${STEPS.length}`} />
+        <Progress value={((index + 1) / steps.length) * 100} aria-label={`Paso ${index + 1} de ${steps.length}`} />
         <p className="text-xs text-muted-foreground">
-          Paso {index + 1} de {STEPS.length}
+          Paso {index + 1} de {steps.length}
         </p>
       </div>
 
@@ -72,9 +78,10 @@ export function EmotionalLogForm() {
           {step.optional ? <p className="text-xs text-subtle-foreground">Opcional. Podés saltarlo.</p> : null}
         </div>
 
+        {step.key === "mood" ? <MoodScale value={mood} onChange={setMood} /> : null}
         {step.key === "emotions" ? <EmotionSelector value={emotions} onChange={setEmotions} /> : null}
         {step.key === "intensity" ? <EmotionSlider value={intensity} onChange={setIntensity} /> : null}
-        {step.key !== "emotions" && step.key !== "intensity" ? (
+        {step.key !== "mood" && step.key !== "emotions" && step.key !== "intensity" ? (
           <Textarea
             autoFocus
             value={texts[step.key] ?? ""}
@@ -92,7 +99,12 @@ export function EmotionalLogForm() {
           <ArrowLeft aria-hidden /> Atrás
         </Button>
         <div className="flex gap-2">
-          {step.optional && !isLast ? (
+          {step.key === "mood" ? (
+            <Button type="button" variant="outline" onClick={submit} disabled={mood === null || pending}>
+              <Check aria-hidden /> Guardar ahora
+            </Button>
+          ) : null}
+          {step.optional && !isLast && (step.key !== "emotions" || mood !== null) ? (
             <Button type="button" variant="outline" onClick={() => setIndex((i) => i + 1)} disabled={pending}>
               Saltar
             </Button>
@@ -104,7 +116,7 @@ export function EmotionalLogForm() {
               </>
             ) : (
               <>
-                Continuar <ArrowRight aria-hidden />
+                {step.key === "mood" ? "Contar más" : "Continuar"} <ArrowRight aria-hidden />
               </>
             )}
           </Button>
