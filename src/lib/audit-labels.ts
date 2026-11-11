@@ -25,6 +25,7 @@ const AUDIT_ACTION_LABELS: Record<string, string> = {
   "availability.block_created": "Horario bloqueado",
   "availability.block_deleted": "Bloqueo eliminado",
   "patient.invited": "Paciente invitado",
+  "patient.data_exported": "El paciente descargó una copia de sus datos",
   "patient.intake_submitted": "Ficha de ingreso enviada",
   "patient.intake_viewed": "Ficha de ingreso consultada",
   "patient.treatment_consent_signed": "Consentimiento informado firmado",
