@@ -59,10 +59,21 @@ export async function requireSession(nextPath?: string): Promise<SessionContext>
   return session;
 }
 
-/** Exige rol administrador/profesional. */
+/**
+ * true si la cuenta tiene verificación en dos pasos y esta sesión todavía no pasó el segundo paso.
+ * La base aplica la misma regla (is_admin exige aal2), así que saltear esta pantalla no da acceso.
+ */
+export const secondFactorPending = cache(async (): Promise<boolean> => {
+  const supabase = await createClient();
+  const { data } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+  return data?.nextLevel === "aal2" && data.currentLevel !== "aal2";
+});
+
+/** Exige rol administrador/profesional (y el segundo paso, si la cuenta lo tiene activo). */
 export async function requireAdmin(): Promise<SessionContext> {
   const session = await requireSession("/admin");
   if (!session.isAdmin) redirect("/app");
+  if (await secondFactorPending()) redirect("/verificar");
   return session;
 }
 
@@ -105,6 +116,7 @@ export async function assertSession(): Promise<SessionContext> {
 export async function assertAdmin(): Promise<SessionContext> {
   const session = await assertSession();
   if (!session.isAdmin) throw new AppError("FORBIDDEN", "Esta acción requiere permisos de administrador.");
+  if (await secondFactorPending()) throw new AppError("UNAUTHENTICATED", "Falta el código de verificación. Recargá la página para ingresarlo.");
   return session;
 }
 

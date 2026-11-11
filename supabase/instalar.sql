@@ -3277,4 +3277,74 @@ where key = 'reminders'
   and not (value -> 'channels') ? 'email';
 -- Sin "channels" guardado se usan los valores por defecto, que ya incluyen email.
 
+-- >>> supabase/migrations/20261111000001_segundo_factor.sql
+
+-- ============================================================================
+-- Verificación en dos pasos para cuentas profesionales
+-- ----------------------------------------------------------------------------
+-- Si la cuenta tiene un segundo factor verificado (app de códigos), los permisos
+-- de administrador solo valen para sesiones que ya pasaron ese segundo paso
+-- (aal2). Así una contraseña robada no alcanza para leer datos de pacientes,
+-- ni desde la aplicación ni llamando a la API directamente.
+-- Las cuentas sin segundo factor siguen funcionando como hasta ahora.
+-- ============================================================================
+create or replace function public.second_factor_ok()
+returns boolean
+language plpgsql stable security definer set search_path = public as $$
+begin
+  return not exists (select 1 from auth.mfa_factors f where f.user_id = auth.uid() and f.status::text = 'verified')
+      or coalesce(auth.jwt() ->> 'aal', '') = 'aal2';
+exception
+  -- Sin acceso a la tabla de factores no se puede exigir el segundo paso: no se bloquea al profesional.
+  when undefined_table or insufficient_privilege then
+    return true;
+end $$;
+
+revoke all on function public.second_factor_ok() from public;
+grant execute on function public.second_factor_ok() to authenticated, service_role;
+
+create or replace function public.is_admin()
+returns boolean
+language sql stable security definer set search_path = public as $$
+  select coalesce(
+    (select role in ('admin', 'professional') from public.profiles where id = auth.uid() and is_active),
+    false
+  ) and public.second_factor_ok();
+$$;
+
+create or replace function public.is_staff()
+returns boolean
+language sql stable security definer set search_path = public as $$
+  select coalesce(
+    (select role in ('admin', 'professional', 'receptionist') from public.profiles where id = auth.uid() and is_active),
+    false
+  ) and public.second_factor_ok();
+$$;
+
+-- >>> supabase/migrations/20261111000002_telemetria_tecnica.sql
+
+-- ============================================================================
+-- Telemetría técnica: rendimiento (Web Vitals) y errores de pantalla
+-- ----------------------------------------------------------------------------
+-- Solo datos técnicos: métrica, valor, tipo de página y tipo de dispositivo.
+-- Sin usuario, sin IP y sin contenido. La ruta se guarda como plantilla
+-- (los identificadores se reemplazan por ":id"). Escribe únicamente el servidor;
+-- lee solo el profesional. Se purga a los 90 días (cron de mantenimiento).
+-- ============================================================================
+create table if not exists public.tech_events (
+  id          bigint generated always as identity primary key,
+  kind        text not null check (kind in ('LCP', 'INP', 'CLS', 'FCP', 'TTFB', 'error')),
+  value       double precision not null check (value >= 0),
+  path        text not null check (char_length(path) <= 120),
+  device      text not null check (device in ('mobile', 'desktop')),
+  created_at  timestamptz not null default now()
+);
+create index if not exists tech_events_kind_created_idx on public.tech_events (kind, created_at desc);
+
+alter table public.tech_events enable row level security;
+drop policy if exists "tech_events: lee el profesional" on public.tech_events;
+create policy "tech_events: lee el profesional" on public.tech_events for select to authenticated using (public.is_admin());
+
+comment on table public.tech_events is 'Rendimiento y errores de pantalla, sin datos personales ni clínicos. Inserta solo el servidor (service_role).';
+
 commit;

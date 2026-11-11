@@ -615,6 +615,19 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
+                },"tech_events": {
+                  Row: {
+                    "created_at": string,"device": string,"id": number,"kind": string,"path": string,"value": number
+                  }
+                  Insert: {
+                    "created_at"?: string,"device": string,"id"?: never,"kind": string,"path": string,"value": number
+                  }
+                  Update: {
+                    "created_at"?: string,"device"?: string,"id"?: never,"kind"?: string,"path"?: string,"value"?: number
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"test_assignments": {
                   Row: {
                     "assigned_at": string,"assigned_by": string | null,"completed_at": string | null,"due_on": string | null,"focus_key": string | null,"id": string,"note": string | null,"patient_id": string,"show_result": boolean,"status": string,"test_id": string
