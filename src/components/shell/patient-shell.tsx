@@ -24,7 +24,7 @@ export function PatientShell({ children, platformName, logoUrl, brandName, brand
   return (
     <div className="flex min-h-dvh bg-background">
       {/* Sidebar escritorio */}
-      <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col border-r border-border/70 bg-sidebar px-4 py-6 md:flex">
+      <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col border-r border-border/70 bg-sidebar px-4 py-6 md:flex print:hidden">
         <Link href="/app" className="flex min-w-0 px-3 text-lg">
           <BrandMark name={brandName ?? platformName} subtitle={brandSubtitle} logoUrl={logoUrl} logoClassName="h-12" stacked />
         </Link>
@@ -59,7 +59,7 @@ export function PatientShell({ children, platformName, logoUrl, brandName, brand
 
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Barra superior */}
-        <header className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-border/60 bg-background/85 px-4 pt-safe backdrop-blur-md md:px-8">
+        <header className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-border/60 bg-background/85 px-4 pt-safe backdrop-blur-md md:px-8 print:hidden">
           <div className="flex h-14 min-w-0 items-center md:h-16">
             <Link href="/app" className="flex min-w-0 text-base md:hidden">
               <BrandMark name={brandName ?? platformName} logoUrl={logoUrl} logoClassName="h-8" />
@@ -87,12 +87,12 @@ export function PatientShell({ children, platformName, logoUrl, brandName, brand
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-3xl flex-1 px-4 pt-6 pb-28 md:px-8 md:pb-12">{children}</main>
+        <main className="mx-auto w-full max-w-3xl flex-1 px-4 pt-6 pb-28 md:px-8 md:pb-12 print:max-w-none print:p-0">{children}</main>
 
         {/* Bottom navigation móvil */}
         <nav
           aria-label="Navegación principal"
-          className="fixed inset-x-0 bottom-0 z-30 border-t border-border/70 bg-card/95 pb-safe backdrop-blur-md md:hidden"
+          className="fixed inset-x-0 bottom-0 z-30 border-t border-border/70 bg-card/95 pb-safe backdrop-blur-md md:hidden print:hidden"
         >
           <ul className="mx-auto grid max-w-lg grid-cols-5">
             {/* En el celular el perfil está en el avatar de arriba. */}

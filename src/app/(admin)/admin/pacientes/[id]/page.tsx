@@ -233,7 +233,12 @@ export default async function PatientDetailPage({ params }: { params: Promise<{ 
 
       <section className="surface-card space-y-4 p-6" aria-labelledby="progreso-paciente">
         <div className="space-y-1">
-          <h2 id="progreso-paciente" className="font-display text-lg font-medium">Objetivos y Mi Progreso</h2>
+          <div className="flex flex-wrap items-baseline justify-between gap-2">
+            <h2 id="progreso-paciente" className="font-display text-lg font-medium">Objetivos y Mi Progreso</h2>
+            <Link href={`/admin/pacientes/${patient.id}/cuadernillo`} className="text-sm font-medium text-primary hover:underline">
+              Cuadernillo personalizado →
+            </Link>
+          </div>
           <p className="text-sm text-muted-foreground">Los objetivos los ve el paciente en su inicio. Los desafíos cuentan días con práctica, sin penalizar los que no.</p>
         </div>
         <ProgressPanel

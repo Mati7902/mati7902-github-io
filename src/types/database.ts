@@ -667,6 +667,32 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
+                },"workbooks": {
+                  Row: {
+                    "created_at": string,"created_by": string | null,"id": string,"patient_id": string,"published_at": string | null,"published_version": number | null,"status": string,"title": string,"updated_at": string
+                  }
+                  Insert: {
+                    "created_at"?: string,"created_by"?: string | null,"id"?: string,"patient_id": string,"published_at"?: string | null,"published_version"?: number | null,"status"?: string,"title"?: string,"updated_at"?: string
+                  }
+                  Update: {
+                    "created_at"?: string,"created_by"?: string | null,"id"?: string,"patient_id"?: string,"published_at"?: string | null,"published_version"?: number | null,"status"?: string,"title"?: string,"updated_at"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"workbook_versions": {
+                  Row: {
+                    "approved_at": string | null,"approved_by": string | null,"content": Json,"created_at": string,"created_by": string | null,"id": string,"origin": string,"rules_version": string | null,"sources": Json,"version": number,"workbook_id": string
+                  }
+                  Insert: {
+                    "approved_at"?: string | null,"approved_by"?: string | null,"content": Json,"created_at"?: string,"created_by"?: string | null,"id"?: string,"origin"?: string,"rules_version"?: string | null,"sources"?: Json,"version": number,"workbook_id": string
+                  }
+                  Update: {
+                    "approved_at"?: string | null,"approved_by"?: string | null,"content"?: Json,"created_at"?: string,"created_by"?: string | null,"id"?: string,"origin"?: string,"rules_version"?: string | null,"sources"?: Json,"version"?: number,"workbook_id"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"test_assignments": {
                   Row: {
                     "assigned_at": string,"assigned_by": string | null,"completed_at": string | null,"due_on": string | null,"focus_key": string | null,"id": string,"note": string | null,"patient_id": string,"show_result": boolean,"status": string,"test_id": string
@@ -826,6 +852,8 @@ isOneToOne: false
             [_ in never]: never
           }
           Functions: {
+            "my_published_workbook":
+{ Args: Record<PropertyKey, never>; Returns: { content: Json; published_at: string; title: string; version: number; workbook_id: string }[] }
             "admin_monthly_stats":
 { Args: { "p_from": string,"p_to": string }; Returns: {
               "cancelled": number,"completed": number,"confirmed": number,"no_show": number,"presencial": number,"requested": number,"total": number,"virtual": number

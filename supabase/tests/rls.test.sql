@@ -730,6 +730,39 @@ select pg_temp.logout();
 rollback;
 
 -- ---------------------------------------------------------------------------
+-- 6f. Cuadernillos personalizados
+-- ---------------------------------------------------------------------------
+begin;
+select set_config('test.juan_id', (select id::text from public.patients where email = 'juan.perez@demo.local'), true);
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+insert into public.workbooks (id, patient_id) values ('77777777-7777-4777-8777-777777777777', current_setting('test.juan_id')::uuid);
+insert into public.workbook_versions (workbook_id, version, content, sources, origin) values
+  ('77777777-7777-4777-8777-777777777777', 1, '{"welcome":"borrador"}', '{"flags":["revisar autolesión"]}', 'rules');
+select pg_temp.expect_error($q$insert into public.workbooks (patient_id) values (current_setting('test.juan_id')::uuid)$q$, array['23505'], 'un solo cuadernillo en curso por paciente');
+select pg_temp.logout();
+-- Mientras es borrador, el paciente no ve nada.
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+select pg_temp.assert((select count(*) from public.workbooks) = 0, 'el paciente no ve el borrador');
+select pg_temp.assert((select count(*) from public.workbook_versions) = 0, 'el paciente nunca lee versiones ni fuentes');
+select pg_temp.assert((select count(*) from public.my_published_workbook()) = 0, 'sin publicar, no hay cuadernillo para el paciente');
+select pg_temp.logout();
+-- El profesional edita (versión 2) y publica.
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+insert into public.workbook_versions (workbook_id, version, content) values ('77777777-7777-4777-8777-777777777777', 2, '{"welcome":"aprobado"}');
+update public.workbooks set status = 'published', published_version = 2, published_at = now() where id = '77777777-7777-4777-8777-777777777777';
+select pg_temp.logout();
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+select pg_temp.assert((select content ->> 'welcome' from public.my_published_workbook()) = 'aprobado', 'el paciente lee solo la versión publicada');
+select pg_temp.assert((select count(*) from public.workbook_versions) = 0, 'publicado, igual no ve las fuentes de las sugerencias');
+update public.workbooks set title = 'cambiado';
+select pg_temp.assert((select title from public.workbooks) = 'Mi cuadernillo', 'el paciente no modifica el cuadernillo');
+select pg_temp.logout();
+select pg_temp.login('33333333-3333-4333-8333-333333333333');
+select pg_temp.assert((select count(*) from public.my_published_workbook()) = 0 and (select count(*) from public.workbooks) = 0, 'otro paciente no ve el cuadernillo ajeno');
+select pg_temp.logout();
+rollback;
+
+-- ---------------------------------------------------------------------------
 -- 7. Rate limiting (solo servidor)
 -- ---------------------------------------------------------------------------
 begin;

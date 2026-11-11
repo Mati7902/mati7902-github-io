@@ -7,6 +7,7 @@ import { patientUpdates } from "@/lib/intake/sync";
 import { createClient } from "@/lib/supabase/server";
 import { normalizePhone } from "@/lib/utils";
 import { audit } from "@/server/services/audit";
+import { draftAfterIntake } from "@/server/services/workbooks";
 import { getIntake, intakeAnswersOf, saveOwnIntake } from "@/server/services/intake";
 import { updateOwnPatientRecord } from "@/server/services/patients";
 
@@ -49,6 +50,8 @@ export async function saveIntakeAction(payload: SaveIntakePayload): Promise<Acti
     if (submit) {
       // Sin contenido: solo el hecho de que se envió.
       await audit(supabase, "patient.intake_submitted", { type: "patient", id: patient.id }, { form_version: intake.form_version });
+      // Borrador del cuadernillo personalizado: lo revisa y aprueba el profesional; el paciente no lo ve.
+      await draftAfterIntake(patient.id);
     }
     // Sin revalidatePath: refrescaría la página abierta en medio del formulario (y al enviar la
     // cambiaría por la vista de la ficha). Las páginas son dinámicas y el formulario navega solo.
