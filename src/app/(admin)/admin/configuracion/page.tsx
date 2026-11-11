@@ -10,7 +10,6 @@ import { IdentityForm } from "@/components/admin/settings/identity-form";
 import { LocationsEditor } from "@/components/admin/settings/locations-editor";
 import { RemindersForm } from "@/components/admin/settings/reminders-form";
 import { SchedulingForm } from "@/components/admin/settings/scheduling-form";
-import { SecondFactorCard } from "@/components/admin/settings/second-factor-card";
 import { TestimonialsEditor } from "@/components/admin/settings/testimonials-form";
 import { PageHeader } from "@/components/ui/page-header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -41,8 +40,6 @@ export default async function SettingsPage({ searchParams }: { searchParams: Pro
     supabase.from("testimonials").select("*").order("sort_order").order("created_at"),
     supabase.from("calendar_integrations").select("external_account_email, last_synced_at, last_error, is_active").eq("owner_profile_id", session.userId).eq("provider", "google").maybeSingle(),
   ]);
-  const { data: factors } = await supabase.auth.mfa.listFactors();
-  const secondFactorEnabled = Boolean(factors?.totp.some((f) => f.status === "verified"));
   // Firmas de la versión vigente (para avisar al editar el texto).
   const { count: consentCount } = await supabase.from("treatment_consents").select("id", { count: "exact", head: true }).eq("version", settings.treatment_consent.version);
   const { sesiones: _sessions, ...consentPreviewParams } = consentParams(settings["site.identity"], settings.scheduling, settings.treatment_consent.sessions);
@@ -129,11 +126,7 @@ export default async function SettingsPage({ searchParams }: { searchParams: Pro
           <ThemeForm initial={settings.theme} />
         </TabsContent>
 
-        <TabsContent value="preferencias" className="max-w-3xl space-y-8">
-          <section className="space-y-3">
-            <h2 className="font-display text-xl font-medium">Seguridad de tu cuenta</h2>
-            <SecondFactorCard enabled={secondFactorEnabled} />
-          </section>
+        <TabsContent value="preferencias" className="max-w-3xl">
           <PreferencesForm gamification={settings.gamification} legal={settings.legal} />
         </TabsContent>
       </Tabs>

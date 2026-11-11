@@ -693,30 +693,6 @@ select pg_temp.logout();
 rollback;
 
 -- ---------------------------------------------------------------------------
--- 6e. Verificación en dos pasos del profesional
--- ---------------------------------------------------------------------------
-begin;
-select pg_temp.login('11111111-1111-4111-8111-111111111111');
-select pg_temp.assert(public.is_admin(), 'sin segundo factor configurado, el profesional entra como siempre');
-select pg_temp.logout();
-insert into auth.mfa_factors (user_id, status) values ('11111111-1111-4111-8111-111111111111', 'unverified');
-select pg_temp.login('11111111-1111-4111-8111-111111111111');
-select pg_temp.assert(public.is_admin(), 'un factor sin verificar no exige el segundo paso');
-select pg_temp.logout();
-update auth.mfa_factors set status = 'verified';
-select pg_temp.login('11111111-1111-4111-8111-111111111111');
-select pg_temp.assert(not public.is_admin(), 'con segundo factor, la contraseña sola no da permisos de administrador');
-select pg_temp.assert((select count(*) from public.patients) = 0, 'sin el segundo paso no se leen pacientes');
-select set_config('request.jwt.claims', json_build_object('sub', '11111111-1111-4111-8111-111111111111', 'role', 'authenticated', 'aal', 'aal2')::text, true);
-select pg_temp.assert(public.is_admin(), 'después del segundo paso (aal2) vuelve a ser administrador');
-select pg_temp.assert((select count(*) from public.patients) > 0, 'con el segundo paso lee pacientes');
-select pg_temp.logout();
-select pg_temp.login('22222222-2222-4222-8222-222222222222');
-select pg_temp.assert((select count(*) from public.patients) = 1, 'el factor del profesional no afecta a los pacientes');
-select pg_temp.logout();
-rollback;
-
--- ---------------------------------------------------------------------------
 -- 7. Rate limiting (solo servidor)
 -- ---------------------------------------------------------------------------
 begin;
