@@ -693,6 +693,43 @@ select pg_temp.logout();
 rollback;
 
 -- ---------------------------------------------------------------------------
+-- 6e. Mi Progreso: objetivos, preferencias y desafíos
+-- ---------------------------------------------------------------------------
+begin;
+select set_config('test.juan_id', (select id::text from public.patients where email = 'juan.perez@demo.local'), true);
+select set_config('test.ana_id', (select id::text from public.patients where email <> 'juan.perez@demo.local' order by created_at limit 1), true);
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+insert into public.therapy_goals (patient_id, title) values (current_setting('test.juan_id')::uuid, 'Dormir mejor');
+insert into public.progress_challenges (patient_id, challenge, days, target, starts_on) values (current_setting('test.juan_id')::uuid, 'observacion-emocional', 7, 5, current_date);
+select pg_temp.expect_error($q$insert into public.progress_challenges (patient_id, challenge, days, target, starts_on) values (current_setting('test.juan_id')::uuid, 'x-y', 3, 5, current_date)$q$, array['23514'], 'la meta de un desafío no supera sus días');
+select pg_temp.logout();
+-- Paciente
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+select pg_temp.assert((select count(*) from public.therapy_goals) = 1, 'el paciente ve sus objetivos');
+select pg_temp.assert((select count(*) from public.progress_challenges) = 1, 'el paciente ve sus desafíos');
+select pg_temp.expect_error($q$insert into public.therapy_goals (patient_id, title) values (current_setting('test.juan_id')::uuid, 'Otro')$q$, array['42501'], 'el paciente no crea objetivos');
+update public.progress_challenges set target = 1;
+select pg_temp.assert((select target from public.progress_challenges) = 5, 'el paciente no modifica desafíos');
+insert into public.progress_prefs (patient_id, weekly_goal, professional_enabled) values (current_setting('test.juan_id')::uuid, 2, false);
+select pg_temp.assert((select weekly_goal = 2 and professional_enabled is null from public.progress_prefs), 'el paciente guarda su meta, pero no decide la opción del profesional');
+select pg_temp.expect_error($q$insert into public.progress_prefs (patient_id) values (current_setting('test.ana_id')::uuid)$q$, array['42501'], 'el paciente no crea preferencias de otro');
+select pg_temp.logout();
+-- El profesional apaga Mi Progreso para el paciente; el paciente no lo puede volver a encender.
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+update public.progress_prefs set professional_enabled = false where patient_id = current_setting('test.juan_id')::uuid;
+select pg_temp.logout();
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+select pg_temp.expect_error($q$update public.progress_prefs set professional_enabled = true$q$, array['42501'], 'el paciente no enciende lo que el profesional apagó');
+update public.progress_prefs set weekly_goal = 4, paused_until = current_date + 7;
+select pg_temp.assert((select weekly_goal = 4 and paused_until is not null and professional_enabled = false from public.progress_prefs), 'el paciente ajusta su meta y pausa sin tocar la opción del profesional');
+select pg_temp.logout();
+-- Otra paciente no ve nada
+select pg_temp.login('33333333-3333-4333-8333-333333333333');
+select pg_temp.assert((select count(*) from public.therapy_goals) + (select count(*) from public.progress_challenges) + (select count(*) from public.progress_prefs) = 0, 'otro paciente no ve objetivos, desafíos ni preferencias ajenas');
+select pg_temp.logout();
+rollback;
+
+-- ---------------------------------------------------------------------------
 -- 7. Rate limiting (solo servidor)
 -- ---------------------------------------------------------------------------
 begin;

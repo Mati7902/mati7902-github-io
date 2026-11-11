@@ -95,7 +95,8 @@ export function PatientShell({ children, platformName, logoUrl, brandName, brand
           className="fixed inset-x-0 bottom-0 z-30 border-t border-border/70 bg-card/95 pb-safe backdrop-blur-md md:hidden"
         >
           <ul className="mx-auto grid max-w-lg grid-cols-5">
-            {patientNav.map((item) => (
+            {/* En el celular el perfil está en el avatar de arriba. */}
+            {patientNav.filter((item) => item.href !== "/app/perfil").map((item) => (
               <li key={item.href}>
                 <NavLink
                   href={item.href}

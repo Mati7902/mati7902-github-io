@@ -628,6 +628,45 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
+                },"therapy_goals": {
+                  Row: {
+                    "achieved_at": string | null,"created_at": string,"created_by": string | null,"detail": string | null,"id": string,"patient_id": string,"sort_order": number,"status": string,"title": string,"updated_at": string
+                  }
+                  Insert: {
+                    "achieved_at"?: string | null,"created_at"?: string,"created_by"?: string | null,"detail"?: string | null,"id"?: string,"patient_id": string,"sort_order"?: number,"status"?: string,"title": string,"updated_at"?: string
+                  }
+                  Update: {
+                    "achieved_at"?: string | null,"created_at"?: string,"created_by"?: string | null,"detail"?: string | null,"id"?: string,"patient_id"?: string,"sort_order"?: number,"status"?: string,"title"?: string,"updated_at"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"progress_prefs": {
+                  Row: {
+                    "badges_enabled": boolean,"patient_id": string,"paused_until": string | null,"professional_enabled": boolean | null,"updated_at": string,"weekly_goal": number
+                  }
+                  Insert: {
+                    "badges_enabled"?: boolean,"patient_id": string,"paused_until"?: string | null,"professional_enabled"?: boolean | null,"updated_at"?: string,"weekly_goal"?: number
+                  }
+                  Update: {
+                    "badges_enabled"?: boolean,"patient_id"?: string,"paused_until"?: string | null,"professional_enabled"?: boolean | null,"updated_at"?: string,"weekly_goal"?: number
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"progress_challenges": {
+                  Row: {
+                    "challenge": string,"created_at": string,"created_by": string | null,"days": number,"id": string,"note": string | null,"patient_id": string,"starts_on": string,"status": string,"target": number
+                  }
+                  Insert: {
+                    "challenge": string,"created_at"?: string,"created_by"?: string | null,"days": number,"id"?: string,"note"?: string | null,"patient_id": string,"starts_on": string,"status"?: string,"target": number
+                  }
+                  Update: {
+                    "challenge"?: string,"created_at"?: string,"created_by"?: string | null,"days"?: number,"id"?: string,"note"?: string | null,"patient_id"?: string,"starts_on"?: string,"status"?: string,"target"?: number
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"test_assignments": {
                   Row: {
                     "assigned_at": string,"assigned_by": string | null,"completed_at": string | null,"due_on": string | null,"focus_key": string | null,"id": string,"note": string | null,"patient_id": string,"show_result": boolean,"status": string,"test_id": string

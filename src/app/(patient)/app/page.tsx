@@ -7,16 +7,18 @@ import { ConsentCard } from "@/components/consent/consent-card";
 import { IntakeCard } from "@/components/intake/intake-card";
 import { PatientAppointmentActions } from "@/components/appointments/patient-appointment-actions";
 import { QuickActions } from "@/components/patient/quick-actions";
+import { TodayCard } from "@/components/progress/today-card";
 import { Button } from "@/components/ui/button";
 import { requirePatient } from "@/lib/auth/session";
+import { toDateKey } from "@/lib/dates";
 import { answeredCount } from "@/lib/intake/form";
 import { createClient } from "@/lib/supabase/server";
 import { canPatientModify, canPrepareSession, getNextAppointment } from "@/server/services/appointments";
 import { getLatestConsent } from "@/server/services/consent";
-import { weeklyExerciseCount } from "@/server/services/exercises";
 import { getIntake, intakeAnswersOf } from "@/server/services/intake";
 import { getPublicSettingsSafe } from "@/server/services/public-settings";
 import { getSessionPreparation } from "@/server/services/session-prep";
+import { getPatientProgress, nextSuggestedPractice } from "@/server/services/progress";
 import { getSettings } from "@/server/services/settings";
 
 export const metadata: Metadata = { title: "Inicio" };
@@ -30,10 +32,10 @@ function greeting(hour: number): string {
 export default async function PatientHomePage() {
   const { patient } = await requirePatient();
   const supabase = await createClient();
-  const [next, settings, weekly, intake, publicSettings, consent] = await Promise.all([
+  const [next, settings, suggestion, intake, publicSettings, consent] = await Promise.all([
     getNextAppointment(supabase, patient.id),
     getSettings(supabase, ["scheduling", "gamification", "treatment_consent"] as const),
-    weeklyExerciseCount(supabase, patient.id),
+    nextSuggestedPractice(supabase, patient.id),
     // Si la ficha no se puede leer, el inicio igual tiene que cargar (no se muestra el aviso).
     getIntake(supabase, patient.id).catch(() => undefined),
     getPublicSettingsSafe(),
@@ -46,6 +48,8 @@ export default async function PatientHomePage() {
   const consentPending = consentSettings.enabled && consent === null;
   const prep = next ? await getSessionPreparation(supabase, next.id) : null;
   const tz = settings.scheduling.timezone;
+  // Si Mi Progreso falla, el inicio carga igual (sin la tarjeta).
+  const progress = await getPatientProgress(supabase, patient.id, { tz, todayKey: toDateKey(new Date(), tz), globalEnabled: settings.gamification.enabled }).catch(() => null);
   const hour = Number(new Intl.DateTimeFormat("es-PY", { hour: "numeric", hour12: false, timeZone: tz }).format(new Date()));
   const canPrepare = next ? canPrepareSession(next, settings.scheduling) : false;
 
@@ -56,6 +60,8 @@ export default async function PatientHomePage() {
         <h1 className="font-display text-3xl font-medium sm:text-4xl">Hola, {patient.first_name}.</h1>
         <p className="text-lg text-muted-foreground">¿Cómo estás hoy?</p>
       </header>
+
+      {progress?.enabled && !needsConsent ? <TodayCard summary={progress.summary} paused={progress.paused} goals={progress.goals} suggestion={suggestion} /> : null}
 
       {needsConsent ? <ConsentCard updated={consent !== null} sessions={consentSettings.sessions} /> : null}
 
@@ -107,11 +113,6 @@ export default async function PatientHomePage() {
 
       <QuickActions prepareHref={canPrepare && next ? `/app/preparar-sesion/${next.id}` : null} />
 
-      {settings.gamification.enabled && settings.gamification.weekly_summary && weekly > 0 ? (
-        <p className="rounded-2xl bg-mint-50 px-5 py-4 text-sm text-mint-700">
-          Completaste {weekly} {weekly === 1 ? "ejercicio" : "ejercicios"} esta semana.
-        </p>
-      ) : null}
     </div>
   );
 }

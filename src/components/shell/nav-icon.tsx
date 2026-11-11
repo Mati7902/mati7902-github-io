@@ -10,6 +10,7 @@ import {
   MessageCircle,
   Settings,
   Sparkles,
+  TrendingUp,
   User,
   Users,
 } from "lucide-react";
@@ -17,6 +18,7 @@ import {
 const ICONS: Record<string, LucideIcon> = {
   home: Home,
   sparkles: Sparkles,
+  "trending-up": TrendingUp,
   calendar: Calendar,
   library: Library,
   user: User,
