@@ -719,6 +719,19 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
+                },"clinical_reviews": {
+                  Row: {
+                    "item_id": string,"item_type": string,"reviewed_at": string,"reviewed_by": string | null
+                  }
+                  Insert: {
+                    "item_id": string,"item_type": string,"reviewed_at"?: string,"reviewed_by"?: string | null
+                  }
+                  Update: {
+                    "item_id"?: string,"item_type"?: string,"reviewed_at"?: string,"reviewed_by"?: string | null
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"test_assignments": {
                   Row: {
                     "assigned_at": string,"assigned_by": string | null,"completed_at": string | null,"due_on": string | null,"focus_key": string | null,"id": string,"note": string | null,"patient_id": string,"show_result": boolean,"status": string,"test_id": string

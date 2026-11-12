@@ -780,6 +780,20 @@ select pg_temp.logout();
 rollback;
 
 -- ---------------------------------------------------------------------------
+-- 6h. Bandeja «Para revisar»
+-- ---------------------------------------------------------------------------
+begin;
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+insert into public.clinical_reviews (item_type, item_id) values ('intake', gen_random_uuid());
+select pg_temp.assert((select count(*) from public.clinical_reviews) = 1, 'el profesional marca ítems como revisados');
+select pg_temp.logout();
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+select pg_temp.assert((select count(*) from public.clinical_reviews) = 0, 'el paciente no ve la bandeja del profesional');
+select pg_temp.expect_error($q$insert into public.clinical_reviews (item_type, item_id) values ('intake', gen_random_uuid())$q$, array['42501'], 'el paciente no marca revisiones');
+select pg_temp.logout();
+rollback;
+
+-- ---------------------------------------------------------------------------
 -- 7. Rate limiting (solo servidor)
 -- ---------------------------------------------------------------------------
 begin;

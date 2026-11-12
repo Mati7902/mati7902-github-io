@@ -4,6 +4,8 @@ import { CalendarCheck, CalendarClock, CalendarX, Users } from "lucide-react";
 
 import { AppointmentListClient } from "@/components/admin/agenda/agenda-client";
 import { NewAppointmentDialog } from "@/components/admin/agenda/new-appointment-dialog";
+import { QuickAssign } from "@/components/admin/quick-assign";
+import { ReviewInbox } from "@/components/admin/review-inbox";
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/ui/page-header";
 import { StatCard } from "@/components/ui/stat-card";
@@ -12,6 +14,9 @@ import { toDateKey, zonedToUtc, addDays } from "@/lib/dates";
 import { createClient } from "@/lib/supabase/server";
 import { ADMIN_APPOINTMENT_SELECT, listAppointmentsBetween } from "@/server/services/appointments";
 import { getSetting } from "@/server/services/settings";
+import { getReviewInbox } from "@/server/services/review-inbox";
+import { ASSIGNABLE_TESTS } from "@/lib/clinical/focus";
+import { COLLECTIONS } from "@/lib/exercises/collections";
 import type { AppointmentWithPatient } from "@/types/domain";
 
 export const metadata: Metadata = { title: "Hoy" };
@@ -40,6 +45,12 @@ export default async function AdminTodayPage() {
     supabase.from("appointments").select("id", { count: "exact", head: true }).eq("status", "cancelled").gte("cancelled_at", dayStart.toISOString()).lt("cancelled_at", dayEnd.toISOString()),
   ]);
 
+  const [inbox, { data: templates }] = await Promise.all([
+    getReviewInbox(supabase).catch(() => []),
+    supabase.from("exercise_templates").select("id, title, collection").eq("is_active", true).order("sort_order"),
+  ]);
+  const exerciseOptions = (templates ?? []).map((t) => ({ id: t.id, label: t.title, group: (t.collection && COLLECTIONS[t.collection]?.title) || "Ejercicios" }));
+  const testOptions = ASSIGNABLE_TESTS.map((t) => ({ id: t.id, label: `${t.name} · ${t.full}`, group: "Tests" }));
   const active = today.filter((a) => a.status !== "cancelled");
   const confirmed = active.filter((a) => a.status === "confirmed").length;
   const pendingToday = active.filter((a) => ["pending", "rescheduled", "requested"].includes(a.status)).length;
@@ -62,6 +73,19 @@ export default async function AdminTodayPage() {
         <StatCard label="Confirmados" value={confirmed} icon={CalendarCheck} tone="success" />
         <StatCard label="Pendientes" value={pendingToday} icon={CalendarClock} tone="warning" />
         <StatCard label="Cancelaciones hoy" value={cancelledToday ?? 0} icon={CalendarX} tone="destructive" hint="Canceladas durante el día" />
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-[3fr_2fr]">
+        <section className="min-w-0 space-y-3" aria-labelledby="para-revisar">
+          <h2 id="para-revisar" className="font-display text-xl font-medium">
+            Para revisar {inbox.length ? <span className="text-base text-muted-foreground">({inbox.length})</span> : null}
+          </h2>
+          <ReviewInbox items={inbox} timezone={tz} />
+        </section>
+        <section className="min-w-0 space-y-3" aria-labelledby="asignar-rapido">
+          <h2 id="asignar-rapido" className="font-display text-xl font-medium">Asignar rápido</h2>
+          <QuickAssign patients={(patients ?? []).map((p) => ({ id: p.id, name: `${p.last_name}, ${p.first_name}` }))} exercises={exerciseOptions} tests={testOptions} />
+        </section>
       </div>
 
       {(requests.data ?? []).length > 0 ? (

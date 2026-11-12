@@ -56,6 +56,8 @@ export default async function AdminIntakePage({ params }: { params: Promise<{ id
 
   // Lectura de datos de salud: queda registrada (sin contenido).
   await audit(supabase, "patient.intake_viewed", { type: "patient", id: patient.id });
+  // Abrirla la saca de la bandeja «Para revisar» (si se reenvía, vuelve a aparecer).
+  await supabase.from("clinical_reviews").upsert({ item_type: "intake", item_id: patient.id, reviewed_at: new Date().toISOString() }, { onConflict: "item_type,item_id" });
   const first = intake.first_submitted_at ?? intake.submitted_at;
   const details = [
     `Enviada el ${formatShortDate(first)}`,
