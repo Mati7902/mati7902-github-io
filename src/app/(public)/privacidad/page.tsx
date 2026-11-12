@@ -54,17 +54,22 @@ export default async function PrivacyPage() {
         La asistente virtual de WhatsApp atiende cuestiones administrativas. WhatsApp es un servicio de un tercero (Meta) con sus propias condiciones; no garantiza confidencialidad clínica ni respuesta inmediata. Ante una emergencia, contactá a los servicios de urgencia de tu zona.
       </p>
       <p>
-        Para entender mensajes escritos con libertad, el profesional puede activar un proveedor de inteligencia artificial. En ese caso, el texto del mensaje y los últimos mensajes de esa conversación de WhatsApp se envían a ese proveedor solo para identificar qué trámite necesitás. Nunca se envían tus registros emocionales, ejercicios, ficha de ingreso ni datos de la aplicación. La IA no toma decisiones: las acciones sobre turnos las ejecuta la plataforma con reglas fijas.
+        Para entender mensajes escritos con libertad, el profesional puede activar un proveedor de inteligencia artificial. En ese caso, el texto del mensaje y los últimos mensajes de esa conversación de WhatsApp se envían a ese proveedor solo para identificar qué trámite necesitás. En WhatsApp nunca se envían tus registros emocionales, ejercicios, ficha de ingreso ni datos de la aplicación. La IA no toma decisiones: las acciones sobre turnos las ejecuta la plataforma con reglas fijas.
       </p>
-      <h2>7. Calendario del profesional</h2>
+      <h2>7. Cuadernillo personalizado</h2>
+      <p>
+        Cuando enviás la ficha de ingreso, el profesional puede usar un proveedor de inteligencia artificial (Anthropic) para redactar un borrador de tu cuadernillo de trabajo. Se envían tus respuestas de la ficha <strong>sin tu nombre, teléfono, contacto de emergencia, fecha de nacimiento ni lugar de residencia</strong> (solo la edad). El borrador no es un diagnóstico: el profesional lo revisa, lo corrige y lo aprueba antes de que lo veas. Si preferís que tu ficha no se use para esto, avisale al profesional.
+      </p>
+
+      <h2>8. Calendario del profesional</h2>
       <p>
         Si el profesional conecta su calendario de Google, cada turno se refleja allí con tus iniciales, la modalidad y el estado, sin datos clínicos. Así se evitan superposiciones con otras actividades del profesional.
       </p>
-      <h2>8. Conservación y derechos</h2>
+      <h2>9. Conservación y derechos</h2>
       <p>
         Conservamos los datos mientras dure la relación profesional y el tiempo que exija la normativa aplicable. Podés solicitar acceso, rectificación, actualización o eliminación de tus datos escribiendo al profesional. Para menores de edad, los derechos se ejercen a través de madre, padre o tutor; su acceso a la información clínica respeta la reserva de lo hablado en sesión, salvo situaciones de riesgo, como explica el consentimiento informado.
       </p>
-      <h2>9. Cambios</h2>
+      <h2>10. Cambios</h2>
       <p>Esta política puede actualizarse. Publicaremos la versión vigente en esta página e indicaremos la fecha de la última modificación.</p>
     </LegalPage>
   );

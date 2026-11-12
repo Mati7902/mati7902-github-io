@@ -732,6 +732,19 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
+                },"workbook_answers": {
+                  Row: {
+                    "answer": string,"patient_id": string,"prompt_key": string,"updated_at": string,"workbook_id": string
+                  }
+                  Insert: {
+                    "answer": string,"patient_id": string,"prompt_key": string,"updated_at"?: string,"workbook_id": string
+                  }
+                  Update: {
+                    "answer"?: string,"patient_id"?: string,"prompt_key"?: string,"updated_at"?: string,"workbook_id"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"test_assignments": {
                   Row: {
                     "assigned_at": string,"assigned_by": string | null,"completed_at": string | null,"due_on": string | null,"focus_key": string | null,"id": string,"note": string | null,"patient_id": string,"show_result": boolean,"status": string,"test_id": string

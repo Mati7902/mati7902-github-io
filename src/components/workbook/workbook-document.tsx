@@ -136,7 +136,17 @@ export function WorkbookDocument({ content, firstName, dateLabel, professional, 
             </ul>
           </>
         ) : null}
-        <h3>Actividades</h3>
+        {(content.chapters ?? []).length ? (
+          <>
+            <h3>Capítulos</h3>
+            <ol>
+              {(content.chapters ?? []).map((c) => (
+                <li key={c.key}>{c.title}</li>
+              ))}
+            </ol>
+          </>
+        ) : null}
+        {content.items.length ? <h3>Ejercicios para practicar</h3> : null}
         <ol>
           {content.items.map((i) => (
             <li key={i.slug}>
@@ -147,9 +157,25 @@ export function WorkbookDocument({ content, firstName, dateLabel, professional, 
         </ol>
       </section>
 
+      {(content.chapters ?? []).map((ch, n) => (
+        <section key={ch.key} className="wb-page">
+          <p className="wb-eyebrow">Capítulo {n + 1}</p>
+          <h2>{ch.title}</h2>
+          <div className="wb-info">
+            <RichText text={ch.body} />
+          </div>
+          {ch.prompts.map((p) => (
+            <div key={p.key} className="wb-q">
+              <p>{p.text}</p>
+              <Lines n={p.lines} />
+            </div>
+          ))}
+        </section>
+      ))}
+
       {content.items.map((item, n) => (
         <section key={item.slug} className="wb-page">
-          <p className="wb-eyebrow">Actividad {n + 1}</p>
+          <p className="wb-eyebrow">Ejercicio {n + 1}</p>
           <h2>{item.title}</h2>
           {item.note ? <p className="wb-note">{item.note}</p> : null}
           {(steps[item.slug] ?? []).map((s) => (

@@ -815,6 +815,31 @@ select pg_temp.logout();
 rollback;
 
 -- ---------------------------------------------------------------------------
+-- 6j. Respuestas del paciente en el cuadernillo
+-- ---------------------------------------------------------------------------
+begin;
+select set_config('test.juan_id', (select id::text from public.patients where email = 'juan.perez@demo.local'), true);
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+insert into public.workbooks (id, patient_id) values ('77777777-7777-4777-8777-777777777778', current_setting('test.juan_id')::uuid);
+insert into public.workbook_versions (workbook_id, version, content, origin) values ('77777777-7777-4777-8777-777777777778', 1, '{}', 'ai');
+select pg_temp.logout();
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+select pg_temp.expect_error($q$insert into public.workbook_answers (workbook_id, patient_id, prompt_key, answer) values ('77777777-7777-4777-8777-777777777778', current_setting('test.juan_id')::uuid, 'c1p1', 'x')$q$, array['42501'], 'no se responde un cuadernillo sin publicar');
+select pg_temp.logout();
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+update public.workbooks set status = 'published', published_version = 1 where id = '77777777-7777-4777-8777-777777777778';
+select pg_temp.logout();
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+insert into public.workbook_answers (workbook_id, patient_id, prompt_key, answer) values ('77777777-7777-4777-8777-777777777778', current_setting('test.juan_id')::uuid, 'c1p1', 'Mi respuesta');
+select pg_temp.assert((select count(*) from public.workbook_answers) = 1, 'el paciente guarda sus respuestas del cuadernillo');
+select pg_temp.logout();
+select pg_temp.login('33333333-3333-4333-8333-333333333333');
+select pg_temp.assert((select count(*) from public.workbook_answers) = 0, 'otro paciente no ve respuestas ajenas');
+select pg_temp.expect_error($q$insert into public.workbook_answers (workbook_id, patient_id, prompt_key, answer) values ('77777777-7777-4777-8777-777777777778', current_setting('test.juan_id')::uuid, 'c1p2', 'x')$q$, array['42501'], 'nadie escribe en el cuadernillo de otro');
+select pg_temp.logout();
+rollback;
+
+-- ---------------------------------------------------------------------------
 -- 7. Rate limiting (solo servidor)
 -- ---------------------------------------------------------------------------
 begin;

@@ -18,22 +18,29 @@ const itemSchema = z.object({
   note: z.string().trim().max(500).nullable(),
   dueInDays: z.number().int().min(1).max(90).nullable(),
 });
+const chapterSchema = z.object({
+  key: z.string().regex(/^c[0-9]{1,2}$/),
+  title: z.string().trim().min(1).max(140),
+  body: z.string().trim().max(6000),
+  prompts: z.array(z.object({ key: z.string().regex(/^c[0-9]{1,2}p[0-9]{1,2}$/), text: z.string().trim().min(1).max(400), lines: z.number().int().min(1).max(10) })).max(6),
+});
 const contentSchema = z.object({
   welcome: z.string().trim().max(1500),
+  chapters: z.array(chapterSchema).max(12).optional(),
   goals: z.array(z.string().trim().min(1).max(200)).max(8),
-  items: z.array(itemSchema).min(1, "Agregá al menos una actividad.").max(15),
+  items: z.array(itemSchema).max(15),
   closing: z.string().trim().max(800),
 });
 
-export async function generateWorkbookDraftAction(patientId: string): Promise<ActionResult<{ version: number }>> {
+export async function generateWorkbookDraftAction(patientId: string, opts: { useAI?: boolean } = {}): Promise<ActionResult<{ version: number; usedAI: boolean }>> {
   try {
     const session = await assertAdmin();
     const id = z.string().uuid().parse(patientId);
-    const { version } = await generateDraft(id, session.userId);
+    const { version, usedAI } = await generateDraft(id, session.userId, { useAI: opts.useAI });
     const supabase = await createClient();
-    await audit(supabase, "workbook.draft_generated", { type: "patient", id }, { version });
+    await audit(supabase, "workbook.draft_generated", { type: "patient", id }, { version, ai: usedAI });
     revalidatePath(`/admin/pacientes/${id}/cuadernillo`);
-    return ok({ version });
+    return ok({ version, usedAI });
   } catch (error) {
     return fail(error);
   }

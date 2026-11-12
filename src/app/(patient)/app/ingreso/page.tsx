@@ -18,6 +18,9 @@ import { getActiveEmergencyResources } from "@/server/services/public-content";
 import { getPublicSettingsSafe } from "@/server/services/public-settings";
 import { getSetting } from "@/server/services/settings";
 
+// Redactar el cuadernillo con IA puede llevar unos minutos.
+export const maxDuration = 300;
+
 export const metadata: Metadata = { title: "Ficha de ingreso" };
 
 export default async function IntakePage({ searchParams }: { searchParams: Promise<{ bienvenida?: string; editar?: string; parte?: string; enviada?: string }> }) {

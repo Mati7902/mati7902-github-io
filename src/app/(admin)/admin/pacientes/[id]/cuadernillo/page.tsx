@@ -9,7 +9,11 @@ import { PageHeader } from "@/components/ui/page-header";
 import { requireAdmin } from "@/lib/auth/session";
 import { COLLECTIONS } from "@/lib/exercises/collections";
 import { createClient } from "@/lib/supabase/server";
+import { isWorkbookAIConfigured } from "@/server/services/ai/workbook-writer";
 import { getAdminWorkbook } from "@/server/services/workbooks";
+
+// Redactar el cuadernillo con IA puede llevar unos minutos.
+export const maxDuration = 300;
 
 export const metadata: Metadata = { title: "Cuadernillo del paciente" };
 
@@ -34,7 +38,7 @@ export default async function PatientWorkbookPage({ params }: { params: Promise<
       <PageHeader
         eyebrow="Cuadernillo personalizado"
         title={`Cuadernillo de ${patient.first_name}`}
-        description="Borrador armado con reglas a partir de la ficha de ingreso. No diagnostica: sugiere material de la biblioteca y te muestra por qué. El paciente lo ve recién cuando lo aprobás."
+        description={isWorkbookAIConfigured() ? "Al enviar la ficha de ingreso, la IA redacta un cuadernillo para esta persona (sin su nombre ni datos de contacto). Lo revisás, lo corregís y lo aprobás: el paciente lo ve recién entonces." : "Borrador armado con reglas a partir de la ficha de ingreso. Para que lo redacte la IA, cargá ANTHROPIC_API_KEY en Vercel. El paciente lo ve recién cuando lo aprobás."}
       />
       {workbook ? (
         <WorkbookEditor
@@ -47,6 +51,7 @@ export default async function PatientWorkbookPage({ params }: { params: Promise<
           sources={workbook.latest.sources}
           templates={options}
           history={workbook.history}
+          aiAvailable={isWorkbookAIConfigured()}
         />
       ) : intake?.submitted_at ? (
         <div className="space-y-3 rounded-2xl border border-dashed border-border bg-card/60 p-6">

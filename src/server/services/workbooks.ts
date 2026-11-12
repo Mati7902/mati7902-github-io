@@ -5,7 +5,10 @@ import { intakeAge, type IntakeAnswers } from "@/lib/intake/form";
 import { createLogger, errorMeta } from "@/lib/logger";
 import { createAdminClient, type AdminSupabaseClient } from "@/lib/supabase/admin";
 import type { ServerSupabaseClient } from "@/lib/supabase/server";
+import { focusByKey } from "@/lib/clinical/focus";
+import { deidentifiedIntake } from "@/lib/workbook/ai-input";
 import { buildDraft, RULES_VERSION, type WorkbookContent, type WorkbookSources } from "@/lib/workbook/rules";
+import { isWorkbookAIConfigured, writeWorkbookWithAI } from "@/server/services/ai/workbook-writer";
 import { getSetting } from "@/server/services/settings";
 
 const log = createLogger("workbooks");
@@ -50,13 +53,13 @@ export async function getAdminWorkbook(client: AnyClient, patientId: string): Pr
  * curso, agrega una versión nueva (no pisa la publicada: el paciente la sigue viendo hasta que el
  * profesional apruebe la nueva). Usa el cliente admin: corre también al enviar la ficha.
  */
-export async function generateDraft(patientId: string, createdBy: string | null): Promise<{ workbookId: string; version: number }> {
+export async function generateDraft(patientId: string, createdBy: string | null, opts: { useAI?: boolean } = {}): Promise<{ workbookId: string; version: number; usedAI: boolean }> {
   const admin = createAdminClient();
   const [{ data: patient }, { data: intake }, { data: focus }, { data: templates }, identity] = await Promise.all([
     admin.from("patients").select("first_name").eq("id", patientId).maybeSingle(),
     admin.from("patient_intakes").select("answers, submitted_at").eq("patient_id", patientId).maybeSingle(),
     admin.from("patient_clinical_focus").select("focus_key").eq("patient_id", patientId),
-    admin.from("exercise_templates").select("slug, title, estimated_minutes").eq("is_active", true),
+    admin.from("exercise_templates").select("slug, title, estimated_minutes, description").eq("is_active", true),
     getSetting(admin, "site.identity"),
   ]);
   if (!patient) throw new AppError("NOT_FOUND", "No encontramos al paciente.");
@@ -71,6 +74,30 @@ export async function generateDraft(patientId: string, createdBy: string | null)
     focusKeys: (focus ?? []).map((f) => f.focus_key),
   });
 
+  // Cuadernillo redactado con IA (como cuando lo armás en el chat), con la ficha sin datos que
+  // identifiquen. Las alertas sensibles salen siempre de las reglas, no de la IA.
+  let origin: "rules" | "ai" = "rules";
+  if (opts.useAI !== false && isWorkbookAIConfigured()) {
+    const { age, lines } = deidentifiedIntake(answers);
+    const focusLabels = (focus ?? []).map((f) => focusByKey(f.focus_key)?.label).filter((l): l is string => Boolean(l));
+    const ai = await writeWorkbookWithAI({ age, intakeLines: lines, focusLabels, library: (templates ?? []).map((t) => ({ slug: t.slug, title: t.title, description: t.description })) });
+    if (ai) {
+      origin = "ai";
+      const bySlug = new Map((templates ?? []).map((t) => [t.slug, t]));
+      content.welcome = `Hola, ${patient.first_name}. ${ai.welcome}`;
+      if (ai.goals.length) content.goals = ai.goals;
+      content.chapters = ai.chapters;
+      if (ai.library.length) {
+        content.items = ai.library.map((slug, i) => ({ slug, title: bySlug.get(slug)!.title, minutes: bySlug.get(slug)!.estimated_minutes, note: null, dueInDays: (i + 1) * 3 }));
+        for (const slug of ai.library) (sources.reasons[slug] ??= []).push("Elegido por la IA para este paciente");
+      }
+      content.closing = `${ai.closing} — ${identity.professional_name}`;
+      sources.flags.unshift("Redactado con IA a partir de la ficha (sin nombre ni datos de contacto). Revisá cada capítulo antes de aprobar.", ...ai.notes.map((n) => `IA: ${n}`));
+    } else {
+      sources.flags.unshift("No se pudo redactar con IA (sin clave, límite de uso o la IA declinó): se armó con las reglas.");
+    }
+  }
+
   let { data: workbook } = await admin.from("workbooks").select("id").eq("patient_id", patientId).in("status", ["draft", "published"]).maybeSingle();
   if (!workbook) {
     const created = await admin.from("workbooks").insert({ patient_id: patientId, created_by: createdBy }).select("id").single();
@@ -78,9 +105,9 @@ export async function generateDraft(patientId: string, createdBy: string | null)
     workbook = created.data;
   }
   const version = await nextVersion(admin, workbook.id);
-  const { error } = await admin.from("workbook_versions").insert({ workbook_id: workbook.id, version, content: content as never, sources: sources as never, rules_version: RULES_VERSION, origin: "rules", created_by: createdBy });
+  const { error } = await admin.from("workbook_versions").insert({ workbook_id: workbook.id, version, content: content as never, sources: sources as never, rules_version: RULES_VERSION, origin, created_by: createdBy });
   if (error) throw fromDatabaseError(error);
-  return { workbookId: workbook.id, version };
+  return { workbookId: workbook.id, version, usedAI: origin === "ai" };
 }
 
 async function nextVersion(client: AnyClient, workbookId: string): Promise<number> {
