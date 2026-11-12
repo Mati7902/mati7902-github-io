@@ -2,12 +2,14 @@
 
 import { useEffect } from "react";
 
+import { reportTech } from "@/components/shell/telemetry";
 import { Button } from "@/components/ui/button";
 
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
-    // Punto de integración para Sentry u otra herramienta de observabilidad.
     console.error("[app-error]", error.digest ?? error.message);
+    // Solo se avisa que hubo un error y en qué tipo de página; el detalle queda en los logs del servidor.
+    reportTech("error", 1);
   }, [error]);
 
   return (

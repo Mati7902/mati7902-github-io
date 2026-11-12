@@ -14,9 +14,9 @@ type StatCardProps = {
 const toneClasses: Record<NonNullable<StatCardProps["tone"]>, string> = {
   default: "bg-primary-soft text-primary",
   success: "bg-success-soft text-mint-700",
-  warning: "bg-warning-soft text-[#8a6418]",
+  warning: "bg-warning-soft text-warning-strong",
   destructive: "bg-destructive/10 text-destructive",
-  info: "bg-info-soft text-[#2b5f80]",
+  info: "bg-info-soft text-info-strong",
 };
 
 export function StatCard({ label, value, icon: Icon, hint, tone = "default", className }: StatCardProps) {

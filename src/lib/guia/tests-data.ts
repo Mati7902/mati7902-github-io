@@ -439,6 +439,78 @@ export const TESTS: TestDef[] = [
   ]
  },
  {
+  "id": "who5",
+  "domain": "Bienestar",
+  "name": "WHO-5",
+  "full": "Índice de Bienestar de la OMS (WHO-5)",
+  "who": "adolescentes desde 9 años y adultos",
+  "license": "Libre con atribución (Psychiatric Research Unit, Mental Health Centre North Zealand)",
+  "intro": "Durante las últimas dos semanas, ¿con qué frecuencia…?",
+  "note": "Puntaje bruto de 0 a 25 (más alto = más bienestar); multiplicado por 4 da el porcentaje. Un puntaje bruto menor de 13 sugiere evaluar depresión con un instrumento específico. Útil para seguir el cambio en el tiempo: una diferencia de 10 puntos porcentuales se considera significativa.",
+  "kind": "sum",
+  "options": [
+   {
+    "value": "5",
+    "label": "Todo el tiempo"
+   },
+   {
+    "value": "4",
+    "label": "La mayor parte del tiempo"
+   },
+   {
+    "value": "3",
+    "label": "Más de la mitad del tiempo"
+   },
+   {
+    "value": "2",
+    "label": "Menos de la mitad del tiempo"
+   },
+   {
+    "value": "1",
+    "label": "De vez en cuando"
+   },
+   {
+    "value": "0",
+    "label": "Nunca"
+   }
+  ],
+  "items": [
+   {
+    "text": "Me he sentido alegre y de buen humor"
+   },
+   {
+    "text": "Me he sentido tranquilo/a y relajado/a"
+   },
+   {
+    "text": "Me he sentido activo/a y enérgico/a"
+   },
+   {
+    "text": "Me he despertado fresco/a y descansado/a"
+   },
+   {
+    "text": "Mi vida cotidiana ha estado llena de cosas que me interesan"
+   }
+  ],
+  "max": 25,
+  "bands": [
+   {
+    "upTo": 7,
+    "label": "bienestar muy bajo (≤ 28 %)",
+    "level": "crit"
+   },
+   {
+    "upTo": 12,
+    "label": "bienestar bajo (< 52 %)",
+    "level": "warn"
+   },
+   {
+    "upTo": 25,
+    "label": "bienestar adecuado",
+    "level": "ok"
+   }
+  ]
+ },
+ {
   "id": "spin",
   "domain": "Ansiedad",
   "name": "SPIN",

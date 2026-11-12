@@ -3,6 +3,7 @@ import {
   BadgeDollarSign,
   BookOpen,
   Calendar,
+  ClipboardCheck,
   Home,
   LayoutDashboard,
   Library,
@@ -10,6 +11,7 @@ import {
   MessageCircle,
   Settings,
   Sparkles,
+  TrendingUp,
   User,
   Users,
 } from "lucide-react";
@@ -17,7 +19,9 @@ import {
 const ICONS: Record<string, LucideIcon> = {
   home: Home,
   sparkles: Sparkles,
+  "trending-up": TrendingUp,
   calendar: Calendar,
+  "clipboard-check": ClipboardCheck,
   library: Library,
   user: User,
   users: Users,

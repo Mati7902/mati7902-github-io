@@ -26,10 +26,10 @@ type Props = {
 };
 
 const STATUS_CLASS: Record<AppointmentStatus, string> = {
-  requested: "border-warning/60 bg-warning-soft text-[#7a5614]",
-  pending: "border-info/50 bg-info-soft text-[#2b5f80]",
+  requested: "border-warning/60 bg-warning-soft text-warning-strong",
+  pending: "border-info/50 bg-info-soft text-info-strong",
   confirmed: "border-mint-500/60 bg-mint-100 text-mint-700",
-  rescheduled: "border-warning/60 bg-warning-soft text-[#7a5614]",
+  rescheduled: "border-warning/60 bg-warning-soft text-warning-strong",
   cancelled: "border-border bg-surface-muted text-muted-foreground line-through",
   completed: "border-border bg-card text-muted-foreground",
   no_show: "border-destructive/40 bg-destructive/10 text-destructive",

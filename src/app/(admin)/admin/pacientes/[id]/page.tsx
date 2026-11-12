@@ -8,6 +8,8 @@ import { NewAppointmentDialog } from "@/components/admin/agenda/new-appointment-
 import { AssignExerciseForm, AssignMaterialForm } from "@/components/admin/patients/assign-forms";
 import { ClinicalFocusPanel } from "@/components/admin/patients/clinical-focus-panel";
 import { PatientTestsPanel } from "@/components/admin/patients/patient-tests-panel";
+import { ProgressPanel } from "@/components/admin/patients/progress-panel";
+import { InstrumentResultsPanel } from "@/components/admin/instruments/instrument-results-panel";
 import { ExerciseResponseList } from "@/components/exercises/exercise-response-list";
 import { MoodTrendChart } from "@/components/emotions/mood-trend-chart";
 import { PatientAccessControls } from "@/components/admin/patients/patient-access-controls";
@@ -32,6 +34,8 @@ import { listMoodEntries } from "@/server/services/emotional-logs";
 import { getIntakeStatus } from "@/server/services/intake";
 import { listSharedResponses } from "@/server/services/exercises";
 import { getSetting, getSettings } from "@/server/services/settings";
+import { getProgressPrefs, isPaused, listChallenges, listGoals, loadPracticeEvents, progressEnabledFor } from "@/server/services/progress";
+import { summarize } from "@/lib/progress";
 import { APPOINTMENT_STATUS_LABEL, type AppointmentWithPatient, type Patient } from "@/types/domain";
 
 export const metadata: Metadata = { title: "Ficha del paciente" };
@@ -104,6 +108,25 @@ export default async function PatientDetailPage({ params }: { params: Promise<{ 
         response: r ? { score: r.score, max: r.max_score, band: r.band_label, level: r.level, summary: r.summary, risk: r.risk, completedAt: r.completed_at } : null,
       };
     });
+  const [{ data: instruments }, { data: instrumentResults }] = await Promise.all([
+    supabase.from("instruments").select("id, short_name, name, score_min, score_max, higher_is").eq("is_active", true).order("short_name"),
+    supabase.from("instrument_results").select("id, instrument_id, applied_on, score, interpretation, notes").eq("patient_id", patient.id).order("applied_on"),
+  ]);
+  // Mi Progreso: la participación solo se ve si el paciente comparte sus registros (RLS).
+  const [progressPrefs, practiceEvents, goals, { gamification }] = await Promise.all([
+    getProgressPrefs(supabase, patient.id),
+    patient.share_records_with_professional ? loadPracticeEvents(supabase, patient.id) : Promise.resolve([]),
+    listGoals(supabase, patient.id, true),
+    getSettings(supabase, ["gamification"] as const),
+  ]);
+  const [progressOn, challenges] = await Promise.all([
+    progressEnabledFor(patient.id, progressPrefs, gamification.enabled),
+    listChallenges(supabase, patient.id, practiceEvents, scheduling.timezone),
+  ]);
+  const practice = summarize(practiceEvents, { weeklyGoal: progressPrefs.weekly_goal, tz: scheduling.timezone });
+  const participation = patient.share_records_with_professional
+    ? { total: practice.total, thisWeek: practice.thisWeek, weeklyGoal: practice.weeklyGoal, weeksMet: practice.weeksMet, paused: isPaused(progressPrefs, toDateKey(new Date(), scheduling.timezone)) }
+    : null;
   const moodDays = patient.share_records_with_professional ? dailyMood(await listMoodEntries(supabase, patient.id, 90), scheduling.timezone) : [];
 
   return (
@@ -212,6 +235,35 @@ export default async function PatientDetailPage({ params }: { params: Promise<{ 
           <PatientTestsPanel patientId={patient.id} rows={testRows} options={ASSIGNABLE_TESTS.map((t) => ({ id: t.id, name: t.name, full: t.full }))} />
         </div>
       </section>
+
+      <section className="surface-card space-y-4 p-6" aria-labelledby="instrumentos-paciente">
+        <div className="space-y-1">
+          <h2 id="instrumentos-paciente" className="font-display text-lg font-medium">Evaluaciones con licencia</h2>
+          <p className="text-sm text-muted-foreground">BDI-II, BAI, DIVA-5 y otros que aplicás por el canal autorizado. Se registra el resultado, no el test.</p>
+        </div>
+        <InstrumentResultsPanel patientId={patient.id} instruments={instruments ?? []} results={instrumentResults ?? []} todayKey={toDateKey(new Date(), scheduling.timezone)} />
+      </section>
+
+      <section className="surface-card space-y-4 p-6" aria-labelledby="progreso-paciente">
+        <div className="space-y-1">
+          <div className="flex flex-wrap items-baseline justify-between gap-2">
+            <h2 id="progreso-paciente" className="font-display text-lg font-medium">Objetivos y Mi Progreso</h2>
+            <Link href={`/admin/pacientes/${patient.id}/cuadernillo`} className="text-sm font-medium text-primary hover:underline">
+              Cuadernillo personalizado →
+            </Link>
+          </div>
+          <p className="text-sm text-muted-foreground">Los objetivos los ve el paciente en su inicio. Los desafíos cuentan días con práctica, sin penalizar los que no.</p>
+        </div>
+        <ProgressPanel
+          patientId={patient.id}
+          goals={goals}
+          challenges={challenges.map((c) => ({ id: c.id, challenge: c.challenge, done: c.progress.done, target: c.progress.target, endsOn: c.progress.endsOn, completed: c.progress.completed, ended: c.progress.ended }))}
+          professionalEnabled={progressPrefs.professional_enabled}
+          effectiveEnabled={progressOn}
+          participation={participation}
+        />
+      </section>
+
 
       <section className="grid gap-6 lg:grid-cols-2">
         <div className="surface-card space-y-4 p-6">

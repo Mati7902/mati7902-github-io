@@ -615,6 +615,123 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
+                },"tech_events": {
+                  Row: {
+                    "created_at": string,"device": string,"id": number,"kind": string,"path": string,"value": number
+                  }
+                  Insert: {
+                    "created_at"?: string,"device": string,"id"?: never,"kind": string,"path": string,"value": number
+                  }
+                  Update: {
+                    "created_at"?: string,"device"?: string,"id"?: never,"kind"?: string,"path"?: string,"value"?: number
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"therapy_goals": {
+                  Row: {
+                    "achieved_at": string | null,"created_at": string,"created_by": string | null,"detail": string | null,"id": string,"patient_id": string,"sort_order": number,"status": string,"title": string,"updated_at": string
+                  }
+                  Insert: {
+                    "achieved_at"?: string | null,"created_at"?: string,"created_by"?: string | null,"detail"?: string | null,"id"?: string,"patient_id": string,"sort_order"?: number,"status"?: string,"title": string,"updated_at"?: string
+                  }
+                  Update: {
+                    "achieved_at"?: string | null,"created_at"?: string,"created_by"?: string | null,"detail"?: string | null,"id"?: string,"patient_id"?: string,"sort_order"?: number,"status"?: string,"title"?: string,"updated_at"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"progress_prefs": {
+                  Row: {
+                    "badges_enabled": boolean,"patient_id": string,"paused_until": string | null,"professional_enabled": boolean | null,"updated_at": string,"weekly_goal": number
+                  }
+                  Insert: {
+                    "badges_enabled"?: boolean,"patient_id": string,"paused_until"?: string | null,"professional_enabled"?: boolean | null,"updated_at"?: string,"weekly_goal"?: number
+                  }
+                  Update: {
+                    "badges_enabled"?: boolean,"patient_id"?: string,"paused_until"?: string | null,"professional_enabled"?: boolean | null,"updated_at"?: string,"weekly_goal"?: number
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"progress_challenges": {
+                  Row: {
+                    "challenge": string,"created_at": string,"created_by": string | null,"days": number,"id": string,"note": string | null,"patient_id": string,"starts_on": string,"status": string,"target": number
+                  }
+                  Insert: {
+                    "challenge": string,"created_at"?: string,"created_by"?: string | null,"days": number,"id"?: string,"note"?: string | null,"patient_id": string,"starts_on": string,"status"?: string,"target": number
+                  }
+                  Update: {
+                    "challenge"?: string,"created_at"?: string,"created_by"?: string | null,"days"?: number,"id"?: string,"note"?: string | null,"patient_id"?: string,"starts_on"?: string,"status"?: string,"target"?: number
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"workbooks": {
+                  Row: {
+                    "created_at": string,"created_by": string | null,"id": string,"patient_id": string,"published_at": string | null,"published_version": number | null,"status": string,"title": string,"updated_at": string
+                  }
+                  Insert: {
+                    "created_at"?: string,"created_by"?: string | null,"id"?: string,"patient_id": string,"published_at"?: string | null,"published_version"?: number | null,"status"?: string,"title"?: string,"updated_at"?: string
+                  }
+                  Update: {
+                    "created_at"?: string,"created_by"?: string | null,"id"?: string,"patient_id"?: string,"published_at"?: string | null,"published_version"?: number | null,"status"?: string,"title"?: string,"updated_at"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"workbook_versions": {
+                  Row: {
+                    "approved_at": string | null,"approved_by": string | null,"content": Json,"created_at": string,"created_by": string | null,"id": string,"origin": string,"rules_version": string | null,"sources": Json,"version": number,"workbook_id": string
+                  }
+                  Insert: {
+                    "approved_at"?: string | null,"approved_by"?: string | null,"content": Json,"created_at"?: string,"created_by"?: string | null,"id"?: string,"origin"?: string,"rules_version"?: string | null,"sources"?: Json,"version": number,"workbook_id": string
+                  }
+                  Update: {
+                    "approved_at"?: string | null,"approved_by"?: string | null,"content"?: Json,"created_at"?: string,"created_by"?: string | null,"id"?: string,"origin"?: string,"rules_version"?: string | null,"sources"?: Json,"version"?: number,"workbook_id"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"instruments": {
+                  Row: {
+                    "created_at": string,"created_by": string | null,"digital_permission": boolean,"edition": string | null,"higher_is": string | null,"id": string,"is_active": boolean,"language": string | null,"license_expires_on": string | null,"license_scope": string | null,"name": string,"notes": string | null,"remote_permission": boolean,"rights_holder": string | null,"score_max": number | null,"score_min": number | null,"short_name": string,"updated_at": string
+                  }
+                  Insert: {
+                    "created_at"?: string,"created_by"?: string | null,"digital_permission"?: boolean,"edition"?: string | null,"higher_is"?: string | null,"id"?: string,"is_active"?: boolean,"language"?: string | null,"license_expires_on"?: string | null,"license_scope"?: string | null,"name": string,"notes"?: string | null,"remote_permission"?: boolean,"rights_holder"?: string | null,"score_max"?: number | null,"score_min"?: number | null,"short_name": string,"updated_at"?: string
+                  }
+                  Update: {
+                    "created_at"?: string,"created_by"?: string | null,"digital_permission"?: boolean,"edition"?: string | null,"higher_is"?: string | null,"id"?: string,"is_active"?: boolean,"language"?: string | null,"license_expires_on"?: string | null,"license_scope"?: string | null,"name"?: string,"notes"?: string | null,"remote_permission"?: boolean,"rights_holder"?: string | null,"score_max"?: number | null,"score_min"?: number | null,"short_name"?: string,"updated_at"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"instrument_results": {
+                  Row: {
+                    "applied_on": string,"created_at": string,"created_by": string | null,"id": string,"instrument_id": string,"interpretation": string | null,"notes": string | null,"patient_id": string,"score": number | null
+                  }
+                  Insert: {
+                    "applied_on": string,"created_at"?: string,"created_by"?: string | null,"id"?: string,"instrument_id": string,"interpretation"?: string | null,"notes"?: string | null,"patient_id": string,"score"?: number | null
+                  }
+                  Update: {
+                    "applied_on"?: string,"created_at"?: string,"created_by"?: string | null,"id"?: string,"instrument_id"?: string,"interpretation"?: string | null,"notes"?: string | null,"patient_id"?: string,"score"?: number | null
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"clinical_reviews": {
+                  Row: {
+                    "item_id": string,"item_type": string,"reviewed_at": string,"reviewed_by": string | null
+                  }
+                  Insert: {
+                    "item_id": string,"item_type": string,"reviewed_at"?: string,"reviewed_by"?: string | null
+                  }
+                  Update: {
+                    "item_id"?: string,"item_type"?: string,"reviewed_at"?: string,"reviewed_by"?: string | null
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"test_assignments": {
                   Row: {
                     "assigned_at": string,"assigned_by": string | null,"completed_at": string | null,"due_on": string | null,"focus_key": string | null,"id": string,"note": string | null,"patient_id": string,"show_result": boolean,"status": string,"test_id": string
@@ -774,6 +891,8 @@ isOneToOne: false
             [_ in never]: never
           }
           Functions: {
+            "my_published_workbook":
+{ Args: Record<PropertyKey, never>; Returns: { content: Json; published_at: string; title: string; version: number; workbook_id: string }[] }
             "admin_monthly_stats":
 { Args: { "p_from": string,"p_to": string }; Returns: {
               "cancelled": number,"completed": number,"confirmed": number,"no_show": number,"presencial": number,"requested": number,"total": number,"virtual": number

@@ -4,6 +4,8 @@ import "./globals.css";
 
 import { ServiceWorkerRegistration } from "@/components/shell/sw-registration";
 import { ThemeStyle } from "@/components/shell/theme-style";
+import { WebVitals } from "@/components/shell/telemetry";
+import { THEME_INIT_SCRIPT } from "@/components/shell/theme-toggle";
 import { Toaster } from "@/components/ui/sonner";
 import { publicEnv } from "@/lib/env";
 import { fontDisplay, fontSans } from "@/lib/fonts";
@@ -55,11 +57,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="es-PY" className={`${fontSans.variable} ${fontDisplay.variable}`} suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <ThemeStyle />
       </head>
       <body className="min-h-dvh bg-background text-foreground">
         {children}
         <Toaster />
+        <WebVitals />
         <ServiceWorkerRegistration />
       </body>
     </html>

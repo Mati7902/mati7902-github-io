@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Sparkles } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, BookMarked, Sparkles } from "lucide-react";
 
 import { CollectionCard } from "@/components/exercises/collection-card";
 import { APPROACH_LABEL, ExerciseCard, exerciseHref } from "@/components/exercises/exercise-card";
@@ -10,6 +11,7 @@ import { requirePatient } from "@/lib/auth/session";
 import { ageFrom, audiencesFor, COLLECTIONS, visibleTemplates } from "@/lib/exercises/collections";
 import { createClient } from "@/lib/supabase/server";
 import { listExerciseTemplates, listPatientAssignments, listPatientResponses } from "@/server/services/exercises";
+import { getMyWorkbook } from "@/server/services/workbooks";
 import type { ExerciseTemplate } from "@/types/domain";
 
 export const metadata: Metadata = { title: "Ejercicios" };
@@ -26,6 +28,7 @@ export default async function ExercisesPage({ searchParams }: { searchParams: Pr
   const { patient } = await requirePatient();
   const { completado } = await searchParams;
   const supabase = await createClient();
+  const workbook = await getMyWorkbook(supabase).catch(() => null);
   const [templates, assignments, responses, { data: assignedMaterials }] = await Promise.all([
     listExerciseTemplates(supabase),
     listPatientAssignments(supabase, patient.id),
@@ -56,6 +59,18 @@ export default async function ExercisesPage({ searchParams }: { searchParams: Pr
   return (
     <div className="space-y-10">
       <PageHeader eyebrow="Entre sesiones" title="Ejercicios" description="Prácticas breves basadas en TCC, ACT y DBT. Elegí la que necesites hoy." />
+      {workbook ? (
+        <Link href="/app/cuadernillo" className="surface-card group flex items-center gap-4 border-l-4 border-l-primary p-5 transition-shadow hover:shadow-[var(--shadow-float)]">
+          <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-primary">
+            <BookMarked className="size-5" aria-hidden />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block font-display text-lg font-medium">Mi cuadernillo</span>
+            <span className="text-sm text-muted-foreground">{workbook.content.items.length} actividades preparadas para vos.</span>
+          </span>
+          <ArrowRight className="size-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden />
+        </Link>
+      ) : null}
       {completado ? (
         <Alert variant="success">
           <AlertDescription>Ejercicio guardado. Tomarte este tiempo ya es parte del trabajo.</AlertDescription>

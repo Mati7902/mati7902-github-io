@@ -1179,4 +1179,336 @@ where key = 'reminders'
   and not (value -> 'channels') ? 'email';
 -- Sin "channels" guardado se usan los valores por defecto, que ya incluyen email.
 
+-- >>> supabase/migrations/20261111000001_telemetria_tecnica.sql
+
+-- ============================================================================
+-- Telemetría técnica: rendimiento (Web Vitals) y errores de pantalla
+-- ----------------------------------------------------------------------------
+-- Solo datos técnicos: métrica, valor, tipo de página y tipo de dispositivo.
+-- Sin usuario, sin IP y sin contenido. La ruta se guarda como plantilla
+-- (los identificadores se reemplazan por ":id"). Escribe únicamente el servidor;
+-- lee solo el profesional. Se purga a los 90 días (cron de mantenimiento).
+-- ============================================================================
+create table if not exists public.tech_events (
+  id          bigint generated always as identity primary key,
+  kind        text not null check (kind in ('LCP', 'INP', 'CLS', 'FCP', 'TTFB', 'error')),
+  value       double precision not null check (value >= 0),
+  path        text not null check (char_length(path) <= 120),
+  device      text not null check (device in ('mobile', 'desktop')),
+  created_at  timestamptz not null default now()
+);
+create index if not exists tech_events_kind_created_idx on public.tech_events (kind, created_at desc);
+
+alter table public.tech_events enable row level security;
+drop policy if exists "tech_events: lee el profesional" on public.tech_events;
+create policy "tech_events: lee el profesional" on public.tech_events for select to authenticated using (public.is_admin());
+
+comment on table public.tech_events is 'Rendimiento y errores de pantalla, sin datos personales ni clínicos. Inserta solo el servidor (service_role).';
+
+-- >>> supabase/migrations/20261111000002_mi_progreso.sql
+
+-- ============================================================================
+-- Mi Progreso Terapéutico
+-- ----------------------------------------------------------------------------
+-- 1. therapy_goals: objetivos acordados en sesión. Los carga el profesional;
+--    el paciente los ve.
+-- 2. progress_prefs: preferencias de motivación de cada paciente (meta semanal,
+--    pausa, insignias). El paciente cambia las suyas; solo el profesional puede
+--    apagar o encender el sistema para ese paciente.
+-- 3. progress_challenges: desafíos de 3 a 30 días que habilita el profesional.
+--
+-- Los puntos, las semanas cumplidas y las insignias NO se guardan: se calculan
+-- a partir de los ejercicios y registros que ya existen (src/lib/progress).
+-- Así no hay forma de sumar puntos sin practicar, y nada se pierde al pausar.
+-- ============================================================================
+
+-- 1. Objetivos terapéuticos ---------------------------------------------------
+create table if not exists public.therapy_goals (
+  id          uuid primary key default gen_random_uuid(),
+  patient_id  uuid not null references public.patients (id) on delete cascade,
+  title       text not null check (char_length(title) between 2 and 160),
+  detail      text check (detail is null or char_length(detail) <= 500),
+  status      text not null default 'active' check (status in ('active', 'achieved', 'paused')),
+  sort_order  int not null default 0,
+  created_by  uuid references public.profiles (id) on delete set null,
+  achieved_at timestamptz,
+  created_at  timestamptz not null default now(),
+  updated_at  timestamptz not null default now()
+);
+create index if not exists therapy_goals_patient_idx on public.therapy_goals (patient_id, sort_order);
+
+drop trigger if exists therapy_goals_set_updated_at on public.therapy_goals;
+create trigger therapy_goals_set_updated_at before update on public.therapy_goals
+  for each row execute function public.set_updated_at();
+
+alter table public.therapy_goals enable row level security;
+drop policy if exists "goals: paciente lee los suyos" on public.therapy_goals;
+create policy "goals: paciente lee los suyos" on public.therapy_goals for select to authenticated
+  using (patient_id = public.current_patient_id());
+drop policy if exists "goals: profesional gestiona" on public.therapy_goals;
+create policy "goals: profesional gestiona" on public.therapy_goals for all to authenticated
+  using (public.is_admin()) with check (public.is_admin());
+
+-- 2. Preferencias de motivación -------------------------------------------------
+create table if not exists public.progress_prefs (
+  patient_id           uuid primary key references public.patients (id) on delete cascade,
+  weekly_goal          smallint not null default 3 check (weekly_goal between 1 and 7),
+  paused_until         date,
+  badges_enabled       boolean not null default true,
+  -- null = lo decide la regla por defecto (apagado si el diagnóstico es TOC o conducta alimentaria).
+  professional_enabled boolean,
+  updated_at           timestamptz not null default now()
+);
+
+drop trigger if exists progress_prefs_set_updated_at on public.progress_prefs;
+create trigger progress_prefs_set_updated_at before update on public.progress_prefs
+  for each row execute function public.set_updated_at();
+
+-- El paciente no puede encender lo que el profesional apagó.
+create or replace function public.progress_prefs_guard()
+returns trigger
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.is_privileged() then
+    if tg_op = 'INSERT' then
+      new.professional_enabled := null;
+    elsif new.professional_enabled is distinct from old.professional_enabled then
+      raise exception 'Solo el profesional puede cambiar esta opción' using errcode = '42501';
+    end if;
+  end if;
+  return new;
+end $$;
+revoke all on function public.progress_prefs_guard() from public;
+
+drop trigger if exists progress_prefs_guard on public.progress_prefs;
+create trigger progress_prefs_guard before insert or update on public.progress_prefs
+  for each row execute function public.progress_prefs_guard();
+
+alter table public.progress_prefs enable row level security;
+drop policy if exists "progress_prefs: paciente gestiona las suyas" on public.progress_prefs;
+create policy "progress_prefs: paciente gestiona las suyas" on public.progress_prefs for all to authenticated
+  using (patient_id = public.current_patient_id()) with check (patient_id = public.current_patient_id());
+drop policy if exists "progress_prefs: profesional gestiona" on public.progress_prefs;
+create policy "progress_prefs: profesional gestiona" on public.progress_prefs for all to authenticated
+  using (public.is_admin()) with check (public.is_admin());
+
+-- 3. Desafíos ------------------------------------------------------------------
+create table if not exists public.progress_challenges (
+  id          uuid primary key default gen_random_uuid(),
+  patient_id  uuid not null references public.patients (id) on delete cascade,
+  challenge   text not null check (challenge ~ '^[a-z][a-z0-9-]{1,40}$'),
+  days        smallint not null check (days in (3, 7, 14, 30)),
+  target      smallint not null check (target between 1 and 30),
+  starts_on   date not null,
+  note        text check (note is null or char_length(note) <= 300),
+  status      text not null default 'active' check (status in ('active', 'cancelled')),
+  created_by  uuid references public.profiles (id) on delete set null,
+  created_at  timestamptz not null default now(),
+  check (target <= days)
+);
+create index if not exists progress_challenges_patient_idx on public.progress_challenges (patient_id, starts_on desc);
+
+alter table public.progress_challenges enable row level security;
+drop policy if exists "challenges: paciente lee los suyos" on public.progress_challenges;
+create policy "challenges: paciente lee los suyos" on public.progress_challenges for select to authenticated
+  using (patient_id = public.current_patient_id());
+drop policy if exists "challenges: profesional gestiona" on public.progress_challenges;
+create policy "challenges: profesional gestiona" on public.progress_challenges for all to authenticated
+  using (public.is_admin()) with check (public.is_admin());
+
+comment on table public.therapy_goals is 'Objetivos terapéuticos acordados. El paciente los ve; los edita el profesional.';
+comment on table public.progress_prefs is 'Preferencias de Mi Progreso. Puntos e insignias se calculan, no se guardan.';
+comment on table public.progress_challenges is 'Desafíos de práctica habilitados por el profesional.';
+
+-- >>> supabase/migrations/20261111000003_cuadernillos_personalizados.sql
+
+-- ============================================================================
+-- Cuadernillos personalizados
+-- ----------------------------------------------------------------------------
+-- Al enviar la ficha de ingreso, el servidor arma un BORRADOR con reglas fijas
+-- (src/lib/workbook/rules.ts): qué ejercicios de la biblioteca sugerir y por qué.
+-- El profesional lo revisa, lo edita y lo aprueba. El paciente ve solo la versión
+-- publicada; nunca los borradores, ni el motivo de cada sugerencia, ni las alertas.
+--
+-- workbooks          → un cuadernillo por proceso (estado, versión publicada).
+-- workbook_versions  → cada guardado es una versión nueva (historial completo).
+-- ============================================================================
+create table if not exists public.workbooks (
+  id                uuid primary key default gen_random_uuid(),
+  patient_id        uuid not null references public.patients (id) on delete cascade,
+  title             text not null default 'Mi cuadernillo' check (char_length(title) between 2 and 120),
+  status            text not null default 'draft' check (status in ('draft', 'published', 'archived')),
+  published_version int,
+  published_at      timestamptz,
+  created_by        uuid references public.profiles (id) on delete set null,
+  created_at        timestamptz not null default now(),
+  updated_at        timestamptz not null default now()
+);
+create index if not exists workbooks_patient_idx on public.workbooks (patient_id, created_at desc);
+-- Un solo cuadernillo en curso (borrador o publicado) por paciente.
+create unique index if not exists workbooks_one_open_idx on public.workbooks (patient_id) where status in ('draft', 'published');
+
+drop trigger if exists workbooks_set_updated_at on public.workbooks;
+create trigger workbooks_set_updated_at before update on public.workbooks
+  for each row execute function public.set_updated_at();
+
+create table if not exists public.workbook_versions (
+  id           uuid primary key default gen_random_uuid(),
+  workbook_id  uuid not null references public.workbooks (id) on delete cascade,
+  version      int not null check (version >= 1),
+  -- Contenido para el paciente: bienvenida, objetivos en sus palabras, actividades, cierre.
+  content      jsonb not null,
+  -- Solo para el profesional: de qué respuesta salió cada sugerencia y qué revisar en sesión.
+  sources      jsonb not null default '{}'::jsonb,
+  rules_version text,
+  origin       text not null default 'edit' check (origin in ('rules', 'edit')),
+  created_by   uuid references public.profiles (id) on delete set null,
+  approved_at  timestamptz,
+  approved_by  uuid references public.profiles (id) on delete set null,
+  created_at   timestamptz not null default now(),
+  unique (workbook_id, version)
+);
+
+alter table public.workbooks enable row level security;
+alter table public.workbook_versions enable row level security;
+
+drop policy if exists "workbooks: profesional gestiona" on public.workbooks;
+create policy "workbooks: profesional gestiona" on public.workbooks for all to authenticated
+  using (public.is_admin()) with check (public.is_admin());
+drop policy if exists "workbooks: paciente ve el publicado" on public.workbooks;
+create policy "workbooks: paciente ve el publicado" on public.workbooks for select to authenticated
+  using (patient_id = public.current_patient_id() and status = 'published');
+
+drop policy if exists "workbook_versions: profesional gestiona" on public.workbook_versions;
+create policy "workbook_versions: profesional gestiona" on public.workbook_versions for all to authenticated
+  using (public.is_admin()) with check (public.is_admin());
+
+-- El paciente lee SOLO el contenido de la versión publicada, sin las fuentes ni las alertas:
+-- por eso no tiene política sobre workbook_versions y lee por esta función.
+create or replace function public.my_published_workbook()
+returns table (workbook_id uuid, title text, version int, content jsonb, published_at timestamptz)
+language sql stable security definer set search_path = public as $$
+  select w.id, w.title, v.version, v.content, w.published_at
+  from public.workbooks w
+  join public.workbook_versions v on v.workbook_id = w.id and v.version = w.published_version
+  where w.patient_id = public.current_patient_id() and w.status = 'published'
+  limit 1;
+$$;
+revoke all on function public.my_published_workbook() from public;
+grant execute on function public.my_published_workbook() to authenticated;
+
+comment on table public.workbooks is 'Cuadernillo personalizado. El paciente ve solo la versión publicada (my_published_workbook).';
+comment on table public.workbook_versions is 'Historial de versiones del cuadernillo. sources es solo para el profesional.';
+
+-- >>> supabase/migrations/20261111000004_instrumentos_con_licencia.sql
+
+-- ============================================================================
+-- Instrumentos psicométricos con licencia
+-- ----------------------------------------------------------------------------
+-- Para tests con derechos de autor (BDI-II, BAI, DIVA-5…) la plataforma NO guarda
+-- ítems ni los administra: comprar el material no autoriza a reproducirlo. Se
+-- registra el instrumento con los datos de su licencia y se cargan los
+-- RESULTADOS (puntaje, fecha, interpretación según el manual) aplicados por el
+-- canal autorizado. Todo es solo del profesional: el paciente no lo ve.
+-- ============================================================================
+create table if not exists public.instruments (
+  id                 uuid primary key default gen_random_uuid(),
+  name               text not null check (char_length(name) between 2 and 120),
+  short_name         text not null check (char_length(short_name) between 1 and 30),
+  edition            text check (edition is null or char_length(edition) <= 120),
+  rights_holder      text check (rights_holder is null or char_length(rights_holder) <= 160),
+  language           text check (language is null or char_length(language) <= 60),
+  license_scope      text check (license_scope is null or char_length(license_scope) <= 500),
+  digital_permission boolean not null default false,
+  remote_permission  boolean not null default false,
+  license_expires_on date,
+  score_min          numeric,
+  score_max          numeric,
+  higher_is          text check (higher_is in ('worse', 'better')),
+  notes              text check (notes is null or char_length(notes) <= 1000),
+  is_active          boolean not null default true,
+  created_by         uuid references public.profiles (id) on delete set null,
+  created_at         timestamptz not null default now(),
+  updated_at         timestamptz not null default now(),
+  check (score_min is null or score_max is null or score_min < score_max)
+);
+
+drop trigger if exists instruments_set_updated_at on public.instruments;
+create trigger instruments_set_updated_at before update on public.instruments
+  for each row execute function public.set_updated_at();
+
+create table if not exists public.instrument_results (
+  id             uuid primary key default gen_random_uuid(),
+  patient_id     uuid not null references public.patients (id) on delete cascade,
+  instrument_id  uuid not null references public.instruments (id) on delete restrict,
+  applied_on     date not null,
+  score          numeric,
+  interpretation text check (interpretation is null or char_length(interpretation) <= 200),
+  notes          text check (notes is null or char_length(notes) <= 1000),
+  created_by     uuid references public.profiles (id) on delete set null,
+  created_at     timestamptz not null default now()
+);
+create index if not exists instrument_results_patient_idx on public.instrument_results (patient_id, applied_on desc);
+
+alter table public.instruments enable row level security;
+alter table public.instrument_results enable row level security;
+drop policy if exists "instruments: solo profesional" on public.instruments;
+create policy "instruments: solo profesional" on public.instruments for all to authenticated
+  using (public.is_admin()) with check (public.is_admin());
+drop policy if exists "instrument_results: solo profesional" on public.instrument_results;
+create policy "instrument_results: solo profesional" on public.instrument_results for all to authenticated
+  using (public.is_admin()) with check (public.is_admin());
+
+-- El puntaje tiene que caer dentro del rango del instrumento (si está cargado).
+create or replace function public.instrument_result_check()
+returns trigger
+language plpgsql security definer set search_path = public as $$
+declare r record;
+begin
+  select score_min, score_max into r from public.instruments where id = new.instrument_id;
+  if new.score is not null and ((r.score_min is not null and new.score < r.score_min) or (r.score_max is not null and new.score > r.score_max)) then
+    raise exception 'El puntaje está fuera del rango del instrumento' using errcode = '23514';
+  end if;
+  return new;
+end $$;
+revoke all on function public.instrument_result_check() from public;
+drop trigger if exists instrument_result_check on public.instrument_results;
+create trigger instrument_result_check before insert or update on public.instrument_results
+  for each row execute function public.instrument_result_check();
+
+-- Carga inicial: fichas de referencia SIN permiso digital (solo resultados). El
+-- profesional completa edición, licencia y vencimiento según lo que compró.
+insert into public.instruments (id, name, short_name, rights_holder, language, license_scope, score_min, score_max, higher_is, notes) values
+  ('a5e00001-0000-4000-8000-000000000001', 'Inventario de Depresión de Beck, segunda edición', 'BDI-II', 'Pearson (editorial titular; verificar distribuidor local)', 'Español', 'Uso en papel con cuadernillos comprados. Sin permiso de reproducción digital salvo licencia específica.', 0, 63, 'worse', 'Interpretar según el manual de la adaptación usada.'),
+  ('a5e00001-0000-4000-8000-000000000002', 'Inventario de Ansiedad de Beck', 'BAI', 'Pearson (editorial titular; verificar distribuidor local)', 'Español', 'Uso en papel con cuadernillos comprados. Sin permiso de reproducción digital salvo licencia específica.', 0, 63, 'worse', 'Interpretar según el manual de la adaptación usada.'),
+  ('a5e00001-0000-4000-8000-000000000003', 'Entrevista Diagnóstica para TDAH en adultos (DIVA-5)', 'DIVA-5', 'DIVA Foundation', 'Español', 'Entrevista clínica semiestructurada; se aplica en sesión. Revisar las condiciones de uso de la fundación.', null, null, null, 'No es autoadministrable. Registrar conclusión y criterios cumplidos en las notas.')
+on conflict (id) do nothing;
+
+comment on table public.instruments is 'Instrumentos con licencia: datos de la licencia, sin ítems. Solo el profesional.';
+comment on table public.instrument_results is 'Resultados de instrumentos aplicados por el canal autorizado. Solo el profesional.';
+
+-- >>> supabase/migrations/20261111000005_bandeja_revision.sql
+
+-- ============================================================================
+-- Bandeja «Para revisar» del profesional
+-- ----------------------------------------------------------------------------
+-- Marca qué ítems ya revisó el profesional (ficha de ingreso enviada, test
+-- respondido) para que la bandeja muestre solo lo pendiente. No guarda contenido
+-- clínico: solo el tipo, el id y cuándo se revisó. Solo el profesional.
+-- ============================================================================
+create table if not exists public.clinical_reviews (
+  item_type   text not null check (item_type in ('intake', 'test_response')),
+  item_id     uuid not null,
+  reviewed_by uuid references public.profiles (id) on delete set null,
+  reviewed_at timestamptz not null default now(),
+  primary key (item_type, item_id)
+);
+
+alter table public.clinical_reviews enable row level security;
+drop policy if exists "clinical_reviews: solo profesional" on public.clinical_reviews;
+create policy "clinical_reviews: solo profesional" on public.clinical_reviews for all to authenticated
+  using (public.is_admin()) with check (public.is_admin());
+
+comment on table public.clinical_reviews is 'Ítems de la bandeja «Para revisar» que el profesional ya revisó.';
+
 commit;

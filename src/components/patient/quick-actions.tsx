@@ -6,8 +6,8 @@ type Action = { href: string; label: string; icon: LucideIcon; tone: string };
 const ACTIONS: Action[] = [
   { href: "/app/calmarme", label: "Calmarme", icon: Wind, tone: "bg-mint-100 text-mint-700" },
   { href: "/app/registro/nuevo", label: "Registrar cómo me siento", icon: Heart, tone: "bg-primary-soft text-primary" },
-  { href: "/app/ejercicios/registro-pensamientos", label: "Ordenar mis pensamientos", icon: Brain, tone: "bg-info-soft text-[#2b5f80]" },
-  { href: "/app/ejercicios", label: "Ver mis ejercicios", icon: Sparkles, tone: "bg-warning-soft text-[#8a6418]" },
+  { href: "/app/ejercicios/registro-pensamientos", label: "Ordenar mis pensamientos", icon: Brain, tone: "bg-info-soft text-info-strong" },
+  { href: "/app/ejercicios", label: "Ver mis ejercicios", icon: Sparkles, tone: "bg-warning-soft text-warning-strong" },
   { href: "/app/materiales", label: "Materiales", icon: BookOpen, tone: "bg-sand-100 text-foreground" },
   { href: "/app/agenda/nuevo", label: "Solicitar turno", icon: CalendarPlus, tone: "bg-primary text-primary-foreground" },
 ];

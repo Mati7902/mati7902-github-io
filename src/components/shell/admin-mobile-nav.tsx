@@ -37,7 +37,7 @@ export function AdminMobileNav({ platformName, pendingRequests }: { platformName
               <NavIcon name={item.icon} className="size-5" />
               <span className="flex-1">{item.label}</span>
               {item.href === "/admin/agenda" && pendingRequests > 0 ? (
-                <span className="rounded-full bg-warning-soft px-2 py-0.5 text-[11px] font-semibold text-[#8a6418]">{pendingRequests}</span>
+                <span className="rounded-full bg-warning-soft px-2 py-0.5 text-[11px] font-semibold text-warning-strong">{pendingRequests}</span>
               ) : null}
             </NavLink>
           ))}

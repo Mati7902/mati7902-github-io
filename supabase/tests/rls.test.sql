@@ -693,6 +693,107 @@ select pg_temp.logout();
 rollback;
 
 -- ---------------------------------------------------------------------------
+-- 6e. Mi Progreso: objetivos, preferencias y desafíos
+-- ---------------------------------------------------------------------------
+begin;
+select set_config('test.juan_id', (select id::text from public.patients where email = 'juan.perez@demo.local'), true);
+select set_config('test.ana_id', (select id::text from public.patients where email <> 'juan.perez@demo.local' order by created_at limit 1), true);
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+insert into public.therapy_goals (patient_id, title) values (current_setting('test.juan_id')::uuid, 'Dormir mejor');
+insert into public.progress_challenges (patient_id, challenge, days, target, starts_on) values (current_setting('test.juan_id')::uuid, 'observacion-emocional', 7, 5, current_date);
+select pg_temp.expect_error($q$insert into public.progress_challenges (patient_id, challenge, days, target, starts_on) values (current_setting('test.juan_id')::uuid, 'x-y', 3, 5, current_date)$q$, array['23514'], 'la meta de un desafío no supera sus días');
+select pg_temp.logout();
+-- Paciente
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+select pg_temp.assert((select count(*) from public.therapy_goals) = 1, 'el paciente ve sus objetivos');
+select pg_temp.assert((select count(*) from public.progress_challenges) = 1, 'el paciente ve sus desafíos');
+select pg_temp.expect_error($q$insert into public.therapy_goals (patient_id, title) values (current_setting('test.juan_id')::uuid, 'Otro')$q$, array['42501'], 'el paciente no crea objetivos');
+update public.progress_challenges set target = 1;
+select pg_temp.assert((select target from public.progress_challenges) = 5, 'el paciente no modifica desafíos');
+insert into public.progress_prefs (patient_id, weekly_goal, professional_enabled) values (current_setting('test.juan_id')::uuid, 2, false);
+select pg_temp.assert((select weekly_goal = 2 and professional_enabled is null from public.progress_prefs), 'el paciente guarda su meta, pero no decide la opción del profesional');
+select pg_temp.expect_error($q$insert into public.progress_prefs (patient_id) values (current_setting('test.ana_id')::uuid)$q$, array['42501'], 'el paciente no crea preferencias de otro');
+select pg_temp.logout();
+-- El profesional apaga Mi Progreso para el paciente; el paciente no lo puede volver a encender.
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+update public.progress_prefs set professional_enabled = false where patient_id = current_setting('test.juan_id')::uuid;
+select pg_temp.logout();
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+select pg_temp.expect_error($q$update public.progress_prefs set professional_enabled = true$q$, array['42501'], 'el paciente no enciende lo que el profesional apagó');
+update public.progress_prefs set weekly_goal = 4, paused_until = current_date + 7;
+select pg_temp.assert((select weekly_goal = 4 and paused_until is not null and professional_enabled = false from public.progress_prefs), 'el paciente ajusta su meta y pausa sin tocar la opción del profesional');
+select pg_temp.logout();
+-- Otra paciente no ve nada
+select pg_temp.login('33333333-3333-4333-8333-333333333333');
+select pg_temp.assert((select count(*) from public.therapy_goals) + (select count(*) from public.progress_challenges) + (select count(*) from public.progress_prefs) = 0, 'otro paciente no ve objetivos, desafíos ni preferencias ajenas');
+select pg_temp.logout();
+rollback;
+
+-- ---------------------------------------------------------------------------
+-- 6f. Cuadernillos personalizados
+-- ---------------------------------------------------------------------------
+begin;
+select set_config('test.juan_id', (select id::text from public.patients where email = 'juan.perez@demo.local'), true);
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+insert into public.workbooks (id, patient_id) values ('77777777-7777-4777-8777-777777777777', current_setting('test.juan_id')::uuid);
+insert into public.workbook_versions (workbook_id, version, content, sources, origin) values
+  ('77777777-7777-4777-8777-777777777777', 1, '{"welcome":"borrador"}', '{"flags":["revisar autolesión"]}', 'rules');
+select pg_temp.expect_error($q$insert into public.workbooks (patient_id) values (current_setting('test.juan_id')::uuid)$q$, array['23505'], 'un solo cuadernillo en curso por paciente');
+select pg_temp.logout();
+-- Mientras es borrador, el paciente no ve nada.
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+select pg_temp.assert((select count(*) from public.workbooks) = 0, 'el paciente no ve el borrador');
+select pg_temp.assert((select count(*) from public.workbook_versions) = 0, 'el paciente nunca lee versiones ni fuentes');
+select pg_temp.assert((select count(*) from public.my_published_workbook()) = 0, 'sin publicar, no hay cuadernillo para el paciente');
+select pg_temp.logout();
+-- El profesional edita (versión 2) y publica.
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+insert into public.workbook_versions (workbook_id, version, content) values ('77777777-7777-4777-8777-777777777777', 2, '{"welcome":"aprobado"}');
+update public.workbooks set status = 'published', published_version = 2, published_at = now() where id = '77777777-7777-4777-8777-777777777777';
+select pg_temp.logout();
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+select pg_temp.assert((select content ->> 'welcome' from public.my_published_workbook()) = 'aprobado', 'el paciente lee solo la versión publicada');
+select pg_temp.assert((select count(*) from public.workbook_versions) = 0, 'publicado, igual no ve las fuentes de las sugerencias');
+update public.workbooks set title = 'cambiado';
+select pg_temp.assert((select title from public.workbooks) = 'Mi cuadernillo', 'el paciente no modifica el cuadernillo');
+select pg_temp.logout();
+select pg_temp.login('33333333-3333-4333-8333-333333333333');
+select pg_temp.assert((select count(*) from public.my_published_workbook()) = 0 and (select count(*) from public.workbooks) = 0, 'otro paciente no ve el cuadernillo ajeno');
+select pg_temp.logout();
+rollback;
+
+-- ---------------------------------------------------------------------------
+-- 6g. Instrumentos con licencia (solo resultados, solo el profesional)
+-- ---------------------------------------------------------------------------
+begin;
+select set_config('test.juan_id', (select id::text from public.patients where email = 'juan.perez@demo.local'), true);
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+select pg_temp.assert((select count(*) from public.instruments where not digital_permission) = 3, 'BDI-II, BAI y DIVA-5 cargados sin permiso digital');
+insert into public.instrument_results (patient_id, instrument_id, applied_on, score, interpretation) values (current_setting('test.juan_id')::uuid, 'a5e00001-0000-4000-8000-000000000001', current_date, 21, 'moderada (según manual)');
+select pg_temp.expect_error($q$insert into public.instrument_results (patient_id, instrument_id, applied_on, score) values (current_setting('test.juan_id')::uuid, 'a5e00001-0000-4000-8000-000000000001', current_date, 80)$q$, array['23514'], 'el puntaje respeta el rango del instrumento');
+select pg_temp.logout();
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+select pg_temp.assert((select count(*) from public.instrument_results) = 0, 'el paciente no ve resultados de instrumentos con licencia');
+select pg_temp.assert((select count(*) from public.instruments) = 0, 'el paciente no ve el registro de instrumentos');
+select pg_temp.expect_error($q$insert into public.instrument_results (patient_id, instrument_id, applied_on, score) values (current_setting('test.juan_id')::uuid, 'a5e00001-0000-4000-8000-000000000002', current_date, 5)$q$, array['42501'], 'el paciente no carga resultados');
+select pg_temp.logout();
+rollback;
+
+-- ---------------------------------------------------------------------------
+-- 6h. Bandeja «Para revisar»
+-- ---------------------------------------------------------------------------
+begin;
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+insert into public.clinical_reviews (item_type, item_id) values ('intake', gen_random_uuid());
+select pg_temp.assert((select count(*) from public.clinical_reviews) = 1, 'el profesional marca ítems como revisados');
+select pg_temp.logout();
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+select pg_temp.assert((select count(*) from public.clinical_reviews) = 0, 'el paciente no ve la bandeja del profesional');
+select pg_temp.expect_error($q$insert into public.clinical_reviews (item_type, item_id) values ('intake', gen_random_uuid())$q$, array['42501'], 'el paciente no marca revisiones');
+select pg_temp.logout();
+rollback;
+
+-- ---------------------------------------------------------------------------
 -- 7. Rate limiting (solo servidor)
 -- ---------------------------------------------------------------------------
 begin;

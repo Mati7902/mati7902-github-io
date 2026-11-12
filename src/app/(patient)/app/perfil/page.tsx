@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ClipboardList, FileSignature } from "lucide-react";
+import { ClipboardList, Download, FileSignature } from "lucide-react";
 
 import { ChangePasswordForm, ContactForm, SharingToggle } from "@/components/patient/profile-forms";
 import { SignOutButton } from "@/components/shell/sign-out-button";
+import { ThemeToggle } from "@/components/shell/theme-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/ui/page-header";
@@ -97,8 +98,24 @@ export default async function ProfilePage() {
       <Separator />
 
       <section className="space-y-4">
+        <h2 className="font-display text-xl font-medium">Apariencia</h2>
+        <ThemeToggle />
+        <p className="text-xs text-muted-foreground">El modo oscuro descansa la vista de noche. Se guarda en este dispositivo.</p>
+      </section>
+
+      <Separator />
+
+      <section className="space-y-4">
         <h2 className="font-display text-xl font-medium">Privacidad</h2>
         <SharingToggle initial={patient.share_records_with_professional} />
+        <div className="flex flex-col gap-3 rounded-2xl border border-border/70 bg-card p-5 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-muted-foreground">Podés descargar una copia de todo lo que cargaste: turnos, registros, ejercicios, ficha y consentimientos. Para pedir que se corrijan o eliminen tus datos, escribile al profesional.</p>
+          <Button asChild variant="outline" className="shrink-0">
+            <a href="/app/perfil/exportar" download>
+              <Download aria-hidden /> Descargar mis datos
+            </a>
+          </Button>
+        </div>
         <p className="text-xs text-muted-foreground">
           Leé la <Link href="/privacidad" className="underline underline-offset-2">política de privacidad</Link> y los{" "}
           <Link href="/terminos" className="underline underline-offset-2">términos de uso</Link>.

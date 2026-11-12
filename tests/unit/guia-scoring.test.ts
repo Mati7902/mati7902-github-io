@@ -16,7 +16,7 @@ const fill = (def: TestDef, fn: (i: number, item: TestDef["items"][number]) => s
 
 describe("contenido de la guía", () => {
   it("trae todos los tests, fichas, protocolos y temas", () => {
-    expect(TESTS).toHaveLength(15);
+    expect(TESTS).toHaveLength(16);
     expect(FICHAS).toHaveLength(7);
     expect(PROTOCOLS).toHaveLength(14);
     expect(TEMAS).toHaveLength(7);
@@ -234,5 +234,14 @@ describe("ASQ", () => {
     const r = scoreTest(def, { 0: "si", 4: "si" });
     expect(r.asq?.state).toBe("acute");
     expect(r.score).toBeNull();
+  });
+});
+
+describe("WHO-5", () => {
+  const who5 = TESTS.find((t) => t.id === "who5")!;
+  it("suma de 0 a 25 y marca bienestar bajo por debajo de 13", () => {
+    expect(scoreTest(who5, { 0: "5", 1: "5", 2: "5", 3: "5", 4: "5" })).toMatchObject({ score: 25, band: { level: "ok" } });
+    expect(scoreTest(who5, { 0: "2", 1: "3", 2: "2", 3: "3", 4: "2" })).toMatchObject({ score: 12, band: { level: "warn" } });
+    expect(scoreTest(who5, { 0: "1", 1: "1", 2: "1", 3: "1", 4: "1" })).toMatchObject({ score: 5, band: { level: "crit" } });
   });
 });
