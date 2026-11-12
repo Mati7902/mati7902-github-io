@@ -15,6 +15,7 @@ import { createClient } from "@/lib/supabase/server";
 import { ADMIN_APPOINTMENT_SELECT, listAppointmentsBetween } from "@/server/services/appointments";
 import { getSetting } from "@/server/services/settings";
 import { getReviewInbox } from "@/server/services/review-inbox";
+import { listActiveCustomTests } from "@/server/services/custom-tests";
 import { ASSIGNABLE_TESTS } from "@/lib/clinical/focus";
 import { COLLECTIONS } from "@/lib/exercises/collections";
 import type { AppointmentWithPatient } from "@/types/domain";
@@ -45,12 +46,13 @@ export default async function AdminTodayPage() {
     supabase.from("appointments").select("id", { count: "exact", head: true }).eq("status", "cancelled").gte("cancelled_at", dayStart.toISOString()).lt("cancelled_at", dayEnd.toISOString()),
   ]);
 
-  const [inbox, { data: templates }] = await Promise.all([
+  const [inbox, { data: templates }, customTests] = await Promise.all([
     getReviewInbox(supabase).catch(() => []),
     supabase.from("exercise_templates").select("id, title, collection").eq("is_active", true).order("sort_order"),
+    listActiveCustomTests(supabase).catch(() => []),
   ]);
   const exerciseOptions = (templates ?? []).map((t) => ({ id: t.id, label: t.title, group: (t.collection && COLLECTIONS[t.collection]?.title) || "Ejercicios" }));
-  const testOptions = ASSIGNABLE_TESTS.map((t) => ({ id: t.id, label: `${t.name} · ${t.full}`, group: "Tests" }));
+  const testOptions = [...ASSIGNABLE_TESTS.map((t) => ({ id: t.id, label: `${t.name} · ${t.full}`, group: "Tests" })), ...customTests.map((t) => ({ id: t.id, label: `${t.name} · ${t.full}`, group: "Mis tests" }))];
   const active = today.filter((a) => a.status !== "cancelled");
   const confirmed = active.filter((a) => a.status === "confirmed").length;
   const pendingToday = active.filter((a) => ["pending", "rescheduled", "requested"].includes(a.status)).length;

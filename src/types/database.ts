@@ -719,6 +719,19 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
+                },"custom_tests": {
+                  Row: {
+                    "bands": Json,"code": string,"created_at": string,"created_by": string | null,"full_name": string,"id": string,"instructions": string,"is_active": boolean,"items": Json,"kind": string,"max_label": string | null,"min_label": string | null,"name": string,"note": string | null,"scale_max": number | null,"scale_min": number | null,"updated_at": string
+                  }
+                  Insert: {
+                    "bands"?: Json,"code": string,"created_at"?: string,"created_by"?: string | null,"full_name": string,"id"?: string,"instructions": string,"is_active"?: boolean,"items": Json,"kind": string,"max_label"?: string | null,"min_label"?: string | null,"name": string,"note"?: string | null,"scale_max"?: number | null,"scale_min"?: number | null,"updated_at"?: string
+                  }
+                  Update: {
+                    "bands"?: Json,"code"?: string,"created_at"?: string,"created_by"?: string | null,"full_name"?: string,"id"?: string,"instructions"?: string,"is_active"?: boolean,"items"?: Json,"kind"?: string,"max_label"?: string | null,"min_label"?: string | null,"name"?: string,"note"?: string | null,"scale_max"?: number | null,"scale_min"?: number | null,"updated_at"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"test_assignments": {
                   Row: {
                     "assigned_at": string,"assigned_by": string | null,"completed_at": string | null,"due_on": string | null,"focus_key": string | null,"id": string,"note": string | null,"patient_id": string,"show_result": boolean,"status": string,"test_id": string

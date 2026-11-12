@@ -7,7 +7,7 @@ import { CrisisBanner } from "@/components/calm/crisis-banner";
 import { PatientTestForm } from "@/components/patient/patient-test-form";
 import { PageHeader } from "@/components/ui/page-header";
 import { requirePatient } from "@/lib/auth/session";
-import { assignableTest } from "@/lib/clinical/focus";
+import { resolveTestDef } from "@/server/services/custom-tests";
 import { createClient } from "@/lib/supabase/server";
 import { getActiveEmergencyResources } from "@/server/services/public-content";
 import { getPublicSettingsSafe } from "@/server/services/public-settings";
@@ -20,7 +20,7 @@ export default async function PatientTestPage({ params }: { params: Promise<{ id
   if (!/^[0-9a-f-]{36}$/i.test(id)) notFound();
   const supabase = await createClient();
   const { data: assignment } = await supabase.from("test_assignments").select("*").eq("id", id).eq("patient_id", patient.id).maybeSingle();
-  const def = assignment ? assignableTest(assignment.test_id) : undefined;
+  const def = assignment ? await resolveTestDef(supabase, assignment.test_id) : undefined;
   if (!assignment || !def || assignment.status !== "pending") notFound();
   const [resources, settings] = await Promise.all([getActiveEmergencyResources(), getPublicSettingsSafe()]);
 

@@ -34,6 +34,7 @@ import { listMoodEntries } from "@/server/services/emotional-logs";
 import { getIntakeStatus } from "@/server/services/intake";
 import { listSharedResponses } from "@/server/services/exercises";
 import { getSetting, getSettings } from "@/server/services/settings";
+import { listActiveCustomTests, resolveTestDefs } from "@/server/services/custom-tests";
 import { getProgressPrefs, isPaused, listChallenges, listGoals, loadPracticeEvents, progressEnabledFor } from "@/server/services/progress";
 import { summarize } from "@/lib/progress";
 import { APPOINTMENT_STATUS_LABEL, type AppointmentWithPatient, type Patient } from "@/types/domain";
@@ -92,7 +93,8 @@ export default async function PatientDetailPage({ params }: { params: Promise<{ 
     const m = focusMaterials.get(slug);
     return m ? [{ slug, title: m.title, published: m.published, assigned: assignedMaterialIds.has(m.id) }] : [];
   });
-  const testName = (id: string) => TESTS.find((t) => t.id === id)?.name ?? id;
+  const [testDefs, customTests] = await Promise.all([resolveTestDefs(supabase, testAssignments.map((a) => a.test_id)), listActiveCustomTests(supabase)]);
+  const testName = (id: string) => testDefs.get(id)?.name ?? TESTS.find((t) => t.id === id)?.name ?? id;
   const testRows = testAssignments
     .filter((a) => a.status !== "cancelled")
     .map((a) => {
@@ -232,7 +234,7 @@ export default async function PatientDetailPage({ params }: { params: Promise<{ 
             <h2 id="tests-paciente" className="font-display text-lg font-medium">Tests</h2>
             <p className="text-sm text-muted-foreground">El paciente los responde desde su panel. El puntaje lo calcula la plataforma.</p>
           </div>
-          <PatientTestsPanel patientId={patient.id} rows={testRows} options={ASSIGNABLE_TESTS.map((t) => ({ id: t.id, name: t.name, full: t.full }))} />
+          <PatientTestsPanel patientId={patient.id} rows={testRows} options={[...ASSIGNABLE_TESTS.map((t) => ({ id: t.id, name: t.name, full: t.full })), ...customTests.map((t) => ({ ...t, name: `${t.name} (propio)` }))]} />
         </div>
       </section>
 

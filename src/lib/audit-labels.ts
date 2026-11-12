@@ -22,6 +22,7 @@ const AUDIT_ACTION_LABELS: Record<string, string> = {
   "availability.block_created": "Horario bloqueado",
   "availability.block_deleted": "Bloqueo eliminado",
   "patient.invited": "Paciente invitado",
+  "custom_test.saved": "Test propio guardado",
   "instrument.saved": "Instrumento con licencia guardado",
   "instrument.result_added": "Resultado de instrumento cargado",
   "workbook.draft_generated": "Borrador de cuadernillo generado",

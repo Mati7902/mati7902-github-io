@@ -6,10 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { EmptyState } from "@/components/ui/empty-state";
 import { PageHeader } from "@/components/ui/page-header";
 import { requirePatient } from "@/lib/auth/session";
-import { assignableTest } from "@/lib/clinical/focus";
 import { capitalize, formatCompactDate } from "@/lib/dates";
 import { createClient } from "@/lib/supabase/server";
 import { listTestAssignments, listTestResponses } from "@/server/services/clinical";
+import { resolveTestDefs } from "@/server/services/custom-tests";
 
 export const metadata: Metadata = { title: "Mis cuestionarios" };
 
@@ -18,7 +18,8 @@ export default async function PatientTestsPage() {
   const supabase = await createClient();
   // RLS: las respuestas solo llegan si el profesional habilitó ver el resultado.
   const [assignments, responses] = await Promise.all([listTestAssignments(supabase, patient.id), listTestResponses(supabase, patient.id)]);
-  const pending = assignments.filter((a) => a.status === "pending" && assignableTest(a.test_id));
+  const defs = await resolveTestDefs(supabase, assignments.map((a) => a.test_id));
+  const pending = assignments.filter((a) => a.status === "pending" && defs.has(a.test_id));
   const done = assignments.filter((a) => a.status === "completed");
 
   return (
@@ -32,7 +33,7 @@ export default async function PatientTestsPage() {
           <h2 className="font-display text-xl font-medium">Para completar</h2>
           <ul className="grid gap-3">
             {pending.map((a) => {
-              const def = assignableTest(a.test_id)!;
+              const def = defs.get(a.test_id)!;
               return (
                 <li key={a.id}>
                   <Link href={`/app/tests/${a.id}`} className="surface-card group flex items-center gap-4 p-5 transition-shadow hover:shadow-[var(--shadow-float)]">
@@ -60,7 +61,7 @@ export default async function PatientTestsPage() {
           <ul className="space-y-2">
             {done.map((a) => {
               const r = responses.find((x) => x.assignment_id === a.id);
-              const def = assignableTest(a.test_id);
+              const def = defs.get(a.test_id);
               return (
                 <li key={a.id} className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-border/70 bg-card px-4 py-3 text-sm">
                   <span className="font-medium">{def?.full ?? a.test_id}</span>

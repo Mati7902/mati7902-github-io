@@ -794,6 +794,27 @@ select pg_temp.logout();
 rollback;
 
 -- ---------------------------------------------------------------------------
+-- 6i. Tests propios
+-- ---------------------------------------------------------------------------
+begin;
+select set_config('test.juan_id', (select id::text from public.patients where email = 'juan.perez@demo.local'), true);
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+insert into public.custom_tests (code, name, full_name, instructions, kind, items) values
+  ('pprueba0001', 'VF1', 'Test de prueba 1', 'Respondé', 'vf', '[{"text":"A"}]'),
+  ('pprueba0002', 'VF2', 'Test de prueba 2', 'Respondé', 'vf', '[{"text":"B"}]');
+select pg_temp.expect_error($q$insert into public.custom_tests (code, name, full_name, instructions, kind, items) values ('pprueba0003', 'E', 'Escala', 'x', 'scale', '[{"text":"A"}]')$q$, array['23514'], 'una escala exige su rango');
+insert into public.test_assignments (patient_id, test_id) values (current_setting('test.juan_id')::uuid, 'pprueba0001');
+select pg_temp.logout();
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+select pg_temp.assert((select count(*) from public.custom_tests) = 1 and (select code from public.custom_tests) = 'pprueba0001', 'el paciente lee solo el test propio que tiene asignado');
+select pg_temp.expect_error($q$insert into public.custom_tests (code, name, full_name, instructions, kind, items) values ('pprueba0009', 'X', 'X', 'x', 'vf', '[{"text":"A"}]')$q$, array['42501'], 'el paciente no crea tests');
+select pg_temp.logout();
+select pg_temp.login('33333333-3333-4333-8333-333333333333');
+select pg_temp.assert((select count(*) from public.custom_tests) = 0, 'otro paciente no ve tests propios ajenos');
+select pg_temp.logout();
+rollback;
+
+-- ---------------------------------------------------------------------------
 -- 7. Rate limiting (solo servidor)
 -- ---------------------------------------------------------------------------
 begin;
