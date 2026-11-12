@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import type { WorkbookChapter, WorkbookContent, WorkbookItem, WorkbookSources } from "@/lib/workbook/rules";
+import { PROMPT_TYPE_LABEL, PROMPT_TYPES, type PromptType, type WorkbookChapter, type WorkbookContent, type WorkbookItem, type WorkbookPrompt, type WorkbookSources } from "@/lib/workbook/rules";
 import { generateWorkbookDraftAction, publishWorkbookAction, saveWorkbookAction } from "@/server/actions/workbooks";
 
 type Props = {
@@ -179,20 +179,17 @@ export function WorkbookEditor({ patientId, workbookId, version, publishedVersio
               </div>
               <Textarea value={ch.body} onChange={(e) => setChapter(ci, { body: e.target.value })} maxLength={6000} className="min-h-40 text-sm" aria-label={`Texto del capítulo ${ci + 1}`} />
               <div className="space-y-2">
-                <p className="text-xs font-medium">Hoja de trabajo</p>
+                <p className="text-xs font-medium">Hoja de trabajo (el paciente la completa en la app)</p>
                 {ch.prompts.map((p, pi) => (
-                  <div key={p.key} className="flex flex-wrap items-center gap-2">
-                    <Input value={p.text} onChange={(e) => setChapter(ci, { prompts: ch.prompts.map((x, k) => (k === pi ? { ...x, text: e.target.value } : x)) })} maxLength={400} className="min-w-0 flex-1" aria-label={`Consigna ${pi + 1}`} />
-                    <label className="flex items-center gap-1 text-xs">
-                      <Input type="number" min={1} max={10} value={p.lines} onChange={(e) => setChapter(ci, { prompts: ch.prompts.map((x, k) => (k === pi ? { ...x, lines: Number(e.target.value) || 3 } : x)) })} className="w-16" aria-label="Renglones" /> renglones
-                    </label>
-                    <Button size="icon-sm" variant="ghost" aria-label="Quitar consigna" onClick={() => setChapter(ci, { prompts: ch.prompts.filter((_, k) => k !== pi) })}>
-                      <Trash2 />
-                    </Button>
-                  </div>
+                  <PromptEditor
+                    key={p.key}
+                    prompt={p}
+                    onChange={(patch) => setChapter(ci, { prompts: ch.prompts.map((x, k) => (k === pi ? { ...x, ...patch } : x)) })}
+                    onRemove={() => setChapter(ci, { prompts: ch.prompts.filter((_, k) => k !== pi) })}
+                  />
                 ))}
-                {ch.prompts.length < 6 ? (
-                  <Button variant="outline" size="sm" onClick={() => setChapter(ci, { prompts: [...ch.prompts, { key: nextPromptKey(ch), text: "", lines: 3 }] })}>
+                {ch.prompts.length < 8 ? (
+                  <Button variant="outline" size="sm" onClick={() => setChapter(ci, { prompts: [...ch.prompts, { key: nextPromptKey(ch), type: "text", text: "", lines: 3 }] })}>
                     <Plus aria-hidden /> Agregar consigna
                   </Button>
                 ) : null}
@@ -301,6 +298,81 @@ export function WorkbookEditor({ patientId, workbookId, version, publishedVersio
           ))}
         </ul>
       </details>
+    </div>
+  );
+}
+
+/** Una consigna de la hoja de trabajo: tipo y los campos que ese tipo necesita. */
+function PromptEditor({ prompt: p, onChange, onRemove }: { prompt: WorkbookPrompt; onChange: (patch: Partial<WorkbookPrompt>) => void; onRemove: () => void }) {
+  const type: PromptType = p.type ?? "text";
+  const small = "h-10 rounded-lg border border-input bg-card px-2 text-sm";
+  return (
+    <div className="space-y-2 rounded-xl border border-border/60 bg-background p-3">
+      <div className="flex flex-wrap items-center gap-2">
+        <select value={type} onChange={(e) => onChange({ type: e.target.value as PromptType })} className={small} aria-label="Tipo de consigna">
+          {PROMPT_TYPES.map((t) => (
+            <option key={t} value={t}>{PROMPT_TYPE_LABEL[t]}</option>
+          ))}
+        </select>
+        <Input value={p.text} onChange={(e) => onChange({ text: e.target.value })} maxLength={400} className="min-w-0 flex-1" placeholder={type === "vf" ? "Afirmación" : "Consigna"} aria-label="Consigna" />
+        <Button size="icon-sm" variant="ghost" aria-label="Quitar consigna" onClick={onRemove}>
+          <Trash2 />
+        </Button>
+      </div>
+      {type === "text" ? (
+        <label className="flex items-center gap-1 text-xs">
+          <Input type="number" min={1} max={10} value={p.lines ?? 3} onChange={(e) => onChange({ lines: Number(e.target.value) || 3 })} className="h-9 w-16" aria-label="Renglones" /> renglones en el PDF
+        </label>
+      ) : null}
+      {type === "list" ? (
+        <label className="flex items-center gap-1 text-xs">
+          <Input type="number" min={1} max={10} value={p.count ?? 3} onChange={(e) => onChange({ count: Number(e.target.value) || 3 })} className="h-9 w-16" aria-label="Cantidad" /> renglones para completar
+        </label>
+      ) : null}
+      {type === "scale" ? (
+        <div className="flex flex-wrap items-center gap-2 text-xs">
+          de
+          <select value={p.min ?? 0} onChange={(e) => onChange({ min: Number(e.target.value) })} className={small} aria-label="Mínimo">
+            <option value={0}>0</option>
+            <option value={1}>1</option>
+          </select>
+          a
+          <select value={p.max ?? 10} onChange={(e) => onChange({ max: Number(e.target.value) })} className={small} aria-label="Máximo">
+            {[3, 4, 5, 7, 10].map((n) => (
+              <option key={n} value={n}>{n}</option>
+            ))}
+          </select>
+          <Input value={p.minLabel ?? ""} onChange={(e) => onChange({ minLabel: e.target.value })} maxLength={40} placeholder="Etiqueta mínima" className="h-9 w-36" aria-label="Etiqueta mínima" />
+          <Input value={p.maxLabel ?? ""} onChange={(e) => onChange({ maxLabel: e.target.value })} maxLength={40} placeholder="Etiqueta máxima" className="h-9 w-36" aria-label="Etiqueta máxima" />
+        </div>
+      ) : null}
+      {type === "choice" || type === "checklist" ? (
+        <Textarea
+          value={(p.options ?? []).join("\n")}
+          onChange={(e) => onChange({ options: e.target.value.split("\n").slice(0, 10) })}
+          className="min-h-20 text-sm"
+          placeholder="Una opción por renglón"
+          aria-label="Opciones (una por renglón)"
+        />
+      ) : null}
+      {type === "vf" ? (
+        <select value={p.correct ?? ""} onChange={(e) => onChange({ correct: e.target.value || undefined })} className={small} aria-label="Respuesta correcta">
+          <option value="">Sin respuesta correcta (reflexión)</option>
+          <option value="v">Correcta: verdadero</option>
+          <option value="f">Correcta: falso</option>
+        </select>
+      ) : null}
+      {type === "choice" ? (
+        <select value={p.correct ?? ""} onChange={(e) => onChange({ correct: e.target.value || undefined })} className={small} aria-label="Opción correcta">
+          <option value="">Sin respuesta correcta (preferencia personal)</option>
+          {(p.options ?? []).filter((o) => o.trim()).map((o) => (
+            <option key={o} value={o}>Correcta: {o}</option>
+          ))}
+        </select>
+      ) : null}
+      {type === "vf" || type === "choice" ? (
+        <Input value={p.feedback ?? ""} onChange={(e) => onChange({ feedback: e.target.value })} maxLength={600} placeholder="Explicación que ve el paciente al responder (opcional)" className="text-sm" aria-label="Explicación" />
+      ) : null}
     </div>
   );
 }

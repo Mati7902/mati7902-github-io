@@ -8,6 +8,7 @@ import { WorkbookEditor } from "@/components/workbook/workbook-editor";
 import { PageHeader } from "@/components/ui/page-header";
 import { requireAdmin } from "@/lib/auth/session";
 import { COLLECTIONS } from "@/lib/exercises/collections";
+import { formatWorkbookAnswer } from "@/lib/workbook/rules";
 import { createClient } from "@/lib/supabase/server";
 import { isWorkbookAIConfigured } from "@/server/services/ai/workbook-writer";
 import { getAdminWorkbook } from "@/server/services/workbooks";
@@ -28,6 +29,10 @@ export default async function PatientWorkbookPage({ params }: { params: Promise<
     supabase.from("exercise_templates").select("slug, title, estimated_minutes, collection").eq("is_active", true).order("sort_order"),
   ]);
   if (!patient) notFound();
+  // Lo que completó el paciente (RLS: solo si comparte sus registros).
+  const { data: answerRows } = workbook ? await supabase.from("workbook_answers").select("prompt_key, answer, updated_at").eq("workbook_id", workbook.id) : { data: [] };
+  const answers = new Map((answerRows ?? []).map((a) => [a.prompt_key, a.answer]));
+  const publishedChapters = workbook?.latest.content.chapters ?? [];
   const options = (templates ?? []).map((t) => ({ slug: t.slug, title: t.title, minutes: t.estimated_minutes, group: (t.collection && COLLECTIONS[t.collection]?.title) || "Ejercicios" }));
 
   return (
@@ -53,7 +58,30 @@ export default async function PatientWorkbookPage({ params }: { params: Promise<
           history={workbook.history}
           aiAvailable={isWorkbookAIConfigured()}
         />
-      ) : intake?.submitted_at ? (
+      ) : null}
+      {workbook && answers.size > 0 ? (
+        <section className="space-y-4" aria-labelledby="respuestas-cuadernillo">
+          <h2 id="respuestas-cuadernillo" className="font-display text-xl font-medium">Lo que completó el paciente ({answers.size})</h2>
+          {publishedChapters.map((ch) => {
+            const rows = ch.prompts.filter((p) => answers.has(p.key));
+            if (!rows.length) return null;
+            return (
+              <div key={ch.key} className="surface-card space-y-3 p-5">
+                <p className="font-medium">{ch.title}</p>
+                <dl className="space-y-3 text-sm">
+                  {rows.map((p) => (
+                    <div key={p.key}>
+                      <dt className="text-muted-foreground">{p.text}</dt>
+                      <dd className="mt-0.5 whitespace-pre-wrap">{formatWorkbookAnswer(p, answers.get(p.key)!)}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            );
+          })}
+        </section>
+      ) : null}
+      {workbook ? null : intake?.submitted_at ? (
         <div className="space-y-3 rounded-2xl border border-dashed border-border bg-card/60 p-6">
           <p>Todavía no hay cuadernillo para este paciente.</p>
           <GenerateDraftButton patientId={id} />

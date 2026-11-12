@@ -31,9 +31,72 @@ export type WorkbookChapter = {
   title: string;
   /** Párrafos separados por línea en blanco, viñetas con "- " y **negrita**. */
   body: string;
-  /** Preguntas para responder (en la app o a mano en el PDF). */
-  prompts: { key: string; text: string; lines: number }[];
+  /** Consignas para completar (en la app o a mano en el PDF). */
+  prompts: WorkbookPrompt[];
 };
+
+export const PROMPT_TYPES = ["text", "vf", "scale", "choice", "checklist", "list"] as const;
+export type PromptType = (typeof PROMPT_TYPES)[number];
+
+export const PROMPT_TYPE_LABEL: Record<PromptType, string> = {
+  text: "Pregunta abierta",
+  vf: "Verdadero o falso",
+  scale: "Escala",
+  choice: "Opción múltiple (una)",
+  checklist: "Marcar las que correspondan",
+  list: "Lista (varios renglones)",
+};
+
+/**
+ * Consigna de una hoja de trabajo. Según el tipo se usan distintos campos; los que no aplican
+ * se ignoran. En V/F y opción múltiple, `correct` + `feedback` la convierten en una pregunta de
+ * repaso: al responder, el paciente ve la explicación.
+ */
+export type WorkbookPrompt = {
+  key: string;
+  type?: PromptType;
+  text: string;
+  /** Pregunta abierta: renglones en el PDF. */
+  lines?: number;
+  /** Opción múltiple / marcar varias. */
+  options?: string[];
+  /** Escala. */
+  min?: number;
+  max?: number;
+  minLabel?: string;
+  maxLabel?: string;
+  /** Lista: cuántos renglones. */
+  count?: number;
+  /** V/F: "v" | "f". Opción múltiple: el texto de la opción correcta. */
+  correct?: string;
+  feedback?: string;
+};
+
+/** Completa los valores por defecto y descarta lo que no aplica al tipo (también para datos viejos sin tipo). */
+export function normalizePrompt(p: WorkbookPrompt): WorkbookPrompt & { type: PromptType } {
+  const type: PromptType = p.type && (PROMPT_TYPES as readonly string[]).includes(p.type) ? p.type : "text";
+  const base = { key: p.key, type, text: p.text };
+  switch (type) {
+    case "text":
+      return { ...base, lines: Math.min(10, Math.max(1, p.lines ?? 3)) };
+    case "vf":
+      return { ...base, correct: p.correct === "v" || p.correct === "f" ? p.correct : undefined, feedback: p.feedback || undefined };
+    case "scale": {
+      const min = Math.min(1, Math.max(0, p.min ?? 0));
+      const max = Math.min(10, Math.max(min + 2, p.max ?? 10));
+      return { ...base, min, max, minLabel: p.minLabel || undefined, maxLabel: p.maxLabel || undefined };
+    }
+    case "choice":
+    case "checklist": {
+      const options = (p.options ?? []).map((o) => o.trim()).filter(Boolean).slice(0, 10);
+      const correct = type === "choice" && p.correct && options.includes(p.correct) ? p.correct : undefined;
+      return { ...base, options, correct, feedback: type === "choice" ? p.feedback || undefined : undefined };
+    }
+    case "list":
+      return { ...base, count: Math.min(10, Math.max(1, p.count ?? 3)) };
+  }
+}
+
 
 export type WorkbookContent = {
   welcome: string;
@@ -171,4 +234,32 @@ export function buildDraft(input: { answers: IntakeAnswers; firstName: string; p
     },
     sources: { reasons, flags, missing },
   };
+}
+
+/** Respuesta guardada → texto legible para el profesional. */
+export function formatWorkbookAnswer(prompt: WorkbookPrompt, raw: string): string {
+  const p = normalizePrompt(prompt);
+  const list = () => {
+    try {
+      const x = JSON.parse(raw);
+      return Array.isArray(x) ? x.map(String).filter((v) => v.trim()) : [raw];
+    } catch {
+      return [raw];
+    }
+  };
+  switch (p.type) {
+    case "vf": {
+      const v = raw === "v" ? "Verdadero" : raw === "f" ? "Falso" : raw;
+      return p.correct ? `${v} (${raw === p.correct ? "correcta" : "esperada: " + (p.correct === "v" ? "verdadero" : "falso")})` : v;
+    }
+    case "choice":
+      return p.correct ? `${raw} (${raw === p.correct ? "correcta" : `esperada: ${p.correct}`})` : raw;
+    case "scale":
+      return `${raw} de ${p.max}`;
+    case "checklist":
+    case "list":
+      return list().map((x) => `• ${x}`).join("\n") || "—";
+    default:
+      return raw;
+  }
 }

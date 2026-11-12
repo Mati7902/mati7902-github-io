@@ -1,6 +1,6 @@
 import { RichText } from "@/components/exercises/rich-text";
 import type { ExerciseStep } from "@/lib/exercises/steps";
-import type { WorkbookContent } from "@/lib/workbook/rules";
+import { normalizePrompt, type WorkbookContent } from "@/lib/workbook/rules";
 
 type Props = {
   content: WorkbookContent;
@@ -97,6 +97,76 @@ function Worksheet({ step }: { step: ExerciseStep }) {
   }
 }
 
+function ChapterPrompt({ prompt: p, number }: { prompt: ReturnType<typeof normalizePrompt>; number: number }) {
+  const title = (
+    <p>
+      {number}. {p.text}
+    </p>
+  );
+  switch (p.type) {
+    case "vf":
+      return (
+        <div className="wb-q">
+          {title}
+          <ul className="wb-options wb-inline">
+            <li>Verdadero</li>
+            <li>Falso</li>
+          </ul>
+        </div>
+      );
+    case "choice":
+    case "checklist":
+      return (
+        <div className="wb-q">
+          {title}
+          {p.type === "checklist" ? <p className="wb-hint">Marcá todas las que correspondan.</p> : null}
+          <ul className="wb-options">
+            {(p.options ?? []).map((o) => (
+              <li key={o}>{o}</li>
+            ))}
+          </ul>
+        </div>
+      );
+    case "scale":
+      return (
+        <div className="wb-q">
+          {title}
+          <div className="wb-scale">
+            {Array.from({ length: (p.max ?? 10) - (p.min ?? 0) + 1 }, (_, i) => (
+              <span key={i}>{(p.min ?? 0) + i}</span>
+            ))}
+          </div>
+          {p.minLabel || p.maxLabel ? (
+            <p className="wb-scale-labels">
+              <span>{p.minLabel}</span>
+              <span>{p.maxLabel}</span>
+            </p>
+          ) : null}
+        </div>
+      );
+    case "list":
+      return (
+        <div className="wb-q">
+          {title}
+          <ol className="wb-list">
+            {Array.from({ length: p.count ?? 3 }, (_, i) => (
+              <li key={i}>
+                <span />
+              </li>
+            ))}
+          </ol>
+        </div>
+      );
+    default:
+      return (
+        <div className="wb-q">
+          {title}
+          <Lines n={p.lines ?? 3} />
+        </div>
+      );
+  }
+}
+
 /**
  * Cuadernillo en formato imprimible (Guardar como PDF desde el navegador). Sale del mismo
  * contenido que la versión digital. La portada lleva solo nombre de pila y fecha.
@@ -164,11 +234,9 @@ export function WorkbookDocument({ content, firstName, dateLabel, professional, 
           <div className="wb-info">
             <RichText text={ch.body} />
           </div>
-          {ch.prompts.map((p) => (
-            <div key={p.key} className="wb-q">
-              <p>{p.text}</p>
-              <Lines n={p.lines} />
-            </div>
+          {ch.prompts.length ? <h3>Hoja de trabajo</h3> : null}
+          {ch.prompts.map(normalizePrompt).map((p, k) => (
+            <ChapterPrompt key={p.key} prompt={p} number={k + 1} />
           ))}
         </section>
       ))}
@@ -254,7 +322,7 @@ const WB_CSS = `
 .wb-list li span { display: inline-block; width: 92%; height: 26px; border-bottom: 1px solid var(--line); vertical-align: bottom; }
 .wb-scale { display: flex; gap: 6px; flex-wrap: wrap; } .wb-scale span { width: 30px; height: 30px; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; font-size: 12px; }
 .wb-scale-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--soft); max-width: 400px; }
-.wb-options { list-style: none; padding-left: 0; } .wb-options li::before { content: "☐  "; }
+.wb-options { list-style: none; padding-left: 0; } .wb-options li::before { content: "☐  "; } .wb-inline { display: flex; gap: 32px; } .wb-hint { font-size: 12px; color: var(--soft); margin: 0 0 4px; font-weight: 400 !important; }
 .wb-table { width: 100%; border-collapse: collapse; font-size: 13px; } .wb-table th, .wb-table td { border: 1px solid var(--line); padding: 6px; text-align: left; height: 54px; vertical-align: top; } .wb-table th { height: auto; background: #eef4f3; }
 .wb-closing { margin-top: 24px; font-style: italic; }
 .wb-crisis { margin-top: 16px; font-size: 13px; color: var(--soft); border-top: 1px solid var(--line); padding-top: 8px; }

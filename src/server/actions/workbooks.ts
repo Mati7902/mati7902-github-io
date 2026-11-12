@@ -9,6 +9,7 @@ import { createClient } from "@/lib/supabase/server";
 import { zodFieldErrors } from "@/lib/validation";
 import { audit } from "@/server/services/audit";
 import { getSetting } from "@/server/services/settings";
+import { normalizePrompt, PROMPT_TYPES } from "@/lib/workbook/rules";
 import { generateDraft, publishWorkbook, saveWorkbookVersion } from "@/server/services/workbooks";
 
 const itemSchema = z.object({
@@ -22,7 +23,24 @@ const chapterSchema = z.object({
   key: z.string().regex(/^c[0-9]{1,2}$/),
   title: z.string().trim().min(1).max(140),
   body: z.string().trim().max(6000),
-  prompts: z.array(z.object({ key: z.string().regex(/^c[0-9]{1,2}p[0-9]{1,2}$/), text: z.string().trim().min(1).max(400), lines: z.number().int().min(1).max(10) })).max(6),
+  prompts: z
+    .array(
+      z.object({
+        key: z.string().regex(/^c[0-9]{1,2}p[0-9]{1,2}$/),
+        type: z.enum(PROMPT_TYPES).optional(),
+        text: z.string().trim().min(1).max(400),
+        lines: z.number().int().min(1).max(10).optional(),
+        options: z.array(z.string().trim().min(1).max(160)).max(10).optional(),
+        min: z.number().int().min(0).max(1).optional(),
+        max: z.number().int().min(2).max(10).optional(),
+        minLabel: z.string().trim().max(40).optional(),
+        maxLabel: z.string().trim().max(40).optional(),
+        count: z.number().int().min(1).max(10).optional(),
+        correct: z.string().trim().max(160).optional(),
+        feedback: z.string().trim().max(600).optional(),
+      }),
+    )
+    .max(8),
 });
 const contentSchema = z.object({
   welcome: z.string().trim().max(1500),
@@ -52,7 +70,8 @@ export async function saveWorkbookAction(input: { patientId: string; workbookId:
   try {
     const session = await assertAdmin();
     const supabase = await createClient();
-    const version = await saveWorkbookVersion(supabase, z.string().uuid().parse(input.workbookId), parsed.data, session.userId);
+    const content = { ...parsed.data, chapters: parsed.data.chapters?.map((c) => ({ ...c, prompts: c.prompts.map(normalizePrompt) })) };
+    const version = await saveWorkbookVersion(supabase, z.string().uuid().parse(input.workbookId), content, session.userId);
     await audit(supabase, "workbook.saved", { type: "patient", id: input.patientId }, { version });
     revalidatePath(`/admin/pacientes/${input.patientId}/cuadernillo`);
     return ok({ version });
