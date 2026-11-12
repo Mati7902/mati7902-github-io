@@ -15,7 +15,7 @@ export function CrisisBanner({ settings, resources, professionalWhatsApp, compac
   return (
     <aside aria-label="Si necesitás ayuda urgente" className="rounded-2xl border border-warning/40 bg-warning-soft/60 p-5">
       <div className="flex gap-3">
-        <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-card text-[#8a6418]">
+        <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-card text-warning-strong">
           <LifeBuoy className="size-5" aria-hidden />
         </span>
         <div className="space-y-3">

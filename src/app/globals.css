@@ -14,6 +14,20 @@
 :root {
   --radius: 1rem;
 
+  /* Bases para derivar tintes y sombras de la paleta (se invierten en modo oscuro). */
+  --tint-base: white;
+  --shade-base: black;
+  --band-base: #f7fbe8;
+  --sand-50: #f8fbfa;
+  --sand-100: #f1f6f5;
+  --sand-200: #e8eeed;
+  --sand-300: #dfe7e6;
+  --sand-400: #c4d0ce;
+  --sand-500: #9aa8a6;
+  --warning-strong: #7a5614;
+  --info-strong: #2b5f80;
+  --shadow-rgb: 15 35 51;
+
   /* Superficies */
   --background: #fbfdfc;
   --foreground: #0f2333;
@@ -26,14 +40,16 @@
   /* Marca: --primary y --accent se configuran en Administración › Apariencia (ver <ThemeStyle />).
      Las escalas "petrol" (principal) y "mint" (acento) y los tonos derivados se calculan a partir
      de esos dos colores, así toda la interfaz sigue la paleta elegida. */
-  --primary: #2f6468;
+  --brand-primary: #2f6468;
+  --brand-accent: #27b088;
+  --primary: var(--brand-primary);
   --primary-foreground: #ffffff;
-  --accent: #27b088;
+  --accent: var(--brand-accent);
   --accent-foreground: #12181b;
-  --primary-soft: color-mix(in oklab, var(--primary) 8%, white);
-  --secondary: color-mix(in oklab, var(--accent) 30%, white);
-  --secondary-foreground: color-mix(in oklab, var(--primary), black 20%);
-  --accent-strong: color-mix(in oklab, var(--accent), black 42%);
+  --primary-soft: color-mix(in oklab, var(--primary) 8%, var(--tint-base));
+  --secondary: color-mix(in oklab, var(--accent) 30%, var(--tint-base));
+  --secondary-foreground: color-mix(in oklab, var(--primary), var(--shade-base) 20%);
+  --accent-strong: color-mix(in oklab, var(--accent), var(--shade-base) 42%);
 
   /* Neutros */
   --muted: #f1f6f5;
@@ -42,7 +58,7 @@
   --border: #dfe7e6;
   --divider: #e8eeed;
   --input: #dfe7e6;
-  --ring: color-mix(in oklab, var(--primary) 72%, white);
+  --ring: color-mix(in oklab, var(--primary) 72%, var(--tint-base));
 
   /* Semánticos */
   --destructive: #c8554d;
@@ -72,6 +88,55 @@
   --sidebar-ring: var(--ring);
 }
 
+/* Modo oscuro: azul petróleo profundo, texto marfil. Se activa con la clase .dark en <html>
+   (Perfil o Configuración › Apariencia del panel). Los tonos de marca se derivan igual. */
+:root.dark {
+  color-scheme: dark;
+  --tint-base: #0f2129;
+  --shade-base: #f3efe6;
+  --band-base: #10262e;
+  --background: #0c1b22;
+  --foreground: #eef1ec;
+  --card: #132932;
+  --card-foreground: #eef1ec;
+  --popover: #132932;
+  --popover-foreground: #eef1ec;
+  --surface-muted: #183139;
+  /* La marca se aclara para que textos y botones contrasten sobre fondo oscuro. */
+  --primary: color-mix(in oklch, var(--brand-primary), #8fe3d6 58%);
+  --primary-foreground: #0c1b22;
+  --accent: color-mix(in oklch, var(--brand-accent), #b9f0dc 22%);
+  --accent-foreground: #0c1b22;
+  --primary-soft: color-mix(in oklab, var(--brand-primary) 30%, #0f2129);
+  --muted: #183139;
+  --muted-foreground: #b3c3c4;
+  --subtle-foreground: #a3b4b6;
+  --border: #284650;
+  --divider: #213b44;
+  --input: #2d4c56;
+  --ring: color-mix(in oklab, var(--primary) 60%, #f3efe6);
+  --destructive: #e3857c;
+  --destructive-foreground: #1a0f0d;
+  --success: #6fbfa6;
+  --success-soft: #173a33;
+  --warning: #e5bd6c;
+  --warning-soft: #3a2f17;
+  --warning-strong: #f0cf8a;
+  --info: #7fb4d6;
+  --info-soft: #17313f;
+  --info-strong: #a9cfe6;
+  --sand-50: #10232a;
+  --sand-100: #152c34;
+  --sand-200: #1b343d;
+  --sand-300: #233f48;
+  --sand-400: #3b5a63;
+  --sand-500: #6f8a90;
+  --sidebar: #10232a;
+  --sidebar-foreground: #eef1ec;
+  --sidebar-border: #233f48;
+  --shadow-rgb: 0 0 0;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -80,6 +145,8 @@
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-surface-muted: var(--surface-muted);
+  --color-warning-strong: var(--warning-strong);
+  --color-info-strong: var(--info-strong);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary-soft: var(--primary-soft);
@@ -118,36 +185,36 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   /* Escala del color principal ("petrol"), derivada de --primary */
-  --color-petrol-50: color-mix(in oklab, var(--primary) 8%, white);
-  --color-petrol-100: color-mix(in oklab, var(--primary) 18%, white);
-  --color-petrol-200: color-mix(in oklab, var(--primary) 34%, white);
-  --color-petrol-300: color-mix(in oklab, var(--primary) 52%, white);
-  --color-petrol-400: color-mix(in oklab, var(--primary) 72%, white);
-  --color-petrol-500: color-mix(in oklab, var(--primary) 88%, white);
+  --color-petrol-50: color-mix(in oklab, var(--primary) 8%, var(--tint-base));
+  --color-petrol-100: color-mix(in oklab, var(--primary) 18%, var(--tint-base));
+  --color-petrol-200: color-mix(in oklab, var(--primary) 34%, var(--tint-base));
+  --color-petrol-300: color-mix(in oklab, var(--primary) 52%, var(--tint-base));
+  --color-petrol-400: color-mix(in oklab, var(--primary) 72%, var(--tint-base));
+  --color-petrol-500: color-mix(in oklab, var(--primary) 88%, var(--tint-base));
   --color-petrol-600: var(--primary);
-  --color-petrol-700: color-mix(in oklab, var(--primary), black 20%);
-  --color-petrol-800: color-mix(in oklab, var(--primary), black 38%);
-  --color-petrol-900: color-mix(in oklab, var(--primary), black 58%);
+  --color-petrol-700: color-mix(in oklab, var(--primary), var(--shade-base) 20%);
+  --color-petrol-800: color-mix(in oklab, var(--primary), var(--shade-base) 38%);
+  --color-petrol-900: color-mix(in oklab, var(--primary), var(--shade-base) 58%);
 
   /* Escala del acento ("mint"), derivada de --accent */
-  --color-mint-50: color-mix(in oklab, var(--accent) 14%, white);
-  --color-mint-100: color-mix(in oklab, var(--accent) 30%, white);
-  --color-mint-200: color-mix(in oklab, var(--accent) 62%, white);
+  --color-mint-50: color-mix(in oklab, var(--accent) 14%, var(--tint-base));
+  --color-mint-100: color-mix(in oklab, var(--accent) 30%, var(--tint-base));
+  --color-mint-200: color-mix(in oklab, var(--accent) 62%, var(--tint-base));
   --color-mint-300: var(--accent);
-  --color-mint-400: color-mix(in oklab, var(--accent), black 12%);
-  --color-mint-500: color-mix(in oklab, var(--accent), black 25%);
-  --color-mint-600: color-mix(in oklab, var(--accent), black 42%);
-  --color-mint-700: color-mix(in oklab, var(--accent), black 55%);
+  --color-mint-400: color-mix(in oklab, var(--accent), var(--shade-base) 12%);
+  --color-mint-500: color-mix(in oklab, var(--accent), var(--shade-base) 25%);
+  --color-mint-600: color-mix(in oklab, var(--accent), var(--shade-base) 42%);
+  --color-mint-700: color-mix(in oklab, var(--accent), var(--shade-base) 55%);
   /* Banda de las áreas de trabajo: el acento sobre un blanco cálido, como el sitio original. */
-  --color-mint-band: color-mix(in oklab, var(--accent) 27%, #f7fbe8);
+  --color-mint-band: color-mix(in oklab, var(--accent) 27%, var(--band-base));
 
   /* Escala "arena": neutros fríos con un toque menta, a tono con la identidad */
-  --color-sand-50: #f8fbfa;
-  --color-sand-100: #f1f6f5;
-  --color-sand-200: #e8eeed;
-  --color-sand-300: #dfe7e6;
-  --color-sand-400: #c4d0ce;
-  --color-sand-500: #9aa8a6;
+  --color-sand-50: var(--sand-50);
+  --color-sand-100: var(--sand-100);
+  --color-sand-200: var(--sand-200);
+  --color-sand-300: var(--sand-300);
+  --color-sand-400: var(--sand-400);
+  --color-sand-500: var(--sand-500);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-display: var(--font-display-face), ui-serif, Georgia, "Times New Roman", serif;
@@ -158,9 +225,9 @@
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
 
-  --shadow-soft: 0 1px 2px rgb(15 35 51 / 0.04), 0 8px 24px -12px rgb(15 35 51 / 0.1);
-  --shadow-card: 0 1px 1px rgb(15 35 51 / 0.03), 0 2px 8px -2px rgb(15 35 51 / 0.06);
-  --shadow-float: 0 12px 40px -16px rgb(15 35 51 / 0.22);
+  --shadow-soft: 0 1px 2px rgb(var(--shadow-rgb) / 0.04), 0 8px 24px -12px rgb(var(--shadow-rgb) / 0.1);
+  --shadow-card: 0 1px 1px rgb(var(--shadow-rgb) / 0.03), 0 2px 8px -2px rgb(var(--shadow-rgb) / 0.06);
+  --shadow-float: 0 12px 40px -16px rgb(var(--shadow-rgb) / 0.22);
 
   --animate-breathe-in: breathe-in var(--breath-duration, 4s) ease-in-out forwards;
   --animate-breathe-out: breathe-out var(--breath-duration, 6s) ease-in-out forwards;
@@ -203,7 +270,7 @@
   }
 
   ::selection {
-    background: color-mix(in oklab, var(--accent) 60%, white);
+    background: color-mix(in oklab, var(--accent) 60%, var(--tint-base));
   }
 
   :focus-visible {

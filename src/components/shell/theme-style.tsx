@@ -8,6 +8,7 @@ import { getPublicSettingsSafe } from "@/server/services/public-settings";
  */
 export async function ThemeStyle() {
   const { theme } = await getPublicSettingsSafe();
-  const css = `:root{--primary:${theme.primary};--primary-foreground:${readableOn(theme.primary)};--accent:${theme.accent};--accent-foreground:${readableOn(theme.accent)};--background:${theme.background};}`;
+  // La marca va en --brand-*: el modo oscuro deriva de ahí sus tonos aclarados (globals.css).
+  const css = `:root{--brand-primary:${theme.primary};--brand-accent:${theme.accent};--background:${theme.background};}:root:not(.dark){--primary-foreground:${readableOn(theme.primary)};--accent-foreground:${readableOn(theme.accent)};}`;
   return <style id="theme-overrides" dangerouslySetInnerHTML={{ __html: css }} />;
 }

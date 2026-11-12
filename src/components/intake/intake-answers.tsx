@@ -64,7 +64,7 @@ function Item({ question, marker, answers, audience, todayKey }: { question: Int
         <span aria-hidden className="mr-1.5 tabular-nums text-subtle-foreground">{marker}</span>
         {questionLabel(question, audience)}
         {flag ? (
-          <span className="mt-1 flex items-center gap-1 text-xs font-medium text-[#7a5614]">
+          <span className="mt-1 flex items-center gap-1 text-xs font-medium text-warning-strong">
             <AlertTriangle className="size-3.5" aria-hidden /> Tema sensible: revisalo antes de la sesión
           </span>
         ) : null}

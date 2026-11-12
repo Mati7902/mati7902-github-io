@@ -11,6 +11,7 @@ import { LocationsEditor } from "@/components/admin/settings/locations-editor";
 import { RemindersForm } from "@/components/admin/settings/reminders-form";
 import { SchedulingForm } from "@/components/admin/settings/scheduling-form";
 import { TestimonialsEditor } from "@/components/admin/settings/testimonials-form";
+import { ThemeToggle } from "@/components/shell/theme-toggle";
 import { PageHeader } from "@/components/ui/page-header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { requireAdmin } from "@/lib/auth/session";
@@ -123,6 +124,10 @@ export default async function SettingsPage({ searchParams }: { searchParams: Pro
         </TabsContent>
 
         <TabsContent value="apariencia" className="max-w-3xl">
+          <section className="mb-8 space-y-3">
+            <h2 className="font-display text-xl font-medium">Modo del panel en este dispositivo</h2>
+            <ThemeToggle />
+          </section>
           <ThemeForm initial={settings.theme} />
         </TabsContent>
 

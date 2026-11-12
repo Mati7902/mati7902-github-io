@@ -92,7 +92,7 @@ export default async function AdminTodayPage() {
         <section className="space-y-3">
           <div className="flex items-center justify-between">
             <h2 className="font-display text-xl font-medium">Solicitudes por aprobar</h2>
-            <span className="rounded-full bg-warning-soft px-2.5 py-0.5 text-xs font-semibold text-[#8a6418]">{requests.data?.length}</span>
+            <span className="rounded-full bg-warning-soft px-2.5 py-0.5 text-xs font-semibold text-warning-strong">{requests.data?.length}</span>
           </div>
           <AppointmentListClient appointments={(requests.data ?? []) as AppointmentWithPatient[]} preps={preps ?? []} timezone={tz} defaultDuration={scheduling.default_duration_minutes} emptyText="" showDate />
         </section>

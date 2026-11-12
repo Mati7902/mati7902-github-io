@@ -11,7 +11,7 @@ import { markReviewedAction } from "@/server/actions/review-inbox";
 import type { InboxItem } from "@/server/services/review-inbox";
 
 const ICON = { risk: AlertTriangle, intake: FileText, workbook: BookMarked, test: ClipboardCheck } as const;
-const TONE = { risk: "bg-destructive/10 text-destructive", intake: "bg-primary-soft text-primary", workbook: "bg-warning-soft text-[#8a6418]", test: "bg-info-soft text-[#2b5f80]" } as const;
+const TONE = { risk: "bg-destructive/10 text-destructive", intake: "bg-primary-soft text-primary", workbook: "bg-warning-soft text-warning-strong", test: "bg-info-soft text-info-strong" } as const;
 
 /** Bandeja «Para revisar»: lo urgente primero. Las fichas y los tests se marcan como revisados. */
 export function ReviewInbox({ items, timezone }: { items: InboxItem[]; timezone: string }) {

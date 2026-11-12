@@ -13,8 +13,8 @@ type Props = {
 
 const TONE_CLASSES: Record<string, string> = {
   calm: "data-[selected=true]:bg-mint-100 data-[selected=true]:border-mint-500 data-[selected=true]:text-mint-700",
-  alert: "data-[selected=true]:bg-warning-soft data-[selected=true]:border-warning data-[selected=true]:text-[#8a6418]",
-  low: "data-[selected=true]:bg-info-soft data-[selected=true]:border-info data-[selected=true]:text-[#2b5f80]",
+  alert: "data-[selected=true]:bg-warning-soft data-[selected=true]:border-warning data-[selected=true]:text-warning-strong",
+  low: "data-[selected=true]:bg-info-soft data-[selected=true]:border-info data-[selected=true]:text-info-strong",
   hot: "data-[selected=true]:bg-destructive/10 data-[selected=true]:border-destructive/60 data-[selected=true]:text-destructive",
 };
 

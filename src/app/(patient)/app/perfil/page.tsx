@@ -4,6 +4,7 @@ import { ClipboardList, Download, FileSignature } from "lucide-react";
 
 import { ChangePasswordForm, ContactForm, SharingToggle } from "@/components/patient/profile-forms";
 import { SignOutButton } from "@/components/shell/sign-out-button";
+import { ThemeToggle } from "@/components/shell/theme-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/ui/page-header";
@@ -92,6 +93,14 @@ export default async function ProfilePage() {
             <Link href="/app/ingreso">{intake?.submitted_at ? "Ver mi ficha" : intake ? "Seguir" : "Completar"}</Link>
           </Button>
         </div>
+      </section>
+
+      <Separator />
+
+      <section className="space-y-4">
+        <h2 className="font-display text-xl font-medium">Apariencia</h2>
+        <ThemeToggle />
+        <p className="text-xs text-muted-foreground">El modo oscuro descansa la vista de noche. Se guarda en este dispositivo.</p>
       </section>
 
       <Separator />

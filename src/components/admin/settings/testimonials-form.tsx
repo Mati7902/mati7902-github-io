@@ -242,7 +242,7 @@ export function TestimonialsEditor({ testimonials }: { testimonials: Testimonial
                     <span>Tengo la autorización escrita de esta persona (y de quien la representa, si es menor) para publicar este texto de forma anónima.</span>
                   </label>
                   {reconfirm && !rowErrors.consent_confirmed ? (
-                    <p id={id("consent-reconfirm")} className="text-xs font-medium text-[#7a5614]">
+                    <p id={id("consent-reconfirm")} className="text-xs font-medium text-warning-strong">
                       Cambiaste el texto: volvé a confirmar que la persona aprobó esta versión.{row.saved?.is_published ? " Hasta que guardes, en la web sigue el texto anterior." : ""}
                     </p>
                   ) : null}
