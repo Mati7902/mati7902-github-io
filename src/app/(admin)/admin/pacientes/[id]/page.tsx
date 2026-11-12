@@ -9,6 +9,7 @@ import { AssignExerciseForm, AssignMaterialForm } from "@/components/admin/patie
 import { ClinicalFocusPanel } from "@/components/admin/patients/clinical-focus-panel";
 import { PatientTestsPanel } from "@/components/admin/patients/patient-tests-panel";
 import { ProgressPanel } from "@/components/admin/patients/progress-panel";
+import { InstrumentResultsPanel } from "@/components/admin/instruments/instrument-results-panel";
 import { ExerciseResponseList } from "@/components/exercises/exercise-response-list";
 import { MoodTrendChart } from "@/components/emotions/mood-trend-chart";
 import { PatientAccessControls } from "@/components/admin/patients/patient-access-controls";
@@ -107,6 +108,10 @@ export default async function PatientDetailPage({ params }: { params: Promise<{ 
         response: r ? { score: r.score, max: r.max_score, band: r.band_label, level: r.level, summary: r.summary, risk: r.risk, completedAt: r.completed_at } : null,
       };
     });
+  const [{ data: instruments }, { data: instrumentResults }] = await Promise.all([
+    supabase.from("instruments").select("id, short_name, name, score_min, score_max, higher_is").eq("is_active", true).order("short_name"),
+    supabase.from("instrument_results").select("id, instrument_id, applied_on, score, interpretation, notes").eq("patient_id", patient.id).order("applied_on"),
+  ]);
   // Mi Progreso: la participación solo se ve si el paciente comparte sus registros (RLS).
   const [progressPrefs, practiceEvents, goals, { gamification }] = await Promise.all([
     getProgressPrefs(supabase, patient.id),
@@ -229,6 +234,14 @@ export default async function PatientDetailPage({ params }: { params: Promise<{ 
           </div>
           <PatientTestsPanel patientId={patient.id} rows={testRows} options={ASSIGNABLE_TESTS.map((t) => ({ id: t.id, name: t.name, full: t.full }))} />
         </div>
+      </section>
+
+      <section className="surface-card space-y-4 p-6" aria-labelledby="instrumentos-paciente">
+        <div className="space-y-1">
+          <h2 id="instrumentos-paciente" className="font-display text-lg font-medium">Evaluaciones con licencia</h2>
+          <p className="text-sm text-muted-foreground">BDI-II, BAI, DIVA-5 y otros que aplicás por el canal autorizado. Se registra el resultado, no el test.</p>
+        </div>
+        <InstrumentResultsPanel patientId={patient.id} instruments={instruments ?? []} results={instrumentResults ?? []} todayKey={toDateKey(new Date(), scheduling.timezone)} />
       </section>
 
       <section className="surface-card space-y-4 p-6" aria-labelledby="progreso-paciente">

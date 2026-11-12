@@ -763,6 +763,23 @@ select pg_temp.logout();
 rollback;
 
 -- ---------------------------------------------------------------------------
+-- 6g. Instrumentos con licencia (solo resultados, solo el profesional)
+-- ---------------------------------------------------------------------------
+begin;
+select set_config('test.juan_id', (select id::text from public.patients where email = 'juan.perez@demo.local'), true);
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+select pg_temp.assert((select count(*) from public.instruments where not digital_permission) = 3, 'BDI-II, BAI y DIVA-5 cargados sin permiso digital');
+insert into public.instrument_results (patient_id, instrument_id, applied_on, score, interpretation) values (current_setting('test.juan_id')::uuid, 'a5e00001-0000-4000-8000-000000000001', current_date, 21, 'moderada (según manual)');
+select pg_temp.expect_error($q$insert into public.instrument_results (patient_id, instrument_id, applied_on, score) values (current_setting('test.juan_id')::uuid, 'a5e00001-0000-4000-8000-000000000001', current_date, 80)$q$, array['23514'], 'el puntaje respeta el rango del instrumento');
+select pg_temp.logout();
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+select pg_temp.assert((select count(*) from public.instrument_results) = 0, 'el paciente no ve resultados de instrumentos con licencia');
+select pg_temp.assert((select count(*) from public.instruments) = 0, 'el paciente no ve el registro de instrumentos');
+select pg_temp.expect_error($q$insert into public.instrument_results (patient_id, instrument_id, applied_on, score) values (current_setting('test.juan_id')::uuid, 'a5e00001-0000-4000-8000-000000000002', current_date, 5)$q$, array['42501'], 'el paciente no carga resultados');
+select pg_temp.logout();
+rollback;
+
+-- ---------------------------------------------------------------------------
 -- 7. Rate limiting (solo servidor)
 -- ---------------------------------------------------------------------------
 begin;

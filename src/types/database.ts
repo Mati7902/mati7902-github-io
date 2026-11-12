@@ -693,6 +693,32 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
+                },"instruments": {
+                  Row: {
+                    "created_at": string,"created_by": string | null,"digital_permission": boolean,"edition": string | null,"higher_is": string | null,"id": string,"is_active": boolean,"language": string | null,"license_expires_on": string | null,"license_scope": string | null,"name": string,"notes": string | null,"remote_permission": boolean,"rights_holder": string | null,"score_max": number | null,"score_min": number | null,"short_name": string,"updated_at": string
+                  }
+                  Insert: {
+                    "created_at"?: string,"created_by"?: string | null,"digital_permission"?: boolean,"edition"?: string | null,"higher_is"?: string | null,"id"?: string,"is_active"?: boolean,"language"?: string | null,"license_expires_on"?: string | null,"license_scope"?: string | null,"name": string,"notes"?: string | null,"remote_permission"?: boolean,"rights_holder"?: string | null,"score_max"?: number | null,"score_min"?: number | null,"short_name": string,"updated_at"?: string
+                  }
+                  Update: {
+                    "created_at"?: string,"created_by"?: string | null,"digital_permission"?: boolean,"edition"?: string | null,"higher_is"?: string | null,"id"?: string,"is_active"?: boolean,"language"?: string | null,"license_expires_on"?: string | null,"license_scope"?: string | null,"name"?: string,"notes"?: string | null,"remote_permission"?: boolean,"rights_holder"?: string | null,"score_max"?: number | null,"score_min"?: number | null,"short_name"?: string,"updated_at"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"instrument_results": {
+                  Row: {
+                    "applied_on": string,"created_at": string,"created_by": string | null,"id": string,"instrument_id": string,"interpretation": string | null,"notes": string | null,"patient_id": string,"score": number | null
+                  }
+                  Insert: {
+                    "applied_on": string,"created_at"?: string,"created_by"?: string | null,"id"?: string,"instrument_id": string,"interpretation"?: string | null,"notes"?: string | null,"patient_id": string,"score"?: number | null
+                  }
+                  Update: {
+                    "applied_on"?: string,"created_at"?: string,"created_by"?: string | null,"id"?: string,"instrument_id"?: string,"interpretation"?: string | null,"notes"?: string | null,"patient_id"?: string,"score"?: number | null
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"test_assignments": {
                   Row: {
                     "assigned_at": string,"assigned_by": string | null,"completed_at": string | null,"due_on": string | null,"focus_key": string | null,"id": string,"note": string | null,"patient_id": string,"show_result": boolean,"status": string,"test_id": string
