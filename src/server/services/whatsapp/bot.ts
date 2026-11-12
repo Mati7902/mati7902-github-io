@@ -1183,7 +1183,7 @@ async function replyLocation(admin: AdminSupabaseClient, ctx: ConversationContex
   if (places?.length) {
     const blocks = places.map((p) => {
       const when = (rules ?? []).filter((r) => r.location_id === p.id).map((r) => describeRule(r));
-      return `📍 ${p.name}\n${[p.address, p.city].filter(Boolean).join(", ")}${when.length ? `\n${when.join("\n")}` : ""}\nCómo llegar: ${directionsUrl(p)}`;
+      return `📍 ${p.name}\n${[p.address, p.city].filter(Boolean).join(", ")}${when.length ? `\n${when.join("\n")}` : ""}${p.booking_phone ? `\nTurnos en el sanatorio: ${p.booking_phone}` : ""}\nCómo llegar: ${directionsUrl(p)}`;
     });
     return reply(admin, ctx, { kind: "text", body: `Atiendo de forma presencial en:\n\n${blocks.join("\n\n")}` });
   }

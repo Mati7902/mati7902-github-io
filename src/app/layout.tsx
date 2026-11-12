@@ -4,7 +4,6 @@ import "./globals.css";
 
 import { ServiceWorkerRegistration } from "@/components/shell/sw-registration";
 import { ThemeStyle } from "@/components/shell/theme-style";
-import { WebVitals } from "@/components/shell/telemetry";
 import { THEME_INIT_SCRIPT } from "@/components/shell/theme-toggle";
 import { Toaster } from "@/components/ui/sonner";
 import { publicEnv } from "@/lib/env";
@@ -63,7 +62,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="min-h-dvh bg-background text-foreground">
         {children}
         <Toaster />
-        <WebVitals />
         <ServiceWorkerRegistration />
       </body>
     </html>

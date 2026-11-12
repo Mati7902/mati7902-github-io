@@ -47,3 +47,10 @@ export function nextRuleDates(r: RuleLike, fromKey: string, count: number): stri
   }
   return out;
 }
+
+/** Teléfono paraguayo local (0981…) a formato internacional para tel: y WhatsApp. */
+export function phoneLinks(phone: string): { tel: string; whatsapp: string } {
+  const digits = phone.replace(/\D/g, "");
+  const intl = digits.startsWith("595") ? digits : digits.startsWith("0") ? `595${digits.slice(1)}` : digits;
+  return { tel: `tel:+${intl}`, whatsapp: `https://wa.me/${intl}` };
+}

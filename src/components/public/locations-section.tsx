@@ -1,9 +1,9 @@
-import { CalendarDays, Clock, MapPin, Navigation } from "lucide-react";
+import { CalendarDays, Clock, MapPin, Navigation, Phone } from "lucide-react";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { formatCompactDate, toDateKey } from "@/lib/dates";
-import { describeRule, directionsUrl, mapEmbedUrl, nextRuleDates } from "@/lib/locations";
+import { describeRule, directionsUrl, mapEmbedUrl, nextRuleDates, phoneLinks } from "@/lib/locations";
 import type { AvailabilityRule, PracticeLocation } from "@/types/domain";
 
 /**
@@ -58,6 +58,22 @@ export function LocationsSection({ locations, rules, timezone }: { locations: Pr
                         </li>
                       ) : null}
                     </ul>
+                  ) : null}
+                  {place.booking_phone ? (
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-2 rounded-2xl bg-surface-muted px-4 py-3 text-sm">
+                      <Phone className="size-4 shrink-0 text-primary" aria-hidden />
+                      <span>
+                        Turnos en el sanatorio: <span className="font-semibold tabular-nums">{place.booking_phone}</span>
+                      </span>
+                      <span className="flex gap-3">
+                        <a href={phoneLinks(place.booking_phone).tel} className="font-medium text-primary underline-offset-4 hover:underline">
+                          Llamar
+                        </a>
+                        <a href={phoneLinks(place.booking_phone).whatsapp} target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline-offset-4 hover:underline">
+                          WhatsApp
+                        </a>
+                      </span>
+                    </div>
                   ) : null}
                   {place.notes ? <p className="text-sm text-muted-foreground">{place.notes}</p> : null}
                   <div className="overflow-hidden rounded-2xl border border-border/70">

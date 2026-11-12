@@ -30,8 +30,6 @@ export async function GET(request: NextRequest) {
       .from("whatsapp_webhook_events")
       .delete({ count: "exact" })
       .lt("received_at", new Date(Date.now() - 30 * 24 * 3600_000).toISOString());
-    // La telemetría técnica solo sirve para ver tendencias recientes.
-    await admin.from("tech_events").delete().lt("created_at", new Date(Date.now() - 90 * 24 * 3600_000).toISOString());
     const twoDaysAgo = new Date(Date.now() - 2 * 24 * 3600_000).toISOString();
     const { data: stale } = await admin
       .from("appointments")

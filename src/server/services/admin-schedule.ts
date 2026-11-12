@@ -83,6 +83,7 @@ export type PracticeLocationInput = {
   address: string;
   city?: string | null;
   maps_url?: string | null;
+  booking_phone?: string | null;
   photo_url?: string | null;
   notes?: string | null;
   sort_order: number;
@@ -91,7 +92,7 @@ export type PracticeLocationInput = {
 
 export async function upsertPracticeLocation(client: ServerSupabaseClient, input: PracticeLocationInput): Promise<PracticeLocation> {
   const { id, ...rest } = input;
-  const payload = { ...rest, city: rest.city || null, maps_url: rest.maps_url || null, photo_url: rest.photo_url || null, notes: rest.notes || null };
+  const payload = { ...rest, city: rest.city || null, maps_url: rest.maps_url || null, booking_phone: rest.booking_phone || null, photo_url: rest.photo_url || null, notes: rest.notes || null };
   const query = id ? client.from("practice_locations").update(payload).eq("id", id) : client.from("practice_locations").insert(payload);
   const { data, error } = await query.select("*").single();
   if (error) throw fromDatabaseError(error, "No pudimos guardar la sede.");

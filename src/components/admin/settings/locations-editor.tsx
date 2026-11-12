@@ -19,6 +19,7 @@ type Draft = {
   address: string;
   city: string;
   maps_url: string;
+  booking_phone: string;
   photo_url: string | null;
   notes: string;
   sort_order: number;
@@ -31,6 +32,7 @@ const toDraft = (l: PracticeLocation): Draft => ({
   address: l.address,
   city: l.city ?? "",
   maps_url: l.maps_url ?? "",
+  booking_phone: l.booking_phone ?? "",
   photo_url: l.photo_url,
   notes: l.notes ?? "",
   sort_order: l.sort_order,
@@ -40,7 +42,7 @@ const toDraft = (l: PracticeLocation): Draft => ({
 /** Sedes de atención presencial: lo que muestra la portada en "Dónde atiendo". */
 export function LocationsEditor({ locations }: { locations: PracticeLocation[] }) {
   const [drafts, setDrafts] = useState<Draft[]>(locations.map(toDraft));
-  const add = () => setDrafts((d) => [...d, { name: "", address: "", city: "", maps_url: "", photo_url: null, notes: "", sort_order: d.length + 1, is_active: true }]);
+  const add = () => setDrafts((d) => [...d, { name: "", address: "", city: "", maps_url: "", booking_phone: "", photo_url: null, notes: "", sort_order: d.length + 1, is_active: true }]);
 
   return (
     <div className="space-y-4">
@@ -67,7 +69,7 @@ function LocationCard({ draft, onChange, onRemoved }: { draft: Draft; onChange: 
 
   const save = () =>
     startTransition(async () => {
-      const res = await savePracticeLocationAction({ ...draft, city: draft.city || null, maps_url: draft.maps_url || null, notes: draft.notes || null });
+      const res = await savePracticeLocationAction({ ...draft, city: draft.city || null, maps_url: draft.maps_url || null, booking_phone: draft.booking_phone || null, notes: draft.notes || null });
       if (!res.ok) return void toast.error(res.fieldErrors ? (Object.values(res.fieldErrors)[0] ?? res.error) : res.error);
       onChange({ id: res.data.id });
       toast.success("Sede guardada.");
@@ -115,6 +117,11 @@ function LocationCard({ draft, onChange, onRemoved }: { draft: Draft; onChange: 
         <label className="grid gap-1.5 text-sm sm:col-span-2">
           <span className="font-medium">Dirección</span>
           <Input value={draft.address} onChange={(e) => onChange({ address: e.target.value })} maxLength={200} />
+        </label>
+        <label className="grid gap-1.5 text-sm sm:col-span-2">
+          <span className="font-medium">Teléfono para reservar turnos (opcional)</span>
+          <Input value={draft.booking_phone} onChange={(e) => onChange({ booking_phone: e.target.value })} maxLength={25} placeholder="0981 123 456" inputMode="tel" />
+          <span className="text-xs text-muted-foreground">Se muestra en la portada, con botón para llamar y para escribir por WhatsApp.</span>
         </label>
         <label className="grid gap-1.5 text-sm sm:col-span-2">
           <span className="font-medium">Enlace de Google Maps (opcional)</span>

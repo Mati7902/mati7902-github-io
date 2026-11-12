@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { PageHeader } from "@/components/ui/page-header";
 import { StatCard } from "@/components/ui/stat-card";
 import { auditActionLabel } from "@/lib/audit-labels";
-import { p75, VITAL_TARGETS } from "@/lib/telemetry";
 import { requireAdmin } from "@/lib/auth/session";
 import { formatCompactDate, formatTime, capitalize } from "@/lib/dates";
 import { createClient } from "@/lib/supabase/server";
@@ -27,41 +26,11 @@ export default async function ActivityPage() {
     listAuditLogs(supabase, 100),
     listWebhookEvents(supabase, 30),
   ]);
-  // Rendimiento real de los últimos 28 días en celulares (percentil 75) y errores de pantalla de la semana.
-  const { data: tech } = await supabase
-    .from("tech_events")
-    .select("kind, value, device, created_at")
-    .gte("created_at", new Date(now.getTime() - 28 * 24 * 3600_000).toISOString())
-    .order("created_at", { ascending: false })
-    .limit(5000);
-  const vitals = (["LCP", "INP", "CLS"] as const).map((kind) => {
-    const values = (tech ?? []).filter((t) => t.kind === kind && t.device === "mobile").map((t) => t.value);
-    return { kind, value: p75(values), samples: values.length, target: VITAL_TARGETS[kind] };
-  });
-  const weekAgo = now.getTime() - 7 * 24 * 3600_000;
-  const errorsThisWeek = (tech ?? []).filter((t) => t.kind === "error" && new Date(t.created_at).getTime() >= weekAgo).length;
   const maxBookings = Math.max(1, ...hours.map((h) => h.bookings));
 
   return (
     <div className="space-y-10">
       <PageHeader eyebrow="Sistema" title="Actividad y estadísticas" description="Métricas administrativas del mes y registro de acciones críticas. Sin contenido clínico." />
-
-      <section className="space-y-4">
-        <h2 className="font-display text-xl font-medium">Rendimiento del sitio</h2>
-        <p className="text-sm text-muted-foreground">Medido en los celulares de quienes usan la página, últimos 28 días (percentil 75). Sin datos personales.</p>
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-          {vitals.map((v) => (
-            <StatCard
-              key={v.kind}
-              label={{ LCP: "Carga (LCP)", INP: "Respuesta al tocar (INP)", CLS: "Estabilidad (CLS)" }[v.kind]}
-              value={v.value === null ? "Sin datos" : v.kind === "CLS" ? v.value.toFixed(2) : v.kind === "LCP" ? `${(v.value / 1000).toFixed(1)} s` : `${Math.round(v.value)} ms`}
-              hint={v.value === null ? "Todavía no hay visitas medidas" : `Meta: ${v.kind === "CLS" ? "0,1" : v.kind === "LCP" ? "2,5 s" : "200 ms"} · ${v.samples} mediciones`}
-              tone={v.value === null ? "default" : v.value <= v.target ? "success" : "warning"}
-            />
-          ))}
-          <StatCard label="Errores de pantalla (7 días)" value={errorsThisWeek} tone={errorsThisWeek === 0 ? "success" : "destructive"} />
-        </div>
-      </section>
 
       <section className="space-y-4">
         <h2 className="font-display text-xl font-medium">Este mes</h2>

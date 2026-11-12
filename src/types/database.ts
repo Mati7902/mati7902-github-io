@@ -604,26 +604,13 @@ isOneToOne: false
                   ]
                 },"practice_locations": {
                   Row: {
-                    "address": string,"city": string | null,"created_at": string,"id": string,"is_active": boolean,"maps_url": string | null,"name": string,"notes": string | null,"photo_url": string | null,"sort_order": number,"updated_at": string
+                    "address": string,"booking_phone": string | null,"city": string | null,"created_at": string,"id": string,"is_active": boolean,"maps_url": string | null,"name": string,"notes": string | null,"photo_url": string | null,"sort_order": number,"updated_at": string
                   }
                   Insert: {
-                    "address": string,"city"?: string | null,"created_at"?: string,"id"?: string,"is_active"?: boolean,"maps_url"?: string | null,"name": string,"notes"?: string | null,"photo_url"?: string | null,"sort_order"?: number,"updated_at"?: string
+                    "address": string,"booking_phone"?: string | null,"city"?: string | null,"created_at"?: string,"id"?: string,"is_active"?: boolean,"maps_url"?: string | null,"name": string,"notes"?: string | null,"photo_url"?: string | null,"sort_order"?: number,"updated_at"?: string
                   }
                   Update: {
-                    "address"?: string,"city"?: string | null,"created_at"?: string,"id"?: string,"is_active"?: boolean,"maps_url"?: string | null,"name"?: string,"notes"?: string | null,"photo_url"?: string | null,"sort_order"?: number,"updated_at"?: string
-                  }
-                  Relationships: [
-                    
-                  ]
-                },"tech_events": {
-                  Row: {
-                    "created_at": string,"device": string,"id": number,"kind": string,"path": string,"value": number
-                  }
-                  Insert: {
-                    "created_at"?: string,"device": string,"id"?: never,"kind": string,"path": string,"value": number
-                  }
-                  Update: {
-                    "created_at"?: string,"device"?: string,"id"?: never,"kind"?: string,"path"?: string,"value"?: number
+                    "address"?: string,"booking_phone"?: string | null,"city"?: string | null,"created_at"?: string,"id"?: string,"is_active"?: boolean,"maps_url"?: string | null,"name"?: string,"notes"?: string | null,"photo_url"?: string | null,"sort_order"?: number,"updated_at"?: string
                   }
                   Relationships: [
                     
