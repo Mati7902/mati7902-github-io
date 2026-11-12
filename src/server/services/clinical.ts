@@ -1,6 +1,8 @@
 import "server-only";
 
 import { assignableTest, bundleFor, focusByKey } from "@/lib/clinical/focus";
+import type { TestDef } from "@/lib/guia/types";
+import { resolveTestDef } from "@/server/services/custom-tests";
 import { scoreTest, summaryText, type Answers } from "@/lib/guia/scoring";
 import { AppError, fromDatabaseError } from "@/lib/errors";
 import type { AdminSupabaseClient } from "@/lib/supabase/admin";
@@ -89,7 +91,7 @@ export async function applyClinicalFocus(client: ServerSupabaseClient, input: Ap
 }
 
 export async function assignTest(client: ServerSupabaseClient, input: { patientId: string; testId: string; showResult: boolean; dueOn?: string | null; note?: string | null; assignedBy: string }) {
-  if (!assignableTest(input.testId)) throw new AppError("VALIDATION", "Ese test no se puede asignar para completar en casa.");
+  if (!(await resolveTestDef(client, input.testId, { requireActive: true }))) throw new AppError("VALIDATION", "Ese test no se puede asignar para completar en casa.");
   const { error } = await client.from("test_assignments").insert({
     patient_id: input.patientId,
     test_id: input.testId,
@@ -118,9 +120,7 @@ export async function listTestResponses(client: ServerSupabaseClient, patientId:
 }
 
 /** Convierte las respuestas del formulario (índice → valor) validando que existan en el test. */
-export function parseAnswers(testId: string, raw: Record<string, string>): Answers {
-  const def = assignableTest(testId);
-  if (!def) throw new AppError("VALIDATION", "Test desconocido.");
+export function parseAnswers(def: TestDef, raw: Record<string, string>): Answers {
   const allowed = new Set(def.options.map((o) => o.value));
   const answers: Answers = {};
   def.items.forEach((_, i) => {
@@ -144,10 +144,10 @@ export async function submitTestResponse(
   const { data: assignment } = await admin.from("test_assignments").select("*").eq("id", input.assignmentId).eq("patient_id", input.patientId).maybeSingle();
   if (!assignment) throw new AppError("NOT_FOUND", "No encontramos ese test.");
   if (assignment.status !== "pending") throw new AppError("CONFLICT", "Este test ya fue respondido.");
-  const def = assignableTest(assignment.test_id);
+  const def = await resolveTestDef(admin, assignment.test_id);
   if (!def) throw new AppError("VALIDATION", "Test desconocido.");
 
-  const answers = parseAnswers(def.id, input.raw);
+  const answers = parseAnswers(def, input.raw);
   const result = scoreTest(def, answers);
   const risk = result.flags.some((f) => f.level === "crit") || result.band?.level === "crit";
   const { error } = await admin.from("test_responses").insert({

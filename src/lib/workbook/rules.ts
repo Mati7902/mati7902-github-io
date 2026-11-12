@@ -24,10 +24,23 @@ export type WorkbookItem = {
   dueInDays: number | null;
 };
 
+/** Capítulo redactado (psicoeducación y hojas de trabajo propias de este paciente). */
+export type WorkbookChapter = {
+  /** Identificador estable: las respuestas del paciente se guardan con él. */
+  key: string;
+  title: string;
+  /** Párrafos separados por línea en blanco, viñetas con "- " y **negrita**. */
+  body: string;
+  /** Preguntas para responder (en la app o a mano en el PDF). */
+  prompts: { key: string; text: string; lines: number }[];
+};
+
 export type WorkbookContent = {
   welcome: string;
   /** Objetivos en palabras del paciente (de la ficha), editables. */
   goals: string[];
+  /** Capítulos escritos para esta persona (cuadernillo redactado con IA y revisado por el profesional). */
+  chapters?: WorkbookChapter[];
   items: WorkbookItem[];
   closing: string;
 };

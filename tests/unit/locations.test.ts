@@ -47,3 +47,11 @@ describe("recordatorio por email", () => {
     expect(mail.text).toContain("https://meet.example/x");
   });
 });
+
+describe("teléfono de reserva", () => {
+  it("convierte el número local a formato internacional", async () => {
+    const { phoneLinks } = await import("@/lib/locations");
+    expect(phoneLinks("0981 064 927")).toEqual({ tel: "tel:+595981064927", whatsapp: "https://wa.me/595981064927" });
+    expect(phoneLinks("0986232235").whatsapp).toBe("https://wa.me/595986232235");
+  });
+});

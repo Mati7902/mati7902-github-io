@@ -1,5 +1,7 @@
 "use server";
 
+import { after } from "next/server";
+
 import { assertPatient } from "@/lib/auth/session";
 import { type ActionResult, fail, ok, validationFail } from "@/lib/errors";
 import { type ContactValue, parseIntakeAnswers } from "@/lib/intake/form";
@@ -50,8 +52,10 @@ export async function saveIntakeAction(payload: SaveIntakePayload): Promise<Acti
     if (submit) {
       // Sin contenido: solo el hecho de que se envió.
       await audit(supabase, "patient.intake_submitted", { type: "patient", id: patient.id }, { form_version: intake.form_version });
-      // Borrador del cuadernillo personalizado: lo revisa y aprueba el profesional; el paciente no lo ve.
-      await draftAfterIntake(patient.id);
+      // Borrador del cuadernillo personalizado (redactado con IA si está configurada): se arma después
+      // de responder, para que el paciente no espere. Lo revisa y aprueba el profesional.
+      const patientId = patient.id;
+      after(() => draftAfterIntake(patientId));
     }
     // Sin revalidatePath: refrescaría la página abierta en medio del formulario (y al enviar la
     // cambiaría por la vista de la ficha). Las páginas son dinámicas y el formulario navega solo.

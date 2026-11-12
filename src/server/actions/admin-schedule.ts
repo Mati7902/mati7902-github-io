@@ -111,6 +111,7 @@ const locationSchema = z.object({
   address: z.string().trim().min(2, "Escribí la dirección.").max(200),
   city: z.string().trim().max(120).nullable().optional(),
   maps_url: httpsUrl,
+  booking_phone: z.union([z.literal(""), z.string().trim().regex(/^[0-9 +()-]{6,25}$/, "Teléfono inválido.")]).nullable().optional(),
   photo_url: httpsUrl,
   notes: z.string().trim().max(300).nullable().optional(),
   sort_order: z.number().int().min(0).max(99),

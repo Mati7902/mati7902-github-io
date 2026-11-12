@@ -4,6 +4,7 @@ import { CheckCircle2, Circle, Printer, Target } from "lucide-react";
 
 import { exerciseHref } from "@/components/exercises/exercise-card";
 import { Button } from "@/components/ui/button";
+import { WorkbookChapters } from "@/components/workbook/workbook-chapters";
 import { PageHeader } from "@/components/ui/page-header";
 import { requirePatient } from "@/lib/auth/session";
 import { createClient } from "@/lib/supabase/server";
@@ -25,17 +26,20 @@ export default async function MyWorkbookPage() {
   }
   const { content } = workbook;
   const slugs = content.items.map((i) => i.slug);
-  const [{ data: templates }, { data: responses }] = await Promise.all([
+  const [{ data: templates }, { data: responses }, { data: answerRows }] = await Promise.all([
     supabase.from("exercise_templates").select("id, slug, kind").in("slug", slugs.length ? slugs : ["-"]),
     supabase.from("exercise_responses").select("template_id").eq("patient_id", patient.id).gte("completed_at", workbook.publishedAt),
+    supabase.from("workbook_answers").select("prompt_key, answer").eq("workbook_id", workbook.workbookId),
   ]);
+  const answers = Object.fromEntries((answerRows ?? []).map((a) => [a.prompt_key, a.answer]));
+  const chapters = content.chapters ?? [];
   const bySlug = new Map((templates ?? []).map((t) => [t.slug, t]));
   const done = new Set((responses ?? []).map((r) => r.template_id));
   const completed = content.items.filter((i) => done.has(bySlug.get(i.slug)?.id ?? "")).length;
 
   return (
     <div className="mx-auto max-w-2xl space-y-8">
-      <PageHeader eyebrow="Ejercicios" title={workbook.title} description={`${completed} de ${content.items.length} actividades hechas.`} />
+      <PageHeader eyebrow="Ejercicios" title={workbook.title} description={content.items.length ? `${completed} de ${content.items.length} actividades de la biblioteca hechas.` : undefined} />
       <p className="text-lg leading-relaxed text-muted-foreground">{content.welcome}</p>
 
       {content.goals.length ? (
@@ -51,8 +55,11 @@ export default async function MyWorkbookPage() {
         </section>
       ) : null}
 
+      {chapters.length ? <WorkbookChapters workbookId={workbook.workbookId} chapters={chapters} answers={answers} /> : null}
+
+      {content.items.length ? (
       <section className="space-y-3" aria-labelledby="actividades">
-        <h2 id="actividades" className="font-display text-xl font-medium">Actividades</h2>
+        <h2 id="actividades" className="font-display text-xl font-medium">Ejercicios para practicar</h2>
         <ol className="space-y-3">
           {content.items.map((item, n) => {
             const t = bySlug.get(item.slug);
@@ -76,6 +83,7 @@ export default async function MyWorkbookPage() {
           })}
         </ol>
       </section>
+      ) : null}
 
       <p className="text-muted-foreground">{content.closing}</p>
       <Button asChild variant="outline">

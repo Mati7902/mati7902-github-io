@@ -604,26 +604,13 @@ isOneToOne: false
                   ]
                 },"practice_locations": {
                   Row: {
-                    "address": string,"city": string | null,"created_at": string,"id": string,"is_active": boolean,"maps_url": string | null,"name": string,"notes": string | null,"photo_url": string | null,"sort_order": number,"updated_at": string
+                    "address": string,"booking_phone": string | null,"city": string | null,"created_at": string,"id": string,"is_active": boolean,"maps_url": string | null,"name": string,"notes": string | null,"photo_url": string | null,"sort_order": number,"updated_at": string
                   }
                   Insert: {
-                    "address": string,"city"?: string | null,"created_at"?: string,"id"?: string,"is_active"?: boolean,"maps_url"?: string | null,"name": string,"notes"?: string | null,"photo_url"?: string | null,"sort_order"?: number,"updated_at"?: string
+                    "address": string,"booking_phone"?: string | null,"city"?: string | null,"created_at"?: string,"id"?: string,"is_active"?: boolean,"maps_url"?: string | null,"name": string,"notes"?: string | null,"photo_url"?: string | null,"sort_order"?: number,"updated_at"?: string
                   }
                   Update: {
-                    "address"?: string,"city"?: string | null,"created_at"?: string,"id"?: string,"is_active"?: boolean,"maps_url"?: string | null,"name"?: string,"notes"?: string | null,"photo_url"?: string | null,"sort_order"?: number,"updated_at"?: string
-                  }
-                  Relationships: [
-                    
-                  ]
-                },"tech_events": {
-                  Row: {
-                    "created_at": string,"device": string,"id": number,"kind": string,"path": string,"value": number
-                  }
-                  Insert: {
-                    "created_at"?: string,"device": string,"id"?: never,"kind": string,"path": string,"value": number
-                  }
-                  Update: {
-                    "created_at"?: string,"device"?: string,"id"?: never,"kind"?: string,"path"?: string,"value"?: number
+                    "address"?: string,"booking_phone"?: string | null,"city"?: string | null,"created_at"?: string,"id"?: string,"is_active"?: boolean,"maps_url"?: string | null,"name"?: string,"notes"?: string | null,"photo_url"?: string | null,"sort_order"?: number,"updated_at"?: string
                   }
                   Relationships: [
                     
@@ -728,6 +715,32 @@ isOneToOne: false
                   }
                   Update: {
                     "item_id"?: string,"item_type"?: string,"reviewed_at"?: string,"reviewed_by"?: string | null
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"custom_tests": {
+                  Row: {
+                    "bands": Json,"code": string,"created_at": string,"created_by": string | null,"full_name": string,"id": string,"instructions": string,"is_active": boolean,"items": Json,"kind": string,"max_label": string | null,"min_label": string | null,"name": string,"note": string | null,"scale_max": number | null,"scale_min": number | null,"updated_at": string
+                  }
+                  Insert: {
+                    "bands"?: Json,"code": string,"created_at"?: string,"created_by"?: string | null,"full_name": string,"id"?: string,"instructions": string,"is_active"?: boolean,"items": Json,"kind": string,"max_label"?: string | null,"min_label"?: string | null,"name": string,"note"?: string | null,"scale_max"?: number | null,"scale_min"?: number | null,"updated_at"?: string
+                  }
+                  Update: {
+                    "bands"?: Json,"code"?: string,"created_at"?: string,"created_by"?: string | null,"full_name"?: string,"id"?: string,"instructions"?: string,"is_active"?: boolean,"items"?: Json,"kind"?: string,"max_label"?: string | null,"min_label"?: string | null,"name"?: string,"note"?: string | null,"scale_max"?: number | null,"scale_min"?: number | null,"updated_at"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"workbook_answers": {
+                  Row: {
+                    "answer": string,"patient_id": string,"prompt_key": string,"updated_at": string,"workbook_id": string
+                  }
+                  Insert: {
+                    "answer": string,"patient_id": string,"prompt_key": string,"updated_at"?: string,"workbook_id": string
+                  }
+                  Update: {
+                    "answer"?: string,"patient_id"?: string,"prompt_key"?: string,"updated_at"?: string,"workbook_id"?: string
                   }
                   Relationships: [
                     

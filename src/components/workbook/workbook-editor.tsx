@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle, ArrowDown, ArrowUp, CheckCircle2, Info, Plus, Printer, RefreshCw, Trash2 } from "lucide-react";
+import { AlertTriangle, ArrowDown, ArrowUp, CheckCircle2, Info, Plus, Printer, RefreshCw, Sparkles, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState, useTransition } from "react";
@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import type { WorkbookContent, WorkbookItem, WorkbookSources } from "@/lib/workbook/rules";
+import type { WorkbookChapter, WorkbookContent, WorkbookItem, WorkbookSources } from "@/lib/workbook/rules";
 import { generateWorkbookDraftAction, publishWorkbookAction, saveWorkbookAction } from "@/server/actions/workbooks";
 
 type Props = {
@@ -22,12 +22,17 @@ type Props = {
   sources: WorkbookSources;
   templates: { slug: string; title: string; minutes: number | null; group: string }[];
   history: { version: number; origin: string; created_at: string; approved_at: string | null }[];
+  aiAvailable: boolean;
 };
 
 const selectClass = "h-11 w-full rounded-xl border border-input bg-card px-3 text-base outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/30";
 
+// Las claves no cambian al reordenar: las respuestas del paciente quedan atadas a su consigna.
+const nextChapterKey = (list: WorkbookChapter[]) => `c${Math.max(0, ...list.map((c) => Number(c.key.slice(1)) || 0)) + 1}`;
+const nextPromptKey = (ch: WorkbookChapter) => `${ch.key}p${Math.max(0, ...ch.prompts.map((p) => Number(p.key.split("p")[1]) || 0)) + 1}`;
+
 /** Editor del cuadernillo: leer, modificar, quitar o agregar actividades, ver de dónde salió cada sugerencia y aprobar. */
-export function WorkbookEditor({ patientId, workbookId, version, publishedVersion, content, sources, templates, history }: Props) {
+export function WorkbookEditor({ patientId, workbookId, version, publishedVersion, content, sources, templates, history, aiAvailable }: Props) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [draft, setDraft] = useState<WorkbookContent>(content);
@@ -43,6 +48,15 @@ export function WorkbookEditor({ patientId, workbookId, version, publishedVersio
       if (j < 0 || j >= items.length) return d;
       [items[i], items[j]] = [items[j]!, items[i]!];
       return { ...d, items };
+    });
+  const setChapter = (i: number, patch: Partial<WorkbookChapter>) => setDraft((d) => ({ ...d, chapters: (d.chapters ?? []).map((c, k) => (k === i ? { ...c, ...patch } : c)) }));
+  const moveChapter = (i: number, delta: number) =>
+    setDraft((d) => {
+      const list = [...(d.chapters ?? [])];
+      const j = i + delta;
+      if (j < 0 || j >= list.length) return d;
+      [list[i], list[j]] = [list[j]!, list[i]!];
+      return { ...d, chapters: list };
     });
   const remove = (i: number) => setDraft((d) => ({ ...d, items: d.items.filter((_, idx) => idx !== i) }));
   const add = () => {
@@ -73,11 +87,12 @@ export function WorkbookEditor({ patientId, workbookId, version, publishedVersio
     if (dirty) save(doPublish);
     else doPublish(version);
   };
-  const regenerate = () =>
+  const regenerate = (useAI: boolean) =>
     startTransition(async () => {
-      const r = await generateWorkbookDraftAction(patientId);
+      if (useAI) toast.info("Redactando con IA… puede tardar unos minutos. No cierres esta página.");
+      const r = await generateWorkbookDraftAction(patientId, { useAI });
       if (!r.ok) return void toast.error(r.error);
-      toast.success(`Nuevo borrador armado desde la ficha (versión ${r.data.version}).`);
+      toast.success(r.data.usedAI ? `Borrador redactado con IA (versión ${r.data.version}). Revisalo.` : `Borrador armado con las reglas (versión ${r.data.version}).`);
       router.refresh();
     });
 
@@ -94,8 +109,13 @@ export function WorkbookEditor({ patientId, workbookId, version, publishedVersio
               <Printer aria-hidden /> Vista PDF
             </Link>
           </Button>
-          <Button variant="ghost" onClick={regenerate} disabled={pending}>
-            <RefreshCw aria-hidden /> Rearmar desde la ficha
+          {aiAvailable ? (
+            <Button variant="outline" onClick={() => regenerate(true)} disabled={pending}>
+              <Sparkles aria-hidden /> Redactar con IA
+            </Button>
+          ) : null}
+          <Button variant="ghost" onClick={() => regenerate(false)} disabled={pending}>
+            <RefreshCw aria-hidden /> Rearmar con reglas
           </Button>
         </div>
       </div>
@@ -136,6 +156,53 @@ export function WorkbookEditor({ patientId, workbookId, version, publishedVersio
             <Plus aria-hidden /> Agregar objetivo
           </Button>
         ) : null}
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="font-display text-xl font-medium">Capítulos ({(draft.chapters ?? []).length})</h2>
+        <p className="text-xs text-muted-foreground">Psicoeducación y hojas de trabajo escritas para este paciente. Párrafos separados por una línea en blanco, viñetas con «- » y **negrita**.</p>
+        <ol className="space-y-4">
+          {(draft.chapters ?? []).map((ch, ci) => (
+            <li key={ch.key} className="space-y-3 rounded-2xl border border-border/70 bg-card p-4">
+              <div className="flex items-center gap-2">
+                <span className="text-sm tabular-nums text-muted-foreground">{ci + 1}.</span>
+                <Input value={ch.title} onChange={(e) => setChapter(ci, { title: e.target.value })} maxLength={140} className="font-medium" aria-label={`Título del capítulo ${ci + 1}`} />
+                <Button size="icon-sm" variant="ghost" aria-label="Subir capítulo" onClick={() => moveChapter(ci, -1)} disabled={ci === 0}>
+                  <ArrowUp />
+                </Button>
+                <Button size="icon-sm" variant="ghost" aria-label="Bajar capítulo" onClick={() => moveChapter(ci, 1)} disabled={ci === (draft.chapters ?? []).length - 1}>
+                  <ArrowDown />
+                </Button>
+                <Button size="icon-sm" variant="ghost" className="text-muted-foreground hover:text-destructive" aria-label={`Quitar capítulo ${ci + 1}`} onClick={() => setDraft((d) => ({ ...d, chapters: (d.chapters ?? []).filter((_, k) => k !== ci) }))}>
+                  <Trash2 />
+                </Button>
+              </div>
+              <Textarea value={ch.body} onChange={(e) => setChapter(ci, { body: e.target.value })} maxLength={6000} className="min-h-40 text-sm" aria-label={`Texto del capítulo ${ci + 1}`} />
+              <div className="space-y-2">
+                <p className="text-xs font-medium">Hoja de trabajo</p>
+                {ch.prompts.map((p, pi) => (
+                  <div key={p.key} className="flex flex-wrap items-center gap-2">
+                    <Input value={p.text} onChange={(e) => setChapter(ci, { prompts: ch.prompts.map((x, k) => (k === pi ? { ...x, text: e.target.value } : x)) })} maxLength={400} className="min-w-0 flex-1" aria-label={`Consigna ${pi + 1}`} />
+                    <label className="flex items-center gap-1 text-xs">
+                      <Input type="number" min={1} max={10} value={p.lines} onChange={(e) => setChapter(ci, { prompts: ch.prompts.map((x, k) => (k === pi ? { ...x, lines: Number(e.target.value) || 3 } : x)) })} className="w-16" aria-label="Renglones" /> renglones
+                    </label>
+                    <Button size="icon-sm" variant="ghost" aria-label="Quitar consigna" onClick={() => setChapter(ci, { prompts: ch.prompts.filter((_, k) => k !== pi) })}>
+                      <Trash2 />
+                    </Button>
+                  </div>
+                ))}
+                {ch.prompts.length < 6 ? (
+                  <Button variant="outline" size="sm" onClick={() => setChapter(ci, { prompts: [...ch.prompts, { key: nextPromptKey(ch), text: "", lines: 3 }] })}>
+                    <Plus aria-hidden /> Agregar consigna
+                  </Button>
+                ) : null}
+              </div>
+            </li>
+          ))}
+        </ol>
+        <Button variant="outline" size="sm" onClick={() => setDraft((d) => ({ ...d, chapters: [...(d.chapters ?? []), { key: nextChapterKey(d.chapters ?? []), title: "Nuevo capítulo", body: "", prompts: [] }] }))}>
+          <Plus aria-hidden /> Agregar capítulo
+        </Button>
       </section>
 
       <section className="space-y-3">
@@ -224,7 +291,7 @@ export function WorkbookEditor({ patientId, workbookId, version, publishedVersio
           {history.map((h) => (
             <li key={h.version} className="flex flex-wrap justify-between gap-2 py-2">
               <span>
-                Versión {h.version} · {h.origin === "rules" ? "armada desde la ficha" : "editada"}
+                Versión {h.version} · {h.origin === "ai" ? "redactada con IA" : h.origin === "rules" ? "armada con reglas" : "editada"}
               </span>
               <span className="text-muted-foreground">
                 {new Date(h.created_at).toLocaleString("es-PY", { dateStyle: "short", timeStyle: "short" })}

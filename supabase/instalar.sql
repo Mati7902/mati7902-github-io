@@ -3609,4 +3609,111 @@ create policy "clinical_reviews: solo profesional" on public.clinical_reviews fo
 
 comment on table public.clinical_reviews is 'Ítems de la bandeja «Para revisar» que el profesional ya revisó.';
 
+-- >>> supabase/migrations/20261112000001_sin_telemetria.sql
+
+-- ============================================================================
+-- Se quita la medición de velocidad del sitio (pedido del profesional).
+-- ============================================================================
+drop table if exists public.tech_events;
+
+-- >>> supabase/migrations/20261112000002_telefono_sedes.sql
+
+-- ============================================================================
+-- Teléfono de reserva de turnos de cada sede (se muestra en «Dónde atiendo»).
+-- ============================================================================
+alter table public.practice_locations
+  add column if not exists booking_phone text check (booking_phone is null or booking_phone ~ '^[0-9 +()-]{6,25}$');
+
+update public.practice_locations set booking_phone = '0981 064 927'
+where id = '5ede0001-0000-4000-8000-000000000001' and booking_phone is null;
+update public.practice_locations set booking_phone = '0986 232 235'
+where id = '5ede0001-0000-4000-8000-000000000002' and booking_phone is null;
+
+-- >>> supabase/migrations/20261112000003_tests_propios.sql
+
+-- ============================================================================
+-- Tests propios del profesional (verdadero/falso o escala)
+-- ----------------------------------------------------------------------------
+-- El profesional arma sus cuestionarios: consigna, ítems, tipo de respuesta y
+-- (opcional) rangos de interpretación. Se asignan como cualquier test; el
+-- puntaje lo calcula el servidor. `code` es el identificador que usan
+-- test_assignments y test_responses (ej. "p3f9a1c2d4e").
+-- El paciente solo puede leer un test propio que tenga asignado.
+-- ============================================================================
+create table if not exists public.custom_tests (
+  id           uuid primary key default gen_random_uuid(),
+  code         text not null unique check (code ~ '^p[a-z0-9]{6,19}$'),
+  name         text not null check (char_length(name) between 2 and 40),
+  full_name    text not null check (char_length(full_name) between 2 and 160),
+  instructions text not null check (char_length(instructions) between 2 and 600),
+  kind         text not null check (kind in ('vf', 'scale')),
+  scale_min    smallint check (scale_min between 0 and 1),
+  scale_max    smallint check (scale_max between 2 and 10),
+  min_label    text check (min_label is null or char_length(min_label) <= 40),
+  max_label    text check (max_label is null or char_length(max_label) <= 40),
+  items        jsonb not null check (jsonb_typeof(items) = 'array' and jsonb_array_length(items) between 1 and 60),
+  bands        jsonb not null default '[]'::jsonb check (jsonb_typeof(bands) = 'array'),
+  note         text check (note is null or char_length(note) <= 600),
+  is_active    boolean not null default true,
+  created_by   uuid references public.profiles (id) on delete set null,
+  created_at   timestamptz not null default now(),
+  updated_at   timestamptz not null default now(),
+  check (kind = 'vf' or (scale_min is not null and scale_max is not null))
+);
+
+drop trigger if exists custom_tests_set_updated_at on public.custom_tests;
+create trigger custom_tests_set_updated_at before update on public.custom_tests
+  for each row execute function public.set_updated_at();
+
+alter table public.custom_tests enable row level security;
+drop policy if exists "custom_tests: profesional gestiona" on public.custom_tests;
+create policy "custom_tests: profesional gestiona" on public.custom_tests for all to authenticated
+  using (public.is_admin()) with check (public.is_admin());
+drop policy if exists "custom_tests: paciente lee los asignados" on public.custom_tests;
+create policy "custom_tests: paciente lee los asignados" on public.custom_tests for select to authenticated
+  using (exists (select 1 from public.test_assignments a where a.test_id = custom_tests.code and a.patient_id = public.current_patient_id()));
+
+comment on table public.custom_tests is 'Cuestionarios propios del profesional (verdadero/falso o escala).';
+
+-- >>> supabase/migrations/20261112000004_cuadernillo_con_ia.sql
+
+-- ============================================================================
+-- Cuadernillo redactado con IA y respuestas del paciente
+-- ----------------------------------------------------------------------------
+-- 1. Las versiones pueden venir de la IA (origin = 'ai'); igual requieren la
+--    aprobación del profesional para publicarse.
+-- 2. workbook_answers: lo que el paciente escribe en las hojas de trabajo de los
+--    capítulos, en la app. Lo gestiona el paciente; el profesional lo lee si el
+--    paciente comparte sus registros (igual que las respuestas de ejercicios).
+-- ============================================================================
+alter table public.workbook_versions drop constraint if exists workbook_versions_origin_check;
+alter table public.workbook_versions add constraint workbook_versions_origin_check check (origin in ('rules', 'ai', 'edit'));
+
+create table if not exists public.workbook_answers (
+  workbook_id uuid not null references public.workbooks (id) on delete cascade,
+  patient_id  uuid not null references public.patients (id) on delete cascade,
+  prompt_key  text not null check (prompt_key ~ '^c[0-9]{1,2}p[0-9]{1,2}$'),
+  answer      text not null check (char_length(answer) <= 5000),
+  updated_at  timestamptz not null default now(),
+  primary key (workbook_id, prompt_key)
+);
+
+drop trigger if exists workbook_answers_set_updated_at on public.workbook_answers;
+create trigger workbook_answers_set_updated_at before update on public.workbook_answers
+  for each row execute function public.set_updated_at();
+
+alter table public.workbook_answers enable row level security;
+drop policy if exists "workbook_answers: paciente gestiona las suyas" on public.workbook_answers;
+create policy "workbook_answers: paciente gestiona las suyas" on public.workbook_answers for all to authenticated
+  using (patient_id = public.current_patient_id())
+  with check (
+    patient_id = public.current_patient_id()
+    and exists (select 1 from public.workbooks w where w.id = workbook_id and w.patient_id = public.current_patient_id() and w.status = 'published')
+  );
+drop policy if exists "workbook_answers: profesional lee si el paciente comparte" on public.workbook_answers;
+create policy "workbook_answers: profesional lee si el paciente comparte" on public.workbook_answers for select to authenticated
+  using (public.is_admin() and exists (select 1 from public.patients p where p.id = workbook_answers.patient_id and p.share_records_with_professional));
+
+comment on table public.workbook_answers is 'Respuestas del paciente a las hojas de trabajo de su cuadernillo.';
+
 commit;

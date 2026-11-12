@@ -1,7 +1,7 @@
 import "server-only";
 
 import type { ServerSupabaseClient } from "@/lib/supabase/server";
-import { TESTS } from "@/lib/guia/tests-data";
+import { resolveTestDefs } from "@/server/services/custom-tests";
 
 export type InboxItem = {
   key: string;
@@ -34,6 +34,7 @@ export async function getReviewInbox(client: ServerSupabaseClient): Promise<Inbo
     patientIds.length ? client.from("patients").select("id, first_name, last_name").in("id", patientIds) : Promise.resolve({ data: [] as { id: string; first_name: string; last_name: string }[] }),
     (drafts ?? []).length ? client.from("workbook_versions").select("workbook_id, version").in("workbook_id", (drafts ?? []).map((w) => w.id)) : Promise.resolve({ data: [] as { workbook_id: string; version: number }[] }),
   ]);
+  const defs = await resolveTestDefs(client, (responses ?? []).map((r) => r.test_id));
   const who = new Map((patients ?? []).map((p) => [p.id, name(p)]));
   // Una ficha reenviada después de revisarla vuelve a la bandeja.
   const reviewedAt = new Map((reviews ?? []).map((r) => [`${r.item_type}:${r.item_id}`, r.reviewed_at]));
@@ -41,7 +42,7 @@ export async function getReviewInbox(client: ServerSupabaseClient): Promise<Inbo
 
   for (const r of responses ?? []) {
     if (reviewedAt.has(`test_response:${r.id}`)) continue;
-    const test = TESTS.find((t) => t.id === r.test_id)?.name ?? r.test_id;
+    const test = defs.get(r.test_id)?.name ?? r.test_id;
     const person = who.get(r.patient_id) ?? "Paciente";
     items.push({
       key: `t-${r.id}`,

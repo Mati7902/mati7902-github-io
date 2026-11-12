@@ -28,6 +28,9 @@ const serverSchema = z.object({
   AI_PROVIDER_API_KEY: z.string().optional(),
   AI_MODEL: z.string().default("claude-haiku-4-5-20251001"),
   RESEND_API_KEY: z.string().optional(),
+  /** Clave de la Claude API para redactar cuadernillos (Anthropic). Sin ella se usan las reglas. */
+  ANTHROPIC_API_KEY: z.string().optional(),
+  WORKBOOK_AI_MODEL: z.string().default("claude-opus-5-5"),
   EMAIL_FROM: z.string().optional(),
   LOG_LEVEL: z.enum(["debug", "info", "warn", "error"]).default("info"),
 });
