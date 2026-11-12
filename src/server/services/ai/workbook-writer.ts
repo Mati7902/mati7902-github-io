@@ -6,7 +6,7 @@ import { z } from "zod";
 
 import { getServerEnv } from "@/lib/env";
 import { createLogger, errorMeta } from "@/lib/logger";
-import type { WorkbookChapter } from "@/lib/workbook/rules";
+import { normalizePrompt, type WorkbookChapter } from "@/lib/workbook/rules";
 
 const log = createLogger("ai.workbook");
 
@@ -21,7 +21,21 @@ const OutputSchema = z.object({
     z.object({
       title: z.string(),
       body: z.string(),
-      prompts: z.array(z.object({ text: z.string(), lines: z.number().int() })),
+      prompts: z.array(
+        z.object({
+          type: z.enum(["text", "vf", "scale", "choice", "checklist", "list"]),
+          text: z.string(),
+          lines: z.number().int().nullable(),
+          options: z.array(z.string()),
+          min: z.number().int().nullable(),
+          max: z.number().int().nullable(),
+          min_label: z.string().nullable(),
+          max_label: z.string().nullable(),
+          count: z.number().int().nullable(),
+          correct: z.string().nullable(),
+          feedback: z.string().nullable(),
+        }),
+      ),
     }),
   ),
   library: z.array(z.string()),
@@ -43,7 +57,16 @@ const SYSTEM = `Sos un asistente de redacción para un psicólogo clínico de Pa
 Cómo escribir:
 - Español rioplatense con voseo ("vos", "sentís", "podés"), cálido, claro y sin tecnicismos innecesarios. Le hablás directamente al paciente.
 - Psicoeducación basada en evidencia, adaptada a lo que la persona contó (motivo, síntomas, contexto, objetivos), sin copiar datos sensibles literalmente ni repetir relatos de hechos dolorosos.
-- Entre 4 y 8 capítulos. Cada capítulo: un título breve, un cuerpo de 150 a 400 palabras (párrafos separados por una línea en blanco; viñetas empezando con "- "; **negrita** con doble asterisco) y de 1 a 4 preguntas o consignas de hoja de trabajo para responder por escrito, cada una con la cantidad de renglones sugerida (2 a 8).
+- Entre 5 y 9 capítulos. Cada capítulo: un título breve, un cuerpo de 150 a 400 palabras (párrafos separados por una línea en blanco; viñetas empezando con "- "; **negrita** con doble asterisco) y una hoja de trabajo de 3 a 6 consignas que la persona completa en la app.
+- Las consignas tienen que ser variadas y combinar tipos dentro de cada capítulo (no solo preguntas abiertas):
+  - "vf": una afirmación para marcar verdadero o falso. Usalo para repasar la psicoeducación del capítulo: poné "correct" ("v" o "f") y un "feedback" de 1 o 2 oraciones que explique por qué.
+  - "choice": opción múltiple con una sola respuesta, 3 o 4 "options". Para repasar, poné "correct" (copiando exactamente el texto de la opción) y "feedback". Para preferencias personales, dejá "correct" en null.
+  - "checklist": marcar todas las que correspondan, 4 a 8 "options" (por ejemplo señales del cuerpo, situaciones, estrategias que ya probó).
+  - "scale": autoevaluación con "min" 0 y "max" 10 (o 1 a 5), con "min_label" y "max_label" (ej.: "Nada" / "Muchísimo").
+  - "list": enumerar varias cosas (ej.: "Tres situaciones en las que…"), con "count" de 2 a 6.
+  - "text": pregunta abierta o ejercicio escrito (registro de pensamientos, carta, plan), con "lines" de 2 a 8.
+  - Los campos que no aplican al tipo van en null (u "options" vacío).
+- Al menos un capítulo debe ser un ejercicio práctico paso a paso (registro de pensamientos, plan de activación, valores, habilidad DBT, respiración o atención plena) armado con estas consignas.
 - Un capítulo inicial de "Cómo usar este cuadernillo" no hace falta: ya está en la plantilla. Empezá por entender lo que le pasa (modelo cognitivo o el que corresponda) y seguí con habilidades prácticas.
 - Si es menor de 18 años, escribí para un adolescente.
 
@@ -87,7 +110,7 @@ export async function writeWorkbookWithAI(input: {
   try {
     const response = await client.beta.messages.parse({
       model: env.WORKBOOK_AI_MODEL,
-      max_tokens: 20000,
+      max_tokens: 28000,
       betas: ["server-side-fallback-2026-07-01"],
       // Si el modelo declina por política, la API reintenta en el modelo de respaldo que corresponda.
       fallbacks: "default",
@@ -110,7 +133,22 @@ export async function writeWorkbookWithAI(input: {
         key: `c${i + 1}`,
         title: c.title.trim().slice(0, 140),
         body: c.body.trim().slice(0, 6000),
-        prompts: c.prompts.slice(0, 6).map((p, j) => ({ key: `c${i + 1}p${j + 1}`, text: p.text.trim().slice(0, 400), lines: Math.min(10, Math.max(2, p.lines || 3)) })),
+        prompts: c.prompts.slice(0, 8).map((p, j) =>
+          normalizePrompt({
+            key: `c${i + 1}p${j + 1}`,
+            type: p.type,
+            text: p.text.trim().slice(0, 400),
+            lines: p.lines ?? undefined,
+            options: p.options.map((o) => o.slice(0, 160)),
+            min: p.min ?? undefined,
+            max: p.max ?? undefined,
+            minLabel: p.min_label?.slice(0, 40) || undefined,
+            maxLabel: p.max_label?.slice(0, 40) || undefined,
+            count: p.count ?? undefined,
+            correct: p.correct ?? undefined,
+            feedback: p.feedback?.slice(0, 600) || undefined,
+          }),
+        ),
       })),
       library: out.library.filter((s) => slugs.has(s)).slice(0, 5),
       closing: out.closing.trim().slice(0, 800),
