@@ -758,6 +758,19 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
+                },"clinical_reports": {
+                  Row: {
+                    "content": Json,"generated_at": string,"id": string,"period_end": string,"period_start": string,"read_at": string | null
+                  }
+                  Insert: {
+                    "content": Json,"generated_at"?: string,"id"?: string,"period_end": string,"period_start": string,"read_at"?: string | null
+                  }
+                  Update: {
+                    "content"?: Json,"generated_at"?: string,"id"?: string,"period_end"?: string,"period_start"?: string,"read_at"?: string | null
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"test_assignments": {
                   Row: {
                     "assigned_at": string,"assigned_by": string | null,"completed_at": string | null,"due_on": string | null,"focus_key": string | null,"id": string,"note": string | null,"patient_id": string,"show_result": boolean,"status": string,"test_id": string

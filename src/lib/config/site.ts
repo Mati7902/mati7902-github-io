@@ -63,6 +63,7 @@ export const adminNav = [
   { href: "/admin/ejercicios", label: "Ejercicios", icon: "sparkles" },
   { href: "/admin/guia", label: "Guía clínica", icon: "book-open" },
   { href: "/admin/instrumentos", label: "Instrumentos", icon: "clipboard-check" },
+  { href: "/admin/informes", label: "Informes", icon: "file-text" },
   { href: "/admin/planes", label: "Planes", icon: "badge-dollar-sign" },
   { href: "/admin/whatsapp", label: "WhatsApp", icon: "message-circle" },
   { href: "/admin/actividad", label: "Actividad", icon: "activity" },
