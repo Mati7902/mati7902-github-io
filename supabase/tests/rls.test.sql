@@ -857,6 +857,20 @@ select pg_temp.logout();
 rollback;
 
 -- ---------------------------------------------------------------------------
+-- 6l. Informes quincenales
+-- ---------------------------------------------------------------------------
+begin;
+insert into public.clinical_reports (period_start, period_end, content) values ('2026-11-01', '2026-11-15', '{"patients":[]}');
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+select pg_temp.assert((select count(*) from public.clinical_reports) = 1, 'el profesional ve los informes');
+select pg_temp.logout();
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+select pg_temp.assert((select count(*) from public.clinical_reports) = 0, 'un paciente no ve los informes');
+select pg_temp.logout();
+select pg_temp.expect_error($q$insert into public.clinical_reports (period_start, period_end, content) values ('2026-11-01', '2026-11-15', '{}')$q$, array['23505'], 'un informe por quincena');
+rollback;
+
+-- ---------------------------------------------------------------------------
 -- 7. Rate limiting (solo servidor)
 -- ---------------------------------------------------------------------------
 begin;
