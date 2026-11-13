@@ -2,6 +2,8 @@ import Link from "next/link";
 import { Bell } from "lucide-react";
 
 import { BrandMark } from "@/components/shell/brand-mark";
+import { WelcomeTour } from "@/components/onboarding/welcome-tour";
+import { CalmButton } from "@/components/shell/calm-button";
 import { NavIcon } from "@/components/shell/nav-icon";
 import { NavLink } from "@/components/shell/nav-link";
 import { SignOutButton } from "@/components/shell/sign-out-button";
@@ -87,7 +89,10 @@ export function PatientShell({ children, platformName, logoUrl, brandName, brand
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-3xl flex-1 px-4 pt-6 pb-28 md:px-8 md:pb-12 print:max-w-none print:p-0">{children}</main>
+        <main className="mx-auto w-full max-w-3xl flex-1 px-4 pt-6 pb-40 md:px-8 md:pb-28 print:max-w-none print:p-0">{children}</main>
+
+        <CalmButton />
+        <WelcomeTour />
 
         {/* Bottom navigation móvil */}
         <nav

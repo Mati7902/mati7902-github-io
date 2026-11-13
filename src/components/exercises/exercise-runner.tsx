@@ -14,6 +14,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { RichText } from "@/components/exercises/rich-text";
 import { type ExerciseAnswers, type ExerciseStep, interpolate, isInputStep, isStepAnswered } from "@/lib/exercises/steps";
 import { cn } from "@/lib/utils";
+import { HelpfulPrompt } from "@/components/exercises/helpful-prompt";
 import { saveExerciseResponseAction } from "@/server/actions/exercises";
 
 type Props = {
@@ -30,6 +31,7 @@ export function ExerciseRunner({ templateId, title, steps, assignmentId, returnT
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<ExerciseAnswers>({});
   const [pending, startTransition] = useTransition();
+  const [savedId, setSavedId] = useState<string | null>(null);
   const startedAt = useRef<number | null>(null);
   useEffect(() => {
     startedAt.current = Date.now();
@@ -72,9 +74,13 @@ export function ExerciseRunner({ templateId, title, steps, assignmentId, returnT
         return;
       }
       toast.success("Ejercicio guardado.");
-      router.push(`${returnTo}?completado=1`);
-      router.refresh();
+      setSavedId(result.data.id);
     });
+
+  const finish = () => {
+    router.push(`${returnTo}?completado=1`);
+    router.refresh();
+  };
 
   const next = () => {
     const completed = withScaleDefault(answers);
@@ -82,6 +88,14 @@ export function ExerciseRunner({ templateId, title, steps, assignmentId, returnT
     if (isLast) submit(completed);
     else setIndex((i) => i + 1);
   };
+
+  if (savedId) {
+    return (
+      <div className="mx-auto max-w-lg">
+        <HelpfulPrompt responseId={savedId} onDone={finish} />
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto flex max-w-lg flex-col gap-8">

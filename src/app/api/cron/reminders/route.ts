@@ -2,7 +2,10 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { getServerEnv } from "@/lib/env";
 import { createLogger, errorMeta } from "@/lib/logger";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { runDailyNudges } from "@/server/services/push";
 import { runReminders } from "@/server/services/reminders";
+import { getSettings } from "@/server/services/settings";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -22,7 +25,13 @@ export async function GET(request: NextRequest) {
   if (!authorized(request)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   try {
     const results = await runReminders();
-    return NextResponse.json({ ok: true, ran_at: new Date().toISOString(), results });
+    // Recordatorios suaves que cada paciente eligió (ánimo, hábitos, cuadernillo), al celular.
+    const { scheduling } = await getSettings(createAdminClient(), ["scheduling"] as const);
+    const nudges = await runDailyNudges(scheduling.timezone).catch((error) => {
+      log.error("Recordatorios diarios fallaron", errorMeta(error));
+      return null;
+    });
+    return NextResponse.json({ ok: true, ran_at: new Date().toISOString(), results, nudges });
   } catch (error) {
     log.error("Cron de recordatorios falló", errorMeta(error));
     return NextResponse.json({ ok: false, error: "reminders_failed" }, { status: 500 });

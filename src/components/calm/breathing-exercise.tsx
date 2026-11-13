@@ -1,8 +1,9 @@
 "use client";
 
-import { Pause, Play, RotateCcw, Volume2, VolumeX } from "lucide-react";
+import { MessageCircleMore, Pause, Play, RotateCcw, Volume2, VolumeX } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+import { spanishVoice } from "@/components/a11y/read-aloud";
 import { Button } from "@/components/ui/button";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import type { BreathingConfig } from "@/lib/exercises/steps";
@@ -11,6 +12,7 @@ import { cn } from "@/lib/utils";
 type Phase = "inhale" | "hold" | "exhale" | "hold_after";
 const PHASE_LABEL: Record<Phase, string> = { inhale: "INHALÁ", hold: "SOSTENÉ", exhale: "EXHALÁ", hold_after: "SOSTENÉ" };
 /** Inhalar y exhalar nunca bajan de 1 segundo (aunque el campo quede en 0 mientras se escribe). */
+const PHASE_SPOKEN: Record<Phase, string> = { inhale: "Inhalá", hold: "Sostené", exhale: "Exhalá", hold_after: "Sostené" };
 const MIN_SECONDS: Record<Phase, number> = { inhale: 1, hold: 0, exhale: 1, hold_after: 0 };
 
 type Props = {
@@ -32,6 +34,7 @@ export function BreathingExercise({ config, title, onComplete }: Props) {
   const [phase, setPhase] = useState<Phase>("inhale");
   const [phaseLeft, setPhaseLeft] = useState(pattern.inhale);
   const [sound, setSound] = useState(false);
+  const [voice, setVoice] = useState(false);
   const [done, setDone] = useState(false);
   const audioCtx = useRef<AudioContext | null>(null);
   const completedRef = useRef(false);
@@ -70,6 +73,25 @@ export function BreathingExercise({ config, title, onComplete }: Props) {
     [sound],
   );
 
+  // Voz guiada: dice cada fase con la voz del dispositivo (funciona sin internet si el dispositivo tiene voz en español).
+  const speak = useCallback(
+    (text: string) => {
+      if (!voice || !("speechSynthesis" in window)) return;
+      try {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = "es-419";
+        const v = spanishVoice();
+        if (v) u.voice = v;
+        u.rate = 0.85;
+        window.speechSynthesis.speak(u);
+      } catch {
+        // Sin voz disponible: sigue con la animación.
+      }
+    },
+    [voice],
+  );
+
   const onCompleteRef = useRef(onComplete);
   useEffect(() => {
     onCompleteRef.current = onComplete;
@@ -87,6 +109,7 @@ export function BreathingExercise({ config, title, onComplete }: Props) {
           window.setTimeout(() => {
             setRunning(false);
             setDone(true);
+            speak("Listo. Bien hecho.");
             onCompleteRef.current?.({ durationMinutes: durationMin });
           }, 0);
         }
@@ -99,7 +122,10 @@ export function BreathingExercise({ config, title, onComplete }: Props) {
           const index = phases.findIndex((p) => p.key === current);
           const next = phases[(index + 1) % phases.length] ?? phases[0];
           if (!next) return current;
-          window.setTimeout(() => tone(next.key === "inhale" ? 440 : next.key === "exhale" ? 330 : 392), 0);
+          window.setTimeout(() => {
+            tone(next.key === "inhale" ? 440 : next.key === "exhale" ? 330 : 392);
+            speak(PHASE_SPOKEN[next.key]);
+          }, 0);
           return next.key;
         });
         const index = phases.findIndex((p) => p.key === phase);
@@ -108,7 +134,7 @@ export function BreathingExercise({ config, title, onComplete }: Props) {
       });
     }, 1000);
     return () => window.clearInterval(id);
-  }, [running, totalSeconds, durationMin, phases, phase, tone]);
+  }, [running, totalSeconds, durationMin, phases, phase, tone, speak]);
 
   const start = () => {
     completedRef.current = false;
@@ -120,6 +146,7 @@ export function BreathingExercise({ config, title, onComplete }: Props) {
     setPhaseLeft(phases[0]?.seconds ?? MIN_SECONDS.inhale);
     setRunning(true);
     tone(440);
+    speak(PHASE_SPOKEN.inhale);
   };
   const reset = () => {
     setRunning(false);
@@ -184,6 +211,9 @@ export function BreathingExercise({ config, title, onComplete }: Props) {
         </Button>
         <Button variant="ghost" size="icon" onClick={() => setSound((s) => !s)} aria-pressed={sound} aria-label={sound ? "Desactivar sonido" : "Activar sonido"}>
           {sound ? <Volume2 /> : <VolumeX />}
+        </Button>
+        <Button variant={voice ? "soft" : "ghost"} size="lg" onClick={() => setVoice((v) => !v)} aria-pressed={voice}>
+          <MessageCircleMore aria-hidden /> {voice ? "Voz guiada activada" : "Voz guiada"}
         </Button>
       </div>
 

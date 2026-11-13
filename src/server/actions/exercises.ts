@@ -59,3 +59,18 @@ export async function deleteExerciseResponseAction(id: string): Promise<ActionRe
     return fail(error);
   }
 }
+
+/** «¿Te sirvió?» al terminar un ejercicio. Le sirve al profesional para ajustar lo que propone. */
+export async function rateExerciseAction(input: { id: string; helpful: "si" | "algo" | "no" }): Promise<ActionResult> {
+  const parsed = z.object({ id: z.string().uuid(), helpful: z.enum(["si", "algo", "no"]) }).safeParse(input);
+  if (!parsed.success) return fail(new AppError("VALIDATION", "Respuesta inválida."));
+  try {
+    const { patient } = await assertPatient();
+    const supabase = await createClient();
+    const { error } = await supabase.from("exercise_responses").update({ helpful: parsed.data.helpful }).eq("id", parsed.data.id).eq("patient_id", patient.id);
+    if (error) throw error;
+    return ok(undefined);
+  } catch (error) {
+    return fail(error);
+  }
+}

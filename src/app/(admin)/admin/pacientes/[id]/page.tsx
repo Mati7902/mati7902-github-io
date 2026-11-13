@@ -342,6 +342,7 @@ export default async function PatientDetailPage({ params }: { params: Promise<{ 
                 entries: answerEntries(parseSteps(r.exercise_templates?.steps), (r.answers ?? {}) as Record<string, unknown>),
                 emotionBefore: r.emotion_before,
                 emotionAfter: r.emotion_after,
+                helpful: r.helpful,
               }))}
             />
           ) : (

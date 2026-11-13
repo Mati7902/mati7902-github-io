@@ -1,7 +1,8 @@
-import { CalendarDays, Clock, MapPin, Video } from "lucide-react";
+import { CalendarDays, CalendarPlus, Clock, MapPin, Video } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { formatLongDate, formatTime, capitalize, humanDay } from "@/lib/dates";
+import { googleCalendarUrl } from "@/lib/calendar";
 import { cn } from "@/lib/utils";
 import { APPOINTMENT_STATUS_LABEL, APPOINTMENT_STATUS_TONE, MODALITY_LABEL, type Appointment } from "@/types/domain";
 
@@ -61,6 +62,23 @@ export function AppointmentCard({ appointment, timezone, showAccess = false, act
         >
           <Video className="size-4" aria-hidden /> Entrar a la videollamada
         </a>
+      ) : null}
+      {showAccess && ["pending", "confirmed", "rescheduled"].includes(appointment.status) ? (
+        <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+          <CalendarPlus className="size-4 text-muted-foreground" aria-hidden />
+          <span className="text-muted-foreground">Agregar a mi calendario:</span>
+          <a href={`/app/agenda/${appointment.id}/calendario`} className="font-medium text-primary underline-offset-4 hover:underline">
+            Celular (iPhone, Android)
+          </a>
+          <a
+            href={googleCalendarUrl({ id: appointment.id, start: appointment.start_time, end: appointment.end_time, location: isVirtual ? "Online" : appointment.location })}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-primary underline-offset-4 hover:underline"
+          >
+            Google Calendar
+          </a>
+        </p>
       ) : null}
       {actions ? <div className="mt-5 flex flex-wrap gap-2">{actions}</div> : null}
     </article>

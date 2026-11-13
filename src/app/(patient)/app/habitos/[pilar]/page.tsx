@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AlertTriangle, ArrowLeft, ExternalLink } from "lucide-react";
 
+import { ReadAloud } from "@/components/a11y/read-aloud";
 import { RichText } from "@/components/exercises/rich-text";
 import { Button } from "@/components/ui/button";
 import { requirePatient } from "@/lib/auth/session";
@@ -30,6 +31,7 @@ export default async function PillarArticlePage({ params }: { params: Promise<{ 
         <p className="text-sm font-medium uppercase tracking-wider text-accent-strong">{pillar.title} y salud mental</p>
         <h1 className="font-display text-3xl font-medium text-balance sm:text-4xl">{pillar.tagline}</h1>
         <p className="text-lg leading-relaxed text-muted-foreground">{pillar.article.lead}</p>
+        {!locked ? <ReadAloud label="Escuchar el artículo" text={[pillar.tagline, pillar.article.lead, ...pillar.article.sections.flatMap((s) => [s.title, s.body])].join("\n\n")} /> : null}
       </header>
 
       {locked ? (

@@ -269,13 +269,13 @@ isOneToOne: false
                   ]
                 },"exercise_responses": {
                   Row: {
-                    "answers": NonNullable<Json>,"assignment_id": string | null,"completed_at": string,"created_at": string,"duration_seconds": number | null,"emotion_after": number | null,"emotion_before": number | null,"id": string,"patient_id": string,"template_id": string
+                    "answers": NonNullable<Json>,"assignment_id": string | null,"completed_at": string,"created_at": string,"duration_seconds": number | null,"emotion_after": number | null,"emotion_before": number | null,"helpful": string | null,"id": string,"patient_id": string,"template_id": string
                   }
                   Insert: {
-                    "answers"?: NonNullable<Json>,"assignment_id"?: string | null,"completed_at"?: string,"created_at"?: string,"duration_seconds"?: number | null,"emotion_after"?: number | null,"emotion_before"?: number | null,"id"?: string,"patient_id": string,"template_id": string
+                    "answers"?: NonNullable<Json>,"assignment_id"?: string | null,"completed_at"?: string,"created_at"?: string,"duration_seconds"?: number | null,"emotion_after"?: number | null,"emotion_before"?: number | null,"helpful"?: string | null,"id"?: string,"patient_id": string,"template_id": string
                   }
                   Update: {
-                    "answers"?: NonNullable<Json>,"assignment_id"?: string | null,"completed_at"?: string,"created_at"?: string,"duration_seconds"?: number | null,"emotion_after"?: number | null,"emotion_before"?: number | null,"id"?: string,"patient_id"?: string,"template_id"?: string
+                    "answers"?: NonNullable<Json>,"assignment_id"?: string | null,"completed_at"?: string,"created_at"?: string,"duration_seconds"?: number | null,"emotion_after"?: number | null,"emotion_before"?: number | null,"helpful"?: string | null,"id"?: string,"patient_id"?: string,"template_id"?: string
                   }
                   Relationships: [
                     {
@@ -767,6 +767,45 @@ isOneToOne: false
                   }
                   Update: {
                     "content"?: Json,"generated_at"?: string,"id"?: string,"period_end"?: string,"period_start"?: string,"read_at"?: string | null
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"push_config": {
+                  Row: {
+                    "created_at": string,"id": boolean,"private_key": string,"public_key": string
+                  }
+                  Insert: {
+                    "created_at"?: string,"id"?: boolean,"private_key": string,"public_key": string
+                  }
+                  Update: {
+                    "created_at"?: string,"id"?: boolean,"private_key"?: string,"public_key"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"push_subscriptions": {
+                  Row: {
+                    "auth": string,"created_at": string,"endpoint": string,"id": string,"last_ok_at": string | null,"p256dh": string,"user_agent": string | null,"user_id": string
+                  }
+                  Insert: {
+                    "auth": string,"created_at"?: string,"endpoint": string,"id"?: string,"last_ok_at"?: string | null,"p256dh": string,"user_agent"?: string | null,"user_id": string
+                  }
+                  Update: {
+                    "auth"?: string,"created_at"?: string,"endpoint"?: string,"id"?: string,"last_ok_at"?: string | null,"p256dh"?: string,"user_agent"?: string | null,"user_id"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"reminder_prefs": {
+                  Row: {
+                    "days": number[],"habits": boolean,"hour": number,"last_sent_on": string | null,"mood": boolean,"updated_at": string,"user_id": string,"workbook": boolean
+                  }
+                  Insert: {
+                    "days"?: number[],"habits"?: boolean,"hour"?: number,"last_sent_on"?: string | null,"mood"?: boolean,"updated_at"?: string,"user_id": string,"workbook"?: boolean
+                  }
+                  Update: {
+                    "days"?: number[],"habits"?: boolean,"hour"?: number,"last_sent_on"?: string | null,"mood"?: boolean,"updated_at"?: string,"user_id"?: string,"workbook"?: boolean
                   }
                   Relationships: [
                     
