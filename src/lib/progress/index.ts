@@ -6,11 +6,11 @@ import { formatInTimeZone, fromZonedTime } from "date-fns-tz";
  * Principios clínicos:
  * - Se reconoce la práctica, nunca el contenido: un ánimo de 2 vale lo mismo que uno de 9.
  * - No hay rachas diarias que se rompan: se cuentan semanas con la meta cumplida, y nunca bajan.
- * - Topes para que practicar de más no sume: 3 actividades por día y una del mismo tipo cada 4 horas.
+ * - Topes para que practicar de más no sume: 5 actividades por día y una del mismo tipo cada 4 horas.
  * - Sin rankings ni comparaciones con otras personas.
  */
 
-export type ActivityType = "registro" | "respiracion" | "tcc" | "act" | "dbt" | "ejercicio";
+export type ActivityType = "registro" | "respiracion" | "tcc" | "act" | "dbt" | "ejercicio" | "movimiento" | "descanso" | "alimentacion";
 
 export type PracticeEvent = { at: string; type: ActivityType };
 
@@ -21,11 +21,15 @@ export const ACTIVITY_LABEL: Record<ActivityType, string> = {
   act: "Ejercicio de ACT",
   dbt: "Habilidad DBT",
   ejercicio: "Ejercicio",
+  movimiento: "Hábito de movimiento",
+  descanso: "Hábito de descanso",
+  alimentacion: "Hábito de alimentación",
 };
 
 /** Puntos por tipo. Ejercicios de cuadernillo valen más porque llevan más tiempo. */
-export const POINTS: Record<ActivityType, number> = { registro: 5, respiracion: 5, tcc: 10, act: 10, dbt: 10, ejercicio: 10 };
-export const MAX_PER_DAY = 3;
+export const POINTS: Record<ActivityType, number> = { registro: 5, respiracion: 5, tcc: 10, act: 10, dbt: 10, ejercicio: 10, movimiento: 5, descanso: 5, alimentacion: 5 };
+/** Hasta 5 prácticas por día (los hábitos cuentan una vez por pilar y por día). */
+export const MAX_PER_DAY = 5;
 export const SAME_TYPE_GAP_MS = 4 * 3600_000;
 
 /** Tipo de actividad de una respuesta de ejercicio, según su plantilla. */
@@ -72,7 +76,7 @@ export function countedEvents(events: PracticeEvent[], tz: string): PracticeEven
   return out;
 }
 
-export type BadgeKey = "primer-paso" | "una-semana" | "explorador-emocional" | "aprendiendo-a-observar" | "practicando-habilidades" | "compromiso" | "retomando" | "un-mes";
+export type BadgeKey = "primer-paso" | "una-semana" | "explorador-emocional" | "aprendiendo-a-observar" | "practicando-habilidades" | "compromiso" | "retomando" | "un-mes" | "en-movimiento" | "buen-descanso" | "comer-con-atencion" | "equilibrio";
 
 export const BADGES: { key: BadgeKey; title: string; detail: string }[] = [
   { key: "primer-paso", title: "Primer paso", detail: "Hiciste tu primera práctica." },
@@ -83,6 +87,10 @@ export const BADGES: { key: BadgeKey; title: string; detail: string }[] = [
   { key: "compromiso", title: "Compromiso con mi proceso", detail: "4 semanas con la meta cumplida." },
   { key: "retomando", title: "Retomando mi camino", detail: "Volviste a practicar después de un tiempo." },
   { key: "un-mes", title: "Un mes de aprendizaje", detail: "Un mes desde tu primera práctica, con 8 prácticas." },
+  { key: "en-movimiento", title: "En movimiento", detail: "10 días con un hábito de movimiento." },
+  { key: "buen-descanso", title: "Buen descanso", detail: "10 días con un hábito de descanso." },
+  { key: "comer-con-atencion", title: "Comer con atención", detail: "10 días con un hábito de alimentación." },
+  { key: "equilibrio", title: "Equilibrio", detail: "Una semana con movimiento, descanso y alimentación, al menos 3 días cada uno." },
 ];
 
 const RETURN_GAP_MS = 10 * 24 * 3600_000;
@@ -105,7 +113,9 @@ export type ProgressSummary = {
 export function summarize(events: PracticeEvent[], opts: { weeklyGoal: number; tz: string; now?: Date }): ProgressSummary {
   const now = opts.now ?? new Date();
   const counted = countedEvents(events, opts.tz);
-  const byType = { registro: 0, respiracion: 0, tcc: 0, act: 0, dbt: 0, ejercicio: 0 } as Record<ActivityType, number>;
+  const byType = { registro: 0, respiracion: 0, tcc: 0, act: 0, dbt: 0, ejercicio: 0, movimiento: 0, descanso: 0, alimentacion: 0 } as Record<ActivityType, number>;
+  // Días por pilar de hábitos en cada semana (para la insignia «Equilibrio»).
+  const pillarWeeks = new Map<string, { movimiento: Set<string>; descanso: Set<string>; alimentacion: Set<string> }>();
   const perWeek = new Map<string, number>();
   let points = 0;
   let returned = false;
@@ -115,6 +125,11 @@ export function summarize(events: PracticeEvent[], opts: { weeklyGoal: number; t
     points += POINTS[e.type];
     const wk = weekKey(e.at, opts.tz);
     perWeek.set(wk, (perWeek.get(wk) ?? 0) + 1);
+    if (e.type === "movimiento" || e.type === "descanso" || e.type === "alimentacion") {
+      const w = pillarWeeks.get(wk) ?? { movimiento: new Set<string>(), descanso: new Set<string>(), alimentacion: new Set<string>() };
+      w[e.type].add(dayKey(e.at, opts.tz));
+      pillarWeeks.set(wk, w);
+    }
     const t = Date.parse(e.at);
     if (prev !== null && t - prev >= RETURN_GAP_MS) returned = true;
     prev = t;
@@ -140,6 +155,10 @@ export function summarize(events: PracticeEvent[], opts: { weeklyGoal: number; t
   if (weeksMet >= 4) badges.push("compromiso");
   if (returned) badges.push("retomando");
   if (first !== null && now.getTime() - first >= 30 * 24 * 3600_000 && counted.length >= 8) badges.push("un-mes");
+  if (byType.movimiento >= 10) badges.push("en-movimiento");
+  if (byType.descanso >= 10) badges.push("buen-descanso");
+  if (byType.alimentacion >= 10) badges.push("comer-con-atencion");
+  if ([...pillarWeeks.values()].some((w) => w.movimiento.size >= 3 && w.descanso.size >= 3 && w.alimentacion.size >= 3)) badges.push("equilibrio");
 
   return {
     points,
@@ -172,7 +191,10 @@ export const CHALLENGES: ChallengeDef[] = [
   { key: "atencion-plena", title: "Atención plena", detail: "Una práctica de respiración o atención plena.", types: ["respiracion"] },
   { key: "identificar-pensamientos", title: "Identificar pensamientos", detail: "Un ejercicio de pensamientos (TCC).", types: ["tcc"] },
   { key: "habilidades-dbt", title: "Practicar habilidades", detail: "Una habilidad de DBT por día.", types: ["dbt"] },
-  { key: "practica-libre", title: "Práctica libre", detail: "Cualquier ejercicio o registro.", types: ["registro", "respiracion", "tcc", "act", "dbt", "ejercicio"] },
+  { key: "practica-libre", title: "Práctica libre", detail: "Cualquier ejercicio o registro.", types: ["registro", "respiracion", "tcc", "act", "dbt", "ejercicio", "movimiento", "descanso", "alimentacion"] },
+  { key: "moverme", title: "Moverme más", detail: "Un hábito de movimiento por día.", types: ["movimiento"] },
+  { key: "dormir-mejor", title: "Dormir mejor", detail: "Un hábito de descanso por día.", types: ["descanso"] },
+  { key: "comer-regular", title: "Comer con regularidad", detail: "Un hábito de alimentación por día.", types: ["alimentacion"] },
 ];
 
 export const challengeDef = (key: string) => CHALLENGES.find((c) => c.key === key);

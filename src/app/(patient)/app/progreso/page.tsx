@@ -76,7 +76,7 @@ export default async function ProgressPage() {
                 <dd className="font-display text-2xl tabular-nums">{summary.points}</dd>
               </div>
             </dl>
-            <p className="text-xs text-muted-foreground">Los puntos reconocen que practicaste, no cómo te sentiste. Cuentan hasta 3 prácticas por día.</p>
+            <p className="text-xs text-muted-foreground">Los puntos reconocen que practicaste, no cómo te sentiste. Cuentan hasta 5 prácticas por día (cada hábito de movimiento, descanso o alimentación, una vez por día).</p>
           </section>
 
           {challenges.length > 0 ? (

@@ -10,6 +10,7 @@ type AnyClient = ServerSupabaseClient | AdminSupabaseClient;
 
 /** Cuadros en los que Mi Progreso arranca apagado hasta que el profesional lo active. */
 const CAUTION_FOCI = ["toc", "alimentacion"];
+const HABIT_PILLAR: Record<string, "movimiento" | "descanso" | "alimentacion"> = { mov: "movimiento", des: "descanso", ali: "alimentacion" };
 
 export const DEFAULT_PREFS = { weekly_goal: 3, paused_until: null, badges_enabled: true, professional_enabled: null } as const;
 
@@ -19,9 +20,11 @@ export const DEFAULT_PREFS = { weekly_goal: 3, paused_until: null, badges_enable
  */
 export async function loadPracticeEvents(client: AnyClient, patientId: string, sinceDays = 400): Promise<PracticeEvent[]> {
   const since = new Date(Date.now() - sinceDays * 24 * 3600_000).toISOString();
-  const [{ data: responses, error: e1 }, { data: logs, error: e2 }] = await Promise.all([
+  const [{ data: responses, error: e1 }, { data: logs, error: e2 }, { data: habits }] = await Promise.all([
     client.from("exercise_responses").select("completed_at, exercise_templates(kind, approach)").eq("patient_id", patientId).gte("completed_at", since),
     client.from("emotional_logs").select("logged_at").eq("patient_id", patientId).gte("logged_at", since),
+    // Si la tabla de hábitos todavía no existe (SQL sin correr), simplemente no suma.
+    client.from("habit_logs").select("habit_id, logged_on").eq("patient_id", patientId).gte("logged_on", since.slice(0, 10)),
   ]);
   if (e1) throw fromDatabaseError(e1);
   if (e2) throw fromDatabaseError(e2);
@@ -31,6 +34,11 @@ export async function loadPracticeEvents(client: AnyClient, patientId: string, s
       return { at: r.completed_at, type: exerciseActivityType(t?.kind ?? "custom", t?.approach ?? "general") };
     }),
     ...(logs ?? []).map((l) => ({ at: l.logged_at, type: "registro" as const })),
+    // Un hábito marcado cuenta al mediodía (hora de Paraguay) del día registrado.
+    ...(habits ?? []).flatMap((h) => {
+      const pillar = HABIT_PILLAR[h.habit_id.slice(0, 3)];
+      return pillar ? [{ at: `${h.logged_on}T15:00:00Z`, type: pillar }] : [];
+    }),
   ];
 }
 

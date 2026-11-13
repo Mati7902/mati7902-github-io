@@ -48,6 +48,7 @@ export const seoDefaults = {
 export const patientNav = [
   { href: "/app", label: "Inicio", icon: "home" },
   { href: "/app/ejercicios", label: "Ejercicios", icon: "sparkles" },
+  { href: "/app/habitos", label: "Hábitos", icon: "heart-pulse" },
   { href: "/app/progreso", label: "Progreso", icon: "trending-up" },
   { href: "/app/agenda", label: "Agenda", icon: "calendar" },
   { href: "/app/materiales", label: "Materiales", icon: "library" },
