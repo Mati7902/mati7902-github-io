@@ -24,7 +24,7 @@ type Props = {
   professionalEnabled: boolean | null;
   effectiveEnabled: boolean;
   /** Resumen de participación; null si el paciente no comparte sus registros. */
-  participation: { total: number; thisWeek: number; weeklyGoal: number; weeksMet: number; paused: boolean } | null;
+  participation: { total: number; thisWeek: number; weeklyGoal: number; weeksMet: number; paused: boolean; habits?: { movimiento: number; descanso: number; alimentacion: number } } | null;
 };
 
 /** Objetivos, desafíos y Mi Progreso del paciente. La participación se muestra aparte de la evolución clínica. */
@@ -123,6 +123,11 @@ export function ProgressPanel({ patientId, goals, challenges, professionalEnable
           <p className="rounded-xl bg-surface-muted px-3 py-2 text-sm">
             {participation.paused ? "Metas en pausa. " : `Esta semana: ${participation.thisWeek} de ${participation.weeklyGoal}. `}
             {participation.total} prácticas en total · {participation.weeksMet} {participation.weeksMet === 1 ? "semana" : "semanas"} con la meta cumplida.
+            {participation.habits && participation.habits.movimiento + participation.habits.descanso + participation.habits.alimentacion > 0 ? (
+              <span className="block">
+                Días con hábitos: movimiento {participation.habits.movimiento} · descanso {participation.habits.descanso} · alimentación {participation.habits.alimentacion}
+              </span>
+            ) : null}
             <span className="block text-xs text-muted-foreground">Participación, no evolución clínica.</span>
           </p>
         ) : (

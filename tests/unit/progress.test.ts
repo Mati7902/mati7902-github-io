@@ -7,14 +7,29 @@ const TZ = "America/Asuncion";
 const at = (day: string, hourUtc = 12) => `${day}T${String(hourUtc).padStart(2, "0")}:00:00Z`;
 
 describe("Mi Progreso: topes contra la práctica excesiva", () => {
-  it("cuenta como máximo 3 actividades por día", () => {
+  it("cuenta como máximo 5 actividades por día", () => {
     const events: PracticeEvent[] = [
       { at: at("2026-11-09", 11), type: "registro" },
       { at: at("2026-11-09", 12), type: "tcc" },
       { at: at("2026-11-09", 13), type: "dbt" },
       { at: at("2026-11-09", 14), type: "act" },
+      { at: at("2026-11-09", 15), type: "movimiento" },
+      { at: at("2026-11-09", 16), type: "descanso" },
     ];
-    expect(countedEvents(events, TZ)).toHaveLength(3);
+    expect(countedEvents(events, TZ)).toHaveLength(5);
+  });
+
+  it("los hábitos dan la insignia Equilibrio con 3 días de cada pilar en una semana", () => {
+    const days = ["2026-11-09", "2026-11-10", "2026-11-11"];
+    const events: PracticeEvent[] = days.flatMap((d) => [
+      { at: at(d, 12), type: "movimiento" as const },
+      { at: at(d, 13), type: "descanso" as const },
+      { at: at(d, 14), type: "alimentacion" as const },
+    ]);
+    const s = summarize(events, { weeklyGoal: 3, tz: TZ, now: new Date(at("2026-11-12")) });
+    expect(s.badges).toContain("equilibrio");
+    expect(s.byType.movimiento).toBe(3);
+    expect(s.points).toBe(45);
   });
 
   it("no cuenta dos veces el mismo tipo en menos de 4 horas", () => {

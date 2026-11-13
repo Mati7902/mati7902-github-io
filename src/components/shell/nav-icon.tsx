@@ -4,6 +4,7 @@ import {
   BookOpen,
   Calendar,
   ClipboardCheck,
+  HeartPulse,
   Home,
   LayoutDashboard,
   Library,
@@ -18,6 +19,7 @@ import {
 
 const ICONS: Record<string, LucideIcon> = {
   home: Home,
+  "heart-pulse": HeartPulse,
   sparkles: Sparkles,
   "trending-up": TrendingUp,
   calendar: Calendar,

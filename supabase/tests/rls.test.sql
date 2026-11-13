@@ -840,6 +840,23 @@ select pg_temp.logout();
 rollback;
 
 -- ---------------------------------------------------------------------------
+-- 6k. Hábitos
+-- ---------------------------------------------------------------------------
+begin;
+select set_config('test.juan_id', (select id::text from public.patients where email = 'juan.perez@demo.local'), true);
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+insert into public.habit_logs (patient_id, habit_id, logged_on) values (current_setting('test.juan_id')::uuid, 'mov-caminar-10', (now() at time zone 'America/Asuncion')::date);
+select pg_temp.assert((select count(*) from public.habit_logs) = 1, 'el paciente registra un hábito de hoy');
+select pg_temp.expect_error($q$insert into public.habit_logs (patient_id, habit_id, logged_on) values (current_setting('test.juan_id')::uuid, 'mov-caminar-10', (now() at time zone 'America/Asuncion')::date)$q$, array['23505'], 'un hábito se registra una vez por día');
+select pg_temp.expect_error($q$insert into public.habit_logs (patient_id, habit_id, logged_on) values (current_setting('test.juan_id')::uuid, 'des-luz', (now() at time zone 'America/Asuncion')::date - 10)$q$, array['42501'], 'no se cargan hábitos de hace más de 3 días');
+select pg_temp.logout();
+select pg_temp.login('33333333-3333-4333-8333-333333333333');
+select pg_temp.assert((select count(*) from public.habit_logs) = 0, 'otro paciente no ve hábitos ajenos');
+select pg_temp.expect_error($q$insert into public.habit_logs (patient_id, habit_id, logged_on) values (current_setting('test.juan_id')::uuid, 'des-luz', (now() at time zone 'America/Asuncion')::date)$q$, array['42501'], 'nadie registra hábitos a nombre de otro');
+select pg_temp.logout();
+rollback;
+
+-- ---------------------------------------------------------------------------
 -- 7. Rate limiting (solo servidor)
 -- ---------------------------------------------------------------------------
 begin;

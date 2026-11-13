@@ -127,7 +127,7 @@ export default async function PatientDetailPage({ params }: { params: Promise<{ 
   ]);
   const practice = summarize(practiceEvents, { weeklyGoal: progressPrefs.weekly_goal, tz: scheduling.timezone });
   const participation = patient.share_records_with_professional
-    ? { total: practice.total, thisWeek: practice.thisWeek, weeklyGoal: practice.weeklyGoal, weeksMet: practice.weeksMet, paused: isPaused(progressPrefs, toDateKey(new Date(), scheduling.timezone)) }
+    ? { total: practice.total, thisWeek: practice.thisWeek, weeklyGoal: practice.weeklyGoal, weeksMet: practice.weeksMet, paused: isPaused(progressPrefs, toDateKey(new Date(), scheduling.timezone)), habits: { movimiento: practice.byType.movimiento, descanso: practice.byType.descanso, alimentacion: practice.byType.alimentacion } }
     : null;
   const moodDays = patient.share_records_with_professional ? dailyMood(await listMoodEntries(supabase, patient.id, 90), scheduling.timezone) : [];
 

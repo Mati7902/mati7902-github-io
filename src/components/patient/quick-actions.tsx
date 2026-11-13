@@ -1,4 +1,4 @@
-import { BookOpen, Brain, CalendarPlus, ClipboardList, Heart, Sparkles, Wind, type LucideIcon } from "lucide-react";
+import { BookOpen, Brain, CalendarPlus, ClipboardList, Heart, HeartPulse, Sparkles, Wind, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 
 type Action = { href: string; label: string; icon: LucideIcon; tone: string };
@@ -8,6 +8,7 @@ const ACTIONS: Action[] = [
   { href: "/app/registro/nuevo", label: "Registrar cómo me siento", icon: Heart, tone: "bg-primary-soft text-primary" },
   { href: "/app/ejercicios/registro-pensamientos", label: "Ordenar mis pensamientos", icon: Brain, tone: "bg-info-soft text-info-strong" },
   { href: "/app/ejercicios", label: "Ver mis ejercicios", icon: Sparkles, tone: "bg-warning-soft text-warning-strong" },
+  { href: "/app/habitos", label: "Mis hábitos", icon: HeartPulse, tone: "bg-success-soft text-mint-700" },
   { href: "/app/materiales", label: "Materiales", icon: BookOpen, tone: "bg-sand-100 text-foreground" },
   { href: "/app/agenda/nuevo", label: "Solicitar turno", icon: CalendarPlus, tone: "bg-primary text-primary-foreground" },
 ];
