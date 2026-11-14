@@ -3,7 +3,11 @@ import Link from "next/link";
 import { ClipboardList, Download, FileSignature } from "lucide-react";
 
 import { ChangePasswordForm, ContactForm, SharingToggle } from "@/components/patient/profile-forms";
+import { ReplayTourButton } from "@/components/onboarding/welcome-tour";
+import { InstallApp } from "@/components/pwa/install-app";
+import { PushSettings } from "@/components/pwa/push-settings";
 import { SignOutButton } from "@/components/shell/sign-out-button";
+import { TextSizeToggle } from "@/components/shell/text-size";
 import { ThemeToggle } from "@/components/shell/theme-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -22,10 +26,11 @@ export const metadata: Metadata = { title: "Mi perfil" };
 export default async function ProfilePage() {
   const { patient, profile, email } = await requirePatient();
   const supabase = await createClient();
-  const [intake, consent, consentSettings] = await Promise.all([
+  const [intake, consent, consentSettings, { data: reminderPrefs }] = await Promise.all([
     getIntake(supabase, patient.id).catch(() => null),
     getLatestConsent(supabase, patient.id).catch(() => null),
     getSetting(supabase, "treatment_consent"),
+    supabase.from("reminder_prefs").select("mood, habits, workbook, hour, days").eq("user_id", profile.id).maybeSingle(),
   ]);
   const consentOutdated = consent !== null && consentSettings.enabled && consent.version !== consentSettings.version;
   const fullName = `${patient.first_name} ${patient.last_name}`;
@@ -97,10 +102,29 @@ export default async function ProfilePage() {
 
       <Separator />
 
+      <section id="notificaciones" className="space-y-4">
+        <h2 className="font-display text-xl font-medium">Notificaciones y recordatorios</h2>
+        <PushSettings initial={reminderPrefs ?? { mood: false, habits: false, workbook: false, hour: 20, days: [1, 2, 3, 4, 5, 6, 7] }} />
+      </section>
+
+      <Separator />
+
       <section className="space-y-4">
-        <h2 className="font-display text-xl font-medium">Apariencia</h2>
+        <h2 className="font-display text-xl font-medium">Apariencia y lectura</h2>
         <ThemeToggle />
-        <p className="text-xs text-muted-foreground">El modo oscuro descansa la vista de noche. Se guarda en este dispositivo.</p>
+        <TextSizeToggle />
+        <p className="text-xs text-muted-foreground">
+          El modo oscuro descansa la vista de noche y la letra grande facilita la lectura. En los artículos y el cuadernillo vas a encontrar el botón «Escuchar» para que el
+          celular te los lea en voz alta. Se guarda en este dispositivo.
+        </p>
+      </section>
+
+      <Separator />
+
+      <section className="space-y-4">
+        <h2 className="font-display text-xl font-medium">La app en tu celular</h2>
+        <InstallApp />
+        <ReplayTourButton />
       </section>
 
       <Separator />

@@ -6,11 +6,13 @@ import { AppointmentCard } from "@/components/appointments/appointment-card";
 import { ConsentCard } from "@/components/consent/consent-card";
 import { IntakeCard } from "@/components/intake/intake-card";
 import { PatientAppointmentActions } from "@/components/appointments/patient-appointment-actions";
+import { QuickMoodCard } from "@/components/emotions/quick-mood-card";
 import { QuickActions } from "@/components/patient/quick-actions";
+import { InstallApp } from "@/components/pwa/install-app";
 import { TodayCard } from "@/components/progress/today-card";
 import { Button } from "@/components/ui/button";
 import { requirePatient } from "@/lib/auth/session";
-import { toDateKey } from "@/lib/dates";
+import { toDateKey, zonedToUtc } from "@/lib/dates";
 import { answeredCount } from "@/lib/intake/form";
 import { createClient } from "@/lib/supabase/server";
 import { canPatientModify, canPrepareSession, getNextAppointment } from "@/server/services/appointments";
@@ -41,6 +43,16 @@ export default async function PatientHomePage() {
     getPublicSettingsSafe(),
     getLatestConsent(supabase, patient.id).catch(() => undefined),
   ]);
+  const todayStart = zonedToUtc(toDateKey(new Date(), settings.scheduling.timezone), "00:00", settings.scheduling.timezone).toISOString();
+  const { data: todayMoodRow } = await supabase
+    .from("emotional_logs")
+    .select("mood")
+    .eq("patient_id", patient.id)
+    .not("mood", "is", null)
+    .gte("logged_at", todayStart)
+    .order("logged_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
   const { count: pendingTests } = await supabase.from("test_assignments").select("id", { count: "exact", head: true }).eq("patient_id", patient.id).eq("status", "pending");
   // Primero el consentimiento; la ficha de ingreso se ofrece una vez firmado.
   const consentSettings = settings.treatment_consent;
@@ -60,6 +72,8 @@ export default async function PatientHomePage() {
         <h1 className="font-display text-3xl font-medium sm:text-4xl">Hola, {patient.first_name}.</h1>
         <p className="text-lg text-muted-foreground">¿Cómo estás hoy?</p>
       </header>
+
+      {!needsConsent ? <QuickMoodCard todayMood={todayMoodRow?.mood ?? null} /> : null}
 
       {progress?.enabled && !needsConsent ? <TodayCard summary={progress.summary} paused={progress.paused} goals={progress.goals} suggestion={suggestion} /> : null}
 
@@ -112,6 +126,8 @@ export default async function PatientHomePage() {
       )}
 
       <QuickActions prepareHref={canPrepare && next ? `/app/preparar-sesion/${next.id}` : null} />
+
+      <InstallApp dismissible />
 
     </div>
   );

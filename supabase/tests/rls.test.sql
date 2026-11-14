@@ -871,6 +871,25 @@ select pg_temp.expect_error($q$insert into public.clinical_reports (period_start
 rollback;
 
 -- ---------------------------------------------------------------------------
+-- 6m. Notificaciones al celular, recordatorios y «¿Te sirvió?»
+-- ---------------------------------------------------------------------------
+begin;
+insert into public.push_config (public_key, private_key) values ('pub', 'priv');
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+select pg_temp.assert((select count(*) from public.push_config) = 0, 'nadie lee las claves del servidor');
+insert into public.push_subscriptions (user_id, endpoint, p256dh, auth) values ('22222222-2222-4222-8222-222222222222', 'https://push.example.com/a', 'k1234567890', 'a1234567');
+insert into public.reminder_prefs (user_id, mood, hour) values ('22222222-2222-4222-8222-222222222222', true, 20);
+select pg_temp.expect_error($q$insert into public.push_subscriptions (user_id, endpoint, p256dh, auth) values ('33333333-3333-4333-8333-333333333333', 'https://push.example.com/b', 'k1234567890', 'a1234567')$q$, array['42501'], 'no registra dispositivos de otro');
+select pg_temp.expect_error($q$update public.reminder_prefs set hour = 3$q$, array['23514'], 'hora de recordatorio razonable');
+select pg_temp.logout();
+select pg_temp.login('33333333-3333-4333-8333-333333333333');
+select pg_temp.assert((select count(*) from public.push_subscriptions) = 0, 'otro paciente no ve mis dispositivos');
+select pg_temp.assert((select count(*) from public.reminder_prefs) = 0, 'otro paciente no ve mis recordatorios');
+select pg_temp.logout();
+select pg_temp.expect_error($q$insert into public.exercise_responses (patient_id, template_id, helpful) select (select id from public.patients limit 1), (select id from public.exercise_templates limit 1), 'mucho'$q$, array['23514'], '¿Te sirvió? solo si/algo/no');
+rollback;
+
+-- ---------------------------------------------------------------------------
 -- 7. Rate limiting (solo servidor)
 -- ---------------------------------------------------------------------------
 begin;

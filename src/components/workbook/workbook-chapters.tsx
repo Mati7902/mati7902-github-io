@@ -4,6 +4,7 @@ import { Check, CheckCircle2, Info } from "lucide-react";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 
+import { ReadAloud } from "@/components/a11y/read-aloud";
 import { RichText } from "@/components/exercises/rich-text";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,6 +26,7 @@ export function WorkbookChapters({ workbookId, chapters, answers }: { workbookId
               {prompts.length ? <p className="text-xs tabular-nums text-muted-foreground">{done} de {prompts.length} completadas</p> : null}
             </div>
             <h2 id={`cap-${ch.key}`} className="font-display text-2xl font-medium">{ch.title}</h2>
+            <ReadAloud label="Escuchar el capítulo" text={`${ch.title}\n\n${ch.body}`} />
             <RichText text={ch.body} className="text-base leading-relaxed text-foreground" />
             {prompts.length ? (
               <div className="space-y-6 border-t border-divider pt-5">

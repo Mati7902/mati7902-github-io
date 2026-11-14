@@ -1,6 +1,8 @@
 import "server-only";
 
+import { createAdminClient } from "@/lib/supabase/admin";
 import type { ServerSupabaseClient } from "@/lib/supabase/server";
+import { sendPushToUser } from "@/server/services/push";
 import type { AdminSupabaseClient } from "@/lib/supabase/admin";
 import type { Notification } from "@/types/domain";
 import type { Database } from "@/types/database";
@@ -57,4 +59,9 @@ export async function createNotification(
     data: (input.data ?? {}) as never,
   });
   if (error) throw error;
+  // También al celular, si la persona activó las notificaciones en algún dispositivo.
+  const { data: profile } = await createAdminClient().from("profiles").select("role").eq("id", input.userId).maybeSingle();
+  const base = profile?.role === "patient" ? "/app" : "/admin";
+  const url = typeof input.data?.appointment_id === "string" ? `${base}/agenda` : `${base}/notificaciones`;
+  await sendPushToUser(input.userId, { title: input.title, body: input.body, url, tag: input.type });
 }

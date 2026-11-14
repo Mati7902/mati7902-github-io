@@ -35,6 +35,7 @@ export default async function PatientTestPage({ params }: { params: Promise<{ id
         intro={`${def.intro} No hay respuestas correctas ni incorrectas, y no es un diagnóstico: lo revisás con tu psicólogo.`}
         items={def.items.map((i) => i.text)}
         options={def.options}
+        itemOptions={def.items.map((i) => i.options)}
         crisis={<CrisisBanner settings={settings.emergency} resources={resources} professionalWhatsApp={settings["site.identity"].whatsapp} />}
       />
     </div>

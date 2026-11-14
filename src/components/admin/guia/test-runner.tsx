@@ -57,8 +57,8 @@ export function TestRunner({ def }: { def: TestDef }) {
                   <span className="mr-1.5 font-semibold text-primary">{i + 1}.</span>
                   {item.text}
                 </legend>
-                <div className="flex flex-wrap gap-2">
-                  {def.options.map((o) => {
+                <div className={cn("gap-2", item.options ? "grid" : "flex flex-wrap")}>
+                  {(item.options ?? def.options).map((o) => {
                     const checked = answers[i] === o.value;
                     return (
                       <label

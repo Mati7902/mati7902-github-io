@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import { CredentialsSection } from "@/components/public/credentials-section";
 import { FaqList } from "@/components/public/faq-list";
+import { FirstVisitSection } from "@/components/public/first-visit-section";
 import { LocationsSection } from "@/components/public/locations-section";
 import { NeuralField } from "@/components/public/neural-field";
 import { TestimonialsSection } from "@/components/public/testimonials-section";
@@ -248,6 +249,15 @@ export default async function LandingPage() {
           </ol>
         </div>
       </section>
+
+      <FirstVisitSection
+        durationMinutes={scheduling.default_duration_minutes}
+        presencial={showPresencial}
+        virtual={showVirtual}
+        allowCancel={scheduling.allow_patient_cancel}
+        allowReschedule={scheduling.allow_patient_reschedule}
+        cancelMinHours={Math.max(scheduling.allow_patient_cancel ? scheduling.cancel_min_hours : 0, scheduling.allow_patient_reschedule ? scheduling.reschedule_min_hours : 0)}
+      />
 
       {/* Testimonios: solo si hay alguno publicado con autorización */}
       <TestimonialsSection testimonials={testimonials} />

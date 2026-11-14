@@ -15,12 +15,14 @@ type Props = {
   intro: string;
   items: string[];
   options: { value: string; label: string }[];
+  /** Opciones propias de cada ítem (opción múltiple); si no hay, se usan las comunes. */
+  itemOptions?: ({ value: string; label: string }[] | undefined)[];
   /** Se muestra si hubo una respuesta de riesgo (protocolo de emergencia configurado). */
   crisis: React.ReactNode;
 };
 
 /** Cuestionario asignado por el profesional. Las respuestas se envían juntas; el puntaje lo calcula el servidor. */
-export function PatientTestForm({ assignmentId, intro, items, options, crisis }: Props) {
+export function PatientTestForm({ assignmentId, intro, items, options, itemOptions, crisis }: Props) {
   const router = useRouter();
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [pending, startTransition] = useTransition();
@@ -76,8 +78,8 @@ export function PatientTestForm({ assignmentId, intro, items, options, crisis }:
                 <span className="mr-1.5 text-muted-foreground tabular-nums">{i + 1}.</span>
                 {text}
               </legend>
-              <div className="mt-3 flex flex-wrap gap-2" role="radiogroup" aria-label={`Pregunta ${i + 1}`}>
-                {options.map((o) => {
+              <div className={cn("mt-3 gap-2", itemOptions?.[i] ? "grid" : "flex flex-wrap")} role="radiogroup" aria-label={`Pregunta ${i + 1}`}>
+                {(itemOptions?.[i] ?? options).map((o) => {
                   const selected = answers[String(i)] === o.value;
                   return (
                     <button

@@ -18,6 +18,14 @@ export type ResponseView = {
   entries: AnswerEntry[];
   emotionBefore: number | null;
   emotionAfter: number | null;
+  /** «¿Te sirvió?»: si / algo / no. */
+  helpful?: string | null;
+};
+
+const HELPFUL_LABEL: Record<string, { label: string; variant: "success" | "muted" | "warning" }> = {
+  si: { label: "Le sirvió", variant: "success" },
+  algo: { label: "Le sirvió un poco", variant: "muted" },
+  no: { label: "No le sirvió mucho", variant: "warning" },
 };
 
 /** Pares pregunta → respuesta de una respuesta guardada. */
@@ -74,6 +82,7 @@ export function ExerciseResponseList({ responses, canDelete = false }: { respons
                 </span>
               </span>
               <span className="flex shrink-0 items-center gap-1.5">
+                {r.helpful && HELPFUL_LABEL[r.helpful] ? <Badge variant={HELPFUL_LABEL[r.helpful]!.variant}>{HELPFUL_LABEL[r.helpful]!.label}</Badge> : null}
                 {r.emotionBefore !== null && r.emotionAfter !== null ? (
                   <Badge variant="muted">
                     Emoción {r.emotionBefore} → {r.emotionAfter}
