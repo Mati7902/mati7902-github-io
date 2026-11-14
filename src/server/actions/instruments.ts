@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { assertAdmin } from "@/lib/auth/session";
-import { type ActionResult, fail, ok, validationFail } from "@/lib/errors";
+import { AppError, type ActionResult, fail, ok, validationFail } from "@/lib/errors";
 import { createClient } from "@/lib/supabase/server";
 import { zodFieldErrors } from "@/lib/validation";
 import { audit } from "@/server/services/audit";
@@ -84,6 +84,42 @@ export async function deleteInstrumentResultAction(id: string, patientId: string
     const { error } = await supabase.from("instrument_results").delete().eq("id", z.string().uuid().parse(id)).eq("patient_id", patientId);
     if (error) throw error;
     revalidatePath(`/admin/pacientes/${patientId}`);
+    return ok(undefined);
+  } catch (error) {
+    return fail(error);
+  }
+}
+
+const divaSchema = z.object({
+  patientId: z.string().uuid(),
+  appliedOn: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  interpretation: z.string().trim().min(1).max(200),
+  notes: z.string().trim().max(1000),
+  report: z.string().trim().min(1).max(12000),
+});
+
+/** Guarda una entrevista DIVA-5 en la ficha: conclusión, resumen y el texto completo para el HIS. */
+export async function saveDivaResultAction(input: z.input<typeof divaSchema>): Promise<ActionResult> {
+  const parsed = divaSchema.safeParse(input);
+  if (!parsed.success) return validationFail(zodFieldErrors(parsed.error));
+  try {
+    const session = await assertAdmin();
+    const supabase = await createClient();
+    const { data: instrument } = await supabase.from("instruments").select("id").eq("short_name", "DIVA-5").order("created_at").limit(1).maybeSingle();
+    if (!instrument) throw new AppError("NOT_FOUND", "No está el instrumento DIVA-5 en Instrumentos. Correlo desde la actualización de la base.");
+    const { error } = await supabase.from("instrument_results").insert({
+      patient_id: parsed.data.patientId,
+      instrument_id: instrument.id,
+      applied_on: parsed.data.appliedOn,
+      score: null,
+      interpretation: parsed.data.interpretation,
+      notes: parsed.data.notes || null,
+      report: parsed.data.report,
+      created_by: session.userId,
+    });
+    if (error) throw error;
+    await audit(supabase, "instrument.result_added", { type: "patient", id: parsed.data.patientId });
+    revalidatePath(`/admin/pacientes/${parsed.data.patientId}`);
     return ok(undefined);
   } catch (error) {
     return fail(error);

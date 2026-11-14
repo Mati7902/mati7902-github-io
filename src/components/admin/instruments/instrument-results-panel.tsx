@@ -12,7 +12,7 @@ import { formatCompactDate } from "@/lib/dates";
 import { addInstrumentResultAction, deleteInstrumentResultAction } from "@/server/actions/instruments";
 
 type Instrument = { id: string; short_name: string; name: string; score_min: number | null; score_max: number | null; higher_is: string | null };
-type Result = { id: string; instrument_id: string; applied_on: string; score: number | null; interpretation: string | null; notes: string | null };
+type Result = { id: string; instrument_id: string; applied_on: string; score: number | null; interpretation: string | null; notes: string | null; report?: string | null };
 
 const selectClass = "h-11 w-full rounded-xl border border-input bg-card px-3 text-base outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/30";
 
@@ -70,6 +70,15 @@ export function InstrumentResultsPanel({ patientId, instruments, results, todayK
                   {r.score !== null ? <span className="font-medium tabular-nums">{r.score}</span> : null}
                   {r.interpretation ? <span>{r.interpretation}</span> : null}
                   {r.notes ? <span className="basis-full text-muted-foreground">{r.notes}</span> : null}
+                  {r.report ? (
+                    <details className="basis-full rounded-xl bg-surface-muted px-3 py-2">
+                      <summary className="cursor-pointer text-sm font-medium">Ver el informe completo</summary>
+                      <pre className="mt-2 whitespace-pre-wrap font-sans text-sm leading-relaxed">{r.report}</pre>
+                      <Button size="sm" variant="outline" className="mt-2" onClick={() => navigator.clipboard.writeText(r.report ?? "").then(() => toast.success("Copiado."), () => toast.error("No se pudo copiar."))}>
+                        Copiar para el HIS
+                      </Button>
+                    </details>
+                  ) : null}
                   <Button size="icon-sm" variant="ghost" className="ml-auto text-muted-foreground hover:text-destructive" aria-label="Eliminar resultado" onClick={() => startTransition(async () => { const x = await deleteInstrumentResultAction(r.id, patientId); if (!x.ok) toast.error(x.error); else router.refresh(); })}>
                     <Trash2 />
                   </Button>
