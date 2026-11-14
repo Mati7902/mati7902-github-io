@@ -59,6 +59,11 @@ export type TestItem = {
   reverse?: boolean;
   /** Respuesta que puntúa 1: "si" | "no" (kind yn) o "a" (de acuerdo) | "d" (en desacuerdo) (kind ak). */
   key?: "si" | "no" | "a" | "d";
+  /**
+   * Opciones propias del ítem (tests de opción múltiple, kind sum). El puntaje es el número al
+   * comienzo del valor: "2" o "2b" valen 2 (para ítems con variantes, como sueño o apetito).
+   */
+  options?: { value: string; label: string }[];
 };
 
 export type TestBand = { upTo: number; label: string; level: Level };

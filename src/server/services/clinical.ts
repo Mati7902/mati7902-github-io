@@ -121,12 +121,11 @@ export async function listTestResponses(client: ServerSupabaseClient, patientId:
 
 /** Convierte las respuestas del formulario (índice → valor) validando que existan en el test. */
 export function parseAnswers(def: TestDef, raw: Record<string, string>): Answers {
-  const allowed = new Set(def.options.map((o) => o.value));
   const answers: Answers = {};
-  def.items.forEach((_, i) => {
+  def.items.forEach((item, i) => {
     const v = raw[String(i)];
     if (v === undefined || v === "") throw new AppError("VALIDATION", "Respondé todas las preguntas antes de enviar.");
-    if (!allowed.has(v)) throw new AppError("VALIDATION", "Hay una respuesta que no es válida.");
+    if (!(item.options ?? def.options).some((o) => o.value === v)) throw new AppError("VALIDATION", "Hay una respuesta que no es válida.");
     answers[i] = v;
   });
   return answers;

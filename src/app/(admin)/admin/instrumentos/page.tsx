@@ -27,7 +27,7 @@ export default async function InstrumentsPage() {
     name: t.name,
     full_name: t.full_name,
     instructions: t.instructions,
-    kind: t.kind === "scale" ? "scale" : "vf",
+    kind: t.kind === "scale" ? "scale" : t.kind === "choice" ? "choice" : "vf",
     scale_min: t.scale_min ?? 0,
     scale_max: t.scale_max ?? 4,
     min_label: t.min_label ?? "",
@@ -71,7 +71,7 @@ export default async function InstrumentsPage() {
                   <span className="font-display text-lg font-medium">{t.name}</span>
                   <span className="text-sm text-muted-foreground">{t.full_name}</span>
                   <span className="ml-auto flex gap-1.5">
-                    <Badge variant="muted">{t.kind === "vf" ? "V/F" : `Escala ${t.scale_min}–${t.scale_max}`}</Badge>
+                    <Badge variant="muted">{t.kind === "vf" ? "V/F" : t.kind === "choice" ? "Opción múltiple" : `Escala ${t.scale_min}–${t.scale_max}`}</Badge>
                     {!t.is_active ? <Badge variant="muted">Inactivo</Badge> : null}
                   </span>
                 </summary>

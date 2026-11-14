@@ -1,5 +1,8 @@
 import type { Level, TestDef } from "./types";
 
+/** Opciones de un ítem: las propias (opción múltiple) o las comunes del test. */
+export const itemOptions = (def: TestDef, index: number) => def.items[index]?.options ?? def.options;
+
 /** Respuestas por índice de ítem (desde 0) → valor de la opción elegida. Solo vive en memoria. */
 export type Answers = Record<number, string | undefined>;
 
@@ -37,7 +40,8 @@ export function itemScore(def: TestDef, index: number, answers: Answers): number
   if (!item || !answered(v)) return null;
   if (def.kind === "yn") return v === item.key ? 1 : 0;
   if (def.kind === "ak") return (item.key === "a" ? Number(v) <= 2 : Number(v) >= 3) ? 1 : 0;
-  const n = Number(v);
+  const n = Number.parseFloat(v);
+  if (Number.isNaN(n)) return null;
   return item.reverse && def.reverseSum !== undefined ? def.reverseSum - n : n;
 }
 
@@ -130,7 +134,7 @@ export function scoreTest(def: TestDef, answers: Answers): TestResult {
   for (const f of def.flags ?? []) {
     const v = answers[f.item];
     if (!answered(v)) continue;
-    const hit = "gt" in f.when ? Number(v) > f.when.gt : v === f.when.is;
+    const hit = "gt" in f.when ? Number.parseFloat(v) > f.when.gt : v === f.when.is;
     if (hit) flags.push({ level: f.level, text: f.text });
   }
 

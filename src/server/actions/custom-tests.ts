@@ -15,21 +15,30 @@ const schema = z
     id: z.string().uuid().optional(),
     name: z.string().trim().min(2, "Escribí un nombre corto.").max(40),
     full_name: z.string().trim().min(2, "Escribí el nombre completo.").max(160),
-    instructions: z.string().trim().min(2, "Escribí la consigna.").max(600),
-    kind: z.enum(["vf", "scale"]),
+    instructions: z.string().trim().min(2, "Escribí la consigna.").max(1200),
+    kind: z.enum(["vf", "scale", "choice"]),
     scale_min: z.number().int().min(0).max(1).nullable(),
     scale_max: z.number().int().min(2).max(10).nullable(),
     min_label: z.string().trim().max(40).nullable(),
     max_label: z.string().trim().max(40).nullable(),
     items: z
-      .array(z.object({ text: z.string().trim().min(1).max(300), scoresIf: z.enum(["v", "f"]).optional(), reverse: z.boolean().optional() }))
+      .array(
+        z.object({
+          text: z.string().trim().min(1).max(300),
+          scoresIf: z.enum(["v", "f"]).optional(),
+          reverse: z.boolean().optional(),
+          choices: z.array(z.object({ label: z.string().trim().min(1).max(200), score: z.number().int().min(0).max(10) })).max(10).optional(),
+          alertFrom: z.number().int().min(0).max(10).nullable().optional(),
+        }),
+      )
       .min(1, "Agregá al menos un ítem.")
       .max(60),
     bands: z.array(z.object({ upTo: z.number().int().min(0).max(600), label: z.string().trim().min(1).max(60), level: z.enum(["ok", "warn", "crit"]) })).max(6),
     note: z.string().trim().max(600).nullable(),
     is_active: z.boolean(),
   })
-  .refine((t) => t.kind === "vf" || (t.scale_min !== null && t.scale_max !== null), { message: "Elegí el rango de la escala.", path: ["scale_max"] });
+  .refine((t) => t.kind !== "choice" || t.items.every((i) => (i.choices?.length ?? 0) >= 2), { message: "Cada pregunta necesita al menos dos opciones.", path: ["items"] })
+  .refine((t) => t.kind !== "scale" || (t.scale_min !== null && t.scale_max !== null), { message: "Elegí el rango de la escala.", path: ["scale_max"] });
 
 /** Crear o editar un test propio. Si ya se respondió, editar los ítems cambia cómo se leen los resultados: se avisa en la pantalla. */
 export async function saveCustomTestAction(input: z.input<typeof schema>): Promise<ActionResult> {
@@ -39,7 +48,8 @@ export async function saveCustomTestAction(input: z.input<typeof schema>): Promi
     const session = await assertAdmin();
     const supabase = await createClient();
     const { id, ...t } = parsed.data;
-    const row = { ...t, scale_min: t.kind === "scale" ? t.scale_min : null, scale_max: t.kind === "scale" ? t.scale_max : null, items: t.items as never, bands: t.bands as never, note: t.note || null, min_label: t.min_label || null, max_label: t.max_label || null };
+    const items = t.kind === "choice" ? t.items.map(({ text, choices, alertFrom }) => ({ text, choices, alertFrom: alertFrom ?? null })) : t.items.map(({ choices: _c, alertFrom: _a, ...rest }) => rest);
+    const row = { ...t, items: items as never, scale_min: t.kind === "scale" ? t.scale_min : null, scale_max: t.kind === "scale" ? t.scale_max : null, bands: t.bands as never, note: t.note || null, min_label: t.min_label || null, max_label: t.max_label || null };
     const { error } = id ? await supabase.from("custom_tests").update(row).eq("id", id) : await supabase.from("custom_tests").insert({ ...row, code: newCustomCode(), created_by: session.userId });
     if (error) throw error;
     await audit(supabase, "custom_test.saved", { type: "custom_test", id: id ?? null });
