@@ -112,7 +112,7 @@ export default async function PatientDetailPage({ params }: { params: Promise<{ 
     });
   const [{ data: instruments }, { data: instrumentResults }] = await Promise.all([
     supabase.from("instruments").select("id, short_name, name, score_min, score_max, higher_is").eq("is_active", true).order("short_name"),
-    supabase.from("instrument_results").select("id, instrument_id, applied_on, score, interpretation, notes").eq("patient_id", patient.id).order("applied_on"),
+    supabase.from("instrument_results").select("id, instrument_id, applied_on, score, interpretation, notes, report").eq("patient_id", patient.id).order("applied_on"),
   ]);
   // Mi Progreso: la participación solo se ve si el paciente comparte sus registros (RLS).
   const [progressPrefs, practiceEvents, goals, { gamification }] = await Promise.all([
@@ -243,6 +243,9 @@ export default async function PatientDetailPage({ params }: { params: Promise<{ 
           <h2 id="instrumentos-paciente" className="font-display text-lg font-medium">Evaluaciones con licencia</h2>
           <p className="text-sm text-muted-foreground">BDI-II, BAI, DIVA-5 y otros que aplicás por el canal autorizado. Se registra el resultado, no el test.</p>
         </div>
+        <Link href={`/admin/pacientes/${patient.id}/diva`} className="inline-flex h-11 items-center gap-2 rounded-xl bg-primary-soft px-4 text-sm font-medium text-primary hover:bg-petrol-100">
+          Hacer la entrevista DIVA-5 (TDAH en adultos) →
+        </Link>
         <InstrumentResultsPanel patientId={patient.id} instruments={instruments ?? []} results={instrumentResults ?? []} todayKey={toDateKey(new Date(), scheduling.timezone)} />
       </section>
 

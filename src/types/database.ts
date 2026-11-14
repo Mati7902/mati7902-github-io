@@ -695,13 +695,13 @@ isOneToOne: false
                   ]
                 },"instrument_results": {
                   Row: {
-                    "applied_on": string,"created_at": string,"created_by": string | null,"id": string,"instrument_id": string,"interpretation": string | null,"notes": string | null,"patient_id": string,"score": number | null
+                    "applied_on": string,"created_at": string,"created_by": string | null,"id": string,"instrument_id": string,"interpretation": string | null,"notes": string | null,"patient_id": string,"report": string | null,"score": number | null
                   }
                   Insert: {
-                    "applied_on": string,"created_at"?: string,"created_by"?: string | null,"id"?: string,"instrument_id": string,"interpretation"?: string | null,"notes"?: string | null,"patient_id": string,"score"?: number | null
+                    "applied_on": string,"created_at"?: string,"created_by"?: string | null,"id"?: string,"instrument_id": string,"interpretation"?: string | null,"notes"?: string | null,"patient_id": string,"report"?: string | null,"score"?: number | null
                   }
                   Update: {
-                    "applied_on"?: string,"created_at"?: string,"created_by"?: string | null,"id"?: string,"instrument_id"?: string,"interpretation"?: string | null,"notes"?: string | null,"patient_id"?: string,"score"?: number | null
+                    "applied_on"?: string,"created_at"?: string,"created_by"?: string | null,"id"?: string,"instrument_id"?: string,"interpretation"?: string | null,"notes"?: string | null,"patient_id"?: string,"report"?: string | null,"score"?: number | null
                   }
                   Relationships: [
                     
@@ -806,6 +806,19 @@ isOneToOne: false
                   }
                   Update: {
                     "days"?: number[],"habits"?: boolean,"hour"?: number,"last_sent_on"?: string | null,"mood"?: boolean,"updated_at"?: string,"user_id"?: string,"workbook"?: boolean
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"instrument_content": {
+                  Row: {
+                    "content": Json,"key": string,"updated_at": string
+                  }
+                  Insert: {
+                    "content": Json,"key": string,"updated_at"?: string
+                  }
+                  Update: {
+                    "content"?: Json,"key"?: string,"updated_at"?: string
                   }
                   Relationships: [
                     

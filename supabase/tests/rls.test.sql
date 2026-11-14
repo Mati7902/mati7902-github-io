@@ -890,6 +890,19 @@ select pg_temp.expect_error($q$insert into public.exercise_responses (patient_id
 rollback;
 
 -- ---------------------------------------------------------------------------
+-- 6n. Contenido de instrumentos con licencia (DIVA-5)
+-- ---------------------------------------------------------------------------
+begin;
+insert into public.instrument_content (key, content) values ('diva-5', '{"items":[]}');
+select pg_temp.login('11111111-1111-4111-8111-111111111111');
+select pg_temp.assert((select count(*) from public.instrument_content) = 1, 'el profesional lee el contenido');
+select pg_temp.logout();
+select pg_temp.login('22222222-2222-4222-8222-222222222222');
+select pg_temp.assert((select count(*) from public.instrument_content) = 0, 'un paciente no lee el contenido de instrumentos');
+select pg_temp.logout();
+rollback;
+
+-- ---------------------------------------------------------------------------
 -- 7. Rate limiting (solo servidor)
 -- ---------------------------------------------------------------------------
 begin;
