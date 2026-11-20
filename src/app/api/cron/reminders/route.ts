@@ -3,6 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { getServerEnv } from "@/lib/env";
 import { createLogger, errorMeta } from "@/lib/logger";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { pullGoogleChanges } from "@/server/services/google-calendar/sync";
 import { runDailyNudges } from "@/server/services/push";
 import { runReminders } from "@/server/services/reminders";
 import { getSettings } from "@/server/services/settings";
@@ -31,7 +32,12 @@ export async function GET(request: NextRequest) {
       log.error("Recordatorios diarios fallaron", errorMeta(error));
       return null;
     });
-    return NextResponse.json({ ok: true, ran_at: new Date().toISOString(), results, nudges });
+    // Cambios hechos en Google Calendar (mover, borrar, bloquear) llegan a la agenda cada 15 minutos.
+    const google = await pullGoogleChanges().catch((error) => {
+      log.error("Sincronización con Google falló", errorMeta(error));
+      return null;
+    });
+    return NextResponse.json({ ok: true, ran_at: new Date().toISOString(), results, nudges, google });
   } catch (error) {
     log.error("Cron de recordatorios falló", errorMeta(error));
     return NextResponse.json({ ok: false, error: "reminders_failed" }, { status: 500 });

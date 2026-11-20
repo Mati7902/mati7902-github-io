@@ -280,7 +280,7 @@ Scopes solicitados (mínimo privilegio): `https://www.googleapis.com/auth/calend
 Sincronización:
 
 * **App → Google**: al crear, modificar, confirmar o cancelar un turno se crea/actualiza/elimina el evento (`google_event_id`). Por privacidad el evento solo lleva iniciales del paciente y modalidad.
-* **Google → App**: `freeBusy` se consulta al calcular disponibilidad (los eventos externos no se ofrecen). El cron diario (o "Sincronizar ahora") importa cambios con `syncToken` como bloqueos `exception` con motivo `google:<eventId>`.
+* **Google → App**: `freeBusy` se consulta al calcular disponibilidad (los eventos externos no se ofrecen). El cron de recordatorios (cada 15 minutos), el diario o "Sincronizar ahora" importan cambios con `syncToken` como bloqueos `exception` con motivo `google:<eventId>`.
 * **Sin bucles**: los eventos creados por la app llevan `extendedProperties.private.psms_origin = "app"` y se ignoran al importar. Cada operación queda en `calendar_sync_log`.
 
 Pendiente de evolución: creación automática de enlaces Google Meet (requiere `conferenceData` y el scope `calendar.events`; el modelo de datos ya guarda `video_link`).

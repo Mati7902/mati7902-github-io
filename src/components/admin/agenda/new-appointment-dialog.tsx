@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
-import { localInputToUtcIso } from "@/lib/dates";
+import { formatDateTime, localInputToUtcIso, weeklyLocalInputs } from "@/lib/dates";
 import { adminCreateAppointmentAction, getAdminAvailabilityAction } from "@/server/actions/admin-appointments";
 import type { SerializedAvailabilityDay } from "@/server/actions/appointments";
 
@@ -45,6 +45,9 @@ export function NewAppointmentDialog({ patients, timezone, defaultDuration, defa
   const [location, setLocation] = useState("");
   const [notes, setNotes] = useState("");
   const [notify, setNotify] = useState(true);
+  // Plan mensual: 4 sesiones, una por semana, desde el horario elegido. Las fechas se pueden ajustar.
+  const [plan, setPlan] = useState<"individual" | "mensual">("individual");
+  const [edits, setEdits] = useState<{ base: string; values: string[] } | null>(null);
   const [pending, startTransition] = useTransition();
 
   const filtered = useMemo(() => {
@@ -68,9 +71,49 @@ export function NewAppointmentDialog({ patients, timezone, defaultDuration, defa
     };
   }, [open, modality]);
 
+  const baseStart = slot?.start ?? (manualStart ? localInputToUtcIso(manualStart, timezone) : null);
+  const seriesInputs = plan === "mensual" && baseStart ? (edits?.base === baseStart ? edits.values : weeklyLocalInputs(baseStart, 4, timezone)) : null;
+
+  const submitSeries = (inputs: string[]) =>
+    startTransition(async () => {
+      if (!patientId) return void toast.error("Elegí un paciente.");
+      const failed: string[] = [];
+      let created = 0;
+      for (const [k, value] of inputs.entries()) {
+        const start = localInputToUtcIso(value, timezone);
+        if (!start) {
+          failed.push(`sesión ${k + 1}: fecha inválida`);
+          continue;
+        }
+        const res = await adminCreateAppointmentAction({
+          patientId,
+          start,
+          durationMinutes: duration,
+          modality,
+          status,
+          videoLink: videoLink || null,
+          location: location || null,
+          adminNotes: [`Plan mensual · sesión ${k + 1} de ${inputs.length}`, notes].filter(Boolean).join(" · "),
+          // Un solo aviso por WhatsApp (el de la primera sesión), no cuatro seguidos.
+          notify: notify && created === 0,
+        });
+        if (res.ok) created++;
+        else failed.push(`${formatDateTime(start, timezone)}: ${res.error}`);
+      }
+      if (failed.length) toast.error(`Se agendaron ${created} de ${inputs.length}. No se pudo: ${failed.join(" · ")}`, { duration: 12000 });
+      else toast.success(`Plan mensual agendado: ${created} sesiones.`);
+      if (created) {
+        setOpen(false);
+        setSlot(null);
+        setManualStart("");
+        setEdits(null);
+        router.refresh();
+      }
+    });
+
   const submit = () =>
     startTransition(async () => {
-      const start = slot?.start ?? (manualStart ? localInputToUtcIso(manualStart, timezone) : null);
+      const start = baseStart;
       if (!patientId) return void toast.error("Elegí un paciente.");
       if (!start) return void toast.error("Elegí un horario.");
       const res = await adminCreateAppointmentAction({ patientId, start, durationMinutes: duration, modality, status, videoLink: videoLink || null, location: location || null, adminNotes: notes || null, notify });
@@ -114,6 +157,27 @@ export function NewAppointmentDialog({ patients, timezone, defaultDuration, defa
               </Select>
             </div>
           </FormField>
+          <FormField id="np-plan" label="Plan">
+            <div className="flex flex-wrap gap-2" role="radiogroup" aria-labelledby="np-plan">
+              {(
+                [
+                  ["individual", "Sesión individual"],
+                  ["mensual", "Mensual · 4 sesiones (una por semana)"],
+                ] as const
+              ).map(([v, l]) => (
+                <button
+                  key={v}
+                  type="button"
+                  role="radio"
+                  aria-checked={plan === v}
+                  onClick={() => setPlan(v)}
+                  className={`min-h-11 rounded-xl border px-4 text-sm font-medium ${plan === v ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card"}`}
+                >
+                  {l}
+                </button>
+              ))}
+            </div>
+          </FormField>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             <FormField id="np-modality" label="Modalidad">
               <Select value={modality} onValueChange={(v) => { setModality(v as "presencial" | "virtual"); setSlot(null); setDays(null); }}>
@@ -148,6 +212,31 @@ export function NewAppointmentDialog({ patients, timezone, defaultDuration, defa
           <FormField id="np-manual" label="O fecha y hora manual" hint={`Hora de ${timezone}. Para turnos fuera del horario habitual.`}>
             <Input id="np-manual" type="datetime-local" value={manualStart} onChange={(e) => { setManualStart(e.target.value); setSlot(null); }} />
           </FormField>
+          {plan === "mensual" ? (
+            <div className="space-y-2 rounded-xl bg-surface-muted p-3">
+              <p className="text-sm font-medium">Fechas del plan</p>
+              {seriesInputs ? (
+                <>
+                  <ol className="grid gap-2">
+                    {seriesInputs.map((v, k) => (
+                      <li key={k} className="flex items-center gap-2 text-sm">
+                        <span className="w-20 shrink-0 text-muted-foreground">Sesión {k + 1}</span>
+                        <Input
+                          type="datetime-local"
+                          value={v}
+                          aria-label={`Fecha de la sesión ${k + 1}`}
+                          onChange={(e) => setEdits({ base: baseStart!, values: seriesInputs.map((x, i) => (i === k ? e.target.value : x)) })}
+                        />
+                      </li>
+                    ))}
+                  </ol>
+                  <p className="text-xs text-muted-foreground">Misma hora, una vez por semana desde el horario elegido. Podés cambiar cualquier fecha antes de agendar.</p>
+                </>
+              ) : (
+                <p className="text-sm text-muted-foreground">Elegí el horario de la primera sesión y se completan las otras tres.</p>
+              )}
+            </div>
+          ) : null}
           {modality === "virtual" ? (
             <FormField id="np-video" label="Enlace de videollamada" optional>
               <Input id="np-video" type="url" value={videoLink} onChange={(e) => setVideoLink(e.target.value)} placeholder="https://meet.google.com/…" />
@@ -167,7 +256,13 @@ export function NewAppointmentDialog({ patients, timezone, defaultDuration, defa
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => setOpen(false)} disabled={pending}>Cancelar</Button>
-          <Button onClick={submit} loading={pending}>Crear turno</Button>
+          {plan === "mensual" ? (
+            <Button onClick={() => (seriesInputs ? submitSeries(seriesInputs) : toast.error("Elegí un horario."))} loading={pending}>
+              Agendar las 4 sesiones
+            </Button>
+          ) : (
+            <Button onClick={submit} loading={pending}>Crear turno</Button>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>

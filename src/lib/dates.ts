@@ -123,3 +123,13 @@ export function formatRelative(value: DateInput, tz = DEFAULT_TIMEZONE): string 
   if (days < 7) return `hace ${days} d`;
   return formatInTimeZone(date, tz, "d MMM", { locale: es });
 }
+
+/**
+ * Fechas de un plan con varias sesiones: la primera y las siguientes, una por semana, el mismo
+ * día de la semana y a la misma hora local (valores para <input type="datetime-local">).
+ */
+export function weeklyLocalInputs(startIso: string, count: number, tz = DEFAULT_TIMEZONE): string[] {
+  const key = toDateKey(startIso, tz);
+  const time = formatTime(startIso, tz);
+  return Array.from({ length: count }, (_, k) => `${toDateKey(addDays(new Date(`${key}T12:00:00Z`), 7 * k), "UTC")}T${time}`);
+}
