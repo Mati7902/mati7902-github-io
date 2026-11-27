@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, CalendarPlus, ClipboardCheck } from "lucide-react";
+import { CalendarPlus } from "lucide-react";
 
 import { AppointmentCard } from "@/components/appointments/appointment-card";
 import { ConsentCard } from "@/components/consent/consent-card";
@@ -8,6 +8,12 @@ import { IntakeCard } from "@/components/intake/intake-card";
 import { PatientAppointmentActions } from "@/components/appointments/patient-appointment-actions";
 import { QuickMoodCard } from "@/components/emotions/quick-mood-card";
 import { QuickActions } from "@/components/patient/quick-actions";
+import { TodoCard, type TodoItem } from "@/components/patient/todo-card";
+import { exerciseHref } from "@/components/exercises/exercise-card";
+import { listPatientAssignments } from "@/server/services/exercises";
+import { resolveTestDefs } from "@/server/services/custom-tests";
+import { getWorkbookProgress } from "@/server/services/workbooks";
+import { formatCompactDate } from "@/lib/dates";
 import { InstallApp } from "@/components/pwa/install-app";
 import { TodayCard } from "@/components/progress/today-card";
 import { Button } from "@/components/ui/button";
@@ -53,7 +59,24 @@ export default async function PatientHomePage() {
     .order("logged_at", { ascending: false })
     .limit(1)
     .maybeSingle();
-  const { count: pendingTests } = await supabase.from("test_assignments").select("id", { count: "exact", head: true }).eq("patient_id", patient.id).eq("status", "pending");
+  // Todo lo sugerido por el profesional, junto: ejercicios, lecturas, cuestionarios y cuadernillo.
+  const [assignments, { data: matRows }, { data: testRows }, workbookProgress] = await Promise.all([
+    listPatientAssignments(supabase, patient.id),
+    supabase.from("patient_materials").select("material_id, note, completed_at, materials(title)").eq("patient_id", patient.id).not("assigned_by", "is", null).is("completed_at", null).order("assigned_at"),
+    supabase.from("test_assignments").select("id, test_id, due_on").eq("patient_id", patient.id).eq("status", "pending").order("assigned_at"),
+    getWorkbookProgress(supabase, patient.id, true).catch(() => null),
+  ]);
+  const testDefs = await resolveTestDefs(supabase, (testRows ?? []).map((t) => t.test_id));
+  const todo: TodoItem[] = [
+    ...(testRows ?? []).map((t) => ({ kind: "test" as const, title: testDefs.get(t.test_id)?.full ?? "Cuestionario", href: `/app/tests/${t.id}`, due: t.due_on ? formatCompactDate(`${t.due_on}T12:00:00Z`, "UTC") : null })),
+    ...assignments
+      .filter((a) => !a.completed_at && a.exercise_templates)
+      .map((a) => ({ kind: "ejercicio" as const, title: a.exercise_templates!.title, href: `${exerciseHref(a.exercise_templates!)}?asignacion=${a.id}`, note: a.note, due: a.due_at ? formatCompactDate(a.due_at, settings.scheduling.timezone) : null })),
+    ...(matRows ?? []).map((m) => ({ kind: "material" as const, title: (m.materials as { title: string } | null)?.title ?? "Material", href: `/app/materiales/${m.material_id}`, note: m.note })),
+    ...(workbookProgress && workbookProgress.prompts > workbookProgress.answered
+      ? [{ kind: "cuadernillo" as const, title: `Mi cuadernillo: ${workbookProgress.answered} de ${workbookProgress.prompts} respondidas`, href: "/app/cuadernillo" }]
+      : []),
+  ];
   // Primero el consentimiento; la ficha de ingreso se ofrece una vez firmado.
   const consentSettings = settings.treatment_consent;
   const needsConsent = consentSettings.enabled && consent !== undefined && consent?.version !== consentSettings.version;
@@ -83,18 +106,7 @@ export default async function PatientHomePage() {
         <IntakeCard answered={answeredCount(intakeAnswersOf(intake))} started={Boolean(intake)} professionalName={publicSettings["site.identity"].professional_name} />
       ) : null}
 
-      {pendingTests ? (
-        <Link href="/app/tests" className="surface-card group flex items-center gap-4 border-l-4 border-l-primary p-5 transition-shadow hover:shadow-[var(--shadow-float)]">
-          <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-primary">
-            <ClipboardCheck className="size-5" aria-hidden />
-          </span>
-          <span className="min-w-0 flex-1">
-            <span className="block font-display text-lg font-medium">{pendingTests === 1 ? "Tenés un cuestionario para completar" : `Tenés ${pendingTests} cuestionarios para completar`}</span>
-            <span className="text-sm text-muted-foreground">Tu psicólogo te pidió responderlo. Lleva unos minutos.</span>
-          </span>
-          <ArrowRight className="size-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden />
-        </Link>
-      ) : null}
+      {!needsConsent ? <TodoCard items={todo} /> : null}
 
       {next ? (
         <AppointmentCard
