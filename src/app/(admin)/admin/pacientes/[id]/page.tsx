@@ -10,6 +10,9 @@ import { ClinicalFocusPanel } from "@/components/admin/patients/clinical-focus-p
 import { PatientTestsPanel } from "@/components/admin/patients/patient-tests-panel";
 import { ProgressPanel } from "@/components/admin/patients/progress-panel";
 import { InstrumentResultsPanel } from "@/components/admin/instruments/instrument-results-panel";
+import { PatientSummaryPanel } from "@/components/admin/patients/patient-summary-panel";
+import { summarizePatient } from "@/lib/patient-summary";
+import { getWorkbookProgress } from "@/server/services/workbooks";
 import { ExerciseResponseList } from "@/components/exercises/exercise-response-list";
 import { MoodTrendChart } from "@/components/emotions/mood-trend-chart";
 import { PatientAccessControls } from "@/components/admin/patients/patient-access-controls";
@@ -130,6 +133,17 @@ export default async function PatientDetailPage({ params }: { params: Promise<{ 
     ? { total: practice.total, thisWeek: practice.thisWeek, weeklyGoal: practice.weeklyGoal, weeksMet: practice.weeksMet, paused: isPaused(progressPrefs, toDateKey(new Date(), scheduling.timezone)), habits: { movimiento: practice.byType.movimiento, descanso: practice.byType.descanso, alimentacion: practice.byType.alimentacion } }
     : null;
   const moodDays = patient.share_records_with_professional ? dailyMood(await listMoodEntries(supabase, patient.id, 90), scheduling.timezone) : [];
+  const summary = summarizePatient({
+    now: new Date(),
+    exercises: assignments.map((a) => ({ title: (a.exercise_templates as { title: string } | null)?.title ?? "Ejercicio", assigned_at: a.assigned_at, due_at: a.due_at, completed_at: a.completed_at })),
+    materials: assigned.map((m) => ({ title: (m.materials as { title: string } | null)?.title ?? "Material", assigned_at: m.assigned_at, viewed_at: m.viewed_at, completed_at: m.completed_at })),
+    tests: testRows.map((t) => ({ name: t.testName, status: t.status, assigned_at: t.assignedAt, due_on: t.dueOn, completed_at: t.response?.completedAt ?? null })),
+    // Las respuestas del cuadernillo solo se leen si el paciente comparte sus registros (RLS).
+    workbook: patient.share_records_with_professional ? await getWorkbookProgress(supabase, patient.id).catch(() => null) : null,
+    appointments,
+    lastSeenAt: profile?.last_seen_at ?? null,
+    shared: patient.share_records_with_professional ? { moodDays, lastPracticeAt: practiceEvents.map((e) => e.at).sort().at(-1) ?? null } : null,
+  });
 
   return (
     <div className="space-y-8">
@@ -148,6 +162,8 @@ export default async function PatientDetailPage({ params }: { params: Promise<{ 
           </>
         }
       />
+
+      <PatientSummaryPanel s={summary} shared={patient.share_records_with_professional} />
 
       <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
         <section className="surface-card space-y-4 p-6">

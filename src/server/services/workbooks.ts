@@ -201,3 +201,27 @@ export async function draftAfterIntake(patientId: string): Promise<void> {
     log.warn("No se pudo armar el borrador del cuadernillo", errorMeta(error));
   }
 }
+
+/** Avance del cuadernillo publicado: consignas respondidas de las que tiene la versión publicada. */
+// El profesional lee la versión publicada directo; el paciente, solo por la función my_published_workbook (RLS).
+export async function getWorkbookProgress(client: AnyClient, patientId: string, asPatient = false): Promise<{ answered: number; prompts: number; lastAnswerAt: string | null } | null> {
+  let workbookId: string;
+  let content: unknown;
+  if (asPatient) {
+    const mine = await getMyWorkbook(client as ServerSupabaseClient);
+    if (!mine) return null;
+    [workbookId, content] = [mine.workbookId, mine.content];
+  } else {
+    const { data: wb } = await client.from("workbooks").select("id, published_version").eq("patient_id", patientId).eq("status", "published").maybeSingle();
+    if (!wb?.published_version) return null;
+    const { data: version } = await client.from("workbook_versions").select("content").eq("workbook_id", wb.id).eq("version", wb.published_version).maybeSingle();
+    [workbookId, content] = [wb.id, version?.content];
+  }
+  const { data: answers } = await client.from("workbook_answers").select("updated_at").eq("workbook_id", workbookId);
+  const chapters = ((content ?? {}) as { chapters?: { prompts?: unknown[] }[] }).chapters ?? [];
+  return {
+    answered: (answers ?? []).length,
+    prompts: chapters.reduce((s, c) => s + (c.prompts?.length ?? 0), 0),
+    lastAnswerAt: (answers ?? []).map((a) => a.updated_at).sort().at(-1) ?? null,
+  };
+}
